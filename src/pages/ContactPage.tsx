@@ -1,23 +1,10 @@
-import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
 const ContactPage = () => {
   return (
-    <>
-      <Helmet>
-        <title>
-          Contact - Cabinet dentaire Dr Stéphanie Meriot Marseille 4ème
-        </title>
-        <meta
-          name="description"
-          content="Contactez le cabinet du Dr Stéphanie Meriot à Marseille 4ème. 23 Bd de la Fédération. ☎ 09 83 43 96 21. Métro Chartreux. RDV sur Doctolib."
-        />
-        <link rel="canonical" href="https://drstephaniemeriot.fr/contact" />
-      </Helmet>
-
-      <div className="min-h-screen">
+    <div className="min-h-screen">
         <Header />
         <main className="pt-20">
           <section className="py-16 bg-gradient-soft">
@@ -36,8 +23,7 @@ const ContactPage = () => {
         </main>
         <Footer />
       </div>
-    </>
-  );
-};
+    );
+  };
 
 export default ContactPage;

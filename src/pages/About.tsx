@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { GraduationCap, Award, BookOpen, Globe, Heart, Users } from "lucide-react";
@@ -6,19 +5,7 @@ import drMeriotPortrait from "@/assets/dr-meriot-portrait.jpg";
 
 const About = () => {
   return (
-    <>
-      <Helmet>
-        <title>
-          À propos du Dr Stéphanie Meriot - Dentiste spécialisée Marseille 4ème
-        </title>
-        <meta
-          name="description"
-          content="Parcours et formations du Dr Stéphanie Meriot, chirurgien-dentiste spécialisée en parodontie et implantologie. Diplômée Faculté Marseille, IFPIO, Académie de paro."
-        />
-        <link rel="canonical" href="https://drstephaniemeriot.fr/a-propos" />
-      </Helmet>
-
-      <div className="min-h-screen">
+    <div className="min-h-screen">
         <Header />
         <main className="pt-20">
           {/* Hero Section */}
@@ -237,8 +224,7 @@ const About = () => {
         </main>
         <Footer />
       </div>
-    </>
-  );
-};
+    );
+  };
 
 export default About;

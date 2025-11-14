@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CheckCircle2, Info, Calendar } from "lucide-react";
@@ -7,19 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Tarifs = () => {
   return (
-    <>
-      <Helmet>
-        <title>
-          Tarifs et remboursements - Cabinet dentaire Dr Meriot Marseille
-        </title>
-        <meta
-          name="description"
-          content="Tarifs transparents du cabinet dentaire Dr Stéphanie Meriot à Marseille. Conventionnée secteur 1, carte vitale, tiers payant. Devis détaillés gratuits."
-        />
-        <link rel="canonical" href="https://drstephaniemeriot.fr/tarifs" />
-      </Helmet>
-
-      <div className="min-h-screen">
+    <div className="min-h-screen">
         <Header />
         <main className="pt-20">
           {/* Hero Section */}
@@ -274,8 +261,7 @@ const Tarifs = () => {
         </main>
         <Footer />
       </div>
-    </>
-  );
-};
+    );
+  };
 
 export default Tarifs;

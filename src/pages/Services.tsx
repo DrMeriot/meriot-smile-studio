@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -181,22 +181,19 @@ const Services = () => {
     })),
   };
 
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
     <>
-      <Helmet>
-        <title>
-          Services dentaires - Dr Stéphanie Meriot | Parodontie, Implantologie,
-          Soins Marseille
-        </title>
-        <meta
-          name="description"
-          content="Services dentaires complets à Marseille 4ème : parodontie, implantologie, soins généraux, prévention, esthétique. Spécialiste formée IFPIO."
-        />
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <link rel="canonical" href="https://drstephaniemeriot.fr/services" />
-      </Helmet>
 
       <div className="min-h-screen">
         <Header />
