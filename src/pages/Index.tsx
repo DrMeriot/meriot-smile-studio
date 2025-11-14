@@ -106,12 +106,12 @@ const Index = () => {
         <Header />
         <main>
           <Hero />
+          <QuickLinks />
           <About />
           <Services />
           <Philosophy />
           <Testimonials />
           <FAQ />
-          <QuickLinks />
           <Contact />
         </main>
         <Footer />
