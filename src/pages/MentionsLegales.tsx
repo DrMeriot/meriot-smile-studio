@@ -1,16 +1,9 @@
-import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const MentionsLegales = () => {
   return (
-    <>
-      <Helmet>
-        <title>Mentions légales - Cabinet Dr Stéphanie Meriot</title>
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
-
-      <div className="min-h-screen">
+    <div className="min-h-screen">
         <Header />
         <main className="pt-20 py-16">
           <div className="container mx-auto px-4 max-w-4xl">
@@ -164,8 +157,7 @@ const MentionsLegales = () => {
         </main>
         <Footer />
       </div>
-    </>
-  );
-};
+    );
+  };
 
 export default MentionsLegales;

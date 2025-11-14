@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -86,21 +86,20 @@ const Index = () => {
     ],
   };
 
+  useEffect(() => {
+    // Add structured data script
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
     <>
-      <Helmet>
-        <title>
-          Dr Stéphanie Meriot - Dentiste Marseille 4ème | Parodontie & Implantologie
-        </title>
-        <meta
-          name="description"
-          content="Cabinet dentaire du Dr Stéphanie Meriot à Marseille 4ème. Spécialiste en parodontie et implantologie. Conventionnée secteur 1 - Prise RDV Doctolib. ☎ 09 83 43 96 21"
-        />
-        <script type="application/ld+json">
-          {JSON.stringify(structuredData)}
-        </script>
-        <link rel="canonical" href="https://drstephaniemeriot.fr/" />
-      </Helmet>
 
       <div className="min-h-screen">
         <Header />
