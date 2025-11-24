@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="absolute inset-0 -z-10">
         <img
           src={heroImage}
-          alt="Cabinet dentaire Dr Stéphanie Meriot à Marseille"
+          alt="Cabinet dentaire Dr Stéphanie Meriot Marseille 4ème - Parodontie Implantologie"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>

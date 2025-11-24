@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Heart, CheckCircle2, Calendar, AlertCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import SEOHead from "@/components/SEOHead";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Parodontie = () => {
   useEffect(() => {
@@ -11,8 +13,16 @@ const Parodontie = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
-      <Header />
+    <>
+      <SEOHead
+        title="Parodontie Marseille 4ème | Dr Stéphanie Meriot - Spécialiste Gencives"
+        description="Spécialiste parodontie à Marseille 4ème. Traitement gingivite, parodontite, greffe gingivale. Formation IFPIO & Académie de paro. ☎ 09 83 43 96 21"
+        canonical="/parodontie"
+        keywords="parodontie marseille, parodontologie marseille, gingivite marseille, parodontite marseille, greffe gingivale, déchaussement dentaire, saignement gencives"
+      />
+      <FloatingCTA />
+      <div className="min-h-screen">
+        <Header />
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-soft">
@@ -288,6 +298,7 @@ const Parodontie = () => {
       </main>
       <Footer />
     </div>
+    </>
   );
 };
 

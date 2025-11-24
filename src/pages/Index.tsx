@@ -10,6 +10,8 @@ import FAQ from "@/components/FAQ";
 import QuickLinks from "@/components/QuickLinks";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Index = () => {
   // Schema.org structured data
@@ -102,7 +104,13 @@ const Index = () => {
 
   return (
     <>
-
+      <SEOHead
+        title="Dr Stéphanie Meriot - Dentiste Marseille 4ème | Parodontie & Implantologie"
+        description="Cabinet dentaire Dr Stéphanie Meriot à Marseille 4ème. Spécialiste parodontie et implantologie. Conventionnée secteur 1. ☎ 09 83 43 96 21. Près métro Chartreux."
+        canonical="/"
+        keywords="dentiste marseille, parodontie marseille, implantologie marseille, dentiste marseille 4, cabinet dentaire marseille, Dr Meriot"
+      />
+      <FloatingCTA />
       <div className="min-h-screen">
         <Header />
         <main>

@@ -1,9 +1,16 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 const Confidentialite = () => {
   return (
-    <div className="min-h-screen">
+    <>
+      <SEOHead
+        title="Politique de Confidentialité RGPD | Dr Stéphanie Meriot Marseille"
+        description="Politique de confidentialité et protection des données personnelles (RGPD) du cabinet dentaire Dr Stéphanie Meriot à Marseille 4ème."
+        canonical="/confidentialite"
+      />
+      <div className="min-h-screen">
         <Header />
         <main className="pt-20 py-16">
           <div className="container mx-auto px-4 max-w-4xl">
@@ -215,6 +222,7 @@ const Confidentialite = () => {
         </main>
         <Footer />
       </div>
+    </>
     );
   };
 
