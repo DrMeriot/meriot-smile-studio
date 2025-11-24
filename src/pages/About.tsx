@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { GraduationCap, Award, BookOpen, Globe, Heart, Users } from "lucide-react";
-import drMeriotPortrait from "@/assets/dr-meriot-portrait.jpg";
+import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 
 const About = () => {
   return (
@@ -28,7 +28,7 @@ const About = () => {
                 </div>
                 <div className="relative">
                   <img
-                    src={drMeriotPortrait}
+                    src={drMeriotPhoto}
                     alt="Dr Stéphanie Meriot"
                     className="rounded-2xl shadow-medium w-full"
                   />
