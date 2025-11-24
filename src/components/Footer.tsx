@@ -55,7 +55,7 @@ const Footer = () => {
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4 text-primary" />
                 <a
-                  href="https://www.doctolib.fr"
+                  href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors"

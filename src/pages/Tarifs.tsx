@@ -244,7 +244,7 @@ const Tarifs = () => {
                 modalités de remboursement.
               </p>
               <a
-                href="https://www.doctolib.fr"
+                href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
                 target="_blank"
                 rel="noopener noreferrer"
               >

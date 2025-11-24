@@ -63,7 +63,7 @@ const Header = () => {
               </Button>
             </a>
             <a
-              href="https://www.doctolib.fr"
+              href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -110,7 +110,7 @@ const Header = () => {
                 </Button>
               </a>
               <a
-                href="https://www.doctolib.fr"
+                href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
                 target="_blank"
                 rel="noopener noreferrer"
               >

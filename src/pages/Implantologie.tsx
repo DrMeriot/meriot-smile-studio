@@ -311,7 +311,7 @@ const Implantologie = () => {
               Discutons ensemble de votre projet.
             </p>
             <a
-              href="https://www.doctolib.fr"
+              href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
               target="_blank"
               rel="noopener noreferrer"
             >
