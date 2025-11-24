@@ -18,6 +18,7 @@ const Header = () => {
   const navLinks = [
     { to: "/", label: "Accueil" },
     { to: "/services", label: "Services" },
+    { to: "/blog", label: "Blog" },
     { to: "/a-propos", label: "À propos" },
     { to: "/tarifs", label: "Tarifs" },
     { to: "/parodontie", label: "Parodontie" },
