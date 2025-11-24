@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Sparkles, CheckCircle2, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import SEOHead from "@/components/SEOHead";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Esthetique = () => {
   useEffect(() => {
@@ -11,8 +13,16 @@ const Esthetique = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
-      <Header />
+    <>
+      <SEOHead
+        title="Esthétique Dentaire Marseille | Blanchiment & Facettes | Dr Meriot"
+        description="Esthétique dentaire à Marseille 4ème : blanchiment, facettes, composites. Approche naturelle et conservatrice. Cabinet Dr Meriot. ☎ 09 83 43 96 21"
+        canonical="/esthetique"
+        keywords="esthétique dentaire marseille, blanchiment dentaire marseille, facettes dentaires marseille, sourire marseille, dentiste esthétique"
+      />
+      <FloatingCTA />
+      <div className="min-h-screen">
+        <Header />
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-soft">
@@ -292,6 +302,7 @@ const Esthetique = () => {
       </main>
       <Footer />
     </div>
+    </>
   );
 };
 

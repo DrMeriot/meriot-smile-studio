@@ -35,7 +35,7 @@ const Practitioner = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary/5 z-10"></div>
                     <img
                       src={drMeriotPhoto}
-                      alt="Dr Stéphanie Meriot - Chirurgien dentiste"
+                      alt="Dr Stéphanie Meriot - Chirurgien-dentiste spécialiste parodontie implantologie Marseille"
                       className="w-full h-auto object-cover"
                     />
                   </div>

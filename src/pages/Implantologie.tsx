@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Zap, CheckCircle2, Calendar, Info } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import SEOHead from "@/components/SEOHead";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Implantologie = () => {
   useEffect(() => {
@@ -11,8 +13,16 @@ const Implantologie = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
-      <Header />
+    <>
+      <SEOHead
+        title="Implantologie Marseille 4ème | Dr Stéphanie Meriot - Implants Dentaires"
+        description="Implants dentaires à Marseille 4ème. Pose d'implants, régénération osseuse. Formation IFPIO. Tarif à partir de 1500€. ☎ 09 83 43 96 21. Doctolib"
+        canonical="/implantologie"
+        keywords="implantologie marseille, implant dentaire marseille, pose implant marseille, implant dent marseille, chirurgie implantaire, dent manquante"
+      />
+      <FloatingCTA />
+      <div className="min-h-screen">
+        <Header />
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-soft">
@@ -328,6 +338,7 @@ const Implantologie = () => {
       </main>
       <Footer />
     </div>
+    </>
   );
 };
 

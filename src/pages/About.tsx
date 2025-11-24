@@ -1,11 +1,21 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { GraduationCap, Award, BookOpen, Globe, Heart, Users } from "lucide-react";
+import { GraduationCap, Award, BookOpen, Globe, Heart, Users, Shield } from "lucide-react";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
+import SEOHead from "@/components/SEOHead";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const About = () => {
   return (
-    <div className="min-h-screen">
+    <>
+      <SEOHead
+        title="Dr Stéphanie Meriot | Dentiste Parodontie Implantologie Marseille"
+        description="Dr Stéphanie Meriot, chirurgien-dentiste à Marseille 4ème. Spécialiste parodontie (IFPIO) et implantologie. Approche conservatrice et bienveillante. Trilingue."
+        canonical="/a-propos"
+        keywords="Dr Stéphanie Meriot, dentiste marseille 4, parodontiste marseille, implantologue marseille, IFPIO, dentiste trilingue marseille"
+      />
+      <FloatingCTA />
+      <div className="min-h-screen">
         <Header />
         <main className="pt-20">
           {/* Hero Section */}
@@ -29,7 +39,7 @@ const About = () => {
                 <div className="relative">
                   <img
                     src={drMeriotPhoto}
-                    alt="Dr Stéphanie Meriot"
+                    alt="Dr Stéphanie Meriot - Dentiste spécialisée parodontie implantologie Marseille 4ème"
                     className="rounded-2xl shadow-medium w-full"
                   />
                   <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-primary/10 rounded-full -z-10 blur-2xl"></div>
@@ -146,12 +156,83 @@ const About = () => {
                       🇪🇸 Espagnol
                     </p>
                   </div>
-                </div>
-              </div>
-            </div>
-          </section>
+                 </div>
+               </div>
+             </div>
+           </section>
 
-          {/* Philosophy Section */}
+           {/* E-A-T Section - Expertise & Credibility */}
+           <section className="py-20 bg-muted/20">
+             <div className="container mx-auto px-4 max-w-4xl">
+               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+                 Pourquoi me faire confiance ?
+               </h2>
+               
+               <div className="grid md:grid-cols-2 gap-6">
+                 <div className="p-6 bg-card rounded-xl shadow-soft">
+                   <div className="flex items-center gap-3 mb-4">
+                     <Shield className="h-6 w-6 text-primary" />
+                     <h3 className="text-lg font-semibold">Inscrite à l'Ordre</h3>
+                   </div>
+                   <p className="text-muted-foreground mb-2">
+                     Chirurgien-dentiste inscrite à l'Ordre National des Chirurgiens-Dentistes.
+                   </p>
+                   <p className="text-sm text-muted-foreground">
+                     Numéro RPPS : Vérifiable sur{" "}
+                     <a
+                       href="https://annuaire.sante.fr"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="text-primary hover:underline"
+                     >
+                       annuaire.sante.fr
+                     </a>
+                   </p>
+                 </div>
+
+                 <div className="p-6 bg-card rounded-xl shadow-soft">
+                   <div className="flex items-center gap-3 mb-4">
+                     <Award className="h-6 w-6 text-accent" />
+                     <h3 className="text-lg font-semibold">
+                       Formations spécialisées
+                     </h3>
+                   </div>
+                   <p className="text-muted-foreground">
+                     Formations approfondies à l'IFPIO Marseille et à l'Académie de
+                     paro d'Aix-en-Provence, reconnues pour leur excellence en
+                     parodontie et implantologie.
+                   </p>
+                 </div>
+
+                 <div className="p-6 bg-card rounded-xl shadow-soft">
+                   <div className="flex items-center gap-3 mb-4">
+                     <BookOpen className="h-6 w-6 text-primary" />
+                     <h3 className="text-lg font-semibold">Recherche & Thèse</h3>
+                   </div>
+                   <p className="text-muted-foreground">
+                     Thèse de doctorat sur la dentisterie conservatrice, reflétant
+                     mon engagement pour une pratique fondée sur les données
+                     scientifiques.
+                   </p>
+                 </div>
+
+                 <div className="p-6 bg-card rounded-xl shadow-soft">
+                   <div className="flex items-center gap-3 mb-4">
+                     <Globe className="h-6 w-6 text-accent" />
+                     <h3 className="text-lg font-semibold">
+                       Expérience internationale
+                     </h3>
+                   </div>
+                   <p className="text-muted-foreground">
+                     Exercice en France (Paris, Marseille) et à l'étranger (Genève),
+                     enrichissant ma pratique et ma vision des soins.
+                   </p>
+                 </div>
+               </div>
+             </div>
+           </section>
+
+           {/* Philosophy Section */}
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4 max-w-4xl">
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
@@ -220,11 +301,12 @@ const About = () => {
                 </p>
               </blockquote>
             </div>
-          </section>
-        </main>
-        <Footer />
-      </div>
-    );
-  };
+         </section>
+       </main>
+       <Footer />
+     </div>
+     </>
+   );
+ };
 
 export default About;

@@ -3,10 +3,20 @@ import Footer from "@/components/Footer";
 import { CheckCircle2, Info, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import SEOHead from "@/components/SEOHead";
+import FloatingCTA from "@/components/FloatingCTA";
 
 const Tarifs = () => {
   return (
-    <div className="min-h-screen">
+    <>
+      <SEOHead
+        title="Tarifs Dentiste Marseille 4ème | Secteur 1 Conventionné | Dr Meriot"
+        description="Tarifs transparents cabinet Dr Meriot Marseille. Conventionnée secteur 1. Carte Vitale, tiers payant. Consultation 23€, détartrage, implants. Devis gratuits."
+        canonical="/tarifs"
+        keywords="tarif dentiste marseille, prix dentiste marseille 4, dentiste secteur 1 marseille, carte vitale marseille, tiers payant dentiste"
+      />
+      <FloatingCTA />
+      <div className="min-h-screen">
         <Header />
         <main className="pt-20">
           {/* Hero Section */}
@@ -261,6 +271,7 @@ const Tarifs = () => {
         </main>
         <Footer />
       </div>
+    </>
     );
   };
 
