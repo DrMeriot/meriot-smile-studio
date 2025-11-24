@@ -159,7 +159,7 @@ const Contact = () => {
         {/* CTA Section */}
         <div className="mt-16 text-center">
           <a
-            href="https://www.doctolib.fr"
+            href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
             target="_blank"
             rel="noopener noreferrer"
           >

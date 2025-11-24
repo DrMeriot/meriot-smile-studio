@@ -268,7 +268,7 @@ const Services = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://www.doctolib.fr"
+                  href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
