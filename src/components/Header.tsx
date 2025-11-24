@@ -35,8 +35,9 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold">
-              <span className="text-primary">Dr Stéphanie Meriot</span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-primary">Dr Stéphanie Meriot</span>
+              <span className="text-sm text-muted-foreground font-medium">Chirurgien dentiste</span>
             </div>
           </Link>
 
