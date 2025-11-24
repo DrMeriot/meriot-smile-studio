@@ -20,6 +20,8 @@ const Header = () => {
     { to: "/services", label: "Services" },
     { to: "/a-propos", label: "À propos" },
     { to: "/tarifs", label: "Tarifs" },
+    { to: "/parodontie", label: "Parodontie" },
+    { to: "/implantologie", label: "Implantologie" },
     { to: "/contact", label: "Contact" },
   ];
 

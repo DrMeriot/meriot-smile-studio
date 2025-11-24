@@ -21,15 +21,6 @@ const specialties = [
     bgColor: "bg-primary/10",
     hoverBg: "hover:bg-primary/20",
   },
-  {
-    title: "Esthétique dentaire",
-    description: "Blanchiment, facettes et harmonisation du sourire",
-    icon: Sparkles,
-    href: "/esthetique",
-    color: "text-accent",
-    bgColor: "bg-accent/10",
-    hoverBg: "hover:bg-accent/20",
-  },
 ];
 
 const QuickLinks = () => {
@@ -47,7 +38,7 @@ const QuickLinks = () => {
         </div>
 
         {/* Specialties Cards - Plus grandes et visibles */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {specialties.map((specialty, index) => {
             const Icon = specialty.icon;
             return (
