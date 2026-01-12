@@ -142,35 +142,35 @@ const LocalBusinessSchema = () => {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday"],
           "opens": "09:00",
-          "closes": "19:00"
+          "closes": "12:00"
         },
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Tuesday"],
-          "opens": "09:00",
-          "closes": "19:00"
+          "dayOfWeek": ["Monday"],
+          "opens": "14:00",
+          "closes": "17:00"
         },
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Wednesday"],
+          "dayOfWeek": ["Tuesday", "Thursday"],
           "opens": "09:00",
-          "closes": "19:00"
+          "closes": "12:00"
         },
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Thursday"],
-          "opens": "09:00",
-          "closes": "19:00"
+          "dayOfWeek": ["Tuesday", "Thursday"],
+          "opens": "14:00",
+          "closes": "18:00"
         },
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Friday"],
           "opens": "09:00",
-          "closes": "17:00"
+          "closes": "14:00"
         }
       ],
       "sameAs": [
-        "https://www.doctolib.fr/chirurgien-dentiste/marseille/stephanie-meriot"
+        "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
       ],
       "hasCredential": [
         {

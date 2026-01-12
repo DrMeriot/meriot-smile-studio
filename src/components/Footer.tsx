@@ -38,7 +38,7 @@ const Footer = () => {
               </a>
             </div>
             <a
-              href="https://www.doctolib.fr/chirurgien-dentiste/marseille/stephanie-meriot"
+              href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-1 text-dental-coral hover:text-white transition-colors text-sm mt-2"
@@ -57,23 +57,23 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-dental-soft-blue">
               <li className="flex justify-between">
                 <span>Lundi</span>
-                <span>9h - 19h</span>
+                <span>9h-12h, 14h-17h</span>
               </li>
               <li className="flex justify-between">
                 <span>Mardi</span>
-                <span>9h - 19h</span>
+                <span>9h-12h, 14h-18h</span>
               </li>
               <li className="flex justify-between">
                 <span>Mercredi</span>
-                <span>9h - 19h</span>
+                <span className="text-dental-coral">Fermé</span>
               </li>
               <li className="flex justify-between">
                 <span>Jeudi</span>
-                <span>9h - 19h</span>
+                <span>9h-12h, 14h-18h</span>
               </li>
               <li className="flex justify-between">
                 <span>Vendredi</span>
-                <span>9h - 17h</span>
+                <span>9h-14h</span>
               </li>
             </ul>
           </div>
