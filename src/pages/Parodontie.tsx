@@ -6,7 +6,7 @@ import { Heart, Calendar, AlertCircle, Search, Sparkles, Scissors, UserCheck, Cl
 import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
-
+import ParoGlossary from "@/components/ParoGlossary";
 const Parodontie = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -384,6 +384,9 @@ const Parodontie = () => {
               </div>
             </div>
           </section>
+
+          {/* Glossaire SEO */}
+          <ParoGlossary />
 
           {/* CTA */}
           <section className="py-20">
