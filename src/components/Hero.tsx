@@ -9,11 +9,11 @@ const Hero = () => {
       <div className="absolute inset-0 -z-20 bg-gradient-to-br from-background via-background to-primary/5"></div>
 
       {/* Desktop: Image positioned on the right */}
-      <div className="absolute inset-y-0 right-0 w-1/2 -z-10 hidden lg:block overflow-hidden">
+      <div className="absolute top-[15%] bottom-[15%] right-0 w-1/2 -z-10 hidden lg:block overflow-hidden">
         <img
           src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
-          className="w-full h-full object-cover origin-top scale-[1.35] object-[50%_22%]"
+          className="w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
       </div>
