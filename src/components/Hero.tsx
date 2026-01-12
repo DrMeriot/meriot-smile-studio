@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone, CheckCircle2 } from "lucide-react";
-import drMeriotPortrait from "@/assets/dr-meriot-portrait.jpg";
+import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 
 const Hero = () => {
   return (
@@ -11,7 +11,7 @@ const Hero = () => {
       {/* Desktop: Image positioned on the right */}
       <div className="absolute inset-y-0 right-0 w-1/2 -z-10 hidden lg:block">
         <img
-          src={drMeriotPortrait}
+          src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
           className="w-full h-full object-cover object-[50%_20%]"
         />
