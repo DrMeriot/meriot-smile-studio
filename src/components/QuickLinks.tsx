@@ -73,7 +73,7 @@ const QuickLinks = () => {
         </div>
 
         {/* Ligne de séparation décorative */}
-        <div className="mt-10 mb-4 flex items-center justify-center">
+        <div className="mt-6 mb-2 flex items-center justify-center">
           <div className="h-px bg-border w-32"></div>
           <div className="mx-4 text-muted-foreground text-sm">ou explorez</div>
           <div className="h-px bg-border w-32"></div>
