@@ -4,19 +4,15 @@ import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center">
+    <section className="relative min-h-screen flex items-center pt-20">
       {/* Background with gradient overlay */}
-      <div className="absolute inset-0 -z-10 overflow-hidden top-0">
+      <div className="absolute inset-0 -z-10">
         <img
           src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
-          className="w-full h-full object-cover"
-          style={{
-            objectPosition: "85% top",
-            transform: "translateX(12%) scale(0.9)",
-          }}
+          className="w-full h-full object-cover object-right-top"
         />
-        <div className="absolute inset-0 top-20 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4">
