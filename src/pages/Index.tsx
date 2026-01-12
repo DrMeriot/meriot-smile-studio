@@ -105,10 +105,12 @@ const Index = () => {
   return (
     <>
       <SEOHead
-        title="Dr Stéphanie Meriot - Dentiste Marseille 4ème | Parodontie & Implantologie"
-        description="Cabinet dentaire Dr Stéphanie Meriot à Marseille 4ème. Spécialiste parodontie et implantologie. Conventionnée secteur 1. ☎ 09 83 43 96 21. Près métro Chartreux."
+        title="Parodontie et Soins Dentaires à Marseille - Dr Stéphanie Meriot"
+        description="Spécialiste du traitement des gencives et du déchaussement dentaire à Marseille. Le Dr Stéphanie Meriot soigne gingivite, parodontite et pose d'implants. Cabinet conventionné secteur 1."
         canonical="/"
-        keywords="dentiste marseille, parodontie marseille, implantologie marseille, dentiste marseille 4, cabinet dentaire marseille, Dr Meriot"
+        ogTitle="Dr Stéphanie Meriot | Experte Parodontie à Marseille"
+        ogDescription="Traitement des maladies des gencives, déchaussement dentaire et implantologie. Cabinet dentaire de confiance à Marseille 4ème. Prenez RDV en ligne."
+        keywords="parodontie marseille, traitement gencives, déchaussement dentaire, gingivite, parodontite, implantologie marseille, dentiste marseille 4"
       />
       <FloatingCTA />
       <div className="min-h-screen">
