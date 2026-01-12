@@ -7,6 +7,40 @@ import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 import ParoGlossary from "@/components/ParoGlossary";
+import FAQSchema from "@/components/FAQSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+
+const parodontieFAQs = [
+  {
+    question: "Qu'est-ce que la parodontie ?",
+    answer: "La parodontie est la spécialité dentaire qui traite les maladies des gencives et des tissus de soutien des dents (os alvéolaire, ligament parodontal). Elle prend en charge la gingivite, la parodontite et le déchaussement dentaire."
+  },
+  {
+    question: "Comment savoir si j'ai une maladie des gencives ?",
+    answer: "Les signes d'alerte incluent : gencives qui saignent au brossage, gencives rouges ou gonflées, mauvaise haleine persistante, déchaussement ou mobilité des dents, sensibilité au niveau des collets. Consultez rapidement si vous observez ces symptômes."
+  },
+  {
+    question: "Le traitement parodontal fait-il mal ?",
+    answer: "Les traitements parodontaux sont réalisés sous anesthésie locale pour garantir votre confort. Le surfaçage radiculaire est indolore pendant l'intervention. Une légère sensibilité peut persister quelques jours après, facilement soulagée par des antalgiques."
+  },
+  {
+    question: "Combien coûte un traitement parodontal à Marseille ?",
+    answer: "Le coût varie selon la sévérité de la maladie. Le Dr Meriot est conventionnée secteur 1, garantissant des tarifs maîtrisés. Un devis détaillé vous est remis après le bilan parodontal initial. Une partie des soins est prise en charge par l'Assurance Maladie."
+  },
+  {
+    question: "La parodontite est-elle réversible ?",
+    answer: "La gingivite est totalement réversible avec un traitement adapté. La parodontite entraîne une perte osseuse irréversible, mais le traitement permet de stopper l'évolution de la maladie, de préserver les dents et de retrouver des gencives saines."
+  },
+  {
+    question: "Quels sont les facteurs de risque de la parodontite ?",
+    answer: "Les principaux facteurs sont : le tabac (risque multiplié par 3), le diabète mal équilibré, le stress, certains médicaments, la génétique, et une hygiène bucco-dentaire insuffisante. Un suivi régulier permet de prévenir et dépister précocement."
+  }
+];
+
+const breadcrumbItems = [
+  { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
+  { name: "Parodontie", url: "https://dr-meriot-dentiste.fr/parodontie" }
+];
 const Parodontie = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -20,6 +54,8 @@ const Parodontie = () => {
         canonical="/parodontie"
         keywords="parodontie marseille, parodontologue aix-en-provence, gingivite aubagne, parodontite la ciotat, traitement gencives vitrolles, spécialiste parodontie cassis, parodontologie marignane, déchaussement dentaire gardanne, saignement gencives martigues, parodontologue istres, gencives salon-de-provence, parodontie allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, ensuès-la-redonne, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
       />
+      <FAQSchema faqs={parodontieFAQs} pageUrl="https://dr-meriot-dentiste.fr/parodontie" />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
