@@ -22,7 +22,7 @@ const services = [
     icon: Heart,
     title: "Parodontie - Spécialité",
     description:
-      "Traitement des maladies des gencives, détartrage approfondi, chirurgie parodontale, greffe gingivale.",
+      "Les maladies parodontales commencent souvent par une gingivite : gencives rouges, sensibles ou qui saignent. Sans prise en charge, elle peut évoluer en parodontite, entraînant un déchaussement des dents. Grâce à des traitements spécialisés, il est possible de stopper la maladie et préserver votre sourire.",
     color: "text-accent",
     bgColor: "bg-accent/10",
     featured: true,
@@ -31,7 +31,7 @@ const services = [
     icon: Zap,
     title: "Implantologie - Spécialité",
     description:
-      "Pose d'implants dentaires, régénération osseuse, restauration complète. Solution durable pour remplacer vos dents.",
+      "Une dent manquante affecte votre sourire, votre mastication et peut entraîner un déplacement des dents voisines. L'implant dentaire offre une solution fixe et durable, ancrée dans l'os comme une racine naturelle. Retrouvez confort et esthétique sans compromettre les dents saines adjacentes.",
     color: "text-primary",
     bgColor: "bg-primary/10",
     featured: true,
