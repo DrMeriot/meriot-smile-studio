@@ -15,10 +15,10 @@ const Implantologie = () => {
   return (
     <>
       <SEOHead
-        title="Implantologie Marseille 4ème | Dr Stéphanie Meriot - Implants Dentaires"
-        description="Implants dentaires à Marseille 4ème. Pose d'implants, régénération osseuse. Formation IFPIO. Tarif à partir de 1500€. ☎ 09 83 43 96 21. Doctolib"
+        title="Implants Dentaires Marseille & PACA | Dr Stéphanie Meriot - Implantologie"
+        description="Implants dentaires à Marseille, Aix-en-Provence, Aubagne, La Ciotat, Vitrolles, Martigues et région PACA. Pose d'implants, régénération osseuse. Formation IFPIO. Tarif à partir de 1500€. ☎ 09 83 43 96 21"
         canonical="/implantologie"
-        keywords="implantologie marseille, implant dentaire marseille, pose implant marseille, implant dent marseille, chirurgie implantaire, dent manquante"
+        keywords="implantologie marseille, implant dentaire aix-en-provence, pose implant aubagne, implant dent la ciotat, chirurgie implantaire vitrolles, implantologue cassis, implants martigues, prothèse sur implant PACA"
       />
       <FloatingCTA />
       <div className="min-h-screen">
