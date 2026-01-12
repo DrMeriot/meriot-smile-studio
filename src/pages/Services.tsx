@@ -198,9 +198,9 @@ const Services = () => {
     <>
       <SEOHead
         title="Services Dentaires Marseille 4ème | Dr Stéphanie Meriot"
-        description="Services dentaires à Marseille : parodontie, implantologie, soins dentaires, prévention, esthétique. Cabinet Dr Meriot conventionné secteur 1. ☎ 09 83 43 96 21"
+        description="Services dentaires à Marseille, Aix-en-Provence, Aubagne : parodontie, implantologie, soins, esthétique. Cabinet Dr Meriot conventionné secteur 1. Patients de La Ciotat, Cassis, Martigues, Vitrolles bienvenus. ☎ 09 83 43 96 21"
         canonical="/services"
-        keywords="services dentaires marseille, soins dentaires marseille, dentiste marseille 4, détartrage marseille, implants marseille, parodontie"
+        keywords="services dentaires marseille, soins dentaires marseille, dentiste marseille 4, détartrage marseille, implants marseille aix en provence, parodontie aubagne"
       />
       <FloatingCTA />
       <div className="min-h-screen">

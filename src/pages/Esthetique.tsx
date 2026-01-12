@@ -16,9 +16,9 @@ const Esthetique = () => {
     <>
       <SEOHead
         title="Esthétique Dentaire Marseille | Blanchiment & Facettes | Dr Meriot"
-        description="Esthétique dentaire à Marseille 4ème : blanchiment, facettes, composites. Approche naturelle et conservatrice. Cabinet Dr Meriot. ☎ 09 83 43 96 21"
+        description="Esthétique dentaire à Marseille, Aix-en-Provence, Aubagne : blanchiment professionnel, facettes céramique, composites. Approche naturelle par Dr Meriot. Patients de La Ciotat, Cassis, Vitrolles bienvenus. ☎ 09 83 43 96 21"
         canonical="/esthetique"
-        keywords="esthétique dentaire marseille, blanchiment dentaire marseille, facettes dentaires marseille, sourire marseille, dentiste esthétique"
+        keywords="esthétique dentaire marseille, blanchiment dentaire marseille, blanchiment dentaire aix en provence, facettes dentaires marseille, sourire marseille, dentiste esthétique aubagne"
       />
       <FloatingCTA />
       <div className="min-h-screen">
