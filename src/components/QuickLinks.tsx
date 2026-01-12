@@ -1,25 +1,19 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Heart, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const specialties = [
   {
     title: "Parodontie",
     description: "Soins des gencives et des tissus de soutien des dents",
-    icon: Heart,
     href: "/parodontie",
-    color: "text-accent",
     bgColor: "bg-accent/10",
-    hoverBg: "hover:bg-accent/20",
   },
   {
     title: "Implantologie",
     description: "Remplacement durable de vos dents manquantes",
-    icon: Zap,
     href: "/implantologie",
-    color: "text-primary",
     bgColor: "bg-primary/10",
-    hoverBg: "hover:bg-primary/20",
   },
 ];
 
@@ -39,9 +33,7 @@ const QuickLinks = () => {
 
         {/* Specialties Cards - Plus grandes et visibles */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        {specialties.map((specialty, index) => {
-            const Icon = specialty.icon;
-            return (
+        {specialties.map((specialty, index) => (
               <Link 
                 key={index} 
                 to={specialty.href} 
@@ -49,15 +41,10 @@ const QuickLinks = () => {
               >
                 <div
                   className={`bg-card rounded-3xl p-10 shadow-medium hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border-4 ${
-                    index === 0 ? 'border-accent/30' : index === 1 ? 'border-primary/30' : 'border-accent/30'
+                    index === 0 ? 'border-accent/30' : 'border-primary/30'
                   } hover:border-primary transition-all duration-300 h-full flex flex-col cursor-pointer`}
                 >
                   <div className="flex flex-col items-center text-center mb-6">
-                    <div
-                      className={`p-5 ${specialty.bgColor} rounded-2xl mb-5 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <Icon className={`h-10 w-10 ${specialty.color}`} />
-                    </div>
 
                     <h3 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
                       {specialty.title}
@@ -82,8 +69,7 @@ const QuickLinks = () => {
                   </Button>
                 </div>
               </Link>
-            );
-          })}
+            ))}
         </div>
 
         {/* Ligne de séparation décorative */}
