@@ -5,7 +5,7 @@ import { Heart, Zap, Sparkles, ArrowRight } from "lucide-react";
 const specialties = [
   {
     title: "Parodontie",
-    description: "Soins des gencives et des tissus de soutien des dents",
+    description: "Les maladies parodontales commencent souvent par une gingivite : gencives rouges, sensibles ou qui saignent. Sans prise en charge, elle peut évoluer en parodontite, entraînant un déchaussement des dents. Grâce à des traitements spécialisés, il est possible de stopper la maladie et préserver votre sourire.",
     icon: Heart,
     href: "/parodontie",
     color: "text-accent",
@@ -14,7 +14,7 @@ const specialties = [
   },
   {
     title: "Implantologie",
-    description: "Remplacement durable de vos dents manquantes",
+    description: "Une dent manquante affecte votre sourire, votre mastication et peut entraîner un déplacement des dents voisines. L'implant dentaire offre une solution fixe et durable, ancrée dans l'os comme une racine naturelle. Retrouvez confort et esthétique sans compromettre les dents saines adjacentes.",
     icon: Zap,
     href: "/implantologie",
     color: "text-primary",
