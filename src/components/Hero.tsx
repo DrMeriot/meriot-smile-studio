@@ -8,12 +8,12 @@ const Hero = () => {
       {/* Background gradient for mobile */}
       <div className="absolute inset-0 -z-20 bg-gradient-to-br from-background via-background to-primary/5"></div>
 
-      {/* Desktop: Image positioned on the right */}
-      <div className="absolute inset-y-0 right-0 w-1/2 -z-10 hidden lg:block">
+      {/* Desktop: Image positioned on the right, below header */}
+      <div className="absolute top-20 bottom-0 right-0 w-1/2 -z-10 hidden lg:block">
         <img
           src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
-          className="w-full h-full object-cover object-[50%_20%]"
+          className="w-full h-full object-cover object-[50%_10%]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
       </div>
