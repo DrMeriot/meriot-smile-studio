@@ -48,9 +48,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return data === true;
     } catch (err: any) {
       if (err.message === 'ADMIN_CHECK_TIMEOUT') {
-        console.warn('[AuthContext] Admin check timed out after', ADMIN_CHECK_TIMEOUT_MS, 'ms');
+        console.warn('[AuthContext] Admin check timed out after', ADMIN_CHECK_TIMEOUT_MS, 'ms - user will be treated as non-admin');
       } else {
-        console.error('[AuthContext] Admin check exception:', err);
+        console.error('[AuthContext] Admin check exception:', err.message);
       }
       return false;
     }
@@ -71,8 +71,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // Check admin role with timeout protection
           const adminStatus = await checkAdminRole(newSession.user.id);
           setIsAdmin(adminStatus);
+          console.log('[AuthContext] Auth state complete - user:', !!newSession?.user, 'isAdmin:', adminStatus);
         } else {
           setIsAdmin(false);
+          console.log('[AuthContext] Auth state complete - no user');
         }
 
         setIsLoading(false);

@@ -30,10 +30,12 @@ const Login = () => {
 
   // Redirect if already logged in and admin
   useEffect(() => {
-    if (!authLoading && user && isAdmin) {
+    if (!authLoading && user) {
+      // Rediriger vers /admin, ProtectedRoute gérera les permissions
+      console.log('[Login] User authenticated, redirecting to /admin...', { user: !!user, isAdmin, authLoading });
       navigate('/admin');
     }
-  }, [user, isAdmin, authLoading, navigate]);
+  }, [user, authLoading, navigate, isAdmin]);
 
   // Loading timer for UX feedback
   useEffect(() => {
