@@ -1,22 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone, CheckCircle2 } from "lucide-react";
-import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
+import drMeriotPortrait from "@/assets/dr-meriot-portrait.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      {/* Background gradient for mobile */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-br from-background via-background to-primary/5"></div>
+
+      {/* Desktop: Image positioned on the right */}
+      <div className="absolute inset-y-0 right-0 w-1/2 -z-10 hidden lg:block">
         <img
-          src={drMeriotPhoto}
+          src={drMeriotPortrait}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
-          className="w-full h-full object-cover object-[95%_50%] scale-[1.15] origin-right"
+          className="w-full h-full object-cover object-[50%_20%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/98 via-background/85 to-background/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="max-w-2xl animate-fade-in-up">
+        <div className="max-w-2xl animate-fade-in-up lg:pr-8">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
             <CheckCircle2 className="h-4 w-4" />
