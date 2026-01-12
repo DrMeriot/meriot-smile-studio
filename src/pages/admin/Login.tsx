@@ -27,15 +27,19 @@ const Login = () => {
   const [loadingSeconds, setLoadingSeconds] = useState(0);
   const { signIn, user, isAdmin, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const [justLoggedIn, setJustLoggedIn] = useState(false);
 
-  // Redirect if already logged in and admin
+  // Redirect only if user was already authenticated on mount (not after login)
   useEffect(() => {
+    // Skip if we just logged in (navigation handled in handleSubmit)
+    if (justLoggedIn) return;
+    
+    // Only redirect if user is already authenticated when component mounts
     if (!authLoading && user) {
-      // Rediriger vers /admin, ProtectedRoute gérera les permissions
-      console.log('[Login] User authenticated, redirecting to /admin...', { user: !!user, isAdmin, authLoading });
+      console.log('[Login] User already authenticated on mount, redirecting...');
       navigate('/admin');
     }
-  }, [user, authLoading, navigate, isAdmin]);
+  }, [user, authLoading, navigate, justLoggedIn]);
 
   // Loading timer for UX feedback
   useEffect(() => {
