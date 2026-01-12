@@ -1,34 +1,13 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Heart, Zap, Sparkles, ArrowRight } from "lucide-react";
-
-const specialties = [
-  {
-    title: "Parodontie",
-    description: "Les maladies parodontales commencent souvent par une gingivite : gencives rouges, sensibles ou qui saignent. Sans prise en charge, elle peut évoluer en parodontite, entraînant un déchaussement des dents. Grâce à des traitements spécialisés, il est possible de stopper la maladie et préserver votre sourire.",
-    icon: Heart,
-    href: "/parodontie",
-    color: "text-accent",
-    bgColor: "bg-accent/10",
-    hoverBg: "hover:bg-accent/20",
-  },
-  {
-    title: "Implantologie",
-    description: "Une dent manquante affecte votre sourire, votre mastication et peut entraîner un déplacement des dents voisines. L'implant dentaire offre une solution fixe et durable, ancrée dans l'os comme une racine naturelle. Retrouvez confort et esthétique sans compromettre les dents saines adjacentes.",
-    icon: Zap,
-    href: "/implantologie",
-    color: "text-primary",
-    bgColor: "bg-primary/10",
-    hoverBg: "hover:bg-primary/20",
-  },
-];
+import { Heart, Zap, ArrowRight } from "lucide-react";
 
 const QuickLinks = () => {
   return (
-    <section className="py-16 bg-gradient-to-b from-background to-muted/30 -mt-12">
+    <section className="py-20 bg-gradient-to-b from-background to-muted/30 -mt-12">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
+        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <span className="text-primary font-semibold text-base uppercase tracking-wide">
             ✨ Découvrez nos spécialités
           </span>
@@ -37,53 +16,93 @@ const QuickLinks = () => {
           </h2>
         </div>
 
-        {/* Specialties Cards - Plus grandes et visibles */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {specialties.map((specialty, index) => {
-            const Icon = specialty.icon;
-            return (
-              <Link 
-                key={index} 
-                to={specialty.href} 
-                className="group block transform transition-all duration-300 hover:scale-105"
-              >
-                <div
-                  className={`bg-card rounded-3xl p-10 shadow-medium hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border-4 ${
-                    index === 0 ? 'border-accent/30' : index === 1 ? 'border-primary/30' : 'border-accent/30'
-                  } hover:border-primary transition-all duration-300 h-full flex flex-col cursor-pointer`}
-                >
-                  <div className="flex flex-col items-center text-center mb-6">
-                    <div
-                      className={`p-5 ${specialty.bgColor} rounded-2xl mb-5 group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <Icon className={`h-10 w-10 ${specialty.color}`} />
-                    </div>
-
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
-                      {specialty.title}
-                    </h3>
-                    <p className="text-base text-muted-foreground leading-relaxed mb-6">
-                      {specialty.description}
-                    </p>
-                  </div>
-
-                  <Button
-                    size="lg"
-                    className={`w-full text-base font-semibold gap-2 mt-auto ${
-                      index === 0 
-                        ? 'bg-accent hover:bg-accent/90' 
-                        : index === 1 
-                        ? 'bg-primary hover:bg-primary-hover' 
-                        : 'bg-accent hover:bg-accent/90'
-                    }`}
-                  >
-                    Découvrir
-                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+        {/* Parodontie Section */}
+        <div className="max-w-5xl mx-auto mb-12">
+          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-medium border-2 border-accent/20 hover:border-accent/40 transition-all duration-300">
+            <div className="flex flex-col lg:flex-row gap-8 items-start">
+              {/* Icon & Title */}
+              <div className="flex flex-col items-center lg:items-start lg:min-w-[200px]">
+                <div className="p-5 bg-accent/10 rounded-2xl mb-4">
+                  <Heart className="h-10 w-10 text-accent" />
                 </div>
-              </Link>
-            );
-          })}
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  Parodontie
+                </h3>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1">
+                <h4 className="text-xl md:text-2xl font-semibold text-accent mb-4">
+                  Des gencives saines pour un sourire durable
+                </h4>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Les maladies parodontales commencent souvent par une simple gingivite : 
+                    <strong className="text-foreground"> gencives rouges, sensibles ou qui saignent</strong>. 
+                    Bien traitée, elle disparaît rapidement.
+                  </p>
+                  <p>
+                    Sans prise en charge, elle peut évoluer en <strong className="text-foreground">parodontite</strong>, 
+                    une atteinte plus profonde pouvant entraîner un déchaussement des dents.
+                  </p>
+                  <p>
+                    Grâce à des traitements spécialisés, il est possible de stopper la maladie 
+                    et <strong className="text-foreground">préserver votre sourire</strong>.
+                  </p>
+                </div>
+                <Link to="/parodontie" className="inline-block mt-6">
+                  <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-semibold gap-2">
+                    Découvrir la parodontie
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Implantologie Section */}
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-medium border-2 border-primary/20 hover:border-primary/40 transition-all duration-300">
+            <div className="flex flex-col lg:flex-row gap-8 items-start">
+              {/* Icon & Title */}
+              <div className="flex flex-col items-center lg:items-start lg:min-w-[200px]">
+                <div className="p-5 bg-primary/10 rounded-2xl mb-4">
+                  <Zap className="h-10 w-10 text-primary" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  Implantologie
+                </h3>
+              </div>
+
+              {/* Content */}
+              <div className="flex-1">
+                <h4 className="text-xl md:text-2xl font-semibold text-primary mb-4">
+                  Retrouvez un sourire complet et fonctionnel
+                </h4>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Une dent manquante affecte votre <strong className="text-foreground">sourire, votre mastication</strong> et 
+                    peut entraîner un déplacement des dents voisines.
+                  </p>
+                  <p>
+                    L'<strong className="text-foreground">implant dentaire</strong> offre une solution fixe et durable, 
+                    ancrée dans l'os comme une racine naturelle.
+                  </p>
+                  <p>
+                    Retrouvez <strong className="text-foreground">confort et esthétique</strong> sans compromettre 
+                    les dents saines adjacentes.
+                  </p>
+                </div>
+                <Link to="/implantologie" className="inline-block mt-6">
+                  <Button size="lg" className="bg-primary hover:bg-primary-hover text-white font-semibold gap-2">
+                    Découvrir l'implantologie
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Ligne de séparation décorative */}
