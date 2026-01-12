@@ -46,15 +46,27 @@ const Index = () => {
         "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Thursday"],
+            "dayOfWeek": ["Monday"],
             "opens": "09:00",
             "closes": "12:00"
           },
           {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Thursday"],
+            "dayOfWeek": ["Monday"],
             "opens": "14:00",
             "closes": "17:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Thursday"],
+            "opens": "09:00",
+            "closes": "12:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Thursday"],
+            "opens": "14:00",
+            "closes": "18:00"
           },
           {
             "@type": "OpeningHoursSpecification",
