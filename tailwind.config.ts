@@ -48,6 +48,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Footer colors
+        "dental-navy": "hsl(220 40% 13%)",
+        "dental-soft-blue": "hsl(210 20% 70%)",
+        "dental-coral": "hsl(15 85% 60%)",
       },
       fontFamily: {
         sans: ['Poppins', 'system-ui', 'sans-serif'],
