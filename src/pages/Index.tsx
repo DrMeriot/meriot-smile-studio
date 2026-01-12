@@ -11,6 +11,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 
 const Index = () => {
   // Schema.org structured data - Dentist
@@ -182,6 +183,7 @@ const Index = () => {
         ogDescription="Traitement des maladies des gencives, déchaussement dentaire et implantologie. Cabinet dentaire de confiance à Marseille 4ème. Prenez RDV en ligne."
         keywords="parodontie marseille, traitement gencives, déchaussement dentaire, gingivite, parodontite, implantologie marseille, dentiste marseille 4"
       />
+      <LocalBusinessSchema />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
