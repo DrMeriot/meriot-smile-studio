@@ -1,15 +1,25 @@
 import { Link } from "react-router-dom";
 import {
   Stethoscope,
-  Heart,
-  Zap,
   Shield,
   Sparkles,
   FileHeart,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import paroLogo from "@/assets/paro-logo.png";
+import implantoLogo from "@/assets/implanto-logo.png";
 
-const services = [
+type ServiceItem = {
+  icon?: React.ComponentType<{ className?: string }>;
+  image?: string;
+  title: string;
+  description: string;
+  color: string;
+  bgColor: string;
+  featured?: boolean;
+};
+
+const services: ServiceItem[] = [
   {
     icon: Stethoscope,
     title: "Soins dentaires généraux",
@@ -19,7 +29,7 @@ const services = [
     bgColor: "bg-primary/10",
   },
   {
-    icon: Heart,
+    image: paroLogo,
     title: "Parodontie - Spécialité",
     description:
       "Traitement des maladies des gencives, détartrage approfondi, chirurgie parodontale, greffe gingivale.",
@@ -28,7 +38,7 @@ const services = [
     featured: true,
   },
   {
-    icon: Zap,
+    image: implantoLogo,
     title: "Implantologie - Spécialité",
     description:
       "Pose d'implants dentaires, régénération osseuse, restauration complète. Solution durable pour remplacer vos dents.",
@@ -82,7 +92,7 @@ const Services = () => {
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => {
+        {services.map((service, index) => {
             const Icon = service.icon;
             return (
               <Card
@@ -94,7 +104,11 @@ const Services = () => {
                 <CardHeader>
                   <div className="flex items-start justify-between mb-4">
                     <div className={`p-3 rounded-xl ${service.bgColor}`}>
-                      <Icon className={`h-6 w-6 ${service.color}`} />
+                      {service.image ? (
+                        <img src={service.image} alt={service.title} className="h-6 w-6 object-contain" />
+                      ) : Icon ? (
+                        <Icon className={`h-6 w-6 ${service.color}`} />
+                      ) : null}
                     </div>
                     {service.featured && (
                       <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">
