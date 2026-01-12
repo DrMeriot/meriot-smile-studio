@@ -57,7 +57,7 @@ const QuickLinks = () => {
                     <div
                       className={`p-5 ${specialty.bgColor} rounded-2xl mb-5 group-hover:scale-110 transition-transform duration-300`}
                     >
-                      <img src={specialty.image} alt={specialty.title} className="h-10 w-10 object-contain" />
+                      <img src={specialty.image} alt={specialty.title} className="h-16 w-16 object-contain" />
                     </div>
 
                     <h3 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
