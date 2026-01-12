@@ -14,16 +14,68 @@ const glossaryTerms = [
     definition: "Tissu recouvrant la racine dentaire, cible du surfaçage radiculaire."
   },
   {
+    term: "Déchaussement dentaire",
+    definition: "Rétraction de la gencive exposant la racine, souvent causée par une parodontite ou un brossage agressif."
+  },
+  {
     term: "Dysbiose",
     definition: "Déséquilibre de la flore bactérienne buccale menant à la maladie parodontale."
+  },
+  {
+    term: "Gingivite",
+    definition: "Inflammation réversible de la gencive, premier stade de la maladie parodontale."
+  },
+  {
+    term: "Greffe gingivale",
+    definition: "Chirurgie visant à recouvrir une racine exposée ou épaissir la gencive fragilisée."
+  },
+  {
+    term: "Halitose",
+    definition: "Mauvaise haleine chronique, souvent liée à des bactéries sous-gingivales."
+  },
+  {
+    term: "Ligament parodontal",
+    definition: "Tissu conjonctif reliant la dent à l'os alvéolaire, assurant l'ancrage dentaire."
+  },
+  {
+    term: "Maintenance parodontale",
+    definition: "Suivi régulier après traitement pour prévenir les récidives de la maladie."
+  },
+  {
+    term: "Mobilité dentaire",
+    definition: "Mouvement anormal d'une dent dans son alvéole, signe de perte osseuse avancée."
+  },
+  {
+    term: "Parodonte",
+    definition: "Ensemble des tissus de soutien de la dent : gencive, os, cément et ligament."
+  },
+  {
+    term: "Parodontite",
+    definition: "Maladie inflammatoire détruisant les tissus de soutien de la dent, pouvant mener à sa perte."
   },
   {
     term: "Poche parodontale",
     definition: "Espace pathologique entre la gencive et la dent où s'accumulent les bactéries."
   },
   {
+    term: "Récession gingivale",
+    definition: "Retrait de la gencive vers la racine, exposant une partie normalement recouverte."
+  },
+  {
+    term: "Régénération tissulaire guidée (RTG)",
+    definition: "Technique chirurgicale favorisant la repousse de l'os et du ligament parodontal."
+  },
+  {
+    term: "Sondage parodontal",
+    definition: "Examen mesurant la profondeur des poches pour évaluer la sévérité de la maladie."
+  },
+  {
     term: "Surfaçage radiculaire",
-    definition: "Thérapeutique non chirurgicale visant à assainir la racine dentaire."
+    definition: "Thérapeutique non chirurgicale visant à assainir la racine dentaire sous la gencive."
+  },
+  {
+    term: "Tartre sous-gingival",
+    definition: "Dépôt calcifié situé sous la gencive, réservoir de bactéries pathogènes."
   }
 ];
 

@@ -30,14 +30,14 @@ const Hero = () => {
 
           {/* Main heading */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Votre sourire entre{" "}
-            <span className="text-primary">de bonnes mains</span>
+            Spécialiste <span className="text-primary">Parodontie</span> et{" "}
+            <span className="text-primary">Implantologie</span> à Marseille
           </h1>
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Cabinet dentaire à Marseille 4ème - Soins généraux, Parodontie,
-            Implantologie
+            Traitement des gencives, déchaussement dentaire et pose d'implants
+            — Cabinet conventionné Secteur 1
           </p>
 
           {/* Description */}
