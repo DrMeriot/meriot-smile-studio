@@ -156,6 +156,43 @@ const Contact = () => {
           </div>
         </div>
 
+        {/* Zone d'intervention */}
+        <div className="mt-16 max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              Zone d'intervention
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Le cabinet accueille des patients de Marseille et de toute la région, 
+              dans un rayon de 50 km.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { secteur: "Marseille", villes: ["Tous arrondissements (13001-13016)"] },
+              { secteur: "Alentours proches", villes: ["Allauch", "Plan-de-Cuques", "Les Pennes-Mirabeau", "Septèmes-les-Vallons", "La Penne-sur-Huveaune"] },
+              { secteur: "Pays d'Aix", villes: ["Aix-en-Provence", "Gardanne", "Bouc-Bel-Air", "Cabriès", "Simiane-Collongue", "Meyreuil", "Fuveau", "Rousset"] },
+              { secteur: "Côte Bleue", villes: ["Carry-le-Rouet", "Sausset-les-Pins", "Marignane", "Vitrolles", "Châteauneuf-les-Martigues", "Gignac-la-Nerthe"] },
+              { secteur: "Aubagne & La Ciotat", villes: ["Aubagne", "Gémenos", "Carnoux", "La Ciotat", "Cassis", "Roquefort-la-Bédoule", "Ceyreste"] },
+              { secteur: "Vallée de l'Huveaune", villes: ["Roquevaire", "Auriol", "La Destrousse", "Peypin", "La Bouilladisse", "Trets"] },
+              { secteur: "Étang de Berre", villes: ["Martigues", "Istres", "Fos-sur-Mer", "Port-de-Bouc", "Berre-l'Étang", "Rognac", "Velaux", "Miramas"] },
+              { secteur: "Salon & environs", villes: ["Salon-de-Provence", "Pélissanne", "Lançon-Provence", "La Fare-les-Oliviers", "Lambesc"] }
+            ].map(({ secteur, villes }) => (
+              <div key={secteur} className="bg-card rounded-xl p-5 shadow-soft">
+                <h4 className="font-semibold mb-3 pb-2 border-b">
+                  {secteur}
+                </h4>
+                <ul className="space-y-1 text-sm text-muted-foreground">
+                  {villes.map((ville) => (
+                    <li key={ville}>{ville}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div className="mt-16 text-center">
           <a
