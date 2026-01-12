@@ -15,10 +15,10 @@ const Parodontie = () => {
   return (
     <>
       <SEOHead
-        title="Parodontie Marseille 4ème | Dr Stéphanie Meriot - Spécialiste Gencives"
-        description="Spécialiste parodontie à Marseille 4ème. Traitement gingivite, parodontite, greffe gingivale. Formation Académie de paro. ☎ 09 83 43 96 21"
+        title="Parodontie Marseille & PACA | Dr Stéphanie Meriot - Spécialiste Gencives"
+        description="Spécialiste parodontie à Marseille, Aix-en-Provence, Aubagne, La Ciotat, Vitrolles, Cassis et région PACA. Traitement gingivite, parodontite, greffe gingivale. Formation Académie de paro. ☎ 09 83 43 96 21"
         canonical="/parodontie"
-        keywords="parodontie marseille, parodontologie marseille, gingivite marseille, parodontite marseille, greffe gingivale, déchaussement dentaire, saignement gencives"
+        keywords="parodontie marseille, parodontologie aix-en-provence, gingivite aubagne, parodontite la ciotat, greffe gingivale vitrolles, déchaussement dentaire cassis, spécialiste gencives PACA, parodontologue martigues"
       />
       <FloatingCTA />
       <div className="min-h-screen">
