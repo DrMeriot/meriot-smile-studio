@@ -13,7 +13,7 @@ const Hero = () => {
         <img
           src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
-          className="w-full h-full object-cover object-[center_38%]"
+          className="w-full h-full object-cover object-[center_55%] lg:translate-y-12 lg:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent"></div>
       </div>
