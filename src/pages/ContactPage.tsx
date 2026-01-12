@@ -19,13 +19,12 @@ const ContactPage = () => {
         <main className="pt-20">
           <section className="py-16 bg-gradient-soft">
             <div className="container mx-auto px-4 text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Nous contacter
+<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                Contact & Accès
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Le cabinet est situé à Marseille 4ème, à proximité du métro
-                Chartreux. Prenez rendez-vous facilement sur Doctolib ou
-                contactez-nous par téléphone.
+                Le cabinet du Dr Stéphanie Mériot est situé à Marseille 4ème, à proximité du métro
+                Chartreux. Nous accueillons des patients de Marseille et de toute la région PACA.
               </p>
             </div>
           </section>

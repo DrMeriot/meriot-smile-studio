@@ -15,7 +15,6 @@ import Implantologie from "./pages/Implantologie";
 import Esthetique from "./pages/Esthetique";
 import MentionsLegales from "./pages/MentionsLegales";
 import Confidentialite from "./pages/Confidentialite";
-import AccesCabinet from "./pages/AccesCabinet";
 import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
@@ -47,7 +46,8 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/mentions-legales" element={<MentionsLegales />} />
             <Route path="/confidentialite" element={<Confidentialite />} />
-            <Route path="/acces-cabinet" element={<AccesCabinet />} />
+            {/* Redirect old route to contact */}
+            <Route path="/acces-cabinet" element={<ContactPage />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<Login />} />
