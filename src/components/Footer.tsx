@@ -1,26 +1,15 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react";
+import { Phone, MapPin, Clock, ExternalLink } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const zoneIntervention = {
-    "Marseille": ["Tous arrondissements (13001-13016)"],
-    "Alentours proches": ["Allauch", "Plan-de-Cuques", "Les Pennes-Mirabeau", "Septèmes-les-Vallons", "La Penne-sur-Huveaune"],
-    "Pays d'Aix": ["Aix-en-Provence", "Gardanne", "Bouc-Bel-Air", "Cabriès", "Simiane-Collongue", "Meyreuil", "Fuveau", "Rousset", "Éguilles", "Ventabren"],
-    "Côte Bleue": ["Carry-le-Rouet", "Sausset-les-Pins", "Ensuès-la-Redonne", "Marignane", "Vitrolles", "Châteauneuf-les-Martigues", "Gignac-la-Nerthe"],
-    "Aubagne & La Ciotat": ["Aubagne", "Gémenos", "Carnoux", "La Ciotat", "Cassis", "Roquefort-la-Bédoule", "Ceyreste"],
-    "Vallée de l'Huveaune": ["Roquevaire", "Auriol", "La Destrousse", "Peypin", "La Bouilladisse", "Cuges-les-Pins", "Trets", "Saint-Maximin"],
-    "Étang de Berre": ["Martigues", "Istres", "Fos-sur-Mer", "Port-de-Bouc", "Berre-l'Étang", "Rognac", "Velaux", "Miramas", "Saint-Chamas", "Saint-Mitre-les-Remparts", "Grans"],
-    "Salon & environs": ["Salon-de-Provence", "Pélissanne", "Lançon-Provence", "La Fare-les-Oliviers", "Coudoux", "Eyguières", "Lambesc"]
-  };
-
   return (
     <footer className="bg-dental-navy text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Cabinet Info */}
-          <div className="lg:col-span-1">
+          <div>
             <h3 className="text-lg font-playfair font-semibold mb-4">
               Dr Stéphanie Meriot
             </h3>
@@ -122,21 +111,36 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Zone d'intervention - 2 colonnes sur grand écran */}
-          <div className="lg:col-span-2">
+          {/* Informations */}
+          <div>
             <h3 className="text-lg font-playfair font-semibold mb-4">
-              Zone d'intervention (50km)
+              Informations
             </h3>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-xs">
-              {Object.entries(zoneIntervention).map(([secteur, villes]) => (
-                <div key={secteur}>
-                  <p className="text-white font-medium mb-1">{secteur}</p>
-                  <p className="text-dental-soft-blue leading-relaxed">
-                    {villes.join(", ")}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/a-propos" className="text-dental-soft-blue hover:text-white transition-colors">
+                  À propos
+                </Link>
+              </li>
+              <li>
+                <Link to="/acces-cabinet" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Accès Cabinet
+                </Link>
+              </li>
+              <li>
+                <Link to="/mentions-legales" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Mentions légales
+                </Link>
+              </li>
+              <li>
+                <Link to="/confidentialite" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Politique de confidentialité
+                </Link>
+              </li>
+            </ul>
+            <p className="text-dental-soft-blue/70 text-xs mt-6">
+              Cabinet dentaire à Marseille et environs (50km)
+            </p>
           </div>
         </div>
 
