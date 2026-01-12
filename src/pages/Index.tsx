@@ -14,80 +14,151 @@ import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
 const Index = () => {
-  // Schema.org structured data
+  // Schema.org structured data - Dentist
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Dentist",
         "@id": "https://drstephaniemeriot.fr/#dentist",
-        name: "Dr Stéphanie Meriot",
-        image: "https://drstephaniemeriot.fr/images/dr-meriot.jpg",
-        telephone: "+33983439621",
-        address: {
+        "name": "Cabinet Dentaire Dr Stéphanie Meriot",
+        "alternateName": "Dr Stéphanie Meriot - Parodontiste Marseille",
+        "description": "Cabinet dentaire spécialisé en parodontologie et implantologie à Marseille. Traitement des maladies des gencives, déchaussement dentaire et pose d'implants.",
+        "image": "https://drstephaniemeriot.fr/og-image.jpg",
+        "logo": "https://drstephaniemeriot.fr/logo.png",
+        "url": "https://drstephaniemeriot.fr",
+        "telephone": "+33983439621",
+        "email": "contact@drstephaniemeriot.fr",
+        "address": {
           "@type": "PostalAddress",
-          streetAddress: "23 Boulevard de la Fédération",
-          addressLocality: "Marseille",
-          postalCode: "13004",
-          addressCountry: "FR",
+          "streetAddress": "23 Boulevard de la Fédération",
+          "addressLocality": "Marseille",
+          "addressRegion": "Provence-Alpes-Côte d'Azur",
+          "postalCode": "13004",
+          "addressCountry": "FR"
         },
-        geo: {
+        "geo": {
           "@type": "GeoCoordinates",
-          latitude: 43.3117,
-          longitude: 5.3947,
+          "latitude": 43.3117,
+          "longitude": 5.3947
         },
-        url: "https://drstephaniemeriot.fr",
-        priceRange: "€",
-        paymentAccepted: "Carte Vitale, Tiers payant, CB",
-        currenciesAccepted: "EUR",
-        openingHoursSpecification: [
+        "hasMap": "https://maps.google.com/?q=23+Boulevard+de+la+Fédération+13004+Marseille",
+        "openingHoursSpecification": [
           {
             "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Thursday"],
-            opens: "09:00",
-            closes: "12:00",
+            "dayOfWeek": ["Monday", "Tuesday", "Thursday"],
+            "opens": "09:00",
+            "closes": "12:00"
           },
           {
             "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Thursday"],
-            opens: "14:00",
-            closes: "17:00",
+            "dayOfWeek": ["Monday", "Tuesday", "Thursday"],
+            "opens": "14:00",
+            "closes": "17:00"
           },
           {
             "@type": "OpeningHoursSpecification",
-            dayOfWeek: "Friday",
-            opens: "09:00",
-            closes: "14:00",
-          },
+            "dayOfWeek": "Friday",
+            "opens": "09:00",
+            "closes": "14:00"
+          }
         ],
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "5",
-          bestRating: "5",
-          ratingCount: "47",
+        "knowsAbout": [
+          {
+            "@type": "MedicalSpecialty",
+            "name": "Periodontics",
+            "alternateName": "Parodontologie"
+          },
+          {
+            "@type": "MedicalSpecialty",
+            "name": "Dental Implantology",
+            "alternateName": "Implantologie"
+          },
+          "Traitement de la gingivite",
+          "Traitement de la parodontite",
+          "Déchaussement dentaire",
+          "Greffe gingivale",
+          "Surfaçage radiculaire"
+        ],
+        "medicalSpecialty": ["Periodontics", "DentalImplantology"],
+        "priceRange": "€€",
+        "paymentAccepted": ["Carte Vitale", "Tiers payant", "Carte bancaire", "Espèces", "Chèques"],
+        "currenciesAccepted": "EUR",
+        "areaServed": {
+          "@type": "City",
+          "name": "Marseille",
+          "sameAs": "https://fr.wikipedia.org/wiki/Marseille"
         },
-        medicalSpecialty: ["Parodontie", "Implantologie", "Soins dentaires généraux"],
+        "isAcceptingNewPatients": true,
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "bestRating": "5",
+          "worstRating": "1",
+          "ratingCount": "47",
+          "reviewCount": "47"
+        },
+        "sameAs": [
+          "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
+        ]
       },
       {
         "@type": "Person",
         "@id": "https://drstephaniemeriot.fr/#person",
-        name: "Stéphanie Meriot",
-        jobTitle: "Chirurgien-dentiste",
-        worksFor: {
-          "@id": "https://drstephaniemeriot.fr/#dentist",
+        "name": "Dr Stéphanie Meriot",
+        "givenName": "Stéphanie",
+        "familyName": "Meriot",
+        "honorificPrefix": "Dr",
+        "jobTitle": "Chirurgien-dentiste spécialisée en parodontologie",
+        "worksFor": {
+          "@id": "https://drstephaniemeriot.fr/#dentist"
         },
-        alumniOf: "Faculté d'odontologie de Marseille",
-        knowsLanguage: ["Français", "Anglais", "Espagnol"],
+        "alumniOf": [
+          {
+            "@type": "EducationalOrganization",
+            "name": "Faculté d'Odontologie de Marseille"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "IFPIO Marseille",
+            "description": "Institut de Formation en Parodontologie et Implantologie Orale"
+          },
+          {
+            "@type": "EducationalOrganization",
+            "name": "Académie de Parodontologie d'Aix-en-Provence"
+          }
+        ],
+        "knowsAbout": ["Periodontics", "Dental Implantology", "Parodontologie", "Implantologie"],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "French",
+            "alternateName": "Français"
+          },
+          {
+            "@type": "Language",
+            "name": "English",
+            "alternateName": "Anglais"
+          },
+          {
+            "@type": "Language",
+            "name": "Spanish",
+            "alternateName": "Espagnol"
+          }
+        ]
       },
       {
-        "@type": "MedicalBusiness",
-        name: "Cabinet Dentaire Dr Stéphanie Meriot",
-        description:
-          "Cabinet dentaire à Marseille 4ème spécialisé en parodontie et implantologie. Conventionné secteur 1.",
-        hasMap: "https://maps.google.com/?q=23+Boulevard+de+la+Fédération+13004+Marseille",
-        isAcceptingNewPatients: true,
-      },
-    ],
+        "@type": "WebSite",
+        "@id": "https://drstephaniemeriot.fr/#website",
+        "url": "https://drstephaniemeriot.fr",
+        "name": "Dr Stéphanie Meriot - Dentiste Parodontiste Marseille",
+        "description": "Site officiel du cabinet dentaire Dr Stéphanie Meriot, spécialiste en parodontologie à Marseille",
+        "publisher": {
+          "@id": "https://drstephaniemeriot.fr/#dentist"
+        },
+        "inLanguage": "fr-FR"
+      }
+    ]
   };
 
   useEffect(() => {
