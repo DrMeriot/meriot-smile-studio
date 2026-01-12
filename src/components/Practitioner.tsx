@@ -1,29 +1,20 @@
-import { Award, Globe, Heart } from "lucide-react";
+import { Award, Globe, Heart, GraduationCap } from "lucide-react";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const Practitioner = () => {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 bg-muted/30 relative overflow-hidden" id="a-propos">
       {/* Decorative background elements */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Votre praticienne
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Une approche humaine et personnalisée pour votre santé bucco-dentaire
-          </p>
-        </div>
-
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Photo with decorative elements */}
-            <div className="relative">
+            <div className="relative animate-fade-in">
               <div className="relative z-10">
                 {/* Pastel gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/20 to-accent/10 rounded-3xl transform rotate-3"></div>
@@ -48,65 +39,95 @@ const Practitioner = () => {
             </div>
 
             {/* Content */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-3xl md:text-4xl font-bold mb-2 text-primary">
-                  Dr Stéphanie Meriot
-                </h3>
-                <p className="text-xl text-muted-foreground mb-4">
-                  Chirurgien-dentiste
-                </p>
-              </div>
+            <div className="animate-fade-in-up">
+              <span className="text-primary font-medium text-sm uppercase tracking-wide">
+                Votre praticienne
+              </span>
+              <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
+                Dr Stéphanie Meriot
+              </h2>
+              <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                Diplômée de la Faculté d'odontologie de Marseille, je suis
+                chirurgien-dentiste spécialisée en <strong>parodontie</strong> et{" "}
+                <strong>implantologie</strong>. Mon approche repose sur l'écoute, la
+                douceur et le respect du rythme de chaque patient.
+              </p>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Ma thèse sur la <em>dentisterie à minima</em> reflète ma philosophie :
+                préserver au maximum vos tissus naturels tout en vous offrant des
+                soins de qualité. Chaque traitement est personnalisé et expliqué avec
+                clarté.
+              </p>
 
-              <div className="space-y-4">
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-primary/5 to-transparent hover:from-primary/10 transition-colors">
-                  <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0">
-                    <Award className="h-5 w-5 text-primary" />
+              {/* Highlights */}
+              <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <GraduationCap className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Spécialiste en parodontie et implantologie</h4>
+                    <h4 className="font-semibold mb-1">Formations spécialisées</h4>
                     <p className="text-sm text-muted-foreground">
-                      Formation IFPIO Marseille et Académie de paro Aix-en-Provence
+                      IFPIO Marseille, Académie de paro Aix-en-Provence
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-secondary/10 to-transparent hover:from-secondary/15 transition-colors">
-                  <div className="p-2 bg-secondary/20 rounded-lg flex-shrink-0">
-                    <Globe className="h-5 w-5 text-primary" />
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-accent/10 rounded-lg">
+                    <Award className="h-5 w-5 text-accent" />
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">Expérience internationale</h4>
                     <p className="text-sm text-muted-foreground">
-                      Pratique à Marseille, Paris et Genève · Trilingue (FR, EN, ES)
+                      Marseille, Paris, Genève (Suisse)
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-accent/5 to-transparent hover:from-accent/10 transition-colors">
-                  <div className="p-2 bg-accent/10 rounded-lg flex-shrink-0">
-                    <Heart className="h-5 w-5 text-accent" />
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-secondary/30 rounded-lg">
+                    <Heart className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Philosophie de soins</h4>
+                    <h4 className="font-semibold mb-1">Approche bienveillante</h4>
                     <p className="text-sm text-muted-foreground">
-                      Approche douce et conservatrice, à l'écoute de chaque patient
+                      Prise en compte de l'anxiété dentaire
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-muted rounded-lg">
+                    <Globe className="h-5 w-5 text-accent" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">Multilingue</h4>
+                    <p className="text-sm text-muted-foreground">
+                      🇫🇷 Français · 🇬🇧 Anglais · 🇪🇸 Espagnol
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4">
-                <Link to="/a-propos">
-                  <Button 
-                    size="lg" 
-                    variant="outline"
-                    className="gap-2 hover:bg-primary/5 transition-all"
-                  >
-                    Découvrir mon parcours
-                  </Button>
-                </Link>
-              </div>
+              {/* Quote */}
+              <blockquote className="border-l-4 border-primary pl-6 py-2 bg-primary/5 rounded-r-lg mb-6">
+                <p className="italic text-muted-foreground">
+                  "Je prends le temps d'expliquer chaque étape de vos soins, pour que
+                  vous vous sentiez en confiance et acteur de votre santé
+                  bucco-dentaire."
+                </p>
+              </blockquote>
+
+              <Link to="/a-propos">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="gap-2 hover:bg-primary/5 transition-all"
+                >
+                  Découvrir mon parcours complet
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
