@@ -6,11 +6,11 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-20">
       {/* Background with gradient overlay */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
         <img
           src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
-          className="w-full h-full object-cover object-top"
+          className="w-full h-[115%] object-cover object-top mt-16"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>
       </div>
