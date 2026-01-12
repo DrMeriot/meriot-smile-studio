@@ -84,6 +84,16 @@ Consultez rapidement si vous observez :
 
 **Non traitée, la gingivite peut évoluer vers une parodontite**, maladie plus grave pouvant entraîner la perte des dents.
 
+## Gingivite Non Traitée : Risques pour la Santé Globale
+
+La gingivite, si elle n'est pas traitée, peut évoluer en parodontite. Les recherches récentes montrent un lien entre inflammation chronique des gencives et :
+
+- **Risques cardiovasculaires accrus**
+- **Complications du diabète**
+- **Problèmes respiratoires**
+
+[En savoir plus sur le lien gencives/santé générale](/blog/parodontite-causes-symptomes-traitement)
+
 ## Expertise du Dr Meriot en Parodontie
 
 Le Dr Stéphanie Meriot, spécialisée en parodontologie (IFPIO Marseille, Académie de paro Aix-en-Provence), propose une approche douce et personnalisée du traitement des maladies des gencives.
@@ -217,6 +227,38 @@ Au-delà de la perte des dents, la parodontite est associée à :
 ## Expertise en Parodontologie à Marseille
 
 Le Dr Stéphanie Meriot, diplômée de l'IFPIO et de l'Académie de Parodontologie d'Aix-en-Provence, est spécialisée dans le diagnostic et le traitement des maladies parodontales.
+
+## Expertise et Références Scientifiques
+
+Notre pratique clinique s'appuie sur les dernières recommandations de bonnes pratiques publiées par les instances internationales de parodontologie.
+
+### Le Protocole S3
+
+Nous suivons strictement le guide de pratique clinique de niveau S3 pour le traitement des parodontites de stades I à III, validé par la Fédération Européenne de Parodontologie (EFP). Ce protocole garantit une approche étape par étape, de la thérapie causale à la maintenance.
+
+[Consulter les recommandations de l'EFP (Source officielle)](https://www.efp.org/education-cpg/cpg/)
+
+### Étude sur le Sauvetage Dentaire
+
+Une étude majeure publiée dans le Journal of Clinical Periodontology démontre que même les dents présentant une perte osseuse sévère peuvent être conservées durablement grâce à une thérapeutique parodontale rigoureuse.
+
+[Accéder à l'étude sur la conservation dentaire (PubMed)](https://pubmed.ncbi.nlm.nih.gov/11155182/)
+
+## Parodontite et Santé Générale : Ce que disent les études
+
+La parodontite n'est pas qu'un problème local. De nombreuses méta-analyses ont confirmé le lien entre l'inflammation des gencives et des pathologies systémiques graves :
+
+### Diabète et Parodontite
+
+Il existe une relation bidirectionnelle prouvée. Traiter une parodontite peut aider à améliorer le contrôle de la glycémie (diminution de l'HbA1c).
+
+[Rapport de consensus EFP/International Diabetes Federation](https://www.efp.org/publications-efp/consensus-reports/diabetes/)
+
+### Risques Cardiaques
+
+Les patients souffrant de parodontite sévère ont un risque accru d'athérosclérose et d'événements cardiovasculaires.
+
+[Consulter l'étude du British Dental Journal sur les risques systémiques](https://www.nature.com/articles/sj.bdj.2010.497)
 
 ### Prendre Rendez-vous
 
@@ -410,6 +452,29 @@ Le Dr Stéphanie Meriot a suivi une **formation spécialisée en implantologie**
 🌐 [Prendre RDV sur Doctolib](https://www.doctolib.fr/dentiste/marseille/stephanie-meriot)
 
 **Consultation d'implantologie** : bilan complet, devis personnalisé, réponse à toutes vos questions.
+
+## La Péri-implantite : Une Pathologie Sous-estimée
+
+Selon le XI European Workshop on Periodontology, la prévalence de la péri-implantite touche **environ 20% des patients implantés à 10 ans**. La prévention et le traitement précoce sont les seuls garants de la survie de vos implants.
+
+### Facteurs de Risque
+
+L'étude souligne que l'absence de maintenance professionnelle régulière est le principal facteur de risque de perte implantaire. Parmi les autres facteurs :
+
+- **Antécédent de parodontite** non stabilisée
+- **Tabagisme** actif
+- **Diabète** mal contrôlé
+- **Hygiène bucco-dentaire** insuffisante
+
+### Prévention Essentielle
+
+C'est pourquoi le Dr Meriot insiste sur un **suivi régulier tous les 6 mois** pour tous les patients porteurs d'implants, incluant :
+
+- Contrôle clinique et radiographique
+- Détartrage professionnel autour des implants
+- Vérification de l'hygiène et conseils personnalisés
+
+[Consulter les chiffres clés sur la péri-implantite (Source EFP)](https://www.efp.org/publications-efp/consensus-reports/peri-implant-diseases/)
 
 *Article rédigé par le Dr Stéphanie Meriot, chirurgien-dentiste spécialisée en implantologie.*
     `

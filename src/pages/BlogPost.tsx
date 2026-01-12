@@ -75,7 +75,18 @@ const BlogPost = () => {
                   ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 text-muted-foreground space-y-2" {...props} />,
                   li: ({node, ...props}) => <li className="leading-relaxed" {...props} />,
                   strong: ({node, ...props}) => <strong className="font-bold text-foreground" {...props} />,
-                  a: ({node, ...props}) => <a className="text-primary hover:underline font-medium" {...props} />,
+                  a: ({node, href, ...props}) => {
+                    const isExternal = href?.startsWith('http');
+                    return (
+                      <a 
+                        className="text-primary hover:underline font-medium" 
+                        href={href}
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "nofollow noopener noreferrer" : undefined}
+                        {...props} 
+                      />
+                    );
+                  },
                   blockquote: ({node, ...props}) => (
                     <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4" {...props} />
                   ),
