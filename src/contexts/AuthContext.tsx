@@ -61,23 +61,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, newSession) => {
+      (event, newSession) => {
         console.log('[AuthContext] Auth state changed:', event, newSession?.user?.email?.substring(0, 5) + '...');
         
         setSession(newSession);
         setUser(newSession?.user ?? null);
+        
+        // Set isLoading to false immediately to unblock UI
+        setIsLoading(false);
 
         if (newSession?.user) {
-          // Check admin role with timeout protection
-          const adminStatus = await checkAdminRole(newSession.user.id);
-          setIsAdmin(adminStatus);
-          console.log('[AuthContext] Auth state complete - user:', !!newSession?.user, 'isAdmin:', adminStatus);
+          // Check admin role in background (non-blocking)
+          checkAdminRole(newSession.user.id).then(adminStatus => {
+            setIsAdmin(adminStatus);
+            console.log('[AuthContext] Admin check complete:', adminStatus);
+          });
         } else {
           setIsAdmin(false);
-          console.log('[AuthContext] Auth state complete - no user');
+          console.log('[AuthContext] No user session');
         }
-
-        setIsLoading(false);
       }
     );
 
