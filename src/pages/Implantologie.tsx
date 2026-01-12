@@ -6,27 +6,6 @@ import { Zap, CheckCircle2, Calendar, Info } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
-import FAQSchema from "@/components/FAQSchema";
-import WhyChooseUs from "@/components/WhyChooseUs";
-
-const implantFaqs = [
-  {
-    question: "Quel est le prix d'un implant dentaire à Marseille ?",
-    answer: "À notre cabinet dentaire de Marseille 4ème, le tarif d'un implant dentaire commence à partir de 1500€ (implant + couronne). Un devis personnalisé vous sera remis lors de la consultation. Les patients d'Aix-en-Provence, Aubagne et de toute la région PACA bénéficient des mêmes tarifs conventionnés."
-  },
-  {
-    question: "Combien de temps dure la pose d'un implant dentaire ?",
-    answer: "La pose chirurgicale d'un implant dure environ 30 minutes à 1 heure sous anesthésie locale. La phase complète (pose + cicatrisation + couronne) s'étend sur 3 à 6 mois. Notre expertise en implantologie à Marseille garantit un suivi personnalisé tout au long du traitement."
-  },
-  {
-    question: "L'implant dentaire est-il remboursé par la Sécurité Sociale ?",
-    answer: "L'implant lui-même n'est pas remboursé par la Sécurité Sociale, mais la couronne sur implant bénéficie d'un remboursement partiel. Votre mutuelle peut compléter selon votre contrat. Nous établissons un devis détaillé pour faciliter vos démarches de remboursement."
-  },
-  {
-    question: "La pose d'implant est-elle douloureuse ?",
-    answer: "Non, l'intervention se fait sous anesthésie locale et est totalement indolore. Les suites opératoires sont généralement bien tolérées avec un léger inconfort contrôlé par antalgiques. Notre approche douce et notre expertise IFPIO minimisent l'inconfort post-opératoire."
-  }
-];
 
 const Implantologie = () => {
   useEffect(() => {
@@ -37,11 +16,10 @@ const Implantologie = () => {
     <>
       <SEOHead
         title="Implantologie Marseille 4ème | Dr Stéphanie Meriot - Implants Dentaires"
-        description="Implants dentaires à Marseille, Aix-en-Provence, Aubagne. Pose d'implants, régénération osseuse par Dr Meriot. Formation IFPIO. Tarif à partir de 1500€. Patients de La Ciotat, Cassis, Martigues bienvenus. ☎ 09 83 43 96 21"
+        description="Implants dentaires à Marseille 4ème. Pose d'implants, régénération osseuse. Formation IFPIO. Tarif à partir de 1500€. ☎ 09 83 43 96 21. Doctolib"
         canonical="/implantologie"
-        keywords="implantologie marseille, implant dentaire marseille, pose implant marseille, implant dentaire aix en provence, implant dentaire aubagne, chirurgie implantaire, dent manquante"
+        keywords="implantologie marseille, implant dentaire marseille, pose implant marseille, implant dent marseille, chirurgie implantaire, dent manquante"
       />
-      <FAQSchema faqs={implantFaqs} />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
@@ -329,26 +307,6 @@ const Implantologie = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </section>
-
-        {/* WhyChooseUs Section */}
-        <WhyChooseUs />
-
-        {/* FAQ Section */}
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-              Questions fréquentes sur les implants dentaires
-            </h2>
-            <div className="space-y-6">
-              {implantFaqs.map((faq, index) => (
-                <div key={index} className="bg-card rounded-xl p-6 shadow-soft">
-                  <h3 className="text-lg font-semibold mb-3">{faq.question}</h3>
-                  <p className="text-muted-foreground">{faq.answer}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 

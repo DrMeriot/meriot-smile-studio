@@ -12,11 +12,6 @@ import Tarifs from "./pages/Tarifs";
 import ContactPage from "./pages/ContactPage";
 import Parodontie from "./pages/Parodontie";
 import Implantologie from "./pages/Implantologie";
-import LaserDentaire from "./pages/LaserDentaire";
-import RegenerationOsseuse from "./pages/RegenerationOsseuse";
-import GreffeGingivale from "./pages/GreffeGingivale";
-import ParodontiteSante from "./pages/ParodontiteSante";
-import MaintenanceParodontale from "./pages/MaintenanceParodontale";
 import Esthetique from "./pages/Esthetique";
 import MentionsLegales from "./pages/MentionsLegales";
 import Confidentialite from "./pages/Confidentialite";
@@ -45,11 +40,6 @@ const App = () => (
             <Route path="/tarifs" element={<Tarifs />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/parodontie" element={<Parodontie />} />
-            <Route path="/laser-dentaire" element={<LaserDentaire />} />
-            <Route path="/regeneration-osseuse" element={<RegenerationOsseuse />} />
-            <Route path="/greffe-gingivale" element={<GreffeGingivale />} />
-            <Route path="/parodontite-sante-generale" element={<ParodontiteSante />} />
-            <Route path="/maintenance-parodontale" element={<MaintenanceParodontale />} />
             <Route path="/implantologie" element={<Implantologie />} />
             <Route path="/esthetique" element={<Esthetique />} />
             <Route path="/blog" element={<Blog />} />
