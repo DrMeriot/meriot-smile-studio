@@ -37,7 +37,7 @@ const Hero = () => {
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
             Spécialiste en parodontie et implantologie à Marseille 4ème
-            — Traitement des gencives et pose d'implants • Secteur 1
+            — Traitement des gencives et pose d'implants
           </p>
 
           {/* Description */}
