@@ -12,6 +12,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
+import GumHealth from "@/components/GumHealth";
 
 const Index = () => {
   // Schema.org structured data - Dentist
@@ -189,6 +190,7 @@ const Index = () => {
         <main>
           <Hero />
           <QuickLinks />
+          <GumHealth />
           <Practitioner />
           <About />
           <Services />
