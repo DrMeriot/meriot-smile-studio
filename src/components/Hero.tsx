@@ -1,22 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone, CheckCircle2 } from "lucide-react";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
-import heroDentist from "@/assets/hero-dentist.jpg";
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-20">
-      {/* Background cabinet dentaire */}
-      <div className="absolute inset-0 -z-20 overflow-hidden">
-        <img
-          src={heroDentist}
-          alt="Cabinet dentaire lumineux"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-background/60"></div>
-      </div>
-
-      {/* Photo Dr Meriot */}
+      {/* Background with gradient overlay */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <img
           src={drMeriotPhoto}
@@ -24,10 +13,10 @@ const Hero = () => {
           className="w-full h-[115%] object-cover mt-16"
           style={{
             objectPosition: "100% 0%",
-            transform: "translateX(15%) scale(0.85)",
+            transform: "translateX(18%) scale(0.85)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>
       </div>
 
       <div className="container mx-auto px-4">
