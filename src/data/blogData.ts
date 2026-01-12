@@ -721,6 +721,505 @@ Son approche **douce et rassurante** met les patients en confiance, même pour l
 
 *Article rédigé par le Dr Stéphanie Meriot, chirurgien-dentiste spécialisée en implantologie et greffes osseuses.*
     `
+  },
+  {
+    slug: "saignement-gencives-gingivite-marseille",
+    title: "Gencives qui saignent à Marseille : Simple inflammation ou début de parodontite ?",
+    excerpt: "Le saignement des gencives est le premier signe d'alerte d'une maladie parodontale. Découvrez pourquoi une gencive saine ne saigne jamais et quand consulter un spécialiste à Marseille.",
+    category: "Parodontie" as const,
+    date: "2025-01-10",
+    keywords: "saignement gencives marseille, gingivite, gingivorrhée, parodontite précoce, EFP recommandations, gencives qui saignent aix-en-provence, aubagne, la ciotat, PACA",
+    content: `
+# Gencives qui saignent à Marseille : Simple inflammation ou début de parodontite ?
+
+Le saignement des gencives, appelé **gingivorrhée** en termes médicaux, est le signe clinique d'une rupture de l'homéostasie buccale. Contrairement aux idées reçues, **une gencive saine ne saigne pas**, même lors d'un brossage rigoureux ou du passage de brossettes interdentaires.
+
+## Un symptôme à ne jamais ignorer
+
+Si vos gencives saignent, c'est que le tissu gingival est inflammatoire. Cette inflammation est généralement causée par l'accumulation de **biofilm bactérien** (plaque dentaire) au niveau du sulcus gingival.
+
+### Les différents types de saignement
+
+- **Saignement au brossage** : le plus fréquent, signe précoce de gingivite
+- **Saignement spontané** : indique une inflammation plus avancée
+- **Saignement au sondage** : détectable uniquement par le praticien lors de l'examen
+
+## L'enjeu clinique : agir avant l'irréversible
+
+Une inflammation persistante est **la porte d'entrée vers la parodontite**, une pathologie irréversible entraînant la lyse osseuse (destruction de l'os alvéolaire). 
+
+Selon la **Fédération Européenne de Parodontologie (EFP)**, le diagnostic précoce est le seul moyen d'éviter des soins complexes et coûteux.
+
+### Évolution typique sans traitement
+
+1. **Gingivite** → inflammation superficielle, réversible
+2. **Parodontite initiale** → début de perte osseuse
+3. **Parodontite modérée** → poches parodontales de 4-5mm
+4. **Parodontite sévère** → mobilité dentaire, risque de perte
+
+## Recommandations scientifiques
+
+Les recommandations S3 de l'EFP constituent le guide de pratique clinique de référence pour le traitement des parodontites. Ce protocole, validé par les instances européennes, établit une approche étape par étape du diagnostic à la maintenance.
+
+[Consulter les recommandations officielles de l'EFP](https://www.efp.org/education-cpg/cpg/) *(lien externe)*
+
+## Notre expertise à Marseille
+
+Notre cabinet propose des **bilans parodontaux complets** incluant :
+
+- Examen clinique détaillé
+- **Sondage parodontal numérique** avec cartographie des poches
+- Radiographies panoramique et rétro-alvéolaires
+- Analyse des facteurs de risque
+- Plan de traitement personnalisé
+
+### Zone d'intervention
+
+Nous accueillons les patients de tout le département des **Bouches-du-Rhône** :
+- Marseille et ses arrondissements
+- Aix-en-Provence et le Pays d'Aix
+- Aubagne, La Ciotat, Cassis
+- Martigues, Istres, Étang de Berre
+- Salon-de-Provence et environs
+
+## Quand consulter ?
+
+**Consultez rapidement si vous observez :**
+- Des saignements réguliers au brossage
+- Des gencives rouges ou gonflées
+- Une mauvaise haleine persistante
+- Des espaces entre les dents qui s'élargissent
+
+## Prendre rendez-vous
+
+**Cabinet dentaire Dr Stéphanie Meriot**  
+📍 4 Rue Pythéas, 13001 Marseille  
+📞 [09 83 43 96 21](tel:0983439621)  
+🌐 [Prendre RDV sur Doctolib](https://www.doctolib.fr/dentiste/marseille/stephanie-meriot)
+
+*Article rédigé par le Dr Stéphanie Meriot, parodontologue à Marseille, formée à l'Académie de Paro d'Aix-en-Provence.*
+    `
+  },
+  {
+    slug: "laser-eryag-traitement-gencives-marseille",
+    title: "Pourquoi le Laser Er:YAG révolutionne le traitement des gencives dans notre cabinet marseillais",
+    excerpt: "Le laser Er:YAG offre une décontamination précise des poches parodontales avec moins de douleur et une cicatrisation accélérée. Découvrez cette technologie de pointe à Marseille.",
+    category: "Parodontie" as const,
+    date: "2025-01-08",
+    keywords: "laser dentaire marseille, laser Er:YAG, laser erbium parodontie, décontamination parodontale, traitement gencives laser, parodontologue aix-en-provence, aubagne, PACA",
+    content: `
+# Pourquoi le Laser Er:YAG révolutionne le traitement des gencives dans notre cabinet marseillais
+
+L'utilisation du **laser en parodontologie** représente un véritable changement de paradigme dans la prise en charge des maladies des gencives. Le laser Er:YAG (Erbium:YAG) permet une **décontamination des poches parodontales** là où les instruments mécaniques traditionnels atteignent leurs limites anatomiques.
+
+## Comment fonctionne le laser Er:YAG ?
+
+Le laser Erbium émet une longueur d'onde de 2940 nm, parfaitement absorbée par l'eau et l'hydroxyapatite. Cette caractéristique lui confère des propriétés uniques :
+
+### Action bactéricide sélective
+
+Le laser cible spécifiquement les **bactéries pathogènes anaérobies** responsables de la parodontite, notamment :
+- *Porphyromonas gingivalis*
+- *Tannerella forsythia*
+- *Treponema denticola*
+
+### Biostimulation tissulaire
+
+Au-delà de son action antimicrobienne, le laser favorise la **biostimulation des tissus**, accélérant significativement la cicatrisation gingivale.
+
+## Les avantages cliniques du laser
+
+### Pour le patient
+
+- **Moins de douleur** : intervention plus douce qu'avec les instruments mécaniques
+- **Moins de saignement** : effet hémostatique du laser
+- **Cicatrisation accélérée** : biostimulation cellulaire
+- **Moins de sensibilité post-opératoire**
+- **Récupération plus rapide**
+
+### Pour le praticien
+
+- Accès aux zones difficiles (furcations, poches profondes)
+- Décontamination optimale des surfaces radiculaires
+- Complément idéal au surfaçage mécanique
+
+## Validation scientifique
+
+De nombreuses études publiées sur PubMed confirment l'efficacité du laser Erbium dans le traitement parodontal, notamment pour :
+
+- La réduction de la profondeur des poches
+- L'amélioration du gain d'attache clinique
+- La diminution de l'inflammation
+
+[Études sur l'efficacité du laser Erbium en parodontie (PubMed)](https://pubmed.ncbi.nlm.nih.gov/?term=erbium+laser+periodontitis) *(lien externe)*
+
+## Notre protocole laser à Marseille
+
+Dans notre cabinet, le laser Er:YAG s'intègre dans un **protocole thérapeutique complet** :
+
+1. **Diagnostic précis** avec sondage et radiographies
+2. **Phase initiale** : détartrage et surfaçage radiculaire
+3. **Laser Er:YAG** : décontamination complémentaire des poches résiduelles
+4. **Maintenance** : suivi régulier et contrôle
+
+## Zone de patientèle
+
+Nous accueillons les patients de toute la région **PACA** pour des soins laser moins invasifs et plus confortables :
+
+- Marseille (tous arrondissements)
+- Aix-en-Provence, Gardanne, Bouc-Bel-Air
+- Aubagne, Gémenos, La Ciotat
+- Marignane, Vitrolles, Istres
+- Et tout le département des Bouches-du-Rhône
+
+## Le laser est-il adapté à mon cas ?
+
+Le traitement laser est particulièrement indiqué pour :
+
+- Les parodontites modérées à sévères
+- Les poches parodontales profondes (> 5mm)
+- Les patients à risque hémorragique
+- Les cas de péri-implantite
+
+Une consultation préalable permet de déterminer si le laser est adapté à votre situation.
+
+## Prendre rendez-vous
+
+**Cabinet dentaire Dr Stéphanie Meriot**  
+📍 4 Rue Pythéas, 13001 Marseille  
+📞 [09 83 43 96 21](tel:0983439621)  
+🌐 [Prendre RDV sur Doctolib](https://www.doctolib.fr/dentiste/marseille/stephanie-meriot)
+
+*Article rédigé par le Dr Stéphanie Meriot, chirurgien-dentiste spécialisée en parodontologie à Marseille.*
+    `
+  },
+  {
+    slug: "peri-implantite-prevention-marseille",
+    title: "Péri-implantite à Marseille : Comment éviter de perdre vos implants dentaires",
+    excerpt: "La péri-implantite touche 20% des patients implantés à 10 ans. Découvrez les signes d'alerte, la prévention et les traitements disponibles dans notre cabinet marseillais.",
+    category: "Implantologie" as const,
+    date: "2025-01-05",
+    keywords: "péri-implantite marseille, infection implant dentaire, perte implant, maintenance implants, parodontite implant, implantologue aix-en-provence, aubagne, PACA",
+    content: `
+# Péri-implantite à Marseille : Comment éviter de perdre vos implants dentaires
+
+La **péri-implantite** est l'équivalent de la parodontite, mais autour d'un implant dentaire. Cette pathologie inflammatoire touche environ **20% des patients porteurs d'implants après 10 ans**. Sans traitement, l'os péri-implantaire se résorbe et l'implant peut devenir mobile, nécessitant parfois sa dépose.
+
+## Qu'est-ce que la péri-implantite ?
+
+La péri-implantite est une infection bactérienne qui affecte les tissus autour de l'implant :
+
+### Stade 1 : Mucosite péri-implantaire
+- Inflammation limitée à la gencive
+- **Réversible** avec un traitement adapté
+- Équivalent de la gingivite
+
+### Stade 2 : Péri-implantite
+- Extension de l'inflammation à l'os
+- **Perte osseuse** progressive
+- Risque de perte de l'implant
+
+## Les signes d'alerte à surveiller
+
+**Consultez immédiatement si vous observez :**
+
+- **Saignement au brossage** autour de l'implant
+- **Gencive rouge ou gonflée** au niveau du col implantaire
+- **Suppuration** (pus) autour de l'implant
+- **Mauvaise haleine** localisée
+- **Douleur** ou sensibilité à la pression
+- **Mobilité** de la couronne sur implant
+
+## Comment prévenir la péri-implantite ?
+
+### 1. Hygiène irréprochable
+
+- Brossage 2 fois/jour avec une brosse adaptée
+- **Brossettes interdentaires** autour des implants
+- Jet dentaire si recommandé
+- Bain de bouche selon prescription
+
+### 2. Maintenance professionnelle régulière
+
+C'est le **facteur clé de la survie implantaire**. Le consensus de l'EFP recommande :
+
+- Contrôles tous les **3 à 6 mois**
+- Détartrage spécifique (instruments non rayants)
+- Radiographies de contrôle annuelles
+- Sondage péri-implantaire
+
+### 3. Contrôle des facteurs de risque
+
+- **Arrêt du tabac** (facteur n°1)
+- Contrôle du diabète
+- Traitement d'une parodontite préexistante
+
+## Validation scientifique
+
+Le **Consensus de l'EFP sur les maladies péri-implantaires** (2018) établit les recommandations de diagnostic et de traitement basées sur les preuves scientifiques les plus récentes.
+
+[Consensus EFP sur les maladies péri-implantaires](https://www.efp.org/publications-efp/consensus-reports/) *(lien externe)*
+
+## Nos solutions de traitement à Marseille
+
+En cas de péri-implantite diagnostiquée, nous proposons des **protocoles de décontamination de surface** incluant :
+
+### Traitement non chirurgical
+
+- **Aéropolissage** : projection de poudre d'érythritol ou glycine
+- **Décontamination laser** Er:YAG
+- Irrigation antiseptique (chlorhexidine)
+- Antibiothérapie ciblée si nécessaire
+
+### Traitement chirurgical (cas avancés)
+
+- Lambeau d'accès pour décontamination
+- Régénération osseuse guidée
+- Greffe osseuse si indiquée
+
+## Zone d'intervention
+
+Nous accueillons les patients porteurs d'implants de tout le département :
+
+- Marseille et périphérie
+- Aix-en-Provence, Gardanne
+- Aubagne, La Ciotat, Cassis
+- Martigues, Istres, Vitrolles
+- Salon-de-Provence et environs
+
+## Prendre rendez-vous
+
+**Cabinet dentaire Dr Stéphanie Meriot**  
+📍 4 Rue Pythéas, 13001 Marseille  
+📞 [09 83 43 96 21](tel:0983439621)  
+🌐 [Prendre RDV sur Doctolib](https://www.doctolib.fr/dentiste/marseille/stephanie-meriot)
+
+*Article rédigé par le Dr Stéphanie Meriot, spécialiste en parodontologie et implantologie à Marseille.*
+    `
+  },
+  {
+    slug: "sportifs-sante-parodontale-marseille",
+    title: "Sportifs Marseillais : Pourquoi votre santé parodontale conditionne vos performances cardiaques",
+    excerpt: "Il existe un lien direct entre santé des gencives et performances athlétiques. Découvrez pourquoi les sportifs doivent particulièrement surveiller leur parodonte.",
+    category: "Parodontie" as const,
+    date: "2025-01-03",
+    keywords: "sportif santé dentaire marseille, parodontite performance sportive, inflammation systémique, santé cardio-vasculaire, gencives sport, athlète marseille, aubagne, PACA",
+    content: `
+# Sportifs Marseillais : Pourquoi votre santé parodontale conditionne vos performances cardiaques
+
+Il existe une **corrélation directe** entre l'état des gencives et les performances athlétiques. La parodontite est une source d'**inflammation systémique chronique** qui peut affecter la récupération musculaire et la santé cardio-vasculaire.
+
+## Le lien gencives-performance : que dit la science ?
+
+### Inflammation chronique et récupération
+
+La parodontite génère une **inflammation de bas grade** permanente. Cette inflammation systémique :
+
+- **Ralentit la récupération musculaire** après l'effort
+- Augmente le **stress oxydatif** cellulaire
+- Affecte la **synthèse protéique** musculaire
+- Diminue les **capacités d'adaptation** à l'entraînement
+
+### Bactériémie et risque cardiaque
+
+Lors d'un effort intense, les bactéries présentes dans les poches parodontales peuvent passer dans le sang (**bactériémie**). Ce phénomène :
+
+- Augmente les risques d'**inflammation des parois artérielles**
+- Favorise la formation de **plaques d'athérome**
+- Peut aggraver les **troubles du rythme cardiaque**
+
+## Les études scientifiques
+
+Le rapport de l'EFP sur le lien entre **parodontite et maladies cardiovasculaires** démontre que les patients atteints de parodontite sévère ont un risque accru d'événements cardiovasculaires.
+
+[Rapport EFP : Parodontite et Maladies Cardio-vasculaires](https://www.efp.org/publications-efp/consensus-reports/) *(lien externe)*
+
+### Études chez les sportifs
+
+Plusieurs études ont montré que :
+
+- **30% des sportifs professionnels** présentent des signes de gingivite
+- Les athlètes avec parodontite ont des **marqueurs inflammatoires** plus élevés
+- Le traitement parodontal améliore les **paramètres de récupération**
+
+## Les facteurs de risque chez le sportif
+
+### Spécifiques au sport
+
+- **Respiration buccale** à l'effort (assèchement, moins de protection salivaire)
+- **Consommation de boissons énergétiques** acides et sucrées
+- **Stress de compétition** (impact sur le système immunitaire)
+- **Traumatismes dentaires** répétés (sports de contact)
+
+### Généraux
+
+- Hygiène bucco-dentaire insuffisante
+- Manque de suivi dentaire régulier
+- Alimentation riche en glucides
+
+## Notre accompagnement pour les sportifs
+
+Nous proposons un **protocole de santé globale** adapté aux athlètes :
+
+### Bilan parodontal complet
+
+- Examen clinique et sondage
+- Évaluation des marqueurs inflammatoires
+- Analyse des facteurs de risque spécifiques
+
+### Traitement personnalisé
+
+- Détartrage et surfaçage si nécessaire
+- Protocole d'hygiène adapté à l'activité sportive
+- Conseils nutritionnels bucco-dentaires
+
+### Suivi régulier
+
+- Maintenance tous les 3-4 mois
+- Coordination avec les équipes médicales sportives
+- Adaptation selon la saison compétitive
+
+## Zone d'intervention
+
+Nous accompagnons les sportifs de toute la région PACA :
+
+- Marseille et métropole
+- Aix-en-Provence et Pays d'Aix
+- Aubagne, La Ciotat
+- Martigues, Istres
+- Salon-de-Provence
+
+## Prendre rendez-vous
+
+**Cabinet dentaire Dr Stéphanie Meriot**  
+📍 4 Rue Pythéas, 13001 Marseille  
+📞 [09 83 43 96 21](tel:0983439621)  
+🌐 [Prendre RDV sur Doctolib](https://www.doctolib.fr/dentiste/marseille/stephanie-meriot)
+
+*Article rédigé par le Dr Stéphanie Meriot, chirurgien-dentiste spécialisée en parodontologie à Marseille.*
+    `
+  },
+  {
+    slug: "parodontiste-expert-bouches-du-rhone",
+    title: "Trouver un parodontiste expert dans les Bouches-du-Rhône : Le plateau technique marseillais",
+    excerpt: "Pour une pathologie complexe comme la parodontite, l'expertise et l'équipement du praticien sont déterminants. Découvrez notre plateau technique de pointe à Marseille.",
+    category: "Parodontie" as const,
+    date: "2025-01-01",
+    keywords: "parodontiste bouches-du-rhone, scanner 3D marseille, laser dentaire, expertise parodontie, chirurgie piézoélectrique, parodontologue aix-en-provence, aubagne, la ciotat, PACA",
+    content: `
+# Trouver un parodontiste expert dans les Bouches-du-Rhône : Le plateau technique marseillais
+
+Pour une pathologie complexe comme la **parodontite**, l'expertise du praticien et la qualité de l'équipement sont les **critères de choix n°1**. Les patients n'hésitent plus à parcourir 50 km pour accéder à des technologies de pointe garantissant des soins optimaux.
+
+## Notre plateau technique de pointe
+
+### Scanner 3D (Cone Beam)
+
+L'imagerie tridimensionnelle révolutionne le diagnostic parodontal :
+
+- **Visualisation précise** de la perte osseuse
+- **Analyse des défauts** intra-osseux
+- **Planification chirurgicale** optimisée
+- **Suivi radiologique** de la régénération
+
+### Chirurgie piézo-électrique
+
+La technologie piézoélectrique permet des interventions osseuses :
+
+- **Ultra-précises** : découpe micrométrique
+- **Respectueuses** des tissus mous
+- **Moins traumatisantes** : récupération accélérée
+- **Plus sûres** : protection des nerfs et vaisseaux
+
+### Laser Er:YAG
+
+Le laser Erbium complète notre arsenal thérapeutique :
+
+- **Décontamination bactérienne** des poches parodontales
+- **Action biostimulante** sur la cicatrisation
+- **Confort patient** amélioré
+- **Accès aux zones difficiles** (furcations)
+
+## Notre expertise clinique
+
+### Formation spécialisée
+
+Le Dr Stéphanie Meriot a suivi des formations approfondies :
+
+- **IFPIO Marseille** : Implantologie et Parodontologie
+- **Académie de Paro d'Aix-en-Provence** : Parodontologie avancée
+- **Formation continue** : Laser, régénération tissulaire
+
+### Approche thérapeutique
+
+Notre philosophie de soin repose sur :
+
+- **Diagnostic précis** : bilan parodontal complet
+- **Traitement conservateur** : préserver au maximum
+- **Techniques mini-invasives** : moins de douleur, cicatrisation rapide
+- **Suivi rigoureux** : maintenance à long terme
+
+## Normes d'hygiène et d'asepsie
+
+Conformément aux recommandations de la **Haute Autorité de Santé (HAS)**, notre cabinet respecte les protocoles stricts :
+
+- Stérilisation de tout l'instrumentation
+- Traitement de l'eau des units dentaires
+- Désinfection des surfaces entre chaque patient
+- Équipements de protection individuels
+
+[Guide HAS sur l'hygiène et l'asepsie en cabinet dentaire](https://www.has-sante.fr/) *(lien externe)*
+
+## Zone d'accès et accessibilité
+
+Notre cabinet situé au cœur de Marseille est facilement accessible depuis toute la région PACA :
+
+### Depuis Aix-en-Provence
+- **30 minutes** via A7 puis A50
+- Sortie Marseille Centre
+
+### Depuis Aubagne / La Ciotat
+- **25-35 minutes** via A50
+- Direction Vieux-Port
+
+### Depuis Martigues / Istres
+- **40-45 minutes** via A55
+- Direction Centre-ville
+
+### Depuis Salon-de-Provence
+- **45 minutes** via A7 puis A50
+- Sortie Marseille Centre
+
+### Stationnement
+- Parking Vieux-Port à proximité
+- Transports en commun : Métro Vieux-Port
+
+## Les villes de notre patientèle
+
+Nous accueillons des patients de plus de **60 communes** des Bouches-du-Rhône :
+
+**Marseille** • Aix-en-Provence • Aubagne • La Ciotat • Cassis • Martigues • Istres • Vitrolles • Marignane • Salon-de-Provence • Gardanne • Allauch • Plan-de-Cuques • Gémenos • Roquevaire • Auriol • Bouc-Bel-Air • Cabriès • Fuveau • Trets...
+
+## Pourquoi choisir un spécialiste ?
+
+La parodontite est une maladie **chronique et complexe** qui nécessite :
+
+- Un **diagnostic précis** avec les bons outils
+- Des **compétences spécifiques** en parodontologie
+- Un **plateau technique adapté** aux techniques modernes
+- Un **suivi régulier** sur le long terme
+
+## Prendre rendez-vous
+
+**Cabinet dentaire Dr Stéphanie Meriot**  
+📍 4 Rue Pythéas, 13001 Marseille  
+📞 [09 83 43 96 21](tel:0983439621)  
+🌐 [Prendre RDV sur Doctolib](https://www.doctolib.fr/dentiste/marseille/stephanie-meriot)
+
+**Première consultation** : bilan complet, plan de traitement personnalisé, devis détaillé.
+
+*Article rédigé par le Dr Stéphanie Meriot, parodontologue à Marseille, spécialiste des maladies des gencives.*
+    `
   }
 ];
 
