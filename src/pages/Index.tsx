@@ -13,7 +13,6 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
-
 const Index = () => {
   // Schema.org structured data - Dentist
   const structuredData = {
