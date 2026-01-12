@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone, CheckCircle2 } from "lucide-react";
-import heroImage from "@/assets/hero-dentist.jpg";
+import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 
 const Hero = () => {
   return (
@@ -8,8 +8,8 @@ const Hero = () => {
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 -z-10">
         <img
-          src={heroImage}
-          alt="Cabinet dentaire Dr Stéphanie Meriot Marseille 4ème - Parodontie Implantologie"
+          src={drMeriotPhoto}
+          alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>
