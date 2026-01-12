@@ -16,9 +16,9 @@ const Esthetique = () => {
     <>
       <SEOHead
         title="Esthétique Dentaire Marseille & PACA | Blanchiment & Facettes | Dr Meriot"
-        description="Esthétique dentaire à Marseille, Aix-en-Provence, Aubagne, La Ciotat, Vitrolles et région PACA. Blanchiment, facettes, composites. Approche naturelle et conservatrice. ☎ 09 83 43 96 21"
+        description="Esthétique dentaire à Marseille et région PACA : Aix, Aubagne, La Ciotat, Martigues, Salon. Blanchiment, facettes, composites. ☎ 09 83 43 96 21"
         canonical="/esthetique"
-        keywords="esthétique dentaire marseille, blanchiment dentaire aix-en-provence, facettes dentaires aubagne, sourire la ciotat, dentiste esthétique vitrolles, blanchiment cassis, facettes martigues PACA"
+        keywords="esthétique dentaire marseille, blanchiment aix-en-provence, facettes aubagne, sourire la ciotat, dentiste esthétique vitrolles, blanchiment cassis, facettes marignane, sourire parfait gardanne, esthétique martigues, blanchiment istres, salon-de-provence, allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, ensuès-la-redonne, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
       />
       <FloatingCTA />
       <div className="min-h-screen">

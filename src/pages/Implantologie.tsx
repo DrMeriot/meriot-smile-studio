@@ -16,9 +16,9 @@ const Implantologie = () => {
     <>
       <SEOHead
         title="Implants Dentaires Marseille & PACA | Dr Stéphanie Meriot - Implantologie"
-        description="Implants dentaires à Marseille, Aix-en-Provence, Aubagne, La Ciotat, Vitrolles, Martigues et région PACA. Pose d'implants, régénération osseuse. Formation IFPIO. Tarif à partir de 1500€. ☎ 09 83 43 96 21"
+        description="Implants dentaires à Marseille et 50km : Aix-en-Provence, Aubagne, La Ciotat, Martigues, Istres, Salon-de-Provence. Formation IFPIO. ☎ 09 83 43 96 21"
         canonical="/implantologie"
-        keywords="implantologie marseille, implant dentaire aix-en-provence, pose implant aubagne, implant dent la ciotat, chirurgie implantaire vitrolles, implantologue cassis, implants martigues, prothèse sur implant PACA"
+        keywords="implantologie marseille, implant dentaire aix-en-provence, pose implant aubagne, implant la ciotat, chirurgie implantaire vitrolles, implantologue cassis, implants marignane, prothèse sur implant gardanne, implants dentaires martigues, implantologie istres, salon-de-provence, allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, ensuès-la-redonne, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
       />
       <FloatingCTA />
       <div className="min-h-screen">

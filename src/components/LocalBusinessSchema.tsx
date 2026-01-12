@@ -29,7 +29,7 @@ const LocalBusinessSchema = () => {
         "longitude": 5.3964
       },
       "areaServed": [
-        // Marseille
+        // Marseille - Tous arrondissements
         "Marseille",
         "Marseille 1er",
         "Marseille 2ème",
@@ -60,6 +60,8 @@ const LocalBusinessSchema = () => {
         "Cabriès",
         "Simiane-Collongue",
         "Meyreuil",
+        "Fuveau",
+        "Rousset",
         "Éguilles",
         "Ventabren",
         // Côte Bleue
@@ -69,6 +71,7 @@ const LocalBusinessSchema = () => {
         "Marignane",
         "Vitrolles",
         "Châteauneuf-les-Martigues",
+        "Gignac-la-Nerthe",
         // Aubagne & La Ciotat
         "Aubagne",
         "Gémenos",
@@ -95,12 +98,17 @@ const LocalBusinessSchema = () => {
         "Rognac",
         "Velaux",
         "Miramas",
+        "Saint-Chamas",
+        "Saint-Mitre-les-Remparts",
+        "Grans",
         "La Fare-les-Oliviers",
         "Coudoux",
         "Lançon-Provence",
         // Salon & environs
         "Salon-de-Provence",
-        "Pélissanne"
+        "Pélissanne",
+        "Eyguières",
+        "Lambesc"
       ],
       "medicalSpecialty": [
         "Periodontics",
