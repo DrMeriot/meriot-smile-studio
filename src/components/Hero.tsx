@@ -16,7 +16,7 @@ const Hero = () => {
             transform: "translateX(12%) scale(0.9)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>
+        <div className="absolute inset-0 top-20 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>
       </div>
 
       <div className="container mx-auto px-4">
