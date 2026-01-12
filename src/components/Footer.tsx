@@ -1,155 +1,160 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Clock, Calendar } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const zoneIntervention = {
+    "Marseille": ["Tous arrondissements (13001-13016)"],
+    "Alentours proches": ["Allauch", "Plan-de-Cuques", "Les Pennes-Mirabeau", "Septèmes-les-Vallons", "La Penne-sur-Huveaune"],
+    "Pays d'Aix": ["Aix-en-Provence", "Gardanne", "Bouc-Bel-Air", "Cabriès", "Simiane-Collongue", "Meyreuil", "Éguilles", "Ventabren"],
+    "Côte Bleue": ["Carry-le-Rouet", "Sausset-les-Pins", "Ensuès-la-Redonne", "Marignane", "Vitrolles", "Châteauneuf-les-Martigues"],
+    "Aubagne & La Ciotat": ["Aubagne", "Gémenos", "Carnoux", "La Ciotat", "Cassis", "Roquefort-la-Bédoule", "Ceyreste"],
+    "Vallée de l'Huveaune": ["Roquevaire", "Auriol", "La Destrousse", "Peypin", "La Bouilladisse", "Cuges-les-Pins", "Trets", "Saint-Maximin"],
+    "Étang de Berre": ["Martigues", "Istres", "Fos-sur-Mer", "Port-de-Bouc", "Berre-l'Étang", "Rognac", "Velaux", "Miramas"],
+    "Salon & environs": ["Salon-de-Provence", "Pélissanne", "Lançon-Provence", "La Fare-les-Oliviers", "Coudoux"]
+  };
+
   return (
-    <footer className="bg-muted/50 border-t border-border mt-20">
+    <footer className="bg-dental-navy text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* About */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-primary">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* Cabinet Info */}
+          <div className="lg:col-span-1">
+            <h3 className="text-lg font-playfair font-semibold mb-4">
               Dr Stéphanie Meriot
             </h3>
-            <p className="text-muted-foreground text-sm mb-4">
-              Chirurgien-dentiste à Marseille 4ème, spécialisée en parodontie et
-              implantologie. Une approche douce et personnalisée pour votre santé
-              bucco-dentaire.
+            <p className="text-dental-soft-blue text-sm mb-4">
+              Chirurgien-Dentiste spécialisée en parodontie et implantologie
             </p>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
-                Secteur 1
-              </span>
-              <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-xs font-medium">
-                ⭐ 5/5
-              </span>
+            <div className="flex items-start space-x-2 text-sm text-dental-soft-blue mb-2">
+              <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+              <span>23 Bd de la Fédération<br />13004 Marseille</span>
             </div>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 mt-1 text-primary flex-shrink-0" />
-                <a
-                  href="https://maps.google.com/?q=23+Boulevard+de+la+Fédération+13004+Marseille"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors"
-                >
-                  23 Boulevard de la Fédération
-                  <br />
-                  13004 Marseille
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-primary" />
-                <a
-                  href="tel:0983439621"
-                  className="hover:text-primary transition-colors"
-                >
-                  09 83 43 96 21
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-primary" />
-                <a
-                  href="https://www.doctolib.fr/dentiste/marseille/stephanie-meriot"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors"
-                >
-                  Prendre RDV sur Doctolib
-                </a>
-              </div>
+            <div className="flex items-center space-x-2 text-sm text-dental-soft-blue mb-2">
+              <Phone className="w-4 h-4 flex-shrink-0" />
+              <a href="tel:0983439621" className="hover:text-white transition-colors">
+                09 83 43 96 21
+              </a>
             </div>
+            <a
+              href="https://www.doctolib.fr/chirurgien-dentiste/marseille/stephanie-meriot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-1 text-dental-coral hover:text-white transition-colors text-sm mt-2"
+            >
+              <span>Prendre RDV sur Doctolib</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
 
           {/* Horaires */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Horaires</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Lundi</span>
-                <span>09h-12h, 14h-17h</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Mardi</span>
-                <span>09h-12h, 14h-18h</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Mercredi</span>
-                <span className="text-destructive">Fermé</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Jeudi</span>
-                <span>09h-12h, 14h-18h</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Vendredi</span>
-                <span>09h-14h</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Sam-Dim</span>
-                <span className="text-destructive">Fermé</span>
-              </div>
-            </div>
+            <h3 className="text-lg font-playfair font-semibold mb-4 flex items-center">
+              <Clock className="w-4 h-4 mr-2" />
+              Horaires
+            </h3>
+            <ul className="space-y-2 text-sm text-dental-soft-blue">
+              <li className="flex justify-between">
+                <span>Lundi</span>
+                <span>9h - 19h</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Mardi</span>
+                <span>9h - 19h</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Mercredi</span>
+                <span>9h - 19h</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Jeudi</span>
+                <span>9h - 19h</span>
+              </li>
+              <li className="flex justify-between">
+                <span>Vendredi</span>
+                <span>9h - 17h</span>
+              </li>
+            </ul>
           </div>
 
-          {/* Liens rapides */}
+          {/* Liens Rapides */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Liens rapides</h3>
-            <nav className="space-y-2 text-sm">
-              <Link
-                to="/services"
-                className="block hover:text-primary transition-colors"
-              >
-                Nos services
-              </Link>
-              <Link
-                to="/a-propos"
-                className="block hover:text-primary transition-colors"
-              >
-                À propos
-              </Link>
-              <Link
-                to="/tarifs"
-                className="block hover:text-primary transition-colors"
-              >
-                Tarifs
-              </Link>
-              <Link
-                to="/contact"
-                className="block hover:text-primary transition-colors"
-              >
-                Contact
-              </Link>
-              <Link
-                to="/mentions-legales"
-                className="block hover:text-primary transition-colors"
-              >
-                Mentions légales
-              </Link>
-              <Link
-                to="/confidentialite"
-                className="block hover:text-primary transition-colors"
-              >
-                Confidentialité
-              </Link>
-            </nav>
+            <h3 className="text-lg font-playfair font-semibold mb-4">
+              Liens Rapides
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/parodontie" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Parodontie
+                </Link>
+              </li>
+              <li>
+                <Link to="/implantologie" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Implantologie
+                </Link>
+              </li>
+              <li>
+                <Link to="/esthetique" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Esthétique dentaire
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Tous les soins
+                </Link>
+              </li>
+              <li>
+                <Link to="/tarifs" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Tarifs
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Blog & Conseils
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-dental-soft-blue hover:text-white transition-colors">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Zone d'intervention - 2 colonnes sur grand écran */}
+          <div className="lg:col-span-2">
+            <h3 className="text-lg font-playfair font-semibold mb-4">
+              Zone d'intervention (50km)
+            </h3>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-xs">
+              {Object.entries(zoneIntervention).map(([secteur, villes]) => (
+                <div key={secteur}>
+                  <p className="text-white font-medium mb-1">{secteur}</p>
+                  <p className="text-dental-soft-blue leading-relaxed">
+                    {villes.join(", ")}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p className="mb-2">
-            <strong>RPPS:</strong> 10100720993 | <strong>Langues:</strong> 🇫🇷
-            Français · 🇬🇧 Anglais · 🇪🇸 Espagnol
-          </p>
-          <p>
-            © {new Date().getFullYear()} Dr Stéphanie Meriot - Cabinet Dentaire
-            Marseille. Tous droits réservés.
-          </p>
+        {/* Separator */}
+        <div className="border-t border-dental-soft-blue/20 mt-10 pt-6">
+          <div className="flex flex-col md:flex-row justify-between items-center text-xs text-dental-soft-blue">
+            <p>
+              © {currentYear} Dr Stéphanie Meriot - Chirurgien-Dentiste Marseille. Tous droits réservés.
+            </p>
+            <div className="flex space-x-4 mt-4 md:mt-0">
+              <Link to="/mentions-legales" className="hover:text-white transition-colors">
+                Mentions légales
+              </Link>
+              <Link to="/confidentialite" className="hover:text-white transition-colors">
+                Politique de confidentialité
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
