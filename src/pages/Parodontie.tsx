@@ -1,25 +1,44 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Heart, Calendar, AlertCircle, Search, Sparkles, Scissors, UserCheck, ClipboardCheck } from "lucide-react";
+import { Heart, Calendar, AlertCircle, Search, Sparkles, Scissors, UserCheck, ClipboardCheck, Zap, Bone, RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
+import FAQSchema from "@/components/FAQSchema";
+import WhyChooseUs from "@/components/WhyChooseUs";
 
 const Parodontie = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  const faqs = [
+    {
+      question: "Quel est le prix d'un traitement de parodontite à Marseille ?",
+      answer: "Le coût d'un traitement parodontal varie selon la sévérité de la maladie. Un surfaçage radiculaire coûte entre 150€ et 400€ par quadrant. Notre cabinet dentaire à Marseille vous fournit un devis personnalisé après le bilan. Certaines ALD permettent un remboursement par la Sécurité sociale."
+    },
+    {
+      question: "Est-ce que le traitement parodontal est remboursé ?",
+      answer: "Les détartrages sont remboursés par la Sécurité sociale. Les surfaçages radiculaires sont partiellement pris en charge selon votre mutuelle. Pour les patients diabétiques ou atteints de certaines ALD, une prise en charge spécifique existe. Nous vous aidons dans vos démarches au cabinet de Marseille."
+    },
+    {
+      question: "Combien de temps dure un traitement de gencives ?",
+      answer: "Un traitement parodontal complet dure généralement 2 à 4 mois selon la sévérité. Il comprend 2 à 4 séances de surfaçage, suivies d'une réévaluation à 6-8 semaines. La maintenance s'étend ensuite sur toute la vie pour maintenir les résultats. Notre expertise parodontale à Marseille garantit un traitement adapté."
+    }
+  ];
+
   return (
     <>
       <SEOHead
         title="Parodontie Marseille 4ème | Dr Stéphanie Meriot - Spécialiste Gencives"
-        description="Spécialiste parodontie à Marseille 4ème. Traitement gingivite, parodontite, greffe gingivale. Formation Académie de paro. ☎ 09 83 43 96 21"
+        description="Spécialiste parodontie à Marseille, Aix-en-Provence, Aubagne. Traitement gingivite, parodontite, greffe gingivale. Formation Académie de Paro. Cabinet accessible depuis La Ciotat, Cassis, Vitrolles. ☎ 09 83 43 96 21"
         canonical="/parodontie"
-        keywords="parodontie marseille, parodontologie marseille, gingivite marseille, parodontite marseille, greffe gingivale, déchaussement dentaire, saignement gencives"
+        keywords="parodontie marseille, parodontologie marseille, gingivite marseille, parodontite marseille, greffe gingivale, déchaussement dentaire, saignement gencives, parodontiste aix-en-provence"
       />
+      <FAQSchema faqs={faqs} />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
@@ -340,8 +359,100 @@ const Parodontie = () => {
             </div>
           </section>
 
-          {/* Tarifs */}
+          {/* Silo Links - Nos traitements spécialisés */}
           <section className="py-20">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+                Nos Traitements Spécialisés en Parodontie
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                Découvrez l'ensemble de nos traitements parodontaux adaptés à chaque situation clinique
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Link to="/laser-dentaire" className="group">
+                  <Card className="shadow-soft hover:shadow-lg transition-all h-full">
+                    <CardContent className="pt-6">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
+                          <Zap className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">Traitement Laser</h3>
+                          <p className="text-muted-foreground text-sm">Décontamination bactérienne ciblée et biostimulation tissulaire pour une cicatrisation optimale.</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+                <Link to="/regeneration-osseuse" className="group">
+                  <Card className="shadow-soft hover:shadow-lg transition-all h-full">
+                    <CardContent className="pt-6">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-accent/10 rounded-xl group-hover:bg-accent/20 transition-colors">
+                          <Bone className="h-6 w-6 text-accent" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">Régénération Osseuse</h3>
+                          <p className="text-muted-foreground text-sm">Greffes osseuses et biomatériaux pour reconstruire l'os perdu par la parodontite.</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+                <Link to="/greffe-gingivale" className="group">
+                  <Card className="shadow-soft hover:shadow-lg transition-all h-full">
+                    <CardContent className="pt-6">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
+                          <Heart className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">Greffe Gingivale</h3>
+                          <p className="text-muted-foreground text-sm">Chirurgie plastique parodontale pour recouvrir les récessions et protéger vos racines.</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+                <Link to="/parodontite-sante-generale" className="group">
+                  <Card className="shadow-soft hover:shadow-lg transition-all h-full">
+                    <CardContent className="pt-6">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-accent/10 rounded-xl group-hover:bg-accent/20 transition-colors">
+                          <AlertCircle className="h-6 w-6 text-accent" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 group-hover:text-accent transition-colors">Parodontite et Santé</h3>
+                          <p className="text-muted-foreground text-sm">Liens prouvés entre parodontite et diabète, maladies cardiaques, grossesse (études EFP).</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+                <Link to="/maintenance-parodontale" className="group">
+                  <Card className="shadow-soft hover:shadow-lg transition-all h-full">
+                    <CardContent className="pt-6">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
+                          <RefreshCw className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">Maintenance Parodontale</h3>
+                          <p className="text-muted-foreground text-sm">Suivi régulier essentiel pour maintenir les résultats et prévenir les récidives.</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          {/* WhyChooseUs */}
+          <WhyChooseUs />
+
+          {/* Tarifs */}
+          <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4 max-w-4xl">
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
                 Tarifs des traitements parodontaux

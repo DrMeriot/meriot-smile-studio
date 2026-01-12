@@ -2,91 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://drstephaniemeriot.fr/</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/services</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/parodontie</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://drstephaniemeriot.fr/laser-dentaire</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://drstephaniemeriot.fr/regeneration-osseuse</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://drstephaniemeriot.fr/greffe-gingivale</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://drstephaniemeriot.fr/parodontite-sante-generale</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://drstephaniemeriot.fr/maintenance-parodontale</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://drstephaniemeriot.fr/implantologie</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/esthetique</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/blog</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://drstephaniemeriot.fr/blog/gingivite-traitement-prevention</loc>
-    <lastmod>2025-01-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://drstephaniemeriot.fr/blog/parodontite-causes-symptomes-traitement</loc>
-    <lastmod>2025-01-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://drstephaniemeriot.fr/blog/implants-dentaires-tout-savoir</loc>
-    <lastmod>2025-01-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://drstephaniemeriot.fr/blog/greffe-osseuse-dentaire-implant</loc>
-    <lastmod>2025-01-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://drstephaniemeriot.fr/a-propos</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/tarifs</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/contact</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/mentions-legales</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://drstephaniemeriot.fr/confidentialite</loc>
-    <lastmod>2025-01-12</lastmod>
+    <lastmod>2026-01-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
