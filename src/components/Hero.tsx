@@ -11,7 +11,10 @@ const Hero = () => {
           src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
           className="w-full h-[115%] object-cover mt-16"
-          style={{ objectPosition: "100% 0%" }}
+          style={{
+            objectPosition: "100% 0%",
+            transform: "translateX(10%) scale(1.08)",
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40"></div>
       </div>
