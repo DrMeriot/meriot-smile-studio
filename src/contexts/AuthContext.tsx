@@ -7,8 +7,10 @@ interface AuthContextType {
   session: Session | null;
   isAdmin: boolean;
   isLoading: boolean;
+  isCheckingAdmin: boolean;
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
   signOut: () => Promise<void>;
+  recheckAdmin: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,9 +22,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [session, setSession] = useState<Session | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
 
-  const checkAdminRole = async (userId: string): Promise<boolean> => {
-    console.log('[AuthContext] Checking admin role for user:', userId.substring(0, 8) + '...');
+  const checkAdminRole = async (userId: string, attempt: number = 1): Promise<boolean> => {
+    console.log(`[AuthContext] Checking admin role for user: ${userId.substring(0, 8)}... (attempt ${attempt})`);
     
     try {
       // Create a timeout promise
@@ -48,12 +51,41 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return data === true;
     } catch (err: any) {
       if (err.message === 'ADMIN_CHECK_TIMEOUT') {
-        console.warn('[AuthContext] Admin check timed out after', ADMIN_CHECK_TIMEOUT_MS, 'ms - user will be treated as non-admin');
+        console.warn('[AuthContext] Admin check timed out after', ADMIN_CHECK_TIMEOUT_MS, 'ms');
       } else {
         console.error('[AuthContext] Admin check exception:', err.message);
       }
       return false;
     }
+  };
+
+  const checkAdminWithRetry = async (userId: string, maxAttempts: number = 3): Promise<boolean> => {
+    setIsCheckingAdmin(true);
+    
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      // Small delay before each attempt to ensure session is stable
+      if (attempt > 1) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+      }
+      
+      const result = await checkAdminRole(userId, attempt);
+      if (result) {
+        setIsCheckingAdmin(false);
+        return true;
+      }
+      
+      console.log(`[AuthContext] Admin check attempt ${attempt}/${maxAttempts} failed`);
+    }
+    
+    setIsCheckingAdmin(false);
+    return false;
+  };
+
+  const recheckAdmin = async () => {
+    if (!user) return;
+    console.log('[AuthContext] Manual recheck admin triggered');
+    const adminStatus = await checkAdminWithRetry(user.id, 2);
+    setIsAdmin(adminStatus);
   };
 
   useEffect(() => {
@@ -71,8 +103,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(false);
 
         if (newSession?.user) {
-          // Check admin role in background (non-blocking)
-          checkAdminRole(newSession.user.id).then(adminStatus => {
+          // Check admin role with retry in background (non-blocking)
+          checkAdminWithRetry(newSession.user.id).then(adminStatus => {
             setIsAdmin(adminStatus);
             console.log('[AuthContext] Admin check complete:', adminStatus);
           });
@@ -100,7 +132,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setSession(existingSession);
           setUser(existingSession.user);
           
-          const adminStatus = await checkAdminRole(existingSession.user.id);
+          const adminStatus = await checkAdminWithRetry(existingSession.user.id);
           setIsAdmin(adminStatus);
         }
         
@@ -132,7 +164,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, isAdmin, isLoading, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, session, isAdmin, isLoading, isCheckingAdmin, signIn, signOut, recheckAdmin }}>
       {children}
     </AuthContext.Provider>
   );
