@@ -1,14 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import paroLogo from "@/assets/paro-logo.png";
-import implantoLogo from "@/assets/implanto-logo.png";
+import { ArrowRight, Heart, Zap } from "lucide-react";
 
 const specialties = [
   {
     title: "Parodontie",
     description: "Soins des gencives et des tissus de soutien des dents",
-    image: paroLogo,
+    icon: Heart,
     href: "/parodontie",
     color: "text-accent",
     bgColor: "bg-accent/10",
@@ -17,7 +15,7 @@ const specialties = [
   {
     title: "Implantologie",
     description: "Remplacement durable de vos dents manquantes",
-    image: implantoLogo,
+    icon: Zap,
     href: "/implantologie",
     color: "text-primary",
     bgColor: "bg-primary/10",
@@ -42,6 +40,7 @@ const QuickLinks = () => {
         {/* Specialties Cards - Plus grandes et visibles */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         {specialties.map((specialty, index) => {
+            const Icon = specialty.icon;
             return (
               <Link 
                 key={index} 
@@ -57,7 +56,7 @@ const QuickLinks = () => {
                     <div
                       className={`p-5 ${specialty.bgColor} rounded-2xl mb-5 group-hover:scale-110 transition-transform duration-300`}
                     >
-                      <img src={specialty.image} alt={specialty.title} className="h-16 w-16 object-contain" />
+                      <Icon className={`h-10 w-10 ${specialty.color}`} />
                     </div>
 
                     <h3 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-primary transition-colors">
