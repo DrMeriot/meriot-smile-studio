@@ -4,9 +4,9 @@ import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20">
+    <section className="relative min-h-screen flex items-center">
       {/* Background with gradient overlay */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 -z-10 overflow-hidden top-0">
         <img
           src={drMeriotPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
