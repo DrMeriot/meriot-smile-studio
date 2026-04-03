@@ -42,7 +42,11 @@ const breadcrumbItems = [
   { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
   { name: "Parodontie", url: "https://dr-meriot-dentiste.fr/parodontie" }
 ];
+interface IntroContent { titre: string; description: string; }
+
 const Parodontie = () => {
+  const { data: intro } = usePageContent<IntroContent>('parodontie', 'intro');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
