@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { usePageContent } from "@/hooks/usePageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -57,7 +58,7 @@ const Parodontie = () => {
         title="Parodontie Marseille & PACA | Dr Stéphanie Meriot - Spécialiste Gencives"
         description="Spécialiste parodontie à Marseille et région PACA : Pays d'Aix, Aubagne, La Ciotat, Côte Bleue, Étang de Berre. Traitement gingivite et parodontite. ☎ 09 83 43 96 21"
         canonical="/parodontie"
-        keywords="parodontie marseille, parodontologue aix-en-provence, gingivite aubagne, parodontite la ciotat, traitement gencives vitrolles, spécialiste parodontie cassis, parodontologie marignane, déchaussement dentaire gardanne, saignement gencives martigues, parodontologue istres, gencives salon-de-provence, parodontie allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, ensuès-la-redonne, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
+        keywords="parodontie marseille, parodontologue marseille, gingivite traitement, parodontite soins, déchaussement dentaire, saignement gencives, surfaçage radiculaire, greffe gingivale"
       />
       <FAQSchema faqs={parodontieFAQs} pageUrl="https://dr-meriot-dentiste.fr/parodontie" />
       <BreadcrumbSchema items={breadcrumbItems} />
@@ -428,6 +429,23 @@ const Parodontie = () => {
 
           {/* Glossaire SEO */}
           <ParoGlossary />
+
+          {/* Cross-links spécialités */}
+          <section className="py-12 bg-muted/30">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-2xl font-bold mb-6 text-center">Découvrez nos autres spécialités</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                  <h3 className="font-semibold text-lg mb-2">Implantologie</h3>
+                  <p className="text-muted-foreground text-sm">Des gencives saines sont essentielles pour la réussite des implants. Découvrez nos solutions de remplacement dentaire.</p>
+                </Link>
+                <Link to="/esthetique" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                  <h3 className="font-semibold text-lg mb-2">Esthétique dentaire</h3>
+                  <p className="text-muted-foreground text-sm">Retrouvez un sourire harmonieux grâce au blanchiment, aux facettes et aux composites esthétiques.</p>
+                </Link>
+              </div>
+            </div>
+          </section>
 
           {/* CTA */}
           <section className="py-20">

@@ -200,7 +200,7 @@ const Services = () => {
         title="Services Dentaires Marseille & PACA | Dr Stéphanie Meriot"
         description="Services dentaires à Marseille et région PACA : parodontie, implantologie, soins dentaires, prévention, esthétique. Cabinet conventionné secteur 1. ☎ 09 83 43 96 21"
         canonical="/services"
-        keywords="services dentaires marseille, soins dentaires aix-en-provence, dentiste aubagne, détartrage la ciotat, implants vitrolles, parodontie cassis, soins marignane, dentiste gardanne, soins martigues, dentiste istres, salon-de-provence, allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
+        keywords="services dentaires marseille, soins dentaires, parodontie, implantologie, détartrage, blanchiment dentaire, dentisterie conservatrice"
       />
       <FloatingCTA />
       <div className="min-h-screen">

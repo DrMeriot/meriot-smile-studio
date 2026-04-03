@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { usePageContent } from "@/hooks/usePageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,6 +8,40 @@ import { Zap, CheckCircle2, Calendar, Info } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
+import FAQSchema from "@/components/FAQSchema";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+
+const implantologieFAQs = [
+  {
+    question: "Qu'est-ce qu'un implant dentaire ?",
+    answer: "Un implant dentaire est une racine artificielle en titane placée dans l'os de la mâchoire pour remplacer une dent manquante. Il sert de support pour une couronne, un bridge ou une prothèse complète."
+  },
+  {
+    question: "La pose d'implant dentaire est-elle douloureuse ?",
+    answer: "L'intervention se fait sous anesthésie locale, vous ne ressentez aucune douleur pendant l'acte. Les suites opératoires sont généralement bien tolérées avec un léger inconfort et un œdème modéré, facilement soulagés par des antalgiques."
+  },
+  {
+    question: "Combien coûte un implant dentaire à Marseille ?",
+    answer: "Le tarif d'un implant dentaire au cabinet du Dr Meriot est à partir de 950€ pour l'implant, auquel s'ajoute la couronne. Un devis détaillé et personnalisé vous est remis lors de la consultation. Un remboursement partiel est possible selon votre mutuelle."
+  },
+  {
+    question: "Quelle est la durée de vie d'un implant dentaire ?",
+    answer: "Avec un bon entretien et une hygiène bucco-dentaire rigoureuse, un implant dentaire peut durer toute une vie. Le taux de succès dépasse 95% à 10 ans."
+  },
+  {
+    question: "Peut-on poser un implant si l'on manque d'os ?",
+    answer: "Oui, si le volume osseux est insuffisant, une greffe osseuse peut être réalisée avant ou pendant la pose de l'implant pour reconstruire le support nécessaire. Le Dr Meriot évalue cette possibilité lors du bilan initial avec scanner 3D."
+  },
+  {
+    question: "Quel est le lien entre parodontie et implantologie ?",
+    answer: "La santé des gencives est essentielle pour la réussite des implants. Une parodontite non traitée peut compromettre l'ostéo-intégration. Le Dr Meriot, spécialisée en parodontie, assure un environnement gingival sain avant toute pose d'implant."
+  }
+];
+
+const breadcrumbItems = [
+  { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
+  { name: "Implantologie", url: "https://dr-meriot-dentiste.fr/implantologie" }
+];
 
 interface IntroContent { titre: string; description: string; }
 
@@ -20,11 +55,13 @@ const Implantologie = () => {
   return (
     <>
       <SEOHead
-        title="Implants Dentaires Marseille & PACA | Dr Stéphanie Meriot - Implantologie"
-        description="Implants dentaires à Marseille et 50km : Aix-en-Provence, Aubagne, La Ciotat, Martigues, Istres, Salon-de-Provence. Formation IFPIO. ☎ 09 83 43 96 21"
+        title="Implants Dentaires Marseille | Dr Stéphanie Meriot - Implantologie"
+        description="Pose d'implants dentaires à Marseille 4ème par le Dr Meriot, spécialiste en implantologie et parodontie. Formation IFPIO. Devis gratuit. ☎ 09 83 43 96 21"
         canonical="/implantologie"
-        keywords="implantologie marseille, implant dentaire aix-en-provence, pose implant aubagne, implant la ciotat, chirurgie implantaire vitrolles, implantologue cassis, implants marignane, prothèse sur implant gardanne, implants dentaires martigues, implantologie istres, salon-de-provence, allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, ensuès-la-redonne, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
+        keywords="implant dentaire marseille, implantologie marseille, pose implant dentaire, chirurgie implantaire, implantologue marseille 4"
       />
+      <FAQSchema faqs={implantologieFAQs} pageUrl="https://dr-meriot-dentiste.fr/implantologie" />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
@@ -119,7 +156,7 @@ const Implantologie = () => {
                     <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                     <div>
                       <h3 className="font-semibold text-lg mb-2">
-                        Confort et esthétique
+                        Confort et esthétique naturelle
                       </h3>
                       <p className="text-muted-foreground">
                         L'implant se comporte comme une dent naturelle : aucune
@@ -154,7 +191,7 @@ const Implantologie = () => {
         <section className="py-20">
           <div className="container mx-auto px-4 max-w-5xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-              Les étapes de la pose d'implant
+              Les étapes de la pose d'implant dentaire
             </h2>
 
             <div className="space-y-8">
@@ -164,7 +201,7 @@ const Implantologie = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3">
-                    Consultation et bilan
+                    Consultation et bilan implantaire
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Examen clinique complet, radiographies 3D (scanner) pour
@@ -181,7 +218,7 @@ const Implantologie = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3">
-                    Préparation (si nécessaire)
+                    Préparation osseuse (si nécessaire)
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Si le volume osseux est insuffisant, une greffe osseuse peut
@@ -198,7 +235,7 @@ const Implantologie = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3">
-                    Pose de l'implant
+                    Pose de l'implant en titane
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Intervention chirurgicale sous anesthésie locale (indolore).
@@ -215,7 +252,7 @@ const Implantologie = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3">
-                    Période de cicatrisation
+                    Ostéo-intégration et cicatrisation
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     L'implant doit s'intégrer à l'os (ostéo-intégration). Cette
@@ -231,7 +268,7 @@ const Implantologie = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3">
-                    Pose de la couronne
+                    Pose de la couronne définitive
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Une fois l'implant parfaitement intégré, je prends les
@@ -248,7 +285,7 @@ const Implantologie = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3">
-                    Suivi et maintenance
+                    Suivi et maintenance implantaire
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Contrôles réguliers pour vérifier la bonne santé de l'implant
@@ -266,7 +303,7 @@ const Implantologie = () => {
         <section className="py-20 bg-primary/5">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
-              Informations pratiques
+              Informations pratiques sur les implants
             </h2>
             <Card className="shadow-soft">
               <CardContent className="pt-6">
@@ -274,7 +311,7 @@ const Implantologie = () => {
                   <div className="flex items-start gap-3">
                     <Info className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold mb-1">Douleur</h4>
+                      <h3 className="font-semibold mb-1">Douleur et confort</h3>
                       <p className="text-muted-foreground text-sm">
                         L'intervention se fait sous anesthésie locale, vous ne
                         ressentez aucune douleur pendant l'acte. Les suites sont
@@ -287,10 +324,9 @@ const Implantologie = () => {
                   <div className="flex items-start gap-3">
                     <Info className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold mb-1">Tarif</h4>
+                      <h3 className="font-semibold mb-1">Tarif implant dentaire</h3>
                       <p className="text-muted-foreground text-sm">
-                        À partir de 1500€ par implant + couronne (hors
-                        convention). Devis détaillé et personnalisé lors de la
+                        À partir de 950€ par implant (hors couronne et convention). Devis détaillé et personnalisé lors de la
                         consultation. Remboursement partiel possible selon votre
                         mutuelle.
                       </p>
@@ -300,7 +336,7 @@ const Implantologie = () => {
                   <div className="flex items-start gap-3">
                     <Info className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                     <div>
-                      <h4 className="font-semibold mb-1">Taux de réussite</h4>
+                      <h3 className="font-semibold mb-1">Taux de réussite des implants</h3>
                       <p className="text-muted-foreground text-sm">
                         Avec une bonne indication et une hygiène rigoureuse, le
                         taux de succès des implants dépasse 95% à 10 ans.
@@ -310,6 +346,26 @@ const Implantologie = () => {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </section>
+
+        {/* Lien parodontie-implantologie */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="bg-accent/5 rounded-2xl p-8 border border-accent/20">
+              <h2 className="text-2xl font-bold mb-4">Parodontie et implantologie : un duo essentiel</h2>
+              <p className="text-muted-foreground mb-4">
+                La réussite d'un implant dentaire dépend directement de la santé de vos gencives et de votre os. 
+                Le Dr Meriot, <strong>spécialisée en parodontie</strong>, s'assure que l'environnement buccal est optimal 
+                avant toute pose d'implant. Cette double compétence est un atout majeur pour la longévité de vos implants.
+              </p>
+              <Link 
+                to="/parodontie" 
+                className="inline-flex items-center text-primary font-medium hover:underline"
+              >
+                En savoir plus sur la parodontie →
+              </Link>
+            </div>
           </div>
         </section>
 
