@@ -85,6 +85,25 @@ const Blog = () => {
             ))}
           </section>
 
+          {/* Cross-links vers spécialités */}
+          <section className="mb-16">
+            <h2 className="text-2xl font-bold text-foreground mb-6">Nos spécialités</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border">
+                <h3 className="font-semibold text-lg mb-2 text-primary">Parodontie</h3>
+                <p className="text-muted-foreground text-sm">Traitement des gencives, gingivite et parodontite par le Dr Meriot.</p>
+              </Link>
+              <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border">
+                <h3 className="font-semibold text-lg mb-2 text-primary">Implantologie</h3>
+                <p className="text-muted-foreground text-sm">Pose d'implants dentaires durables pour remplacer les dents manquantes.</p>
+              </Link>
+              <Link to="/esthetique" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border">
+                <h3 className="font-semibold text-lg mb-2 text-primary">Esthétique dentaire</h3>
+                <p className="text-muted-foreground text-sm">Blanchiment, facettes et harmonisation du sourire.</p>
+              </Link>
+            </div>
+          </section>
+
           {/* CTA Section */}
           <section className="bg-primary/5 rounded-2xl p-8 md:p-12 text-center">
             <h2 className="text-3xl font-bold text-foreground mb-4">
