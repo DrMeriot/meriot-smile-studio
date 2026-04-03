@@ -9,6 +9,7 @@ interface PractitionerContent {
   description: string;
   parcours: string;
   citation: string;
+  photo_url: string;
 }
 
 const Practitioner = () => {
