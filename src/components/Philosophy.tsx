@@ -1,4 +1,11 @@
 import { Heart, Users, Shield, MessageCircle } from "lucide-react";
+import { usePageContent } from "@/hooks/usePageContent";
+
+interface PhilosophyContent {
+  titre: string;
+  description: string;
+  citation: string;
+}
 
 const values = [
   {
