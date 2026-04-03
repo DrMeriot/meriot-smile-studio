@@ -71,7 +71,7 @@ const Contact = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-2">Téléphone</h3>
-                    <p className="text-muted-foreground mb-3">09 83 43 96 21</p>
+                    <p className="text-muted-foreground mb-3">{horaires?.telephone ?? "09 83 43 96 21"}</p>
                     <a href="tel:0983439621">
                       <Button variant="outline" size="sm" className="gap-2">
                         <Phone className="h-4 w-4" />
