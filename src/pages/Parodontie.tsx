@@ -74,10 +74,10 @@ const Parodontie = () => {
                   <span className="text-sm font-medium">Spécialité</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  Parodontie à Marseille
+                  {intro?.titre ?? "Parodontie à Marseille"}
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  Spécialiste en parodontie, je prends soin de la santé de vos gencives et des tissus de soutien de vos dents. Formation approfondie à l'Académie de paro à Aix-en-Provence.
+                  {intro?.description ?? "Spécialiste en parodontie, je prends soin de la santé de vos gencives et des tissus de soutien de vos dents. Formation approfondie à l'Académie de paro à Aix-en-Provence."}
                 </p>
               </div>
             </div>

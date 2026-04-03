@@ -116,9 +116,7 @@ const Practitioner = () => {
               {/* Quote */}
               <blockquote className="border-l-4 border-primary pl-6 py-2 bg-primary/5 rounded-r-lg mb-6">
                 <p className="italic text-muted-foreground">
-                  "Je prends le temps d'expliquer chaque étape de vos soins, pour que
-                  vous vous sentiez en confiance et acteur de votre santé
-                  bucco-dentaire."
+                  "{content?.citation ?? "Je prends le temps d'expliquer chaque étape de vos soins, pour que vous vous sentiez en confiance et acteur de votre santé bucco-dentaire."}"
                 </p>
               </blockquote>
 

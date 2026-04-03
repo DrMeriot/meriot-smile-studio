@@ -38,12 +38,10 @@ const Implantologie = () => {
                 <span className="text-sm font-medium">Spécialité</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Implantologie à Marseille
+                {intro?.titre ?? "Implantologie à Marseille"}
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Solution moderne et durable pour remplacer vos dents manquantes.
-                Formation spécialisée à l'IFPIO Marseille pour vous offrir des
-                implants de qualité et un suivi personnalisé.
+                {intro?.description ?? "Solution moderne et durable pour remplacer vos dents manquantes. Formation spécialisée à l'IFPIO Marseille pour vous offrir des implants de qualité et un suivi personnalisé."}
               </p>
             </div>
           </div>

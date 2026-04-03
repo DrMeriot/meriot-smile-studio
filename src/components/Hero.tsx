@@ -43,21 +43,24 @@ const Hero = () => {
 
           {/* Main heading */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Votre sourire entre{" "}
-            <span className="text-primary">de bonnes mains</span>
+            {titre.includes("de bonnes mains") ? (
+              <>
+                {titre.split("de bonnes mains")[0]}
+                <span className="text-primary">de bonnes mains</span>
+              </>
+            ) : (
+              titre
+            )}
           </h1>
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Spécialiste en parodontie et implantologie à Marseille 4ème
-            — Traitement des gencives et pose d'implants
+            {sousTitre}
           </p>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-8 max-w-xl">
-            Une approche humaine et personnalisée pour prendre soin de votre santé
-            bucco-dentaire. Le Dr Stéphanie Meriot vous accueille dans son cabinet
-            avec douceur et expertise.
+            {description}
           </p>
 
           {/* CTA Buttons */}

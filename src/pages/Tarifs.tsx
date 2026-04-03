@@ -33,10 +33,10 @@ const Tarifs = () => {
           <section className="py-20 bg-gradient-soft">
             <div className="container mx-auto px-4 text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Tarifs et remboursements
+                {intro?.titre ?? "Tarifs et remboursements"}
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Transparence et clarté sur nos honoraires. Conventionnée secteur 1, je pratique les tarifs de l'Assurance Maladie pour les soins courants.
+                {intro?.description ?? "Transparence et clarté sur nos honoraires. Conventionnée secteur 1, je pratique les tarifs de l'Assurance Maladie pour les soins courants."}
               </p>
             </div>
           </section>

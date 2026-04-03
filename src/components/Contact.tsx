@@ -92,30 +92,19 @@ const Contact = () => {
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-3">Horaires</h3>
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Lundi</span>
-                        <span>09h-12h, 14h-17h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Mardi</span>
-                        <span>09h-12h, 14h-18h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Mercredi</span>
-                        <span className="text-destructive">Fermé</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Jeudi</span>
-                        <span>09h-12h, 14h-18h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Vendredi</span>
-                        <span>09h-14h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Sam-Dim</span>
-                        <span className="text-destructive">Fermé</span>
-                      </div>
+                      {[
+                        { jour: "Lundi", val: horaires?.lundi ?? "09h-12h, 14h-17h" },
+                        { jour: "Mardi", val: horaires?.mardi ?? "09h-12h, 14h-18h" },
+                        { jour: "Mercredi", val: horaires?.mercredi ?? "Fermé" },
+                        { jour: "Jeudi", val: horaires?.jeudi ?? "09h-12h, 14h-18h" },
+                        { jour: "Vendredi", val: horaires?.vendredi ?? "09h-14h" },
+                        { jour: "Sam-Dim", val: horaires?.samedi_dimanche ?? "Fermé" },
+                      ].map(({ jour, val }) => (
+                        <div key={jour} className="flex justify-between">
+                          <span className="text-muted-foreground">{jour}</span>
+                          <span className={val === "Fermé" ? "text-destructive" : ""}>{val}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

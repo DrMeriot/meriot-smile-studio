@@ -38,12 +38,10 @@ const Esthetique = () => {
                 <span className="text-sm font-medium">Esthétique</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Esthétique dentaire à Marseille
+                {intro?.titre ?? "Esthétique dentaire à Marseille"}
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Retrouvez un sourire éclatant et harmonieux grâce à des solutions
-                esthétiques douces et personnalisées. Sublimez votre sourire en
-                toute sérénité.
+                {intro?.description ?? "Retrouvez un sourire éclatant et harmonieux grâce à des solutions esthétiques douces et personnalisées. Sublimez votre sourire en toute sérénité."}
               </p>
             </div>
           </div>
