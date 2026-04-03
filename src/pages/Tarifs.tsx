@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { usePageContent } from "@/hooks/usePageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CheckCircle2, Info, Calendar, CreditCard, Shield, Heart } from "lucide-react";
