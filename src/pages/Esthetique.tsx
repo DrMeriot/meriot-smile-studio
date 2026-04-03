@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { usePageContent } from "@/hooks/usePageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
+interface IntroContent { titre: string; description: string; }
+
 const Esthetique = () => {
+  const { data: intro } = usePageContent<IntroContent>('esthetique', 'intro');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -33,12 +38,10 @@ const Esthetique = () => {
                 <span className="text-sm font-medium">Esthétique</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Esthétique dentaire à Marseille
+                {intro?.titre ?? "Esthétique dentaire à Marseille"}
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Retrouvez un sourire éclatant et harmonieux grâce à des solutions
-                esthétiques douces et personnalisées. Sublimez votre sourire en
-                toute sérénité.
+                {intro?.description ?? "Retrouvez un sourire éclatant et harmonieux grâce à des solutions esthétiques douces et personnalisées. Sublimez votre sourire en toute sérénité."}
               </p>
             </div>
           </div>

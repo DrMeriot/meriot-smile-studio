@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { usePageContent } from "@/hooks/usePageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CheckCircle2, Info, Calendar, CreditCard, Shield, Heart } from "lucide-react";
@@ -7,7 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
+interface IntroContent { titre: string; description: string; }
+
 const Tarifs = () => {
+  const { data: intro } = usePageContent<IntroContent>('tarifs', 'intro');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -28,10 +33,10 @@ const Tarifs = () => {
           <section className="py-20 bg-gradient-soft">
             <div className="container mx-auto px-4 text-center">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Tarifs et remboursements
+                {intro?.titre ?? "Tarifs et remboursements"}
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-                Transparence et clarté sur nos honoraires. Conventionnée secteur 1, je pratique les tarifs de l'Assurance Maladie pour les soins courants.
+                {intro?.description ?? "Transparence et clarté sur nos honoraires. Conventionnée secteur 1, je pratique les tarifs de l'Assurance Maladie pour les soins courants."}
               </p>
             </div>
           </section>

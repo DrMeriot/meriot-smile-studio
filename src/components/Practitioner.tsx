@@ -2,8 +2,17 @@ import { Award, Globe, Heart, GraduationCap } from "lucide-react";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { usePageContent } from "@/hooks/usePageContent";
+
+interface PractitionerContent {
+  nom: string;
+  description: string;
+  parcours: string;
+  citation: string;
+}
 
 const Practitioner = () => {
+  const { data: content } = usePageContent<PractitionerContent>('accueil', 'praticien');
   return (
     <section className="pt-6 pb-20 bg-muted/30 relative overflow-hidden" id="a-propos">
       {/* Decorative background elements */}
@@ -44,19 +53,13 @@ const Practitioner = () => {
                 Votre praticienne
               </span>
               <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-                Dr Stéphanie Meriot
+                {content?.nom ?? "Dr Stéphanie Meriot"}
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Diplômée de la Faculté d'odontologie de Marseille, je suis
-                chirurgien-dentiste spécialisée en <strong>parodontie</strong> et{" "}
-                <strong>implantologie</strong>. Mon approche repose sur l'écoute, la
-                douceur et le respect du rythme de chaque patient.
+                {content?.description ?? "Diplômée de la Faculté d'odontologie de Marseille, je suis chirurgien-dentiste spécialisée en parodontie et implantologie. Mon approche repose sur l'écoute, la douceur et le respect du rythme de chaque patient."}
               </p>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Ma thèse sur la <em>dentisterie à minima</em> reflète ma philosophie :
-                préserver au maximum vos tissus naturels tout en vous offrant des
-                soins de qualité. Chaque traitement est personnalisé et expliqué avec
-                clarté.
+                {content?.parcours ?? "Ma thèse sur la dentisterie à minima reflète ma philosophie : préserver au maximum vos tissus naturels tout en vous offrant des soins de qualité. Chaque traitement est personnalisé et expliqué avec clarté."}
               </p>
 
               {/* Highlights */}
@@ -113,9 +116,7 @@ const Practitioner = () => {
               {/* Quote */}
               <blockquote className="border-l-4 border-primary pl-6 py-2 bg-primary/5 rounded-r-lg mb-6">
                 <p className="italic text-muted-foreground">
-                  "Je prends le temps d'expliquer chaque étape de vos soins, pour que
-                  vous vous sentiez en confiance et acteur de votre santé
-                  bucco-dentaire."
+                  "{content?.citation ?? "Je prends le temps d'expliquer chaque étape de vos soins, pour que vous vous sentiez en confiance et acteur de votre santé bucco-dentaire."}"
                 </p>
               </blockquote>
 

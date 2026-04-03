@@ -1,8 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Clock, Train, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { usePageContent } from "@/hooks/usePageContent";
+
+interface HorairesContent {
+  lundi: string;
+  mardi: string;
+  mercredi: string;
+  jeudi: string;
+  vendredi: string;
+  samedi_dimanche: string;
+  telephone: string;
+  adresse: string;
+}
 
 const Contact = () => {
+  const { data: horaires } = usePageContent<HorairesContent>('accueil', 'horaires');
   return (
     <section className="py-20 bg-muted/30" id="contact">
       <div className="container mx-auto px-4">
@@ -32,9 +45,9 @@ const Contact = () => {
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-2">Adresse</h3>
                     <p className="text-muted-foreground mb-3">
-                      23 Boulevard de la Fédération
-                      <br />
-                      13004 Marseille
+                      {(horaires?.adresse ?? "23 Boulevard de la Fédération, 13004 Marseille").split(",").map((part, i) => (
+                        <span key={i}>{part.trim()}{i === 0 && <br />}</span>
+                      ))}
                     </p>
                     <a
                       href="https://maps.google.com/?q=23+Boulevard+de+la+Fédération+13004+Marseille"
@@ -58,7 +71,7 @@ const Contact = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-2">Téléphone</h3>
-                    <p className="text-muted-foreground mb-3">09 83 43 96 21</p>
+                    <p className="text-muted-foreground mb-3">{horaires?.telephone ?? "09 83 43 96 21"}</p>
                     <a href="tel:0983439621">
                       <Button variant="outline" size="sm" className="gap-2">
                         <Phone className="h-4 w-4" />
@@ -79,30 +92,19 @@ const Contact = () => {
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-3">Horaires</h3>
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Lundi</span>
-                        <span>09h-12h, 14h-17h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Mardi</span>
-                        <span>09h-12h, 14h-18h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Mercredi</span>
-                        <span className="text-destructive">Fermé</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Jeudi</span>
-                        <span>09h-12h, 14h-18h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Vendredi</span>
-                        <span>09h-14h</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Sam-Dim</span>
-                        <span className="text-destructive">Fermé</span>
-                      </div>
+                      {[
+                        { jour: "Lundi", val: horaires?.lundi ?? "09h-12h, 14h-17h" },
+                        { jour: "Mardi", val: horaires?.mardi ?? "09h-12h, 14h-18h" },
+                        { jour: "Mercredi", val: horaires?.mercredi ?? "Fermé" },
+                        { jour: "Jeudi", val: horaires?.jeudi ?? "09h-12h, 14h-18h" },
+                        { jour: "Vendredi", val: horaires?.vendredi ?? "09h-14h" },
+                        { jour: "Sam-Dim", val: horaires?.samedi_dimanche ?? "Fermé" },
+                      ].map(({ jour, val }) => (
+                        <div key={jour} className="flex justify-between">
+                          <span className="text-muted-foreground">{jour}</span>
+                          <span className={val === "Fermé" ? "text-destructive" : ""}>{val}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

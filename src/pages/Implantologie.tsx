@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { usePageContent } from "@/hooks/usePageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
+interface IntroContent { titre: string; description: string; }
+
 const Implantologie = () => {
+  const { data: intro } = usePageContent<IntroContent>('implantologie', 'intro');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -33,12 +38,10 @@ const Implantologie = () => {
                 <span className="text-sm font-medium">Spécialité</span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Implantologie à Marseille
+                {intro?.titre ?? "Implantologie à Marseille"}
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Solution moderne et durable pour remplacer vos dents manquantes.
-                Formation spécialisée à l'IFPIO Marseille pour vous offrir des
-                implants de qualité et un suivi personnalisé.
+                {intro?.description ?? "Solution moderne et durable pour remplacer vos dents manquantes. Formation spécialisée à l'IFPIO Marseille pour vous offrir des implants de qualité et un suivi personnalisé."}
               </p>
             </div>
           </div>

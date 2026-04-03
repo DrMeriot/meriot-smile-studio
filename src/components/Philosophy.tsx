@@ -1,4 +1,11 @@
 import { Heart, Users, Shield, MessageCircle } from "lucide-react";
+import { usePageContent } from "@/hooks/usePageContent";
+
+interface PhilosophyContent {
+  titre: string;
+  description: string;
+  citation: string;
+}
 
 const values = [
   {
@@ -28,6 +35,8 @@ const values = [
 ];
 
 const Philosophy = () => {
+  const { data: content } = usePageContent<PhilosophyContent>('accueil', 'philosophie');
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -37,11 +46,10 @@ const Philosophy = () => {
             Ma philosophie
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Une dentisterie à l'écoute et respectueuse
+            {content?.titre ?? "Une dentisterie à l'écoute et respectueuse"}
           </h2>
           <p className="text-lg text-muted-foreground">
-            Mon approche repose sur quatre piliers fondamentaux pour vous offrir
-            des soins de qualité dans un climat de confiance.
+            {content?.description ?? "Mon approche repose sur quatre piliers fondamentaux pour vous offrir des soins de qualité dans un climat de confiance."}
           </p>
         </div>
 
@@ -73,9 +81,7 @@ const Philosophy = () => {
         {/* Quote Section */}
         <div className="mt-16 max-w-4xl mx-auto text-center">
           <blockquote className="text-2xl font-medium italic text-foreground leading-relaxed">
-            "Votre sourire mérite une attention particulière. Je m'engage à vous
-            offrir des soins de qualité dans un environnement chaleureux et
-            rassurant."
+            "{content?.citation ?? "Votre sourire mérite une attention particulière. Je m'engage à vous offrir des soins de qualité dans un environnement chaleureux et rassurant."}"
           </blockquote>
           <p className="mt-6 text-primary font-semibold">
             — Dr Stéphanie Meriot
