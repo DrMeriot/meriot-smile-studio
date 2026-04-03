@@ -34,6 +34,7 @@ const fieldLabels: Record<string, Record<string, { label: string; help: string }
   },
   praticien: {
     nom: { label: "Nom du praticien", help: "Le nom affiché dans la section praticien" },
+    photo_url: { label: "📷 Photo du praticien", help: "La photo affichée dans la section praticien sur la page d'accueil" },
     description: { label: "Présentation", help: "Le premier paragraphe de présentation" },
     parcours: { label: "Parcours", help: "Le deuxième paragraphe sur la formation et la philosophie" },
     citation: { label: "Citation", help: "La phrase en italique dans l'encadré" },
