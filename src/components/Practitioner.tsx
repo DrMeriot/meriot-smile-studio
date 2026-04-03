@@ -53,19 +53,13 @@ const Practitioner = () => {
                 Votre praticienne
               </span>
               <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-                Dr Stéphanie Meriot
+                {content?.nom ?? "Dr Stéphanie Meriot"}
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Diplômée de la Faculté d'odontologie de Marseille, je suis
-                chirurgien-dentiste spécialisée en <strong>parodontie</strong> et{" "}
-                <strong>implantologie</strong>. Mon approche repose sur l'écoute, la
-                douceur et le respect du rythme de chaque patient.
+                {content?.description ?? "Diplômée de la Faculté d'odontologie de Marseille, je suis chirurgien-dentiste spécialisée en parodontie et implantologie. Mon approche repose sur l'écoute, la douceur et le respect du rythme de chaque patient."}
               </p>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Ma thèse sur la <em>dentisterie à minima</em> reflète ma philosophie :
-                préserver au maximum vos tissus naturels tout en vous offrant des
-                soins de qualité. Chaque traitement est personnalisé et expliqué avec
-                clarté.
+                {content?.parcours ?? "Ma thèse sur la dentisterie à minima reflète ma philosophie : préserver au maximum vos tissus naturels tout en vous offrant des soins de qualité. Chaque traitement est personnalisé et expliqué avec clarté."}
               </p>
 
               {/* Highlights */}
