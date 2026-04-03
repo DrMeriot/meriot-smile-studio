@@ -7,6 +7,7 @@ interface HeroContent {
   titre: string;
   sous_titre: string;
   description: string;
+  photo_url: string;
 }
 
 const Hero = () => {
