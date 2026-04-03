@@ -16,6 +16,7 @@ const Hero = () => {
   const titre = content?.titre ?? "Votre sourire entre de bonnes mains";
   const sousTitre = content?.sous_titre ?? "Spécialiste en parodontie et implantologie à Marseille 4ème — Traitement des gencives et pose d'implants";
   const description = content?.description ?? "Une approche humaine et personnalisée pour prendre soin de votre santé bucco-dentaire. Le Dr Stéphanie Meriot vous accueille dans son cabinet avec douceur et expertise.";
+  const heroPhoto = content?.photo_url || drMeriotPhoto;
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
