@@ -14,6 +14,7 @@ interface PractitionerContent {
 
 const Practitioner = () => {
   const { data: content } = usePageContent<PractitionerContent>('accueil', 'praticien');
+  const photoSrc = content?.photo_url || drMeriotPhoto;
   return (
     <section className="pt-6 pb-20 bg-muted/30 relative overflow-hidden" id="a-propos">
       {/* Decorative background elements */}
