@@ -36,7 +36,7 @@ const Practitioner = () => {
                     {/* Soft overlay to harmonize with site colors */}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary/5 z-10"></div>
                     <img
-                      src={drMeriotPhoto}
+                      src={photoSrc}
                       alt="Dr Stéphanie Meriot - Chirurgien-dentiste spécialiste parodontie implantologie Marseille"
                       className="w-full h-auto object-cover"
                     />
