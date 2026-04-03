@@ -79,6 +79,36 @@ const Dashboard = () => {
         </Card>
       </div>
 
+      {/* How-To Guide */}
+      <Card className="mb-8 border-primary/20 bg-primary/5">
+        <CardHeader>
+          <CardTitle className="text-lg">📖 Comment modifier le contenu du site ?</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ol className="space-y-3 text-sm text-muted-foreground">
+            <li className="flex gap-3">
+              <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">1</span>
+              <span>Allez dans <strong>"Gestion des Pages"</strong> dans le menu à gauche</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">2</span>
+              <span>Cliquez sur la page que vous souhaitez modifier (ex: Page d'accueil, Parodontie...)</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0">3</span>
+              <span>Modifiez les textes dans les champs et cliquez sur <strong>"Enregistrer"</strong>. C'est tout ! ✨</span>
+            </li>
+          </ol>
+          <div className="mt-4">
+            <Link to="/admin/pages">
+              <Button variant="outline" size="sm">
+                Modifier le contenu du site →
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Quick Actions */}
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Actions rapides</h2>
