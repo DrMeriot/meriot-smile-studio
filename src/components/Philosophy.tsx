@@ -35,6 +35,8 @@ const values = [
 ];
 
 const Philosophy = () => {
+  const { data: content } = usePageContent<PhilosophyContent>('accueil', 'philosophie');
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -44,11 +46,10 @@ const Philosophy = () => {
             Ma philosophie
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Une dentisterie à l'écoute et respectueuse
+            {content?.titre ?? "Une dentisterie à l'écoute et respectueuse"}
           </h2>
           <p className="text-lg text-muted-foreground">
-            Mon approche repose sur quatre piliers fondamentaux pour vous offrir
-            des soins de qualité dans un climat de confiance.
+            {content?.description ?? "Mon approche repose sur quatre piliers fondamentaux pour vous offrir des soins de qualité dans un climat de confiance."}
           </p>
         </div>
 
