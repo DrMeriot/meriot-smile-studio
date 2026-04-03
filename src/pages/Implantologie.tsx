@@ -8,7 +8,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
+interface IntroContent { titre: string; description: string; }
+
 const Implantologie = () => {
+  const { data: intro } = usePageContent<IntroContent>('implantologie', 'intro');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
