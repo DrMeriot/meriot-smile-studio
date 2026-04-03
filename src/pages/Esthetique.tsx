@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { usePageContent } from "@/hooks/usePageContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,6 +8,12 @@ import { Sparkles, CheckCircle2, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+
+const breadcrumbItems = [
+  { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
+  { name: "Esthétique dentaire", url: "https://dr-meriot-dentiste.fr/esthetique" }
+];
 
 interface IntroContent { titre: string; description: string; }
 
@@ -20,11 +27,12 @@ const Esthetique = () => {
   return (
     <>
       <SEOHead
-        title="Esthétique Dentaire Marseille & PACA | Blanchiment & Facettes | Dr Meriot"
-        description="Esthétique dentaire à Marseille et région PACA : Aix, Aubagne, La Ciotat, Martigues, Salon. Blanchiment, facettes, composites. ☎ 09 83 43 96 21"
+        title="Esthétique Dentaire Marseille | Blanchiment & Facettes | Dr Meriot"
+        description="Blanchiment dentaire, facettes et composites esthétiques à Marseille 4ème. Retrouvez un sourire éclatant avec le Dr Meriot. ☎ 09 83 43 96 21"
         canonical="/esthetique"
-        keywords="esthétique dentaire marseille, blanchiment aix-en-provence, facettes aubagne, sourire la ciotat, dentiste esthétique vitrolles, blanchiment cassis, facettes marignane, sourire parfait gardanne, esthétique martigues, blanchiment istres, salon-de-provence, allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, ensuès-la-redonne, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
+        keywords="esthétique dentaire marseille, blanchiment dentaire marseille, facettes dentaires, composites esthétiques, sourire harmonieux"
       />
+      <BreadcrumbSchema items={breadcrumbItems} />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
@@ -75,7 +83,7 @@ const Esthetique = () => {
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4 max-w-5xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-              Nos solutions esthétiques
+              Nos solutions d'esthétique dentaire
             </h2>
 
             <div className="space-y-8">
@@ -87,7 +95,7 @@ const Esthetique = () => {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-2xl font-semibold mb-3">
-                        Blanchiment dentaire
+                        Blanchiment dentaire professionnel
                       </h3>
                       <p className="text-muted-foreground leading-relaxed mb-4">
                         Éclaircissement professionnel et sécurisé de vos dents
@@ -99,15 +107,13 @@ const Esthetique = () => {
                         <li className="flex items-start gap-2">
                           <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                           <span className="text-muted-foreground text-sm">
-                            Blanchiment ambulatoire (gouttières sur mesure à
-                            porter à domicile)
+                            Blanchiment ambulatoire (gouttières sur mesure à porter à domicile)
                           </span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                           <span className="text-muted-foreground text-sm">
-                            Blanchiment au fauteuil (résultat immédiat en une
-                            séance)
+                            Blanchiment au fauteuil (résultat immédiat en une séance)
                           </span>
                         </li>
                         <li className="flex items-start gap-2">
@@ -130,7 +136,7 @@ const Esthetique = () => {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-2xl font-semibold mb-3">
-                        Facettes dentaires
+                        Facettes dentaires en céramique
                       </h3>
                       <p className="text-muted-foreground leading-relaxed mb-4">
                         Fines coquilles en céramique collées sur la face visible
@@ -142,8 +148,7 @@ const Esthetique = () => {
                         <li className="flex items-start gap-2">
                           <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                           <span className="text-muted-foreground text-sm">
-                            Correction des dents tachées, ébréchées ou mal
-                            alignées
+                            Correction des dents tachées, ébréchées ou mal alignées
                           </span>
                         </li>
                         <li className="flex items-start gap-2">
@@ -190,7 +195,7 @@ const Esthetique = () => {
                         <li className="flex items-start gap-2">
                           <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                           <span className="text-muted-foreground text-sm">
-                            Fermeture des espaces entre les dents
+                            Fermeture des espaces entre les dents (diastèmes)
                           </span>
                         </li>
                         <li className="flex items-start gap-2">
@@ -253,7 +258,7 @@ const Esthetique = () => {
         <section className="py-20">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
-              Une esthétique naturelle et respectueuse
+              Une approche esthétique naturelle et respectueuse
             </h2>
             <div className="bg-card rounded-2xl p-8 shadow-soft">
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
@@ -273,6 +278,23 @@ const Esthetique = () => {
                 privilégie toujours les techniques les moins invasives pour
                 préserver au maximum vos tissus dentaires naturels.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Cross-links */}
+        <section className="py-12 bg-muted/30">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl font-bold mb-6 text-center">Découvrez nos autres spécialités</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                <h3 className="font-semibold text-lg mb-2">Parodontie</h3>
+                <p className="text-muted-foreground text-sm">Des gencives saines sont la base d'un beau sourire. Découvrez notre expertise en traitement des gencives.</p>
+              </Link>
+              <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                <h3 className="font-semibold text-lg mb-2">Implantologie</h3>
+                <p className="text-muted-foreground text-sm">Remplacez vos dents manquantes par des implants dentaires durables et esthétiques.</p>
+              </Link>
             </div>
           </div>
         </section>
