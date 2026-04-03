@@ -169,7 +169,10 @@ const BlogEditor = () => {
       return;
     }
 
-    saveMutation.mutate(formData);
+    saveMutation.mutate({
+      ...formData,
+      content: sanitizeHtml(formData.content),
+    });
   };
 
   if (isEditing && isLoadingPost) {
