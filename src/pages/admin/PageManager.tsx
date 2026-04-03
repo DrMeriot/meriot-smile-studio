@@ -31,6 +31,7 @@ const fieldLabels: Record<string, Record<string, { label: string; help: string }
     titre: { label: "Titre principal", help: "Le grand titre affiché en haut de la page d'accueil" },
     sous_titre: { label: "Sous-titre", help: "Le texte juste en dessous du titre principal" },
     description: { label: "Description", help: "Le paragraphe de présentation sous le sous-titre" },
+    photo_url: { label: "📷 Photo du héro", help: "La grande photo affichée à droite sur la page d'accueil (format portrait recommandé)" },
   },
   praticien: {
     nom: { label: "Nom du praticien", help: "Le nom affiché dans la section praticien" },
