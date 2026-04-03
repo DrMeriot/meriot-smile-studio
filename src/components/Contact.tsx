@@ -45,9 +45,9 @@ const Contact = () => {
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-2">Adresse</h3>
                     <p className="text-muted-foreground mb-3">
-                      23 Boulevard de la Fédération
-                      <br />
-                      13004 Marseille
+                      {(horaires?.adresse ?? "23 Boulevard de la Fédération, 13004 Marseille").split(",").map((part, i) => (
+                        <span key={i}>{part.trim()}{i === 0 && <br />}</span>
+                      ))}
                     </p>
                     <a
                       href="https://maps.google.com/?q=23+Boulevard+de+la+Fédération+13004+Marseille"
