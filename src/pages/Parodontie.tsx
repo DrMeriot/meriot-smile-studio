@@ -430,6 +430,23 @@ const Parodontie = () => {
           {/* Glossaire SEO */}
           <ParoGlossary />
 
+          {/* Cross-links spécialités */}
+          <section className="py-12 bg-muted/30">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-2xl font-bold mb-6 text-center">Découvrez nos autres spécialités</h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                  <h3 className="font-semibold text-lg mb-2">Implantologie</h3>
+                  <p className="text-muted-foreground text-sm">Des gencives saines sont essentielles pour la réussite des implants. Découvrez nos solutions de remplacement dentaire.</p>
+                </Link>
+                <Link to="/esthetique" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                  <h3 className="font-semibold text-lg mb-2">Esthétique dentaire</h3>
+                  <p className="text-muted-foreground text-sm">Retrouvez un sourire harmonieux grâce au blanchiment, aux facettes et aux composites esthétiques.</p>
+                </Link>
+              </div>
+            </div>
+          </section>
+
           {/* CTA */}
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
