@@ -8,7 +8,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
+interface IntroContent { titre: string; description: string; }
+
 const Tarifs = () => {
+  const { data: intro } = usePageContent<IntroContent>('tarifs', 'intro');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
