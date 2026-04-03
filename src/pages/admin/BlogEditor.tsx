@@ -21,6 +21,7 @@ import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { Loader2, Save, ArrowLeft, Eye } from 'lucide-react';
 import { z } from 'zod';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 const blogPostSchema = z.object({
   title: z.string().trim().min(1, "Le titre est requis").max(200, "Le titre est trop long"),
@@ -168,7 +169,10 @@ const BlogEditor = () => {
       return;
     }
 
-    saveMutation.mutate(formData);
+    saveMutation.mutate({
+      ...formData,
+      content: sanitizeHtml(formData.content),
+    });
   };
 
   if (isEditing && isLoadingPost) {
