@@ -1,8 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone, CheckCircle2 } from "lucide-react";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
+import { usePageContent } from "@/hooks/usePageContent";
+
+interface HeroContent {
+  titre: string;
+  sous_titre: string;
+  description: string;
+}
 
 const Hero = () => {
+  const { data: content } = usePageContent<HeroContent>('accueil', 'hero');
+
+  const titre = content?.titre ?? "Votre sourire entre de bonnes mains";
+  const sousTitre = content?.sous_titre ?? "Spécialiste en parodontie et implantologie à Marseille 4ème — Traitement des gencives et pose d'implants";
+  const description = content?.description ?? "Une approche humaine et personnalisée pour prendre soin de votre santé bucco-dentaire. Le Dr Stéphanie Meriot vous accueille dans son cabinet avec douceur et expertise.";
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       {/* Background gradient for mobile */}
