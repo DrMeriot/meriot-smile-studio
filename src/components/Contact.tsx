@@ -1,8 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Clock, Train, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { usePageContent } from "@/hooks/usePageContent";
+
+interface HorairesContent {
+  lundi: string;
+  mardi: string;
+  mercredi: string;
+  jeudi: string;
+  vendredi: string;
+  samedi_dimanche: string;
+  telephone: string;
+  adresse: string;
+}
 
 const Contact = () => {
+  const { data: horaires } = usePageContent<HorairesContent>('accueil', 'horaires');
   return (
     <section className="py-20 bg-muted/30" id="contact">
       <div className="container mx-auto px-4">
