@@ -26,7 +26,7 @@ const Hero = () => {
       {/* Desktop: Image positioned on the right */}
       <div className="absolute inset-y-0 right-0 w-1/2 -z-10 hidden lg:block overflow-hidden">
         <img
-          src={drMeriotPhoto}
+          src={heroPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
           className="w-full h-full object-cover object-[center_12%] lg:translate-y-10 lg:scale-110"
         />
