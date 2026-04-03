@@ -7,6 +7,7 @@ interface HeroContent {
   titre: string;
   sous_titre: string;
   description: string;
+  photo_url: string;
 }
 
 const Hero = () => {
@@ -15,6 +16,7 @@ const Hero = () => {
   const titre = content?.titre ?? "Votre sourire entre de bonnes mains";
   const sousTitre = content?.sous_titre ?? "Spécialiste en parodontie et implantologie à Marseille 4ème — Traitement des gencives et pose d'implants";
   const description = content?.description ?? "Une approche humaine et personnalisée pour prendre soin de votre santé bucco-dentaire. Le Dr Stéphanie Meriot vous accueille dans son cabinet avec douceur et expertise.";
+  const heroPhoto = content?.photo_url || drMeriotPhoto;
 
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -24,7 +26,7 @@ const Hero = () => {
       {/* Desktop: Image positioned on the right */}
       <div className="absolute inset-y-0 right-0 w-1/2 -z-10 hidden lg:block overflow-hidden">
         <img
-          src={drMeriotPhoto}
+          src={heroPhoto}
           alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
           className="w-full h-full object-cover object-[center_12%] lg:translate-y-10 lg:scale-110"
         />

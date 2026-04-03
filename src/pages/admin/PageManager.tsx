@@ -16,6 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { Save, Loader2, ExternalLink, Home, Stethoscope, Sparkles, CreditCard } from 'lucide-react';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 interface PageSection {
   id: string;
@@ -30,9 +31,11 @@ const fieldLabels: Record<string, Record<string, { label: string; help: string }
     titre: { label: "Titre principal", help: "Le grand titre affiché en haut de la page d'accueil" },
     sous_titre: { label: "Sous-titre", help: "Le texte juste en dessous du titre principal" },
     description: { label: "Description", help: "Le paragraphe de présentation sous le sous-titre" },
+    photo_url: { label: "📷 Photo du héro", help: "La grande photo affichée à droite sur la page d'accueil (format portrait recommandé)" },
   },
   praticien: {
     nom: { label: "Nom du praticien", help: "Le nom affiché dans la section praticien" },
+    photo_url: { label: "📷 Photo du praticien", help: "La photo affichée dans la section praticien sur la page d'accueil" },
     description: { label: "Présentation", help: "Le premier paragraphe de présentation" },
     parcours: { label: "Parcours", help: "Le deuxième paragraphe sur la formation et la philosophie" },
     citation: { label: "Citation", help: "La phrase en italique dans l'encadré" },
@@ -152,15 +155,35 @@ const PageManager = () => {
     };
   };
 
+  // Fields that should render as image uploaders
+  const imageFields = new Set(['photo_url', 'image_url']);
+
   const renderField = (
     sectionId: string,
     sectionKey: string,
     fieldKey: string,
     value: unknown
   ) => {
+    const meta = getFieldMeta(sectionKey, fieldKey);
+
+    // Image upload field
+    if (imageFields.has(fieldKey)) {
+      const stringValue = typeof value === 'string' ? value : '';
+      return (
+        <div key={fieldKey}>
+          <ImageUpload
+            label={meta.label}
+            help={meta.help}
+            value={stringValue}
+            onChange={(url) => handleFieldChange(sectionId, fieldKey, url)}
+            folder={sectionKey}
+          />
+        </div>
+      );
+    }
+
     const stringValue = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
     const isLongText = stringValue.length > 80 || stringValue.includes('\n');
-    const meta = getFieldMeta(sectionKey, fieldKey);
 
     return (
       <div key={fieldKey} className="space-y-1.5">

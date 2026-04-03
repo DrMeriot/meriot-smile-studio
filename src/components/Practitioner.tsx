@@ -9,10 +9,12 @@ interface PractitionerContent {
   description: string;
   parcours: string;
   citation: string;
+  photo_url: string;
 }
 
 const Practitioner = () => {
   const { data: content } = usePageContent<PractitionerContent>('accueil', 'praticien');
+  const photoSrc = content?.photo_url || drMeriotPhoto;
   return (
     <section className="pt-6 pb-20 bg-muted/30 relative overflow-hidden" id="a-propos">
       {/* Decorative background elements */}
@@ -34,7 +36,7 @@ const Practitioner = () => {
                     {/* Soft overlay to harmonize with site colors */}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-primary/5 z-10"></div>
                     <img
-                      src={drMeriotPhoto}
+                      src={photoSrc}
                       alt="Dr Stéphanie Meriot - Chirurgien-dentiste spécialiste parodontie implantologie Marseille"
                       className="w-full h-auto object-cover"
                     />
