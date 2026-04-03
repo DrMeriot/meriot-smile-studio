@@ -154,15 +154,35 @@ const PageManager = () => {
     };
   };
 
+  // Fields that should render as image uploaders
+  const imageFields = new Set(['photo_url', 'image_url']);
+
   const renderField = (
     sectionId: string,
     sectionKey: string,
     fieldKey: string,
     value: unknown
   ) => {
+    const meta = getFieldMeta(sectionKey, fieldKey);
+
+    // Image upload field
+    if (imageFields.has(fieldKey)) {
+      const stringValue = typeof value === 'string' ? value : '';
+      return (
+        <div key={fieldKey}>
+          <ImageUpload
+            label={meta.label}
+            help={meta.help}
+            value={stringValue}
+            onChange={(url) => handleFieldChange(sectionId, fieldKey, url)}
+            folder={sectionKey}
+          />
+        </div>
+      );
+    }
+
     const stringValue = typeof value === 'string' ? value : JSON.stringify(value, null, 2);
     const isLongText = stringValue.length > 80 || stringValue.includes('\n');
-    const meta = getFieldMeta(sectionKey, fieldKey);
 
     return (
       <div key={fieldKey} className="space-y-1.5">
