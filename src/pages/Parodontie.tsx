@@ -57,7 +57,7 @@ const Parodontie = () => {
         title="Parodontie Marseille & PACA | Dr Stéphanie Meriot - Spécialiste Gencives"
         description="Spécialiste parodontie à Marseille et région PACA : Pays d'Aix, Aubagne, La Ciotat, Côte Bleue, Étang de Berre. Traitement gingivite et parodontite. ☎ 09 83 43 96 21"
         canonical="/parodontie"
-        keywords="parodontie marseille, parodontologue aix-en-provence, gingivite aubagne, parodontite la ciotat, traitement gencives vitrolles, spécialiste parodontie cassis, parodontologie marignane, déchaussement dentaire gardanne, saignement gencives martigues, parodontologue istres, gencives salon-de-provence, parodontie allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, ensuès-la-redonne, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
+        keywords="parodontie marseille, parodontologue marseille, gingivite traitement, parodontite soins, déchaussement dentaire, saignement gencives, surfaçage radiculaire, greffe gingivale"
       />
       <FAQSchema faqs={parodontieFAQs} pageUrl="https://dr-meriot-dentiste.fr/parodontie" />
       <BreadcrumbSchema items={breadcrumbItems} />

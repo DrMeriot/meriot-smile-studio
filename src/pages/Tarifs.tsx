@@ -23,7 +23,7 @@ const Tarifs = () => {
         title="Tarifs Dentiste Marseille & PACA | Secteur 1 Conventionné | Dr Meriot"
         description="Tarifs transparents cabinet Dr Meriot Marseille et région PACA. Conventionnée secteur 1. Carte Vitale, tiers payant. Consultation 23€. Devis gratuits."
         canonical="/tarifs"
-        keywords="tarif dentiste marseille, prix dentiste aix-en-provence, dentiste secteur 1 aubagne, carte vitale la ciotat, tiers payant vitrolles, tarif dentiste cassis, prix implant marignane, tarif parodontie gardanne, dentiste conventionné martigues, tarif dentiste istres, salon-de-provence, allauch, plan-de-cuques, les pennes-mirabeau, septèmes-les-vallons, bouc-bel-air, cabriès, simiane-collongue, meyreuil, fuveau, rousset, éguilles, ventabren, carry-le-rouet, sausset-les-pins, châteauneuf-les-martigues, gignac-la-nerthe, gémenos, carnoux, roquefort-la-bédoule, ceyreste, roquevaire, auriol, la destrousse, peypin, la bouilladisse, trets, saint-maximin, fos-sur-mer, port-de-bouc, berre-l'étang, rognac, velaux, miramas, saint-chamas, saint-mitre-les-remparts, pélissanne, lançon-provence, la fare-les-oliviers, coudoux, eyguières, lambesc, grans, PACA"
+        keywords="tarif dentiste marseille, dentiste secteur 1, prix implant dentaire, tarif parodontie, carte vitale, tiers payant, devis dentaire gratuit"
       />
       <FloatingCTA />
       <div className="min-h-screen">
