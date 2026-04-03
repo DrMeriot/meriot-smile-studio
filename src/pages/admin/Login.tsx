@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,7 @@ const loginSchema = z.object({
   password: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères"),
 });
 
-const LOGIN_TIMEOUT_MS = 15000; // 15 seconds timeout
+const LOGIN_TIMEOUT_MS = 15000;
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -28,30 +28,24 @@ const Login = () => {
   const { signIn, user, isAdmin, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [justLoggedIn, setJustLoggedIn] = useState(false);
+  const loadingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Redirect only if user was already authenticated on mount (not after login)
   useEffect(() => {
-    // Skip if we just logged in (navigation handled in handleSubmit)
     if (justLoggedIn) return;
-    
-    // Only redirect if user is already authenticated when component mounts
     if (!authLoading && user) {
-      console.log('[Login] User already authenticated on mount, redirecting...');
       navigate('/admin');
     }
   }, [user, authLoading, navigate, justLoggedIn]);
 
-  // Loading timer for UX feedback
   useEffect(() => {
-    let interval: NodeJS.Timeout;
     if (isLoading) {
       setLoadingSeconds(0);
-      interval = setInterval(() => {
+      loadingIntervalRef.current = setInterval(() => {
         setLoadingSeconds(prev => prev + 1);
       }, 1000);
     }
     return () => {
-      if (interval) clearInterval(interval);
+      if (loadingIntervalRef.current) clearInterval(loadingIntervalRef.current);
     };
   }, [isLoading]);
 
@@ -60,7 +54,6 @@ const Login = () => {
     setError(null);
     setSuccess(null);
 
-    // Validation
     const result = loginSchema.safeParse({ email, password });
     if (!result.success) {
       setError(result.error.errors[0].message);
@@ -68,11 +61,9 @@ const Login = () => {
     }
 
     setIsLoading(true);
-    console.log(`[Login] Starting ${isSignUp ? 'signup' : 'login'} for ${email.substring(0, 3)}***`);
 
     try {
       if (isSignUp) {
-        // Sign up with timeout
         const signUpPromise = supabase.auth.signUp({
           email,
           password,
@@ -88,16 +79,13 @@ const Login = () => {
         const { error: signUpError } = await Promise.race([signUpPromise, timeoutPromise]) as any;
 
         if (signUpError) {
-          console.error('[Login] Signup error:', signUpError.message);
           setError(signUpError.message);
           return;
         }
 
-        console.log('[Login] Signup successful');
         setSuccess("Compte créé avec succès ! Vous pouvez maintenant vous connecter.");
         setIsSignUp(false);
       } else {
-        // Sign in with timeout
         const signInPromise = signIn(email, password);
 
         const timeoutPromise = new Promise((_, reject) => {
@@ -107,27 +95,21 @@ const Login = () => {
         const { error: signInError } = await Promise.race([signInPromise, timeoutPromise]) as any;
 
         if (signInError) {
-          console.error('[Login] SignIn error:', signInError.message);
-          // Show the actual error message
           if (signInError.message.includes('Invalid login credentials')) {
             setError("Email ou mot de passe incorrect");
           } else if (signInError.message.includes('Email not confirmed')) {
             setError("Veuillez confirmer votre email avant de vous connecter");
           } else {
-            setError(signInError.message);
+            setError("Une erreur est survenue lors de la connexion");
           }
           return;
         }
-
-        console.log('[Login] SignIn successful, waiting for auth state...');
-        // Navigation is handled by useEffect when user/isAdmin changes
       }
     } catch (err: any) {
-      console.error('[Login] Exception:', err);
       if (err.message === 'TIMEOUT') {
-        setError("La connexion prend trop de temps. Vérifiez votre connexion internet et réessayez. Si vous utilisez un bloqueur de publicités, désactivez-le temporairement.");
+        setError("La connexion prend trop de temps. Vérifiez votre connexion internet et réessayez.");
       } else {
-        setError(err.message || "Une erreur inattendue s'est produite");
+        setError("Une erreur inattendue s'est produite");
       }
     } finally {
       setIsLoading(false);
@@ -136,13 +118,12 @@ const Login = () => {
   };
 
   const handleResetSession = async () => {
-    console.log('[Login] Resetting session...');
     try {
       await supabase.auth.signOut();
       setError(null);
       setSuccess("Session réinitialisée. Vous pouvez réessayer de vous connecter.");
     } catch (err) {
-      console.error('[Login] Reset session error:', err);
+      // Silent failure for session reset
     }
   };
 
