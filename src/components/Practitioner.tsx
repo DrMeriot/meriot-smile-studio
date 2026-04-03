@@ -2,8 +2,17 @@ import { Award, Globe, Heart, GraduationCap } from "lucide-react";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { usePageContent } from "@/hooks/usePageContent";
+
+interface PractitionerContent {
+  nom: string;
+  description: string;
+  parcours: string;
+  citation: string;
+}
 
 const Practitioner = () => {
+  const { data: content } = usePageContent<PractitionerContent>('accueil', 'praticien');
   return (
     <section className="pt-6 pb-20 bg-muted/30 relative overflow-hidden" id="a-propos">
       {/* Decorative background elements */}
