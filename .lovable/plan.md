@@ -1,62 +1,83 @@
 
 
-## Rendre le site facilement modifiable via le CMS admin
+# Intégration Sanity CMS — Plan d'exécution
 
-### Situation actuelle
+## Résumé
 
-- Le CMS admin existe (`/admin`) avec gestion des articles de blog (fonctionnel)
-- La page "Gestion des Pages" (`/admin/pages`) existe mais **aucune page du site n'utilise de contenu dynamique** — tout le texte est codé en dur dans les composants
-- Le hook `usePageContent` est prêt mais jamais utilisé
+Installer `@sanity/client` et `@sanity/image-url`, créer la couche Sanity (client, queries GROQ, hooks React Query), puis migrer tous les composants pour centraliser le contenu. Créer les schémas de référence et les fichiers de données initiales pour import dans Sanity.
 
-### Ce qu'on va faire
+## Étapes
 
-Rendre les textes principaux du site modifiables depuis l'admin, sans toucher au code. Votre femme pourra changer les textes, les descriptions, les horaires, etc. directement depuis le panneau d'administration.
+### 1. Installation des packages
+- `@sanity/client` et `@sanity/image-url`
+- `@tanstack/react-query` est déjà installé
 
-### Étape 1 — Peupler la base avec le contenu actuel
+### 2. Fichiers infrastructure Sanity
+- **`src/lib/sanity.ts`** — Client Sanity (`projectId: "6a2np8jy"`, `dataset: "production"`, `useCdn: true`)
+- **`src/lib/sanityImage.ts`** — Helper `urlFor()` pour les images Sanity
+- **`src/lib/sanityQueries.ts`** — Toutes les queries GROQ (global, accueil, parodontie, implantologie, esthetique, tarifs, about, services, legal, blogPosts, blogPostBySlug)
 
-Créer une migration qui insère les sections éditables avec leur contenu actuel :
+### 3. Hooks React Query
+- **`src/hooks/useSanityContent.ts`** — Hooks : `useGlobalSettings()`, `useSanityPage(type)`, `useBlogPosts()`, `useBlogPost(slug)`
+- `staleTime: 5 min`, fallback pattern avec `??`
 
-| Page | Section | Champs éditables |
-|------|---------|-----------------|
-| `accueil` | `hero` | titre, sous_titre |
-| `accueil` | `praticien` | nom, titre, description, parcours |
-| `accueil` | `philosophie` | titre, description |
-| `accueil` | `horaires` | lundi_vendredi, samedi, telephone, adresse |
-| `parodontie` | `intro` | titre, description |
-| `implantologie` | `intro` | titre, description |
-| `esthetique` | `intro` | titre, description |
-| `tarifs` | `intro` | titre, description |
+### 4. Migration composants globaux (priorité haute)
+Remplacer les 40+ doublons (téléphone, adresse, doctolib_url, nom) par `useGlobalSettings()` :
 
-### Étape 2 — Connecter les composants au CMS
+| Fichier | Données centralisées |
+|---------|---------------------|
+| `Header.tsx` | nom_praticien, titre_praticien, telephone, doctolib_url |
+| `Footer.tsx` | nom_praticien, adresse, telephone, doctolib_url, horaires |
+| `FloatingCTA.tsx` | doctolib_url |
+| `Contact.tsx` | telephone, adresse, horaires, maps_url, doctolib_url, zones |
+| `LocalBusinessSchema.tsx` | Toutes les données globales |
 
-Modifier les composants principaux pour utiliser `usePageContent` avec un fallback sur le texte codé en dur (si la base ne répond pas, le site affiche le contenu par défaut) :
+### 5. Migration page d'accueil
+Remplacer `usePageContent` (Supabase) par `useSanityPage('accueil')` + `useGlobalSettings()` :
 
-- `Hero.tsx` — titre + sous-titre
-- `Practitioner.tsx` — texte de présentation
-- `Philosophy.tsx` — texte de philosophie
-- `Contact.tsx` — horaires et coordonnées
-- `Parodontie.tsx`, `Implantologie.tsx`, `Esthetique.tsx` — intro de chaque page spécialité
+| Composant | Sections Sanity |
+|-----------|----------------|
+| `Hero.tsx` | accueil.hero + global |
+| `Practitioner.tsx` | accueil.praticien |
+| `QuickLinks.tsx` | accueil.quicklinks |
+| `Services.tsx` (composant) | accueil.services |
+| `Philosophy.tsx` | accueil.philosophie |
+| `Testimonials.tsx` | accueil.temoignages |
+| `FAQ.tsx` | accueil.faq |
 
-### Étape 3 — Améliorer l'interface admin pour les non-techniciens
+### 6. Migration pages spécialités
+Chaque page utilise `useSanityPage('parodontie')` etc. avec fallback hardcodé :
+- `Parodontie.tsx` — intro, symptomes, traitements, faq, glossaire
+- `Implantologie.tsx` — intro, avantages, etapes, tarifs, faq
+- `Esthetique.tsx` — intro, services, approche
+- `Tarifs.tsx` — prix, remboursements
+- `Services.tsx` (page) — liste services détaillés
+- `About.tsx` (page) — bio, formations, philosophie
+- `MentionsLegales.tsx` — rpps, diplomes
+- `Blog.tsx` + `BlogPost.tsx` — articles depuis Sanity avec fallback sur `blogData.ts`
 
-Rendre le PageManager plus convivial :
+### 7. Fichiers de référence Sanity
+- **`sanity/schemas/`** — 10 fichiers de schémas (global, accueil, parodontie, implantologie, esthetique, tarifs, about, services_page, legal, blog_post)
+- **`sanity/data/`** — JSON avec tout le contenu hardcodé actuel pour import via `sanity dataset import`
 
-- Labels en français clair au lieu des clés techniques (ex: "Titre principal" au lieu de "titre")
-- Descriptions d'aide sous chaque champ ("Ce texte apparaît en grand sur la page d'accueil")
-- Bouton "Voir sur le site" à côté de chaque section pour visualiser où le texte apparaît
-- Confirmation visuelle claire après sauvegarde
-- Regroupement par page avec des icônes et noms lisibles ("Page d'accueil", "Parodontie", etc.)
+### 8. Configuration
+- **`.env.local.example`** avec `VITE_SANITY_PROJECT_ID`, `VITE_SANITY_DATASET`, `VITE_SANITY_TOKEN`
 
-### Étape 4 — Ajouter un guide d'utilisation dans le dashboard
+## CORS — Action utilisateur requise
+Ajouter dans Sanity (sanity.io/manage → API → CORS origins) :
+- `https://*.lovableproject.com`
+- `https://*.lovable.app`
+- Le domaine de production
 
-Ajouter une carte d'aide sur le Dashboard admin avec :
-- "Comment modifier un texte du site" — explication en 3 étapes
-- Lien direct vers la gestion des pages
+## Ce qui ne change pas
+- Tous les styles, animations, structure HTML
+- Routing React Router
+- Admin Supabase (`/admin/*`) pour le blog
+- Composants UI shadcn
 
-### Détails techniques
+## Fichiers créés (~15)
+`src/lib/sanity.ts`, `sanityImage.ts`, `sanityQueries.ts`, `src/hooks/useSanityContent.ts`, `.env.local.example`, 10 fichiers `sanity/schemas/`, fichiers `sanity/data/`
 
-- **Fichiers modifiés** : `Hero.tsx`, `Practitioner.tsx`, `Philosophy.tsx`, `Contact.tsx`, `Parodontie.tsx`, `Implantologie.tsx`, `Esthetique.tsx`, `PageManager.tsx`, `Dashboard.tsx`
-- **Migration SQL** : INSERT des sections avec le contenu actuel en JSON
-- **Pattern** : chaque composant utilise `usePageContent()` avec fallback `??` sur les valeurs par défaut, donc aucun risque de casser le site si la base est vide
-- **Aucun impact SEO** : les textes restent identiques, seule la source change (base de données au lieu du code)
+## Fichiers modifiés (~20)
+Header, Footer, FloatingCTA, Hero, Practitioner, QuickLinks, Services (composant), Philosophy, Testimonials, FAQ, Contact, LocalBusinessSchema, Parodontie, Implantologie, Esthetique, Tarifs, Services (page), About, MentionsLegales, Blog, BlogPost
 
