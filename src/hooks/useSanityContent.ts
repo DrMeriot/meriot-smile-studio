@@ -20,7 +20,7 @@ const STALE_TIME = 5 * 60 * 1000; // 5 minutes
 function useSanityQuery<T = any>(key: string, query: string, params?: Record<string, unknown>) {
   return useQuery<T | null>({
     queryKey: ["sanity", key, params],
-    queryFn: async () => {
+    queryFn: async (): Promise<T | null> => {
       try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 3000);
@@ -35,7 +35,7 @@ function useSanityQuery<T = any>(key: string, query: string, params?: Record<str
     staleTime: STALE_TIME,
     gcTime: 10 * 60 * 1000,
     retry: 0,
-    placeholderData: null as T | null,
+    initialData: null,
   });
 }
 
