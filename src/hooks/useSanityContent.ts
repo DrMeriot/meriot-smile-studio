@@ -20,9 +20,12 @@ const STALE_TIME = 5 * 60 * 1000; // 5 minutes
 function useSanityQuery<T = any>(key: string, query: string, params?: Record<string, unknown>) {
   return useQuery<T | null>({
     queryKey: ["sanity", key, params],
-    queryFn: async () => {
+    queryFn: async (): Promise<T | null> => {
       try {
-        const data = await sanityClient.fetch<T>(query, params);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const data = await sanityClient.fetch<T>(query, params, { signal: controller.signal });
+        clearTimeout(timeoutId);
         return data;
       } catch {
         console.warn(`Sanity fetch failed for "${key}", using fallback`);
@@ -30,7 +33,9 @@ function useSanityQuery<T = any>(key: string, query: string, params?: Record<str
       }
     },
     staleTime: STALE_TIME,
-    retry: 1,
+    gcTime: 10 * 60 * 1000,
+    retry: 0,
+    initialData: null,
   });
 }
 
