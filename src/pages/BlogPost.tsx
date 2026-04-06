@@ -13,9 +13,9 @@ const BlogPost = () => {
   const { data: global } = useGlobalSettings();
   const { data: sanityPost } = useBlogPost(slug ?? "");
 
-  const tel = global?.telephone ?? "09 83 43 96 21";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   // Sanity post or fallback to local
   const localPost = slug ? getBlogPostBySlug(slug) : undefined;

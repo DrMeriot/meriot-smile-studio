@@ -30,8 +30,8 @@ const Parodontie = () => {
   const { data: global } = useGlobalSettings();
   const { data: page } = useSanityPage("parodontie");
 
-  const tel = global?.telephone ?? "09 83 43 96 21";
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const faqs = page?.faq ?? defaultFAQs;
   const seoTitle = page?.seo?.title ?? "Parodontie Marseille & PACA | Dr Stéphanie Meriot - Spécialiste Gencives";
   const seoDesc = page?.seo?.description ?? `Spécialiste parodontie à Marseille et région PACA : Pays d'Aix, Aubagne, La Ciotat, Côte Bleue, Étang de Berre. Traitement gingivite et parodontite. ☎ ${tel}`;
@@ -61,10 +61,10 @@ const Parodontie = () => {
                   <span className="text-sm font-medium">Spécialité</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  {page?.intro?.titre ?? "Parodontie à Marseille"}
+                  {page?.introTitle ?? "Parodontie à Marseille"}
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  {page?.intro?.description ?? "Spécialiste en parodontie, je prends soin de la santé de vos gencives et des tissus de soutien de vos dents. Formation approfondie à l'Académie de paro à Aix-en-Provence."}
+                  {page?.introText ?? "Spécialiste en parodontie, je prends soin de la santé de vos gencives et des tissus de soutien de vos dents. Formation approfondie à l'Académie de paro à Aix-en-Provence."}
                 </p>
               </div>
             </div>
