@@ -11,9 +11,9 @@ const Blog = () => {
   const { data: global } = useGlobalSettings();
   const { data: sanityPosts } = useBlogPosts();
 
-  const tel = global?.telephone ?? "09 83 43 96 21";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   // Use Sanity posts if available, otherwise fallback to local data
   const posts = sanityPosts && sanityPosts.length > 0

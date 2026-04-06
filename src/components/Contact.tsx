@@ -27,12 +27,12 @@ const Contact = () => {
   const { data: global } = useGlobalSettings();
   const { data: accueil } = useSanityPage("accueil");
 
-  const tel = global?.telephone ?? "09 83 43 96 21";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
   const adresse = global?.adresse ?? "23 Boulevard de la Fédération, 13004 Marseille";
   const mapsUrl = global?.maps_url ?? "https://maps.google.com/?q=23+Boulevard+de+la+Fédération+13004+Marseille";
   const mapsEmbed = global?.maps_embed_url ?? "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2903.8!2d5.3947!3d43.3117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9c0c2e5f5f5f5%3A0x5f5f5f5f5f5f5f5f!2s23%20Boulevard%20de%20la%20F%C3%A9d%C3%A9ration%2C%2013004%20Marseille!5e0!3m2!1sfr!2sfr!4v1234567890";
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   const horaires = global?.horaires
     ? global.horaires.map((h: { jour: string; heures?: string; ferme?: boolean; heures_debut?: string; heures_fin?: string }) => ({
@@ -41,7 +41,8 @@ const Contact = () => {
       }))
     : defaultHoraires;
 
-  const zones = accueil?.contact?.zones ?? defaultZones;
+  // Flat field from Sanity
+  const zones = accueil?.zones ?? defaultZones;
 
   return (
     <section className="py-20 bg-muted/30" id="contact">

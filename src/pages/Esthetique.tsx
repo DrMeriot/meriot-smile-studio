@@ -19,8 +19,8 @@ const Esthetique = () => {
   const { data: global } = useGlobalSettings();
   const { data: page } = useSanityPage("esthetique");
 
-  const tel = global?.telephone ?? "09 83 43 96 21";
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -45,10 +45,10 @@ const Esthetique = () => {
                   <span className="text-sm font-medium">Esthétique</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  {page?.intro?.titre ?? "Esthétique dentaire à Marseille"}
+                  {page?.introTitle ?? "Esthétique dentaire à Marseille"}
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  {page?.intro?.description ?? "Retrouvez un sourire éclatant et harmonieux grâce à des solutions esthétiques douces et personnalisées. Sublimez votre sourire en toute sérénité."}
+                  {page?.introText ?? "Retrouvez un sourire éclatant et harmonieux grâce à des solutions esthétiques douces et personnalisées. Sublimez votre sourire en toute sérénité."}
                 </p>
               </div>
             </div>

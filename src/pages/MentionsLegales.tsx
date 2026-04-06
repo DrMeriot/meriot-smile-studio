@@ -7,7 +7,7 @@ const MentionsLegales = () => {
   const { data: global } = useGlobalSettings();
 
   const nom = global?.nom_praticien ?? "Dr Stéphanie Meriot";
-  const tel = global?.telephone ?? "09 83 43 96 21";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
   const adresse = global?.adresse ?? "23 Boulevard de la Fédération, 13004 Marseille";
 
   return (

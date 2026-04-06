@@ -71,8 +71,8 @@ const servicesDetails = [
 const Services = () => {
   const { data: global } = useGlobalSettings();
   const nom = global?.nom_praticien ?? "Dr Stéphanie Meriot";
-  const tel = global?.telephone ?? "09 83 43 96 21";
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   const structuredData = {
     "@context": "https://schema.org",

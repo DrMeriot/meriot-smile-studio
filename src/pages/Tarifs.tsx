@@ -12,7 +12,7 @@ const Tarifs = () => {
   const { data: global } = useGlobalSettings();
   const { data: page } = useSanityPage("tarifs");
 
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const consultation = page?.consultation ?? "23€";
   const implant = page?.implant ?? "950€";
   const blanchiment = page?.blanchiment ?? "400€";

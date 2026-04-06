@@ -29,8 +29,8 @@ const Implantologie = () => {
   const { data: global } = useGlobalSettings();
   const { data: page } = useSanityPage("implantologie");
 
-  const tel = global?.telephone ?? "09 83 43 96 21";
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const faqs = page?.faq ?? defaultFAQs;
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -56,10 +56,10 @@ const Implantologie = () => {
                   <Zap className="h-4 w-4" /><span className="text-sm font-medium">Spécialité</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  {page?.intro?.titre ?? "Implantologie à Marseille"}
+                  {page?.introTitle ?? "Implantologie à Marseille"}
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  {page?.intro?.description ?? "Solution moderne et durable pour remplacer vos dents manquantes. Formation spécialisée à l'IFPIO Marseille."}
+                  {page?.introText ?? "Solution moderne et durable pour remplacer vos dents manquantes. Formation spécialisée à l'IFPIO Marseille."}
                 </p>
               </div>
             </div>
