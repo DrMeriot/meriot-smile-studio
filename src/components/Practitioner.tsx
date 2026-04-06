@@ -13,9 +13,13 @@ const defaultHighlights = [
 
 const Practitioner = () => {
   const { data: accueil } = useSanityPage("accueil");
-  const p = accueil?.praticien;
 
-  const photoSrc = p?.photo || drMeriotPhoto;
+  // Flat fields from Sanity
+  const photoSrc = accueil?.praticienPhoto || drMeriotPhoto;
+  const nom = accueil?.praticienNom ?? "Dr Stéphanie Meriot";
+  const description = accueil?.praticienDescription ?? "Diplômée de la Faculté d'odontologie de Marseille, je suis chirurgien-dentiste spécialisée en parodontie et implantologie. Mon approche repose sur l'écoute, la douceur et le respect du rythme de chaque patient.";
+  const parcours = accueil?.praticienParcours ?? "Ma thèse sur la dentisterie à minima reflète ma philosophie : préserver au maximum vos tissus naturels tout en vous offrant des soins de qualité. Chaque traitement est personnalisé et expliqué avec clarté.";
+  const citation = accueil?.praticienCitation ?? "Je prends le temps d'expliquer chaque étape de vos soins, pour que vous vous sentiez en confiance et acteur de votre santé bucco-dentaire.";
 
   return (
     <section className="pt-6 pb-20 bg-muted/30 relative overflow-hidden" id="a-propos">
@@ -42,13 +46,13 @@ const Practitioner = () => {
             <div className="animate-fade-in-up">
               <span className="text-primary font-medium text-sm uppercase tracking-wide">Votre praticienne</span>
               <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-                {p?.nom ?? "Dr Stéphanie Meriot"}
+                {nom}
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                {p?.description ?? "Diplômée de la Faculté d'odontologie de Marseille, je suis chirurgien-dentiste spécialisée en parodontie et implantologie. Mon approche repose sur l'écoute, la douceur et le respect du rythme de chaque patient."}
+                {description}
               </p>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                {p?.parcours ?? "Ma thèse sur la dentisterie à minima reflète ma philosophie : préserver au maximum vos tissus naturels tout en vous offrant des soins de qualité. Chaque traitement est personnalisé et expliqué avec clarté."}
+                {parcours}
               </p>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
@@ -70,7 +74,7 @@ const Practitioner = () => {
 
               <blockquote className="border-l-4 border-primary pl-6 py-2 bg-primary/5 rounded-r-lg mb-6">
                 <p className="italic text-muted-foreground">
-                  "{p?.citation ?? "Je prends le temps d'expliquer chaque étape de vos soins, pour que vous vous sentiez en confiance et acteur de votre santé bucco-dentaire."}"
+                  "{citation}"
                 </p>
               </blockquote>
 

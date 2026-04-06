@@ -11,9 +11,9 @@ const Header = () => {
 
   const nom = global?.nom_praticien ?? "Dr Stéphanie Meriot";
   const titre = global?.titre_praticien ?? "Chirurgien dentiste";
-  const tel = global?.telephone ?? "09 83 43 96 21";
-  const telHref = `tel:${(global?.telephone ?? "09 83 43 96 21").replace(/\s/g, "")}`;
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
+  const telHref = `tel:${tel.replace(/\s/g, "")}`;
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   useEffect(() => {
     const handleScroll = () => {

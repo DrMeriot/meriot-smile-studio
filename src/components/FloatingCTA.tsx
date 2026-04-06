@@ -4,7 +4,7 @@ import { useGlobalSettings } from "@/hooks/useSanityContent";
 
 const FloatingCTA = () => {
   const { data: global } = useGlobalSettings();
-  const doctolibUrl = global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   return (
     <div className="fixed bottom-4 right-4 z-50 md:hidden">

@@ -11,10 +11,13 @@ const defaultValues = [
 const Philosophy = () => {
   const { data: accueil } = useSanityPage("accueil");
   const { data: global } = useGlobalSettings();
-  const p = accueil?.philosophie;
   const nom = global?.nom_praticien ?? "Dr Stéphanie Meriot";
 
-  const values = p?.valeurs ?? defaultValues;
+  // Flat fields from Sanity
+  const titre = accueil?.philosophieTitle ?? "Une dentisterie à l'écoute et respectueuse";
+  const description = accueil?.philosophieDescription ?? "Mon approche repose sur quatre piliers fondamentaux pour vous offrir des soins de qualité dans un climat de confiance.";
+  const citation = accueil?.philosophieCitation ?? "Votre sourire mérite une attention particulière. Je m'engage à vous offrir des soins de qualité dans un environnement chaleureux et rassurant.";
+  const values = accueil?.philosophieValeurs ?? defaultValues;
 
   return (
     <section className="py-20">
@@ -22,10 +25,10 @@ const Philosophy = () => {
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <span className="text-primary font-medium text-sm uppercase tracking-wide">Ma philosophie</span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            {p?.titre ?? "Une dentisterie à l'écoute et respectueuse"}
+            {titre}
           </h2>
           <p className="text-lg text-muted-foreground">
-            {p?.description ?? "Mon approche repose sur quatre piliers fondamentaux pour vous offrir des soins de qualité dans un climat de confiance."}
+            {description}
           </p>
         </div>
 
@@ -50,7 +53,7 @@ const Philosophy = () => {
 
         <div className="mt-16 max-w-4xl mx-auto text-center">
           <blockquote className="text-2xl font-medium italic text-foreground leading-relaxed">
-            "{p?.citation ?? "Votre sourire mérite une attention particulière. Je m'engage à vous offrir des soins de qualité dans un environnement chaleureux et rassurant."}"
+            "{citation}"
           </blockquote>
           <p className="mt-6 text-primary font-semibold">— {nom}</p>
         </div>

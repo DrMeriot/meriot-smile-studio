@@ -10,17 +10,20 @@ const defaultSpecialties = [
 
 const QuickLinks = () => {
   const { data: accueil } = useSanityPage("accueil");
-  const items = accueil?.quicklinks?.items ?? defaultSpecialties;
+  // Flat fields: specialites array, quicklinksLabel, quicklinksTitle
+  const items = accueil?.specialites ?? defaultSpecialties;
+  const label = accueil?.quicklinksLabel ?? "✨ Découvrez nos spécialités";
+  const titre = accueil?.quicklinksTitle ?? "Accès direct à nos expertises";
 
   return (
     <section className="py-16 bg-gradient-to-b from-background to-muted/30 -mt-12">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in-up">
           <span className="text-primary font-semibold text-base uppercase tracking-wide">
-            {accueil?.quicklinks?.label ?? "✨ Découvrez nos spécialités"}
+            {label}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-4">
-            {accueil?.quicklinks?.titre ?? "Accès direct à nos expertises"}
+            {titre}
           </h2>
         </div>
 

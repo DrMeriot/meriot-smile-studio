@@ -11,10 +11,10 @@ const defaultTestimonials = [
 
 const Testimonials = () => {
   const { data: accueil } = useSanityPage("accueil");
-  const t = accueil?.temoignages;
 
-  const testimonials = t?.items ?? defaultTestimonials;
-  const titre = t?.titre ?? "Ils nous font confiance";
+  // Flat fields from Sanity
+  const testimonials = accueil?.temoignages ?? defaultTestimonials;
+  const titre = accueil?.temoignagesTitle ?? "Ils nous font confiance";
 
   return (
     <section className="py-20 bg-muted/30" id="temoignages">

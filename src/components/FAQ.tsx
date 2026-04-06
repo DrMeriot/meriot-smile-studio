@@ -20,9 +20,10 @@ const defaultFaqs = [
 
 const FAQ = () => {
   const { data: accueil } = useSanityPage("accueil");
-  const f = accueil?.faq;
 
-  const faqs = f?.items ?? defaultFaqs;
+  // Flat fields from Sanity
+  const faqs = accueil?.faq ?? defaultFaqs;
+  const titre = accueil?.faqTitle ?? "Vos questions, nos réponses";
 
   return (
     <section className="py-20" id="faq">
@@ -30,7 +31,7 @@ const FAQ = () => {
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <span className="text-primary font-medium text-sm uppercase tracking-wide">Questions fréquentes</span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            {f?.titre ?? "Vos questions, nos réponses"}
+            {titre}
           </h2>
           <p className="text-lg text-muted-foreground">
             Vous avez des interrogations ? Consultez notre FAQ ou contactez-nous directement.
