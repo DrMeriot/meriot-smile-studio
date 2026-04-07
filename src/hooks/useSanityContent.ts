@@ -36,7 +36,7 @@ function useSanityQuery<T = any>(key: string, query: string, params?: Record<str
     staleTime: STALE_TIME,
     gcTime: 10 * 60 * 1000,
     retry: 0,
-    initialData: null,
+    placeholderData: null,
   });
 }
 
