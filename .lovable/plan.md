@@ -1,29 +1,33 @@
 
 
-# Fix Sanity loading performance
+# Fix: Sanity queries never execute
 
-## Problem
-Sanity queries hang/timeout when no data exists yet, blocking the UI. The `retry: 1` setting means each failed query is attempted twice before resolving to `null`.
+## Root cause
 
-## Solution
+The `useSanityQuery` hook sets `initialData: null`. In TanStack React Query v5, `initialData` without `initialDataUpdatedAt` is treated as **fresh data** for the duration of `staleTime` (5 minutes). Since `null` is valid data, React Query never fires the `queryFn` — it already has "data."
 
-Two changes to `src/hooks/useSanityContent.ts` and one to `src/lib/sanity.ts`:
+This explains why:
+- Console shows `SANITY DATA global: null` (the hook returns `initialData`)
+- No "SANITY FETCH result for" log appears (queryFn never runs)
+- 0 network requests to sanity.io
 
-### 1. Add 3-second timeout to Sanity client (`src/lib/sanity.ts`)
-Add `timeout: 3000` to the `createClient` config. This ensures no request hangs longer than 3 seconds.
+## Fix (2 files)
 
-### 2. Optimize React Query config (`src/hooks/useSanityContent.ts`)
-- Set `retry: 0` — don't retry failed/timed-out queries (they'll just timeout again)
-- Add `gcTime: 10 * 60 * 1000` to keep cached null results and avoid re-fetching
-- Add `placeholderData: null` so components render immediately with fallbacks (the `??` operators already handle this)
-- Wrap the fetch in an `AbortController` with 3s timeout as a secondary safeguard
+### 1. `src/hooks/useSanityContent.ts`
+- **Remove `initialData: null`** — let the query start with `undefined` so it's immediately stale and triggers a fetch
+- Optionally add `placeholderData: null` if components need `null` instead of `undefined` while loading (but the `??` fallback operators already handle `undefined`)
 
-### Files modified
-- `src/lib/sanity.ts` — add `timeout: 3000`
-- `src/hooks/useSanityContent.ts` — set `retry: 0`, add `gcTime`, add `placeholderData`
+### 2. `src/lib/sanity.ts`
+- Add a direct test fetch at the bottom of the file (temporary debug line) to confirm the client works independently of hooks:
+  ```ts
+  sanityClient.fetch('*[_type=="global"][0]')
+    .then(d => console.log("DIRECT SANITY TEST:", d))
+    .catch(e => console.error("DIRECT SANITY ERROR:", e))
+  ```
 
-### Result
-- Site renders instantly with hardcoded fallbacks
-- Sanity data loads in background if available
-- If Sanity is empty or unreachable, UI is unaffected (max 3s wait, no retries)
+## Expected result
+- Queries fire immediately on mount
+- If Sanity has data → components display it
+- If Sanity is empty → `null` returned after 3s timeout, fallbacks kick in
+- Debug log confirms client connectivity
 
