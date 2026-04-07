@@ -7,6 +7,3 @@ export const sanityClient = createClient({
   useCdn: true,
   timeout: 3000,
 });
-
-// Debug: test client connectivity directly
-sanityClient.fetch('*[_type=="global"][0]').then(d => console.log("DIRECT SANITY TEST:", d)).catch(e => console.error("DIRECT SANITY ERROR:", e));

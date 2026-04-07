@@ -26,7 +26,7 @@ function useSanityQuery<T = any>(key: string, query: string, params?: Record<str
         const timeoutId = setTimeout(() => controller.abort(), 3000);
         const data = await sanityClient.fetch<T>(query, params, { signal: controller.signal });
         clearTimeout(timeoutId);
-        console.log("SANITY FETCH result for", key, ":", data);
+        
         return data;
       } catch (error) {
         console.error("Sanity fetch failed for", key, error);
