@@ -7,6 +7,9 @@ const Hero = () => {
   const { data: global } = useGlobalSettings();
   const { data: accueil } = useSanityPage("accueil");
 
+  console.log("SANITY DATA global:", global);
+  console.log("SANITY DATA accueil:", accueil);
+
   const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
