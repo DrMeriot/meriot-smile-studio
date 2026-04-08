@@ -1,13 +1,23 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
 
 const Confidentialite = () => {
+  const { data: global } = useGlobalSettings();
+  const { data: page } = useSanityPage("confidentialite");
+
+  const nom = global?.nom_praticien ?? "Dr Stéphanie Meriot";
+  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
+  const adresse = global?.adresse ?? "23 Boulevard de la Fédération, 13004 Marseille";
+  const seoTitle = page?.seoTitle ?? "Politique de Confidentialité RGPD | Dr Stéphanie Meriot Marseille";
+  const seoDesc = page?.seoDescription ?? "Politique de confidentialité et protection des données personnelles (RGPD) du cabinet dentaire Dr Stéphanie Meriot à Marseille 4ème.";
+
   return (
     <>
       <SEOHead
-        title="Politique de Confidentialité RGPD | Dr Stéphanie Meriot Marseille"
-        description="Politique de confidentialité et protection des données personnelles (RGPD) du cabinet dentaire Dr Stéphanie Meriot à Marseille 4ème."
+        title={seoTitle}
+        description={seoDesc}
         canonical="/confidentialite"
       />
       <div className="min-h-screen">
@@ -15,16 +25,12 @@ const Confidentialite = () => {
         <main className="pt-20 py-16">
           <div className="container mx-auto px-4 max-w-4xl">
             <h1 className="text-4xl font-bold mb-8">
-              Politique de confidentialité
+              {page?.titre ?? "Politique de confidentialité"}
             </h1>
 
             <div className="prose prose-lg max-w-none space-y-8">
               <p className="text-muted-foreground">
-                Le Dr Stéphanie Meriot accorde une grande importance à la
-                protection de vos données personnelles. Cette politique vous
-                informe sur la collecte, l'utilisation et la protection de vos
-                données conformément au Règlement Général sur la Protection des
-                Données (RGPD).
+                {page?.introTexte ?? `Le ${nom} accorde une grande importance à la protection de vos données personnelles. Cette politique vous informe sur la collecte, l'utilisation et la protection de vos données conformément au Règlement Général sur la Protection des Données (RGPD).`}
               </p>
 
               <section>
@@ -32,13 +38,11 @@ const Confidentialite = () => {
                   Responsable du traitement
                 </h2>
                 <p>
-                  <strong>Dr Stéphanie Meriot</strong>
+                  <strong>{nom}</strong>
                   <br />
-                  23 Boulevard de la Fédération
+                  {adresse}
                   <br />
-                  13004 Marseille
-                  <br />
-                  Téléphone : 09 83 43 96 21
+                  Téléphone : {tel}
                 </p>
               </section>
 
@@ -170,7 +174,7 @@ const Confidentialite = () => {
                 </ul>
                 <p>
                   Pour exercer vos droits, contactez-nous par téléphone au{" "}
-                  <strong>09 83 43 96 21</strong> ou sur place au cabinet.
+                  <strong>{tel}</strong> ou sur place au cabinet.
                 </p>
               </section>
 
@@ -201,11 +205,11 @@ const Confidentialite = () => {
                   confidentialité ou l'exercice de vos droits, contactez-nous :
                 </p>
                 <p>
-                  <strong>Dr Stéphanie Meriot</strong>
+                  <strong>{nom}</strong>
                   <br />
-                  23 Boulevard de la Fédération, 13004 Marseille
+                  {adresse}
                   <br />
-                  Tél : 09 83 43 96 21
+                  Tél : {tel}
                 </p>
                 <p>
                   Vous disposez également du droit d'introduire une réclamation
@@ -223,7 +227,7 @@ const Confidentialite = () => {
         <Footer />
       </div>
     </>
-    );
-  };
+  );
+};
 
 export default Confidentialite;

@@ -12,6 +12,8 @@ import {
   legalQuery,
   blogPostsQuery,
   blogPostBySlugQuery,
+  contactQuery,
+  confidentialiteQuery,
 } from "@/lib/sanityQueries";
 
 const STALE_TIME = 5 * 60 * 1000; // 5 minutes
@@ -50,6 +52,8 @@ const queryMap: Record<string, string> = {
   about: aboutQuery,
   services_page: servicesPageQuery,
   legal: legalQuery,
+  contact: contactQuery,
+  confidentialite: confidentialiteQuery,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
