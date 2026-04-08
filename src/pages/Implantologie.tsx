@@ -20,6 +20,28 @@ const defaultFAQs = [
   { question: "Quel est le lien entre parodontie et implantologie ?", answer: "La santé des gencives est essentielle pour la réussite des implants." },
 ];
 
+const defaultAvantages = [
+  { title: "Solution durable", desc: "Contrairement aux prothèses amovibles, l'implant est fixe et peut durer toute une vie avec un bon entretien." },
+  { title: "Préserve l'os de la mâchoire", desc: "L'implant stimule l'os, évitant sa résorption qui survient naturellement après la perte d'une dent." },
+  { title: "Confort et esthétique naturelle", desc: "L'implant se comporte comme une dent naturelle : aucune gêne, apparence naturelle, confort total." },
+  { title: "Pas de dommage aux dents adjacentes", desc: "Contrairement au bridge, on ne touche pas aux dents voisines pour remplacer une dent manquante." },
+];
+
+const defaultEtapes = [
+  { step: "1", title: "Consultation et bilan implantaire", desc: "Examen clinique complet, radiographies 3D pour évaluer la qualité et la quantité d'os disponible." },
+  { step: "2", title: "Préparation osseuse (si nécessaire)", desc: "Si le volume osseux est insuffisant, une greffe osseuse peut être nécessaire." },
+  { step: "3", title: "Pose de l'implant en titane", desc: "Intervention chirurgicale sous anesthésie locale (indolore). Durée : 30 min à 1h par implant." },
+  { step: "4", title: "Ostéo-intégration et cicatrisation", desc: "L'implant doit s'intégrer à l'os. Cette phase dure 3 à 6 mois." },
+  { step: "5", title: "Pose de la couronne définitive", desc: "Empreintes pour réaliser votre couronne définitive sur mesure." },
+  { step: "6", title: "Suivi et maintenance implantaire", desc: "Contrôles réguliers pour la longévité de votre implant." },
+];
+
+const defaultInfos = [
+  { title: "Douleur et confort", desc: "L'intervention se fait sous anesthésie locale. Les suites sont bien tolérées." },
+  { title: "Tarif implant dentaire", desc: "À partir de 950€ par implant (hors couronne). Devis détaillé lors de la consultation." },
+  { title: "Taux de réussite des implants", desc: "Le taux de succès dépasse 95% à 10 ans." },
+];
+
 const breadcrumbItems = [
   { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
   { name: "Implantologie", url: "https://dr-meriot-dentiste.fr/implantologie" }
@@ -31,15 +53,20 @@ const Implantologie = () => {
 
   const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
-  const faqs = page?.faq ?? defaultFAQs;
+  const faqs = page?.faqList ?? defaultFAQs;
+  const avantages = page?.avantagesList ?? defaultAvantages;
+  const etapes = page?.etapesList ?? defaultEtapes;
+  const infos = page?.infosList ?? defaultInfos;
+  const seoTitle = page?.seoTitle ?? "Implants Dentaires Marseille | Dr Stéphanie Meriot - Implantologie";
+  const seoDesc = page?.seoDescription ?? `Pose d'implants dentaires à Marseille 4ème par le Dr Meriot. Formation IFPIO. Devis gratuit. ☎ ${tel}`;
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <>
       <SEOHead
-        title={page?.seo?.title ?? "Implants Dentaires Marseille | Dr Stéphanie Meriot - Implantologie"}
-        description={page?.seo?.description ?? `Pose d'implants dentaires à Marseille 4ème par le Dr Meriot. Formation IFPIO. Devis gratuit. ☎ ${tel}`}
+        title={seoTitle}
+        description={seoDesc}
         canonical="/implantologie"
         keywords="implant dentaire marseille, implantologie marseille, pose implant dentaire, chirurgie implantaire, implantologue marseille 4"
       />
@@ -56,10 +83,10 @@ const Implantologie = () => {
                   <Zap className="h-4 w-4" /><span className="text-sm font-medium">Spécialité</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  {page?.introTitle ?? "Implantologie à Marseille"}
+                  {page?.heroTitle ?? "Implantologie à Marseille"}
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  {page?.introText ?? "Solution moderne et durable pour remplacer vos dents manquantes. Formation spécialisée à l'IFPIO Marseille."}
+                  {page?.heroSubtitle ?? "Solution moderne et durable pour remplacer vos dents manquantes. Formation spécialisée à l'IFPIO Marseille."}
                 </p>
               </div>
             </div>
@@ -67,24 +94,19 @@ const Implantologie = () => {
 
           <section className="py-20">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Qu'est-ce qu'un implant dentaire ?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.definitionTitre ?? "Qu'est-ce qu'un implant dentaire ?"}</h2>
               <div className="prose prose-lg max-w-none">
-                <p className="text-muted-foreground leading-relaxed mb-6">Un implant dentaire est une <strong>racine artificielle en titane</strong> qui est placée chirurgicalement dans l'os de la mâchoire.</p>
-                <p className="text-muted-foreground leading-relaxed">Le titane est un matériau biocompatible qui s'intègre naturellement à l'os (ostéo-intégration), offrant une stabilité comparable à celle d'une dent naturelle.</p>
+                <p className="text-muted-foreground leading-relaxed mb-6">{page?.definitionTexte1 ?? "Un implant dentaire est une racine artificielle en titane qui est placée chirurgicalement dans l'os de la mâchoire."}</p>
+                <p className="text-muted-foreground leading-relaxed">{page?.definitionTexte2 ?? "Le titane est un matériau biocompatible qui s'intègre naturellement à l'os (ostéo-intégration), offrant une stabilité comparable à celle d'une dent naturelle."}</p>
               </div>
             </div>
           </section>
 
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4 max-w-5xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Les avantages des implants dentaires</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.avantagesTitre ?? "Les avantages des implants dentaires"}</h2>
               <div className="grid md:grid-cols-2 gap-6">
-                {[
-                  { title: "Solution durable", desc: "Contrairement aux prothèses amovibles, l'implant est fixe et peut durer toute une vie avec un bon entretien." },
-                  { title: "Préserve l'os de la mâchoire", desc: "L'implant stimule l'os, évitant sa résorption qui survient naturellement après la perte d'une dent." },
-                  { title: "Confort et esthétique naturelle", desc: "L'implant se comporte comme une dent naturelle : aucune gêne, apparence naturelle, confort total." },
-                  { title: "Pas de dommage aux dents adjacentes", desc: "Contrairement au bridge, on ne touche pas aux dents voisines pour remplacer une dent manquante." },
-                ].map((a, i) => (
+                {avantages.map((a: { title: string; desc: string }, i: number) => (
                   <Card key={i} className="shadow-soft">
                     <CardContent className="pt-6">
                       <div className="flex items-start gap-3">
@@ -100,16 +122,9 @@ const Implantologie = () => {
 
           <section className="py-20">
             <div className="container mx-auto px-4 max-w-5xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Les étapes de la pose d'implant dentaire</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.etapesTitre ?? "Les étapes de la pose d'implant dentaire"}</h2>
               <div className="space-y-8">
-                {[
-                  { step: "1", title: "Consultation et bilan implantaire", desc: "Examen clinique complet, radiographies 3D pour évaluer la qualité et la quantité d'os disponible." },
-                  { step: "2", title: "Préparation osseuse (si nécessaire)", desc: "Si le volume osseux est insuffisant, une greffe osseuse peut être nécessaire." },
-                  { step: "3", title: "Pose de l'implant en titane", desc: "Intervention chirurgicale sous anesthésie locale (indolore). Durée : 30 min à 1h par implant." },
-                  { step: "4", title: "Ostéo-intégration et cicatrisation", desc: "L'implant doit s'intégrer à l'os. Cette phase dure 3 à 6 mois." },
-                  { step: "5", title: "Pose de la couronne définitive", desc: "Empreintes pour réaliser votre couronne définitive sur mesure." },
-                  { step: "6", title: "Suivi et maintenance implantaire", desc: "Contrôles réguliers pour la longévité de votre implant." },
-                ].map((e, i) => (
+                {etapes.map((e: { step: string; title: string; desc: string }, i: number) => (
                   <div key={i} className="flex gap-6 items-start">
                     <div className={`p-3 ${i % 2 === 0 ? "bg-primary/10" : "bg-accent/10"} rounded-xl flex-shrink-0`}>
                       <span className={`${i % 2 === 0 ? "text-primary" : "text-accent"} font-bold text-xl`}>{e.step}</span>
@@ -123,15 +138,11 @@ const Implantologie = () => {
 
           <section className="py-20 bg-primary/5">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Informations pratiques sur les implants</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.infosTitre ?? "Informations pratiques sur les implants"}</h2>
               <Card className="shadow-soft">
                 <CardContent className="pt-6">
                   <div className="space-y-4">
-                    {[
-                      { title: "Douleur et confort", desc: "L'intervention se fait sous anesthésie locale. Les suites sont bien tolérées." },
-                      { title: "Tarif implant dentaire", desc: `À partir de ${page?.tarifs?.implant ?? "950€"} par implant (hors couronne). Devis détaillé lors de la consultation.` },
-                      { title: "Taux de réussite des implants", desc: `Le taux de succès dépasse ${page?.tarifs?.taux_reussite ?? "95%"} à 10 ans.` },
-                    ].map((info, i) => (
+                    {infos.map((info: { title: string; desc: string }, i: number) => (
                       <div key={i} className="flex items-start gap-3">
                         <Info className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                         <div><h3 className="font-semibold mb-1">{info.title}</h3><p className="text-muted-foreground text-sm">{info.desc}</p></div>
@@ -146,9 +157,9 @@ const Implantologie = () => {
           <section className="py-16">
             <div className="container mx-auto px-4 max-w-4xl">
               <div className="bg-accent/5 rounded-2xl p-8 border border-accent/20">
-                <h2 className="text-2xl font-bold mb-4">Parodontie et implantologie : un duo essentiel</h2>
+                <h2 className="text-2xl font-bold mb-4">{page?.lienParoTitre ?? "Parodontie et implantologie : un duo essentiel"}</h2>
                 <p className="text-muted-foreground mb-4">
-                  La réussite d'un implant dépend directement de la santé de vos gencives et de votre os.
+                  {page?.lienParoTexte ?? "La réussite d'un implant dépend directement de la santé de vos gencives et de votre os."}
                 </p>
                 <Link to="/parodontie" className="inline-flex items-center text-primary font-medium hover:underline">
                   En savoir plus sur la parodontie →
@@ -160,7 +171,7 @@ const Implantologie = () => {
           {/* FAQ */}
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Questions fréquentes sur les implants</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.faqTitre ?? "Questions fréquentes sur les implants"}</h2>
               <div className="space-y-4">
                 {faqs.map((faq: { question: string; answer?: string; reponse?: string }, i: number) => (
                   <div key={i} className="bg-card rounded-xl p-6 shadow-soft">
@@ -174,9 +185,9 @@ const Implantologie = () => {
 
           <section className="py-20">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Retrouvez votre sourire complet</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">{page?.ctaTitre ?? "Retrouvez votre sourire complet"}</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Prenez rendez-vous pour un bilan implantaire complet. Je vous expliquerai les options adaptées à votre situation.
+                {page?.ctaTexte ?? "Prenez rendez-vous pour un bilan implantaire complet. Je vous expliquerai les options adaptées à votre situation."}
               </p>
               <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">
