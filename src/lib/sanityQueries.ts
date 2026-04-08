@@ -12,6 +12,8 @@ export const tarifsQuery = `*[_type == "tarifs"][0]`;
 export const aboutQuery = `*[_type == "about"][0]`;
 export const servicesPageQuery = `*[_type == "services_page"][0]`;
 export const legalQuery = `*[_type == "legal"][0]`;
+export const contactQuery = `*[_type == "contact"][0]`;
+export const confidentialiteQuery = `*[_type == "confidentialite"][0]`;
 
 // Blog
 export const blogPostsQuery = `*[_type == "blog_post"] | order(date desc) {
