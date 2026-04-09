@@ -6,8 +6,8 @@ const LocalBusinessSchema = () => {
 
   const nom = global?.nom_praticien ?? "Dr Stéphanie Meriot";
   const tel = global?.phone ?? global?.telephone ?? "+33983439621";
-  const email = global?.email ?? "cabinet@dr-meriot-dentiste.fr";
-  const siteUrl = global?.site_url ?? "https://dr-meriot-dentiste.fr";
+  const email = global?.email ?? "cabinet@dr-meriot-chirurgien-dentiste.fr";
+  const siteUrl = global?.site_url ?? "https://www.dr-meriot-chirurgien-dentiste.fr";
   const adresse = global?.adresse ?? "23 Boulevard de la Fédération, 13004 Marseille";
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const lat = global?.geo?.lat ?? 43.3047;

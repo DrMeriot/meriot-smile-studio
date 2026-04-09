@@ -20,15 +20,15 @@ const Index = () => {
     "@graph": [
       {
         "@type": "Dentist",
-        "@id": "https://dr-meriot-dentiste.fr/#dentist",
+        "@id": "https://www.dr-meriot-chirurgien-dentiste.fr/#dentist",
         "name": "Cabinet Dentaire Dr Stéphanie Meriot",
         "alternateName": "Dr Stéphanie Meriot - Parodontiste Marseille",
         "description": "Cabinet dentaire spécialisé en parodontologie et implantologie à Marseille. Traitement des maladies des gencives, déchaussement dentaire et pose d'implants.",
-        "image": "https://dr-meriot-dentiste.fr/og-image.jpg",
-        "logo": "https://dr-meriot-dentiste.fr/logo.png",
-        "url": "https://dr-meriot-dentiste.fr",
+        "image": "https://www.dr-meriot-chirurgien-dentiste.fr/og-image.jpg",
+        "logo": "https://www.dr-meriot-chirurgien-dentiste.fr/logo.png",
+        "url": "https://www.dr-meriot-chirurgien-dentiste.fr",
         "telephone": "+33983439621",
-        "email": "contact@dr-meriot-dentiste.fr",
+        "email": "contact@dr-meriot-chirurgien-dentiste.fr",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "23 Boulevard de la Fédération",
@@ -116,14 +116,14 @@ const Index = () => {
       },
       {
         "@type": "Person",
-        "@id": "https://dr-meriot-dentiste.fr/#person",
+        "@id": "https://www.dr-meriot-chirurgien-dentiste.fr/#person",
         "name": "Dr Stéphanie Meriot",
         "givenName": "Stéphanie",
         "familyName": "Meriot",
         "honorificPrefix": "Dr",
         "jobTitle": "Chirurgien-dentiste spécialisée en parodontologie",
         "worksFor": {
-          "@id": "https://dr-meriot-dentiste.fr/#dentist"
+          "@id": "https://www.dr-meriot-chirurgien-dentiste.fr/#dentist"
         },
         "alumniOf": [
           {
@@ -161,12 +161,12 @@ const Index = () => {
       },
       {
         "@type": "WebSite",
-        "@id": "https://dr-meriot-dentiste.fr/#website",
-        "url": "https://dr-meriot-dentiste.fr",
+        "@id": "https://www.dr-meriot-chirurgien-dentiste.fr/#website",
+        "url": "https://www.dr-meriot-chirurgien-dentiste.fr",
         "name": "Dr Stéphanie Meriot - Dentiste Parodontiste Marseille",
         "description": "Site officiel du cabinet dentaire Dr Stéphanie Meriot, spécialiste en parodontologie à Marseille",
         "publisher": {
-          "@id": "https://dr-meriot-dentiste.fr/#dentist"
+          "@id": "https://www.dr-meriot-chirurgien-dentiste.fr/#dentist"
         },
         "inLanguage": "fr-FR"
       }

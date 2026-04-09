@@ -50,8 +50,8 @@ const defaultTraitements = [
 ];
 
 const breadcrumbItems = [
-  { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
-  { name: "Parodontie", url: "https://dr-meriot-dentiste.fr/parodontie" }
+  { name: "Accueil", url: "https://www.dr-meriot-chirurgien-dentiste.fr/" },
+  { name: "Parodontie", url: "https://www.dr-meriot-chirurgien-dentiste.fr/parodontie" }
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -82,7 +82,7 @@ const Parodontie = () => {
         canonical="/parodontie"
         keywords="parodontie marseille, parodontologue marseille, gingivite traitement, parodontite soins, déchaussement dentaire, saignement gencives, surfaçage radiculaire, greffe gingivale"
       />
-      <FAQSchema faqs={faqs.map((f: { question: string; answer?: string; reponse?: string }) => ({ question: f.question, answer: f.reponse ?? f.answer ?? "" }))} pageUrl="https://dr-meriot-dentiste.fr/parodontie" />
+      <FAQSchema faqs={faqs.map((f: { question: string; answer?: string; reponse?: string }) => ({ question: f.question, answer: f.reponse ?? f.answer ?? "" }))} pageUrl="https://www.dr-meriot-chirurgien-dentiste.fr/parodontie" />
       <BreadcrumbSchema items={breadcrumbItems} />
       <FloatingCTA />
       <div className="min-h-screen">
