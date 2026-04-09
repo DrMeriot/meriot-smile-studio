@@ -1,169 +1,111 @@
 
 
-# Make all site content editable via Sanity
+# Create Sanity Studio schemas for all pages
 
-## Approach
+## Context
 
-For each page, replace every hardcoded text with `page?.fieldName ?? "current hardcoded text"`. Add `useSanityPage()` where missing. Arrays use `page?.field ?? defaultArray` pattern. No design or structure changes.
+The frontend already reads flat Sanity fields with fallbacks. Now we need to create the corresponding Sanity Studio schema files so the practitioner can edit content.
 
-A new Sanity query is needed for `contact` page type (add to `sanityQueries.ts` and `useSanityContent.ts`).
+These schemas will be created in a `sanity/schemas/` directory at the project root. They can be copied into the Sanity Studio project.
 
-## Files to modify
+## Schema files to create
 
-1. **src/lib/sanityQueries.ts** — add `contactQuery` and `confidentialiteQuery`
-2. **src/hooks/useSanityContent.ts** — add `contact` and `confidentialite` to `queryMap`
-3. **src/pages/Parodontie.tsx** — wire all sections to Sanity fields
-4. **src/pages/Implantologie.tsx** — wire all sections to Sanity fields
-5. **src/pages/Esthetique.tsx** — wire all sections to Sanity fields
-6. **src/pages/Services.tsx** — add `useSanityPage("services_page")`, wire fields
-7. **src/pages/Tarifs.tsx** — wire remaining hardcoded texts
-8. **src/pages/About.tsx** — wire all sections to Sanity fields
-9. **src/pages/ContactPage.tsx** — add `useSanityPage("contact")`, wire hero texts
-10. **src/pages/MentionsLegales.tsx** — add `useSanityPage("legal")`, wire texts
-11. **src/pages/Confidentialite.tsx** — add `useSanityPage("confidentialite")`, wire texts
+### 1. `sanity/schemas/global.ts` — Singleton
+Fields from `useGlobalSettings()` across all components:
+- `nom_praticien` (string)
+- `phone` (string)
+- `adresse` (string)
+- `doctolib` (url)
 
----
+### 2. `sanity/schemas/accueil.ts` — Singleton
+Fields from Hero.tsx, Testimonials.tsx, FAQ.tsx, Services component:
+- `heroTitle` (string)
+- `heroSubtitle` (text)
+- `heroImage` (image)
+- `heroCtaText` (string)
+- `heroCtaUrl` (url)
+- `temoignagesTitle` (string)
+- `temoignages` (array of object: `{nom, rating, texte, date}`) — **exception: keeps `titre`/`description` naming from legacy**
+- `faqTitle` (string)
+- `faq` (array of object: `{question, reponse}`)
 
-## Complete field list per page
+### 3. `sanity/schemas/parodontie.ts` — Singleton
+All 26 fields from Parodontie.tsx:
+- `heroTitle`, `heroSubtitle` (string/text)
+- `definitionTitre`, `definitionTexte1`, `definitionTexte2` (string/text)
+- `symptomesTitre` (string), `symptomesList` (array of `{title, desc}`)
+- `maladiesTitre`, `maladiesIntro` (string/text)
+- `gingiviteTitre`, `gingiviteTexte`, `gingiviteItems` (array of string), `gingiviteNote` (text)
+- `parodontiteTitre`, `parodontiteTexte`, `parodontiteItems` (array of string), `parodontiteNote` (text)
+- `traitementsTitre`, `traitementsIntro` (string/text), `traitementsList` (array of `{title, desc, items, note}`)
+- `faqTitre` (string), `faqList` (array of `{question, answer}`)
+- `crosslinksTitre`, `ctaTitre`, `ctaTexte` (string/text)
+- `seoTitle`, `seoDescription` (string/text)
 
-### PAGE: parodontie
-- heroTitle (string): "Parodontie à Marseille"
-- heroSubtitle (text): "Spécialiste en parodontie, je prends soin de la santé de vos gencives et des tissus de soutien de vos dents. Formation approfondie à l'Académie de paro à Aix-en-Provence."
-- definitionTitre (string): "Qu'est-ce que la parodontie ?"
-- definitionTexte1 (text): "La parodontie est la spécialité dentaire qui traite les maladies des gencives..."
-- definitionTexte2 (text): "Sans traitement, les maladies parodontales peuvent entraîner..."
-- symptomesTitre (string): "Symptômes à surveiller"
-- symptomesList (array of {title, desc}): [{title: "Gencives qui saignent", desc: "Au brossage..."}, ...]
-- maladiesTitre (string): "Les maladies parodontales : comprendre simplement"
-- maladiesIntro (text): "Les maladies parodontales touchent les tissus..."
-- gingiviteTitre (string): "La gingivite : le premier signe d'alerte"
-- gingiviteTexte (text): "La gingivite est une inflammation de la gencive..."
-- gingiviteItems (array of string): ["des gencives rouges, gonflées,", ...]
-- gingiviteNote (text): "La bonne nouvelle : la gingivite est totalement réversible..."
-- parodontiteTitre (string): "La parodontite : quand l'inflammation va plus loin"
-- parodontiteTexte (text): "Si la gingivite n'est pas traitée..."
-- parodontiteItems (array of string): ["un déchaussement des dents,", ...]
-- parodontiteNote (text): "La parodontite entraîne une perte de l'os..."
-- traitementsTitre (string): "Les traitements parodontaux : comment soigne-t-on les gencives ?"
-- traitementsIntro (text): "Les maladies des gencives se soignent très bien..."
-- traitementsList (array of {title, desc, items, note}): [{title: "Un diagnostic complet...", desc: "...", items: [...], note: "..."}, ...]
-- faqTitre (string): "Questions fréquentes sur la parodontie"
-- faqList (array of {question, answer}): [current defaultFAQs]
-- crosslinksTitre (string): "Découvrez nos autres spécialités"
-- ctaTitre (string): "Prenez soin de vos gencives"
-- ctaTexte (text): "N'attendez pas que les symptômes s'aggravent..."
-- seoTitle (string): "Parodontie Marseille & PACA | Dr Stéphanie Meriot..."
-- seoDescription (text): "Spécialiste parodontie à Marseille..."
+### 4. `sanity/schemas/implantologie.ts` — Singleton
+18 fields from Implantologie.tsx:
+- `heroTitle`, `heroSubtitle`
+- `definitionTitre`, `definitionTexte1`, `definitionTexte2`
+- `avantagesTitre`, `avantagesList` (array of `{title, desc}`)
+- `etapesTitre`, `etapesList` (array of `{step, title, desc}`)
+- `infosTitre`, `infosList` (array of `{title, desc}`)
+- `lienParoTitre`, `lienParoTexte`
+- `faqTitre`, `faqList` (array of `{question, answer}`)
+- `ctaTitre`, `ctaTexte`
+- `seoTitle`, `seoDescription`
 
-### PAGE: implantologie
-- heroTitle (string): "Implantologie à Marseille"
-- heroSubtitle (text): "Solution moderne et durable pour remplacer vos dents manquantes..."
-- definitionTitre (string): "Qu'est-ce qu'un implant dentaire ?"
-- definitionTexte1 (text): "Un implant dentaire est une racine artificielle en titane..."
-- definitionTexte2 (text): "Le titane est un matériau biocompatible..."
-- avantagesTitre (string): "Les avantages des implants dentaires"
-- avantagesList (array of {title, desc}): [{title: "Solution durable", desc: "..."}, ...]
-- etapesTitre (string): "Les étapes de la pose d'implant dentaire"
-- etapesList (array of {step, title, desc}): [{step: "1", title: "Consultation et bilan implantaire", desc: "..."}, ...]
-- infosTitre (string): "Informations pratiques sur les implants"
-- infosList (array of {title, desc}): [{title: "Douleur et confort", desc: "..."}, ...]
-- lienParoTitre (string): "Parodontie et implantologie : un duo essentiel"
-- lienParoTexte (text): "La réussite d'un implant dépend directement..."
-- faqTitre (string): "Questions fréquentes sur les implants"
-- faqList (array of {question, answer}): [current defaultFAQs]
-- ctaTitre (string): "Retrouvez votre sourire complet"
-- ctaTexte (text): "Prenez rendez-vous pour un bilan implantaire complet..."
-- seoTitle (string): "Implants Dentaires Marseille | Dr Stéphanie Meriot..."
-- seoDescription (text): "Pose d'implants dentaires à Marseille 4ème..."
+### 5. `sanity/schemas/esthetique.ts` — Singleton
+14 fields from Esthetique.tsx:
+- `heroTitle`, `heroSubtitle`
+- `introTitre`, `introTexte1`, `introTexte2`
+- `solutionsTitre`, `solutionsList` (array of `{title, desc, items}`)
+- `approcheTitre`, `approcheTexte1`, `approcheTexte2`
+- `crosslinksTitre`, `ctaTitre`, `ctaTexte`
+- `seoTitle`, `seoDescription`
 
-### PAGE: esthetique
-- heroTitle (string): "Esthétique dentaire à Marseille"
-- heroSubtitle (text): "Retrouvez un sourire éclatant et harmonieux..."
-- introTitre (string): "Un sourire qui vous ressemble"
-- introTexte1 (text): "L'esthétique dentaire ne se limite pas à avoir des dents blanches..."
-- introTexte2 (text): "Mon approche est naturelle et respectueuse..."
-- solutionsTitre (string): "Nos solutions d'esthétique dentaire"
-- solutionsList (array of {title, desc, items}): [{title: "Blanchiment dentaire professionnel", desc: "...", items: [...]}, ...]
-- approcheTitre (string): "Une approche esthétique naturelle et respectueuse"
-- approcheTexte1 (text): "Je crois en une esthétique naturelle..."
-- approcheTexte2 (text): "Ma philosophie : dentisterie à minima..."
-- crosslinksTitre (string): "Découvrez nos autres spécialités"
-- ctaTitre (string): "Osez le sourire dont vous rêvez"
-- ctaTexte (text): "Prenez rendez-vous pour une consultation esthétique..."
-- seoTitle (string): "Esthétique Dentaire Marseille | Blanchiment & Facettes..."
-- seoDescription (text): "Blanchiment dentaire, facettes et composites esthétiques..."
+### 6. `sanity/schemas/services_page.ts` — Singleton
+- `heroTitle`, `heroSubtitle`
+- `servicesList` (array of `{title, description, details: [{subtitle, text}], featured}`)
+- `ctaTitre`, `ctaTexte`
+- `seoTitle`, `seoDescription`
 
-### PAGE: services_page
-- heroTitle (string): "Nos services dentaires"
-- heroSubtitle (text): "Du simple détartrage à la chirurgie implantaire..."
-- servicesList (array of {title, description, details: [{subtitle, text}], featured}): [current servicesDetails array]
-- ctaTitre (string): "Besoin d'un rendez-vous ?"
-- ctaTexte (text): "Je serai ravie de vous accueillir dans mon cabinet."
-- seoTitle (string): "Services Dentaires Marseille & PACA | Dr Stéphanie Meriot"
-- seoDescription (text): "Services dentaires à Marseille..."
+### 7. `sanity/schemas/tarifs.ts` — Singleton
+- `heroTitle`, `heroSubtitle`
+- `secteurTitre`, `secteurItems` (array of string)
+- `tarifsTitre`, `consultation`, `implant`, `blanchiment`, `parodontieInfo`
+- `devisTitre`, `devisTexte`
+- `remboursementsTitre`, `remboursementsList` (array of `{title, desc}`)
+- `ctaTitre`, `ctaTexte`
+- `seoTitle`, `seoDescription`
 
-### PAGE: tarifs
-- heroTitle (string): "Tarifs et remboursements"
-- heroSubtitle (text): "Transparence et clarté sur nos honoraires..."
-- secteurTitre (string): "Conventionnée Secteur 1"
-- secteurItems (array of string): ["Carte Vitale acceptée", "Tiers payant Sécurité sociale", "Tarifs conventionnés", "Mutuelle"]
-- tarifsTitre (string): "Tarifs indicatifs"
-- consultation (string): "23€"
-- implant (string): "950€"
-- blanchiment (string): "400€"
-- parodontieInfo (string): "Devis personnalisé selon la complexité"
-- devisTitre (string): "Devis détaillés gratuits"
-- devisTexte (text): "Pour tous les soins complexes, je vous remets un devis détaillé..."
-- remboursementsTitre (string): "Remboursements et prise en charge"
-- remboursementsList (array of {title, desc}): [{title: "Assurance Maladie", desc: "..."}, ...]
-- ctaTitre (string): "Une question sur les tarifs ?"
-- ctaTexte (text): "N'hésitez pas à me poser vos questions..."
-- seoTitle (string): "Tarifs Dentiste Marseille & PACA | Secteur 1..."
-- seoDescription (text): "Tarifs transparents cabinet Dr Meriot..."
+### 8. `sanity/schemas/about.ts` — Singleton
+- `heroSubtitle`, `heroDescription`
+- `formationsTitre`, `formationsList` (array of `{title, desc}`)
+- `confianceTitre`, `confianceList` (array of `{title, desc}`)
+- `philosophieTitre`, `philosophieList` (array of `{title, desc}`)
+- `citation`
+- `seoTitle`, `seoDescription`
 
-### PAGE: about
-- heroSubtitle (text): "Chirurgien-dentiste à Marseille 4ème, spécialisée en parodontie et implantologie."
-- heroDescription (text): "Mon approche repose sur l'écoute, la douceur..."
-- formationsTitre (string): "Parcours et formations"
-- formationsList (array of {title, desc}): [{title: "Diplôme de chirurgien-dentiste", desc: "Faculté d'odontologie de Marseille"}, ...]
-- confianceTitre (string): "Pourquoi me faire confiance ?"
-- confianceList (array of {title, desc}): [{title: "Inscrite à l'Ordre", desc: "..."}, ...]
-- philosophieTitre (string): "Ma philosophie de soins"
-- philosophieList (array of {title, desc}): [{title: "Écoute et bienveillance", desc: "..."}, ...]
-- citation (text): "Je crois en une dentisterie humaine et bienveillante..."
-- seoTitle (string): "Dr Stéphanie Meriot | Dentiste Parodontie Implantologie Marseille"
-- seoDescription (text): "Dr Stéphanie Meriot, chirurgien-dentiste à Marseille..."
+### 9. `sanity/schemas/contact.ts` — Singleton
+- `heroTitle`, `heroSubtitle`
+- `seoTitle`, `seoDescription`
 
-### PAGE: contact
-- heroTitle (string): "Contact & Accès"
-- heroSubtitle (text): "Le cabinet du Dr Stéphanie Mériot est situé à Marseille 4ème..."
-- seoTitle (string): "Contact & Accès | Cabinet Dentaire Dr Meriot Marseille 4ème"
-- seoDescription (text): "Cabinet dentaire Dr Stéphanie Meriot à Marseille 4ème..."
+### 10. `sanity/schemas/legal.ts` — Singleton
+- `titre`, `rpps`, `diplomesList` (array of string), `conditionsTexte`, `hebergeur`
+- `seoTitle`, `seoDescription`
 
-### PAGE: legal
-- titre (string): "Mentions légales"
-- rpps (string): "10100720993"
-- diplomesList (array of string): ["Docteur en chirurgie dentaire...", ...]
-- conditionsTexte (text): "Le Dr Meriot exerce en secteur 1..."
-- hebergeur (string): "Lovable.dev"
-- seoTitle (string): "Mentions Légales | Cabinet Dentaire Dr Meriot Marseille"
-- seoDescription (text): "Mentions légales du cabinet dentaire..."
+### 11. `sanity/schemas/confidentialite.ts` — Singleton
+- `titre`, `introTexte`
+- `seoTitle`, `seoDescription`
 
-### PAGE: confidentialite
-- titre (string): "Politique de confidentialité"
-- introTexte (text): "Le Dr Stéphanie Meriot accorde une grande importance..."
-- sections (array of {titre, contenu}): [{titre: "Responsable du traitement", contenu: "..."}, ...] — or individual flat fields per section
-- seoTitle (string): "Politique de Confidentialité RGPD | Dr Stéphanie Meriot Marseille"
-- seoDescription (text): "Politique de confidentialité et protection des données..."
+### 12. `sanity/schemas/index.ts` — Barrel export
 
----
-
-## Implementation notes
-
-- For `Parodontie.tsx`: rename existing `page?.introTitle`/`page?.introText` to `page?.heroTitle`/`page?.heroSubtitle` for consistency, then add all other fields
-- For `Implantologie.tsx`: same rename pattern, plus extract all inline arrays to `const defaultX = [...]` then use `page?.fieldName ?? defaultX`
-- For `Services.tsx`: add `useSanityPage("services_page")`, extract `servicesDetails` to a default constant
-- For `ContactPage.tsx` and `Confidentialite.tsx`: add `useSanityPage` imports and queries
-- The `sanityQueries.ts` needs two new queries: `contactQuery` and `confidentialiteQuery`
-- No changes to design, layout, icons, or component structure
+## Conventions applied
+- All fields flat — no nested objects
+- Array fields use `List` suffix
+- Array items use `title` and `desc` (not `titre`/`description`)
+- **Exception**: `accueil.temoignages` keeps `nom`/`texte` and `accueil.faq` keeps `question`/`reponse` (legacy)
+- French labels throughout for the Studio UI
+- Each schema is a Sanity `document` type with singleton pattern
+- SEO fields grouped at the bottom of each schema
 
