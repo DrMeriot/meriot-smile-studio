@@ -18,8 +18,8 @@ const defaultSolutions = [
 ];
 
 const breadcrumbItems = [
-  { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
-  { name: "Esthétique dentaire", url: "https://dr-meriot-dentiste.fr/esthetique" }
+  { name: "Accueil", url: "https://www.dr-meriot-chirurgien-dentiste.fr/" },
+  { name: "Esthétique dentaire", url: "https://www.dr-meriot-chirurgien-dentiste.fr/esthetique" }
 ];
 
 const Esthetique = () => {

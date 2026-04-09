@@ -43,8 +43,8 @@ const defaultInfos = [
 ];
 
 const breadcrumbItems = [
-  { name: "Accueil", url: "https://dr-meriot-dentiste.fr/" },
-  { name: "Implantologie", url: "https://dr-meriot-dentiste.fr/implantologie" }
+  { name: "Accueil", url: "https://www.dr-meriot-chirurgien-dentiste.fr/" },
+  { name: "Implantologie", url: "https://www.dr-meriot-chirurgien-dentiste.fr/implantologie" }
 ];
 
 const Implantologie = () => {
@@ -70,7 +70,7 @@ const Implantologie = () => {
         canonical="/implantologie"
         keywords="implant dentaire marseille, implantologie marseille, pose implant dentaire, chirurgie implantaire, implantologue marseille 4"
       />
-      <FAQSchema faqs={faqs.map((f: { question: string; answer?: string; reponse?: string }) => ({ question: f.question, answer: f.reponse ?? f.answer ?? "" }))} pageUrl="https://dr-meriot-dentiste.fr/implantologie" />
+      <FAQSchema faqs={faqs.map((f: { question: string; answer?: string; reponse?: string }) => ({ question: f.question, answer: f.reponse ?? f.answer ?? "" }))} pageUrl="https://www.dr-meriot-chirurgien-dentiste.fr/implantologie" />
       <BreadcrumbSchema items={breadcrumbItems} />
       <FloatingCTA />
       <div className="min-h-screen">
