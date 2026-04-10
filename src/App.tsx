@@ -1,6 +1,8 @@
 import type { RouteRecord } from 'vite-react-ssg';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import Index from "./pages/Index";
@@ -23,13 +25,19 @@ import BlogEditor from "./pages/admin/BlogEditor";
 import PageManager from "./pages/admin/PageManager";
 import { Outlet } from 'react-router-dom';
 
+const queryClient = new QueryClient();
+
 function Layout() {
   return (
-    <AuthProvider>
-      <Toaster />
-      <Sonner />
-      <Outlet />
-    </AuthProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <Outlet />
+        </AuthProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 }
 
