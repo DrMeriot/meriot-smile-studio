@@ -1,111 +1,81 @@
 
 
-# Create Sanity Studio schemas for all pages
+# Add pre-rendering for SEO indexing
 
-## Context
+## Approach
 
-The frontend already reads flat Sanity fields with fallbacks. Now we need to create the corresponding Sanity Studio schema files so the practitioner can edit content.
+Use `vite-plugin-prerender` with its built-in Puppeteer renderer. After `vite build` produces `dist/`, the plugin launches a headless browser, navigates to each route, waits for React to render (including Sanity data fetches), and saves the resulting HTML. This means `<title>`, `<meta>` tags from react-helmet-async, and all visible text content will be baked into the static HTML files.
 
-These schemas will be created in a `sanity/schemas/` directory at the project root. They can be copied into the Sanity Studio project.
+No changes to React components or routing needed — the plugin works post-build on the existing SPA output.
 
-## Schema files to create
+## Files to modify
 
-### 1. `sanity/schemas/global.ts` — Singleton
-Fields from `useGlobalSettings()` across all components:
-- `nom_praticien` (string)
-- `phone` (string)
-- `adresse` (string)
-- `doctolib` (url)
+### 1. `package.json`
+- Add `vite-plugin-prerender` as a devDependency
 
-### 2. `sanity/schemas/accueil.ts` — Singleton
-Fields from Hero.tsx, Testimonials.tsx, FAQ.tsx, Services component:
-- `heroTitle` (string)
-- `heroSubtitle` (text)
-- `heroImage` (image)
-- `heroCtaText` (string)
-- `heroCtaUrl` (url)
-- `temoignagesTitle` (string)
-- `temoignages` (array of object: `{nom, rating, texte, date}`) — **exception: keeps `titre`/`description` naming from legacy**
-- `faqTitle` (string)
-- `faq` (array of object: `{question, reponse}`)
+### 2. `vite.config.ts`
+- Import and configure `vitePrerender` plugin
+- Set `staticDir` to `dist/`
+- List all 11 routes to pre-render
+- Use `PuppeteerRenderer` with `renderAfterTime: 3000` (wait for Sanity fetches to complete)
+- Add `postProcess` hook to strip `<script>` `data-` attributes or clean up if needed
 
-### 3. `sanity/schemas/parodontie.ts` — Singleton
-All 26 fields from Parodontie.tsx:
-- `heroTitle`, `heroSubtitle` (string/text)
-- `definitionTitre`, `definitionTexte1`, `definitionTexte2` (string/text)
-- `symptomesTitre` (string), `symptomesList` (array of `{title, desc}`)
-- `maladiesTitre`, `maladiesIntro` (string/text)
-- `gingiviteTitre`, `gingiviteTexte`, `gingiviteItems` (array of string), `gingiviteNote` (text)
-- `parodontiteTitre`, `parodontiteTexte`, `parodontiteItems` (array of string), `parodontiteNote` (text)
-- `traitementsTitre`, `traitementsIntro` (string/text), `traitementsList` (array of `{title, desc, items, note}`)
-- `faqTitre` (string), `faqList` (array of `{question, answer}`)
-- `crosslinksTitre`, `ctaTitre`, `ctaTexte` (string/text)
-- `seoTitle`, `seoDescription` (string/text)
+```ts
+import vitePrerender from 'vite-plugin-prerender';
+const Renderer = vitePrerender.PuppeteerRenderer;
 
-### 4. `sanity/schemas/implantologie.ts` — Singleton
-18 fields from Implantologie.tsx:
-- `heroTitle`, `heroSubtitle`
-- `definitionTitre`, `definitionTexte1`, `definitionTexte2`
-- `avantagesTitre`, `avantagesList` (array of `{title, desc}`)
-- `etapesTitre`, `etapesList` (array of `{step, title, desc}`)
-- `infosTitre`, `infosList` (array of `{title, desc}`)
-- `lienParoTitre`, `lienParoTexte`
-- `faqTitre`, `faqList` (array of `{question, answer}`)
-- `ctaTitre`, `ctaTexte`
-- `seoTitle`, `seoDescription`
+// In plugins array (production only):
+mode === 'production' && vitePrerender({
+  staticDir: path.join(__dirname, 'dist'),
+  routes: [
+    '/', '/parodontie', '/implantologie', '/esthetique',
+    '/services', '/tarifs', '/a-propos', '/contact',
+    '/blog', '/mentions-legales', '/confidentialite'
+  ],
+  renderer: new Renderer({
+    renderAfterTime: 3000,
+    headless: true,
+  }),
+})
+```
 
-### 5. `sanity/schemas/esthetique.ts` — Singleton
-14 fields from Esthetique.tsx:
-- `heroTitle`, `heroSubtitle`
-- `introTitre`, `introTexte1`, `introTexte2`
-- `solutionsTitre`, `solutionsList` (array of `{title, desc, items}`)
-- `approcheTitre`, `approcheTexte1`, `approcheTexte2`
-- `crosslinksTitre`, `ctaTitre`, `ctaTexte`
-- `seoTitle`, `seoDescription`
+### 3. `vercel.json`
+- Update rewrites to serve pre-rendered HTML files first, then fall back to SPA routing for dynamic routes (like `/blog/:slug` and admin)
 
-### 6. `sanity/schemas/services_page.ts` — Singleton
-- `heroTitle`, `heroSubtitle`
-- `servicesList` (array of `{title, description, details: [{subtitle, text}], featured}`)
-- `ctaTitre`, `ctaTexte`
-- `seoTitle`, `seoDescription`
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
+```
+No change needed here — Vercel automatically serves static files from `dist/` before applying rewrites, so `dist/parodontie/index.html` will be served for `/parodontie` without any rewrite rule change.
 
-### 7. `sanity/schemas/tarifs.ts` — Singleton
-- `heroTitle`, `heroSubtitle`
-- `secteurTitre`, `secteurItems` (array of string)
-- `tarifsTitre`, `consultation`, `implant`, `blanchiment`, `parodontieInfo`
-- `devisTitre`, `devisTexte`
-- `remboursementsTitre`, `remboursementsList` (array of `{title, desc}`)
-- `ctaTitre`, `ctaTexte`
-- `seoTitle`, `seoDescription`
+## Output structure
 
-### 8. `sanity/schemas/about.ts` — Singleton
-- `heroSubtitle`, `heroDescription`
-- `formationsTitre`, `formationsList` (array of `{title, desc}`)
-- `confianceTitre`, `confianceList` (array of `{title, desc}`)
-- `philosophieTitre`, `philosophieList` (array of `{title, desc}`)
-- `citation`
-- `seoTitle`, `seoDescription`
+After build, `dist/` will contain:
+```
+dist/
+  index.html              ← pre-rendered /
+  parodontie/index.html   ← pre-rendered /parodontie
+  implantologie/index.html
+  esthetique/index.html
+  services/index.html
+  tarifs/index.html
+  a-propos/index.html
+  contact/index.html
+  blog/index.html
+  mentions-legales/index.html
+  confidentialite/index.html
+  assets/                 ← JS/CSS bundles
+```
 
-### 9. `sanity/schemas/contact.ts` — Singleton
-- `heroTitle`, `heroSubtitle`
-- `seoTitle`, `seoDescription`
+Each HTML file will contain full rendered content with correct `<title>` and `<meta name="description">` from react-helmet-async, plus all Sanity-fetched text visible in the markup.
 
-### 10. `sanity/schemas/legal.ts` — Singleton
-- `titre`, `rpps`, `diplomesList` (array of string), `conditionsTexte`, `hebergeur`
-- `seoTitle`, `seoDescription`
+## Notes
 
-### 11. `sanity/schemas/confidentialite.ts` — Singleton
-- `titre`, `introTexte`
-- `seoTitle`, `seoDescription`
-
-### 12. `sanity/schemas/index.ts` — Barrel export
-
-## Conventions applied
-- All fields flat — no nested objects
-- Array fields use `List` suffix
-- Array items use `title` and `desc` (not `titre`/`description`)
-- **Exception**: `accueil.temoignages` keeps `nom`/`texte` and `accueil.faq` keeps `question`/`reponse` (legacy)
-- French labels throughout for the Studio UI
-- Each schema is a Sanity `document` type with singleton pattern
-- SEO fields grouped at the bottom of each schema
+- The plugin only runs during `vite build` in production mode — no impact on dev server
+- Sanity content is fetched by the headless browser during pre-rendering, so it appears in the HTML
+- Blog post individual pages (`/blog/:slug`) are NOT pre-rendered (dynamic routes) — they remain SPA-rendered
+- Admin routes are excluded from pre-rendering
 
