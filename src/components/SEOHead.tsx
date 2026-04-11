@@ -26,7 +26,7 @@ const SEOHead = ({
   articleAuthor,
 }: SEOHeadProps) => {
   const siteUrl = "https://www.dr-meriot-chirurgien-dentiste.fr";
-  const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
+  const fullCanonical = canonical ? `${siteUrl}${canonical}` : `${siteUrl}/`;
   const defaultOgImage = `${siteUrl}/og-image.jpg`;
   const siteName = "Dr Stéphanie Meriot - Dentiste Marseille";
 
