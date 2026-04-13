@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Practitioner from "@/components/Practitioner";
@@ -173,17 +173,7 @@ const Index = () => {
     ]
   };
 
-  useEffect(() => {
-    // Add structured data script
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.text = JSON.stringify(structuredData);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  
 
   return (
     <>
