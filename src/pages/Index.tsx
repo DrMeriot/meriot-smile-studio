@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Practitioner from "@/components/Practitioner";
@@ -173,17 +173,7 @@ const Index = () => {
     ]
   };
 
-  useEffect(() => {
-    // Add structured data script
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.text = JSON.stringify(structuredData);
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  
 
   return (
     <>
@@ -195,6 +185,9 @@ const Index = () => {
         ogDescription="Traitement des maladies des gencives, déchaussement dentaire et implantologie. Cabinet dentaire de confiance à Marseille 4ème. Prenez RDV en ligne."
         keywords="parodontie marseille, traitement gencives, déchaussement dentaire, gingivite, parodontite, implantologie marseille, dentiste marseille 4"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
+      </Helmet>
       <LocalBusinessSchema />
       <FloatingCTA />
       <div className="min-h-screen">
