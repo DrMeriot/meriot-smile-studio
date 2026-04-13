@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 interface FAQItem {
   question: string;
@@ -11,36 +11,25 @@ interface FAQSchemaProps {
 }
 
 const FAQSchema = ({ faqs, pageUrl }: FAQSchemaProps) => {
-  useEffect(() => {
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": faqs.map((faq) => ({
-        "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.answer
-        }
-      })),
-      ...(pageUrl && { "url": pageUrl })
-    };
-
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = 'faq-schema';
-    script.text = JSON.stringify(schema);
-    document.head.appendChild(script);
-
-    return () => {
-      const existingScript = document.getElementById('faq-schema');
-      if (existingScript) {
-        existingScript.remove();
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
       }
-    };
-  }, [faqs, pageUrl]);
+    })),
+    ...(pageUrl && { "url": pageUrl })
+  };
 
-  return null;
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
 };
 
 export default FAQSchema;
