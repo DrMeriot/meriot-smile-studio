@@ -15,6 +15,11 @@ export const legalQuery = `*[_type == "legal"][0]`;
 export const contactQuery = `*[_type == "contact"][0]`;
 export const confidentialiteQuery = `*[_type == "confidentialite"][0]`;
 
+// Long-tail pages
+export const gingiviteMarseilleQuery = `*[_type == "gingivite_marseille"][0]`;
+export const dechaussementDentaireQuery = `*[_type == "dechaussement_dentaire"][0]`;
+export const gencivesQuiSaignentQuery = `*[_type == "gencives_qui_saignent"][0]`;
+
 // Blog
 export const blogPostsQuery = `*[_type == "blog_post"] | order(date desc) {
   _id, slug, title, excerpt, category, date, keywords,
