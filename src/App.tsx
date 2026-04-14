@@ -18,6 +18,9 @@ import Confidentialite from "./pages/Confidentialite";
 import NotFound from "./pages/NotFound";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import GingiviteMarseille from "./pages/GingiviteMarseille";
+import DechaussementDentaire from "./pages/DechaussementDentaire";
+import GencivesQuiSaignent from "./pages/GencivesQuiSaignent";
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import BlogList from "./pages/admin/BlogList";
@@ -56,6 +59,9 @@ export const routes: RouteRecord[] = [
       { path: 'esthetique', element: <Esthetique /> },
       { path: 'blog', element: <Blog /> },
       { path: 'blog/:slug', element: <BlogPost /> },
+      { path: 'gingivite-marseille', element: <GingiviteMarseille /> },
+      { path: 'dechaussement-dentaire-marseille', element: <DechaussementDentaire /> },
+      { path: 'gencives-qui-saignent', element: <GencivesQuiSaignent /> },
       { path: 'mentions-legales', element: <MentionsLegales /> },
       { path: 'confidentialite', element: <Confidentialite /> },
       { path: 'acces-cabinet', element: <ContactPage /> },

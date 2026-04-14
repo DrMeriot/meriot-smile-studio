@@ -14,6 +14,9 @@ import {
   blogPostBySlugQuery,
   contactQuery,
   confidentialiteQuery,
+  gingiviteMarseilleQuery,
+  dechaussementDentaireQuery,
+  gencivesQuiSaignentQuery,
 } from "@/lib/sanityQueries";
 
 const STALE_TIME = 5 * 60 * 1000; // 5 minutes
@@ -54,6 +57,9 @@ const queryMap: Record<string, string> = {
   legal: legalQuery,
   contact: contactQuery,
   confidentialite: confidentialiteQuery,
+  gingivite_marseille: gingiviteMarseilleQuery,
+  dechaussement_dentaire: dechaussementDentaireQuery,
+  gencives_qui_saignent: gencivesQuiSaignentQuery,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

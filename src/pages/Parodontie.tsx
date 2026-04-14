@@ -11,6 +11,8 @@ import FloatingCTA from "@/components/FloatingCTA";
 import ParoGlossary from "@/components/ParoGlossary";
 import FAQSchema from "@/components/FAQSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
+import MedicalSchema from "@/components/MedicalSchema";
+import HowToSchema from "@/components/HowToSchema";
 
 const defaultFAQs = [
   { question: "Qu'est-ce que la parodontie ?", answer: "La parodontie est la spécialité dentaire qui traite les maladies des gencives et des tissus de soutien des dents (os alvéolaire, ligament parodontal). Elle prend en charge la gingivite, la parodontite et le déchaussement dentaire." },
@@ -84,19 +86,46 @@ const Parodontie = () => {
       />
       <FAQSchema faqs={faqs.map((f: { question: string; answer?: string; reponse?: string }) => ({ question: f.question, answer: f.reponse ?? f.answer ?? "" }))} pageUrl="https://www.dr-meriot-chirurgien-dentiste.fr/parodontie" />
       <BreadcrumbSchema items={breadcrumbItems} />
+      <MedicalSchema
+        pageUrl="/parodontie"
+        pageName={seoTitle}
+        pageDescription={seoDesc}
+        conditions={[
+          {
+            name: "Gingivite",
+            alternateName: "Inflammation des gencives",
+            description: "Inflammation réversible de la gencive causée par l'accumulation de plaque dentaire.",
+            symptoms: (gingiviteItems as string[]).map((s: string) => s.replace(/,$/, '').trim()),
+            treatment: "Détartrage professionnel et hygiène bucco-dentaire",
+          },
+          {
+            name: "Parodontite",
+            alternateName: "Maladie parodontale",
+            description: "Infection bactérienne détruisant progressivement l'os de soutien des dents.",
+            symptoms: (parodontiteItems as string[]).map((s: string) => s.replace(/,$/, '').trim()),
+            riskFactors: ["Tabac", "Diabète", "Stress", "Génétique", "Hygiène insuffisante"],
+            treatment: "Surfaçage radiculaire et chirurgie parodontale",
+          },
+        ]}
+      />
+      <HowToSchema
+        name={page?.traitementsTitre ?? "Les traitements parodontaux"}
+        description={page?.traitementsIntro ?? "Les étapes du traitement parodontal au cabinet du Dr Meriot à Marseille."}
+        steps={traitements.map((t: { title: string; desc: string }) => ({ name: t.title, text: t.desc }))}
+      />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
         <main className="pt-20">
-          {/* Hero Section */}
-          <section className="py-20 bg-gradient-soft">
+          <article>
+          <section className="py-20 bg-gradient-soft" aria-labelledby="hero-title">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto text-center">
                 <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-6">
                   <Heart className="h-4 w-4" />
                   <span className="text-sm font-medium">Spécialité</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                   {page?.heroTitle ?? "Parodontie à Marseille"}
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
@@ -107,9 +136,9 @@ const Parodontie = () => {
           </section>
 
           {/* Qu'est-ce que la parodontie */}
-          <section className="py-20">
+          <section className="py-20" aria-labelledby="definition-title">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.definitionTitre ?? "Qu'est-ce que la parodontie ?"}</h2>
+              <h2 id="definition-title" className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.definitionTitre ?? "Qu'est-ce que la parodontie ?"}</h2>
               <div className="prose prose-lg max-w-none">
                 <p className="text-muted-foreground leading-relaxed mb-6">
                   {page?.definitionTexte1 ?? "La parodontie est la spécialité dentaire qui traite les maladies des gencives et des tissus de soutien des dents (os, ligament). Ces tissus forment le parodonte, l'ensemble des structures qui ancrent vos dents dans votre mâchoire."}
@@ -122,9 +151,9 @@ const Parodontie = () => {
           </section>
 
           {/* Symptômes */}
-          <section className="py-20 bg-muted/30">
+          <section className="py-20 bg-muted/30" aria-labelledby="symptomes-title">
             <div className="container mx-auto px-4 max-w-5xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.symptomesTitre ?? "Symptômes à surveiller"}</h2>
+              <h2 id="symptomes-title" className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.symptomesTitre ?? "Symptômes à surveiller"}</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {symptomes.map((s: { title: string; desc: string }, i: number) => (
                   <Card key={i} className="shadow-soft">
@@ -144,9 +173,9 @@ const Parodontie = () => {
           </section>
 
           {/* Les maladies parodontales */}
-          <section className="py-20">
+          <section className="py-20" aria-labelledby="maladies-title">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.maladiesTitre ?? "Les maladies parodontales : comprendre simplement"}</h2>
+              <h2 id="maladies-title" className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.maladiesTitre ?? "Les maladies parodontales : comprendre simplement"}</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-12 text-center max-w-3xl mx-auto">
                 {page?.maladiesIntro ?? "Les maladies parodontales touchent les tissus qui entourent et soutiennent les dents : la gencive et l'os. Elles sont causées par l'accumulation de bactéries autour des dents. On distingue deux étapes : la gingivite et la parodontite."}
               </p>
@@ -237,15 +266,18 @@ const Parodontie = () => {
           </section>
 
           {/* FAQ */}
-          <section className="py-20">
+          <section className="py-20" aria-labelledby="faq-title">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.faqTitre ?? "Questions fréquentes sur la parodontie"}</h2>
+              <h2 id="faq-title" className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.faqTitre ?? "Questions fréquentes sur la parodontie"}</h2>
               <div className="space-y-4">
                 {faqs.map((faq: { question: string; answer?: string; reponse?: string }, i: number) => (
-                  <div key={i} className="bg-card rounded-xl p-6 shadow-soft">
-                    <h3 className="font-semibold text-lg mb-2">{faq.question}</h3>
-                    <p className="text-muted-foreground">{faq.reponse ?? faq.answer}</p>
-                  </div>
+                  <details key={i} className="bg-card rounded-xl shadow-soft group">
+                    <summary className="font-semibold text-lg p-6 cursor-pointer list-none flex items-center justify-between">
+                      {faq.question}
+                      <span className="text-muted-foreground transition-transform group-open:rotate-45 text-xl">+</span>
+                    </summary>
+                    <p className="text-muted-foreground px-6 pb-6">{faq.reponse ?? faq.answer}</p>
+                  </details>
                 ))}
               </div>
             </div>
@@ -255,10 +287,10 @@ const Parodontie = () => {
           <ParoGlossary />
 
           {/* Cross-links */}
-          <section className="py-12 bg-muted/30">
+          <section className="py-12 bg-muted/30" aria-labelledby="crosslinks-title">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-2xl font-bold mb-6 text-center">{page?.crosslinksTitre ?? "Découvrez nos autres spécialités"}</h2>
-              <div className="grid md:grid-cols-2 gap-6">
+              <h2 id="crosslinks-title" className="text-2xl font-bold mb-6 text-center">{page?.crosslinksTitre ?? "Découvrez nos autres spécialités"}</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                   <h3 className="font-semibold text-lg mb-2">Implantologie</h3>
                   <p className="text-muted-foreground text-sm">Remplacez vos dents manquantes par des implants dentaires durables et esthétiques.</p>
@@ -266,6 +298,14 @@ const Parodontie = () => {
                 <Link to="/esthetique" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                   <h3 className="font-semibold text-lg mb-2">Esthétique dentaire</h3>
                   <p className="text-muted-foreground text-sm">Retrouvez un sourire éclatant grâce à nos solutions esthétiques personnalisées.</p>
+                </Link>
+                <Link to="/gingivite-marseille" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                  <h3 className="font-semibold text-lg mb-2">Gingivite</h3>
+                  <p className="text-muted-foreground text-sm">Tout savoir sur la gingivite : causes, symptômes et traitement à Marseille.</p>
+                </Link>
+                <Link to="/gencives-qui-saignent" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                  <h3 className="font-semibold text-lg mb-2">Gencives qui saignent</h3>
+                  <p className="text-muted-foreground text-sm">Que faire quand vos gencives saignent ? Causes, solutions et quand consulter.</p>
                 </Link>
               </div>
             </div>
@@ -286,6 +326,7 @@ const Parodontie = () => {
               </a>
             </div>
           </section>
+          </article>
         </main>
         <Footer />
       </div>
