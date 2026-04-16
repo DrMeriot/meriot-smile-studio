@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 
 interface SEOHeadProps {
   title: string;
@@ -31,7 +31,7 @@ const SEOHead = ({
   const siteName = "Dr Stéphanie Meriot - Dentiste Marseille";
 
   return (
-    <Helmet>
+    <Head>
       {/* Primary Meta Tags */}
       <title>{title}</title>
       <meta name="title" content={title} />
@@ -84,7 +84,7 @@ const SEOHead = ({
       {/* Mobile & App */}
       <meta name="theme-color" content="#e07b91" />
       <meta name="apple-mobile-web-app-title" content="Dr Meriot Dentiste" />
-    </Helmet>
+    </Head>
   );
 };
 

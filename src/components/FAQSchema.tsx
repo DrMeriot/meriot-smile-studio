@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { Head } from 'vite-react-ssg';
 
 interface FAQItem {
   question: string;
@@ -26,9 +26,9 @@ const FAQSchema = ({ faqs, pageUrl }: FAQSchemaProps) => {
   };
 
   return (
-    <Helmet>
+    <Head>
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    </Head>
   );
 };
 

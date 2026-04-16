@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Head } from "vite-react-ssg";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Practitioner from "@/components/Practitioner";
@@ -185,9 +185,9 @@ const Index = () => {
         ogDescription="Traitement des maladies des gencives, déchaussement dentaire et implantologie. Cabinet dentaire de confiance à Marseille 4ème. Prenez RDV en ligne."
         keywords="parodontie marseille, traitement gencives, déchaussement dentaire, gingivite, parodontite, implantologie marseille, dentiste marseille 4"
       />
-      <Helmet>
+      <Head>
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
-      </Helmet>
+      </Head>
       <LocalBusinessSchema />
       <FloatingCTA />
       <div className="min-h-screen">
