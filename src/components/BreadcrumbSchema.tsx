@@ -22,9 +22,9 @@ const BreadcrumbSchema = ({ items }: BreadcrumbSchemaProps) => {
   };
 
   return (
-    <Helmet>
+    <Head>
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    </Head>
   );
 };
 

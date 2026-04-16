@@ -70,9 +70,9 @@ const MedicalSchema = ({ pageUrl, pageName, pageDescription, conditions = [] }: 
   };
 
   return (
-    <Helmet>
+    <Head>
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    </Head>
   );
 };
 

@@ -76,9 +76,9 @@ const LocalBusinessSchema = () => {
   };
 
   return (
-    <Helmet>
+    <Head>
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    </Head>
   );
 };
 

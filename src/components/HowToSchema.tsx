@@ -26,9 +26,9 @@ const HowToSchema = ({ name, description, steps }: HowToSchemaProps) => {
   };
 
   return (
-    <Helmet>
+    <Head>
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    </Head>
   );
 };
 
