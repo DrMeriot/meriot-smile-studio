@@ -1,101 +1,61 @@
 
 
-# SEO avancé — Schemas médicaux + Pages long-tail éditables Sanity
+# Correction critique — Redirections Vercel cassent l'indexation SSG
 
-## Résumé
+## Diagnostic
 
-Implémenter les schemas structurés `MedicalWebPage`, `MedicalCondition` et `HowTo` sur `/parodontie`, créer 3 pages long-tail géo-ciblées (`/gingivite-marseille`, `/dechaussement-dentaire-marseille`, `/gencives-qui-saignent`), le tout 100% éditable depuis Sanity Studio avec des balises HTML sémantiques pour une meilleure indexation.
-
-## 1. Schemas structurés sur `/parodontie` (données tirées de Sanity)
-
-### Nouveau composant : `src/components/MedicalSchema.tsx`
-- Injecte via `react-helmet-async` un JSON-LD `@graph` contenant :
-  - `MedicalWebPage` (type de page médicale, auteur = Dr Meriot)
-  - `MedicalCondition` pour "Gingivite" et "Parodontite" (symptômes, traitements tirés de `page?.symptomesList`, `page?.gingiviteItems`, etc.)
-- Les données viennent du hook `useSanityPage("parodontie")` existant — aucun nouveau champ Sanity nécessaire
-
-### Nouveau composant : `src/components/HowToSchema.tsx`
-- Injecte un schema `HowTo` avec les étapes tirées de `page?.traitementsList` (déjà structuré en steps dans Sanity)
-- Aucun nouveau champ Sanity nécessaire
-
-### Modification : `src/pages/Parodontie.tsx`
-- Ajouter `<MedicalSchema />` et `<HowToSchema />` dans le JSX
-- Améliorer le HTML sémantique : utiliser `<article>`, `<section>` avec `aria-labelledby`, `<dl>` pour le glossaire, `<details>/<summary>` pour les FAQ au lieu de `<div>`
-
-## 2. Trois schemas Sanity pour les pages long-tail
-
-### Nouveau fichier : `sanity/schemas/gingivite_marseille.ts`
-Structure plate identique à `parodontie.ts` :
-- `heroTitle`, `heroSubtitle`
-- `definitionTitre`, `definitionTexte1`, `definitionTexte2`
-- `causesTitre`, `causesList` (array `{title, desc}`)
-- `traitementTitre`, `traitementTexte`
-- `faqTitre`, `faqList` (array `{question, answer}`)
-- `ctaTitre`, `ctaTexte`
-- `seoTitle`, `seoDescription`
-
-### Nouveau fichier : `sanity/schemas/dechaussement_dentaire.ts`
-Même structure, adapté au déchaussement dentaire.
-
-### Nouveau fichier : `sanity/schemas/gencives_qui_saignent.ts`
-Même structure, adapté aux saignements de gencives.
-
-### Modification : `sanity/schemas/index.ts`
-Ajouter les 3 nouveaux schemas à `schemaTypes`.
-
-## 3. Queries et hooks Sanity
-
-### Modification : `src/lib/sanityQueries.ts`
-Ajouter 3 queries :
-```ts
-export const gingiviteMarseilleQuery = `*[_type == "gingivite_marseille"][0]`;
-export const dechaussementDentaireQuery = `*[_type == "dechaussement_dentaire"][0]`;
-export const gencivesQuiSaignentQuery = `*[_type == "gencives_qui_saignent"][0]`;
+Le fichier `vercel.json` actuel contient :
+```json
+{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
 ```
 
-### Modification : `src/hooks/useSanityContent.ts`
-Ajouter les 3 nouveaux types dans `queryMap`.
+Cette règle redirige **toutes les URLs** vers `/index.html` (la racine). Or, `vite-react-ssg` génère des fichiers HTML statiques individuels dans le dossier `dist/` (ex: `dist/parodontie/index.html`, `dist/implantologie/index.html`). Le rewrite Vercel court-circuite complètement ce mécanisme : Google reçoit le contenu de la homepage pour toutes les URLs, d'où l'erreur de redirection et l'absence d'indexation.
 
-## 4. Trois pages React avec HTML sémantique
+## Correction
 
-### `src/pages/GingiviteMarseille.tsx`
-- `useSanityPage("gingivite_marseille")` avec fallbacks hardcodés
-- HTML sémantique : `<article>`, `<section aria-labelledby>`, `<h1>`-`<h3>` hiérarchiques, `<ul>` sémantiques
-- Composants SEO : `SEOHead`, `FAQSchema`, `BreadcrumbSchema`, `MedicalSchema` (condition = Gingivite)
-- Liens internes vers `/parodontie`, `/contact`, blog articles
-- Contenu unique (300+ mots) ciblant "gingivite Marseille", "traitement gingivite"
+Remplacer le `vercel.json` par une configuration qui :
+1. Laisse Vercel servir les fichiers HTML statiques générés par SSG en priorité
+2. Ne fait le fallback SPA (`/index.html`) que pour les routes qui n'ont pas de fichier HTML pré-rendu (routes dynamiques comme `blog/:slug`, routes admin)
 
-### `src/pages/DechaussementDentaire.tsx`
-Même pattern, ciblant "déchaussement dentaire Marseille", "récession gingivale"
-
-### `src/pages/GencivesQuiSaignent.tsx`
-Même pattern, ciblant "gencives qui saignent", "saignement gencives causes"
-
-## 5. Routes et sitemap
-
-### Modification : `src/App.tsx`
-Ajouter 3 routes dans `children` :
-```ts
-{ path: 'gingivite-marseille', element: <GingiviteMarseille /> },
-{ path: 'dechaussement-dentaire-marseille', element: <DechaussementDentaire /> },
-{ path: 'gencives-qui-saignent', element: <GencivesQuiSaignent /> },
+### Nouveau `vercel.json`
+```json
+{
+  "cleanUrls": true,
+  "trailingSlash": false
+}
 ```
 
-### Modification : `public/sitemap.xml`
-Ajouter les 3 nouvelles URLs.
+- `cleanUrls: true` → Vercel sert automatiquement `dist/parodontie/index.html` quand on accède à `/parodontie` (sans `.html` dans l'URL)
+- `trailingSlash: false` → URLs propres sans slash final
+- **Pas de rewrite catch-all** → les fichiers SSG sont servis directement avec un 200, pas de redirection
 
-## 6. HTML sémantique amélioré sur `/parodontie`
+Pour les routes dynamiques (`blog/:slug`) qui n'ont pas de fichier HTML pré-rendu, on ajoute un rewrite ciblé uniquement pour celles-ci :
 
-- Remplacer les `<div>` de FAQ par `<details>`/`<summary>` (natif, accessible, indexé par Google)
-- Ajouter `<article>` comme wrapper principal du contenu
-- Ajouter `id` sur les `<h2>` et `aria-labelledby` sur les `<section>`
-- Utiliser `<ul>` / `<ol>` correctement balisés partout
+```json
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/blog/:slug", "destination": "/index.html" },
+    { "source": "/admin/:path*", "destination": "/index.html" }
+  ]
+}
+```
 
-## Résultat
+### Correction hydration errors (#418/#423)
 
-- **0 impact Sanity** sur l'existant — les 3 nouveaux schemas s'ajoutent sans toucher aux documents actuels
-- **100% éditable** depuis Sanity Studio (titres, textes, FAQ, SEO)
-- **HTML sémantique** pour une meilleure compréhension par Google
-- **Schemas structurés** `MedicalCondition` + `HowTo` pour des rich snippets enrichis
-- **Fallbacks hardcodés** pour chaque champ, garantissant un rendu même sans données Sanity
+Les erreurs React #418 et #423 sont des mismatches d'hydratation SSG. Elles doivent aussi être diagnostiquées et corrigées car elles peuvent contribuer aux problèmes d'indexation (Google voit un contenu différent entre le HTML statique et le JS).
+
+## Fichiers modifiés
+
+| Fichier | Action |
+|---|---|
+| `vercel.json` | Remplacer le rewrite catch-all par `cleanUrls` + rewrites ciblés |
+
+## Impact
+
+- **Zéro impact Sanity** — modification purement infrastructure
+- Les pages `/parodontie`, `/implantologie`, `/gingivite-marseille`, etc. seront servies comme HTML statique avec un status 200
+- Google pourra enfin indexer ces pages correctement
+- Les routes dynamiques (blog posts, admin) continueront de fonctionner via le fallback SPA
 
