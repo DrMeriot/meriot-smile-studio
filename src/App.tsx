@@ -27,16 +27,31 @@ import BlogList from "./pages/admin/BlogList";
 import BlogEditor from "./pages/admin/BlogEditor";
 import PageManager from "./pages/admin/PageManager";
 import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const queryClient = new QueryClient();
+
+// Toasters use `useTheme()` and portals tied to `window`, which differ between
+// the SSG-generated HTML and the first client render. Mount them only after
+// hydration to avoid React hydration errors (#418/#423).
+function ClientOnlyToasters() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+  return (
+    <>
+      <Toaster />
+      <Sonner />
+    </>
+  );
+}
 
 function Layout() {
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <Toaster />
-          <Sonner />
+          <ClientOnlyToasters />
           <Outlet />
         </AuthProvider>
       </QueryClientProvider>

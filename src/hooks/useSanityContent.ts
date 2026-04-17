@@ -21,6 +21,11 @@ import {
 
 const STALE_TIME = 5 * 60 * 1000; // 5 minutes
 
+// During SSG/SSR there is no `window`. We must not fetch Sanity then,
+// otherwise the server-rendered HTML differs from the first client render
+// and React throws hydration errors (#418/#423).
+const isBrowser = typeof window !== "undefined";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useSanityQuery<T = any>(key: string, query: string, params?: Record<string, unknown>) {
   return useQuery<T | null>({
@@ -42,6 +47,10 @@ function useSanityQuery<T = any>(key: string, query: string, params?: Record<str
     gcTime: 10 * 60 * 1000,
     retry: 0,
     placeholderData: null,
+    // Only run on the client. The first client render returns `null` (matching
+    // the server HTML which used hardcoded fallbacks), then the query runs and
+    // updates the UI after hydration is complete.
+    enabled: isBrowser,
   });
 }
 
