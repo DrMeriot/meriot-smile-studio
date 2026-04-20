@@ -1,61 +1,48 @@
 
 
-# Correction critique — Redirections Vercel cassent l'indexation SSG
-
 ## Diagnostic
 
-Le fichier `vercel.json` actuel contient :
-```json
-{ "rewrites": [{ "source": "/(.*)", "destination": "/" }] }
-```
+**Problème observé** : Google Search Console signale `/gingivite-marseille` en **Soft 404**. Investigation via `curl` sur le HTML statique pré-rendu :
 
-Cette règle redirige **toutes les URLs** vers `/index.html` (la racine). Or, `vite-react-ssg` génère des fichiers HTML statiques individuels dans le dossier `dist/` (ex: `dist/parodontie/index.html`, `dist/implantologie/index.html`). Le rewrite Vercel court-circuite complètement ce mécanisme : Google reçoit le contenu de la homepage pour toutes les URLs, d'où l'erreur de redirection et l'absence d'indexation.
+| Page | `<title>` retourné | `<link rel="canonical">` | `<meta description>` |
+|---|---|---|---|
+| `/` | "Dr Stéphanie Meriot - Chirurgien-Dentiste Marseille" | absent | absent |
+| `/parodontie` | **idem (générique homepage)** | **absent** | **absent** |
+| `/gingivite-marseille` | **idem (générique homepage)** | **absent** | **absent** |
 
-## Correction
+**Tous les `<title>`, `canonical` et `description` spécifiques sont manquants** dans le HTML pré-rendu — seul reste celui figé dans `index.html`. Pour Google : toutes les pages ont le même titre/description que la homepage → contenu jugé dupliqué/vide → **Soft 404**.
 
-Remplacer le `vercel.json` par une configuration qui :
-1. Laisse Vercel servir les fichiers HTML statiques générés par SSG en priorité
-2. Ne fait le fallback SPA (`/index.html`) que pour les routes qui n'ont pas de fichier HTML pré-rendu (routes dynamiques comme `blog/:slug`, routes admin)
+Note secondaire : `https://www.dr-meriot...` redirige en 301 vers `https://dr-meriot...` (sans www). Ce n'est pas la cause du Soft 404 mais ça désaligne les URLs déclarées dans le sitemap (`www.`) avec celles réellement servies (apex).
 
-### Nouveau `vercel.json`
-```json
-{
-  "cleanUrls": true,
-  "trailingSlash": false
-}
-```
+## Cause racine
 
-- `cleanUrls: true` → Vercel sert automatiquement `dist/parodontie/index.html` quand on accède à `/parodontie` (sans `.html` dans l'URL)
-- `trailingSlash: false` → URLs propres sans slash final
-- **Pas de rewrite catch-all** → les fichiers SSG sont servis directement avec un 200, pas de redirection
+Conflit entre deux systèmes de gestion du `<head>` :
+- `src/components/SEOHead.tsx` utilise `<Head>` de **`vite-react-ssg`** (wrapper React Helmet "classique").
+- `src/App.tsx` enveloppe l'app avec `HelmetProvider` de **`react-helmet-async`**.
 
-Pour les routes dynamiques (`blog/:slug`) qui n'ont pas de fichier HTML pré-rendu, on ajoute un rewrite ciblé uniquement pour celles-ci :
+Les deux librairies sont incompatibles entre elles : `HelmetProvider` court-circuite la gestion de Helmet classique, et `vite-react-ssg` n'arrive pas à extraire les balises au moment du pré-rendu SSG. Résultat : aucune balise `<Head>` n'est injectée dans le HTML statique.
 
-```json
-{
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    { "source": "/blog/:slug", "destination": "/index.html" },
-    { "source": "/admin/:path*", "destination": "/index.html" }
-  ]
-}
-```
+## Plan de correction
 
-### Correction hydration errors (#418/#423)
+**1. Retirer `react-helmet-async` du wiring (`src/App.tsx`)**
+Supprimer l'import et le `<HelmetProvider>` qui enveloppent `<Outlet />`. `vite-react-ssg`'s `<Head>` se suffit à lui-même.
 
-Les erreurs React #418 et #423 sont des mismatches d'hydratation SSG. Elles doivent aussi être diagnostiquées et corrigées car elles peuvent contribuer aux problèmes d'indexation (Google voit un contenu différent entre le HTML statique et le JS).
+**2. Ajouter le canonical absent dans `SEOHead.tsx`**
+Le composant déclare déjà `<link rel="canonical" href={fullCanonical} />` — il sera réellement injecté une fois `HelmetProvider` retiré. Aucun changement ici.
+
+**3. Aligner le domaine canonique sur le domaine effectivement servi**
+Le DNS redirige `www.` → apex en 301. Deux options possibles (à confirmer) :
+- (A) **Garder le domaine canonique avec `www.`** (statu quo dans `SEOHead.tsx`, `vite.config.ts` sitemap) et laisser Vercel gérer la redirection.
+- (B) **Changer toutes les références canoniques vers le domaine apex** (sans `www.`) pour éviter le saut 301 sur chaque crawl Google.
+
+L'option (A) est standard et acceptée par Google ; l'option (B) est marginalement plus performante. Je recommande (A) — aucune action requise sur ce point.
+
+**4. Vérification après déploiement**
+Re-tester avec curl que `/parodontie`, `/gingivite-marseille`, `/implantologie` retournent désormais leur propre `<title>`, `<meta description>` et `<link rel="canonical">` dans le HTML statique. Puis dans Search Console : "Demander une indexation" pour les pages prioritaires.
 
 ## Fichiers modifiés
 
-| Fichier | Action |
-|---|---|
-| `vercel.json` | Remplacer le rewrite catch-all par `cleanUrls` + rewrites ciblés |
+- `src/App.tsx` : retirer `import { HelmetProvider } from "react-helmet-async"` et l'usage du provider.
 
-## Impact
-
-- **Zéro impact Sanity** — modification purement infrastructure
-- Les pages `/parodontie`, `/implantologie`, `/gingivite-marseille`, etc. seront servies comme HTML statique avec un status 200
-- Google pourra enfin indexer ces pages correctement
-- Les routes dynamiques (blog posts, admin) continueront de fonctionner via le fallback SPA
+C'est tout. Une seule correction chirurgicale, qui devrait débloquer l'extraction `<Head>` par `vite-react-ssg` pour toutes les pages.
 
