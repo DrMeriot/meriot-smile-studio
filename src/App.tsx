@@ -2,7 +2,6 @@ import type { RouteRecord } from 'vite-react-ssg';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
 import Index from "./pages/Index";
@@ -48,14 +47,12 @@ function ClientOnlyToasters() {
 
 function Layout() {
   return (
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <ClientOnlyToasters />
-          <Outlet />
-        </AuthProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ClientOnlyToasters />
+        <Outlet />
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 
