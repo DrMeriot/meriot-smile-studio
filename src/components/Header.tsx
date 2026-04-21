@@ -93,7 +93,15 @@ const Header = () => {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="lg:hidden pb-6 animate-fade-in">
+          <div
+            className="fixed inset-0 top-20 bg-foreground/20 z-40 lg:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
+        {isMobileMenuOpen && (
+          <div className="lg:hidden pb-6 pt-2 -mx-4 px-4 bg-card shadow-soft animate-fade-in relative z-50">
             <nav className="flex flex-col space-y-4 mb-4">
               {navLinks.map((link) => (
                 <Link
