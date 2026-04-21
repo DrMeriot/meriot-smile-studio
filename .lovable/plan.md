@@ -2,47 +2,77 @@
 
 ## Diagnostic
 
-**Problème observé** : Google Search Console signale `/gingivite-marseille` en **Soft 404**. Investigation via `curl` sur le HTML statique pré-rendu :
+Dans `src/components/Header.tsx`, le menu mobile est rendu **à l'intérieur** du `<header>` (dans `.container`), juste sous la barre principale, avec ces classes :
 
-| Page | `<title>` retourné | `<link rel="canonical">` | `<meta description>` |
-|---|---|---|---|
-| `/` | "Dr Stéphanie Meriot - Chirurgien-Dentiste Marseille" | absent | absent |
-| `/parodontie` | **idem (générique homepage)** | **absent** | **absent** |
-| `/gingivite-marseille` | **idem (générique homepage)** | **absent** | **absent** |
+```tsx
+{isMobileMenuOpen && (
+  <div className="lg:hidden pb-6 animate-fade-in">
+    <nav className="flex flex-col space-y-4 mb-4">...</nav>
+    ...
+  </div>
+)}
+```
 
-**Tous les `<title>`, `canonical` et `description` spécifiques sont manquants** dans le HTML pré-rendu — seul reste celui figé dans `index.html`. Pour Google : toutes les pages ont le même titre/description que la homepage → contenu jugé dupliqué/vide → **Soft 404**.
-
-Note secondaire : `https://www.dr-meriot...` redirige en 301 vers `https://dr-meriot...` (sans www). Ce n'est pas la cause du Soft 404 mais ça désaligne les URLs déclarées dans le sitemap (`www.`) avec celles réellement servies (apex).
-
-## Cause racine
-
-Conflit entre deux systèmes de gestion du `<head>` :
-- `src/components/SEOHead.tsx` utilise `<Head>` de **`vite-react-ssg`** (wrapper React Helmet "classique").
-- `src/App.tsx` enveloppe l'app avec `HelmetProvider` de **`react-helmet-async`**.
-
-Les deux librairies sont incompatibles entre elles : `HelmetProvider` court-circuite la gestion de Helmet classique, et `vite-react-ssg` n'arrive pas à extraire les balises au moment du pré-rendu SSG. Résultat : aucune balise `<Head>` n'est injectée dans le HTML statique.
+Problèmes :
+1. **Aucun fond explicite** sur ce panneau. Il hérite uniquement du `bg-card/95 backdrop-blur-md` du `<header>`, et **ce fond n'est appliqué que si `isScrolled === true`**. Au chargement initial (top de page), le header est `bg-transparent` → menu mobile transparent → les liens apparaissent par-dessus le hero sans fond opaque.
+2. **Pas de position dédiée** : le panneau est en flux normal du header. Tant que le header reste `fixed top-0 z-50`, ça pourrait suffire — mais combiné au fond transparent, le rendu visuel est cassé.
+3. Le bouton hamburger ne ferme pas le menu si on clique en dehors, et le `body` peut continuer à scroller derrière.
 
 ## Plan de correction
 
-**1. Retirer `react-helmet-async` du wiring (`src/App.tsx`)**
-Supprimer l'import et le `<HelmetProvider>` qui enveloppent `<Outlet />`. `vite-react-ssg`'s `<Head>` se suffit à lui-même.
+**Fichier modifié** : `src/components/Header.tsx` uniquement.
 
-**2. Ajouter le canonical absent dans `SEOHead.tsx`**
-Le composant déclare déjà `<link rel="canonical" href={fullCanonical} />` — il sera réellement injecté une fois `HelmetProvider` retiré. Aucun changement ici.
+**1. Forcer un fond opaque sur le panneau mobile** (indépendant de `isScrolled`)
+Ajouter `bg-card` (couleur de fond du thème, cohérente avec l'aesthetic feminine pastel — pas de `bg-white` brut qui casserait le ton chaud du site) et `shadow-soft` pour la séparation visuelle. Étendre le panneau pleine largeur avec `-mx-4 px-4` pour qu'il aille bord-à-bord.
 
-**3. Aligner le domaine canonique sur le domaine effectivement servi**
-Le DNS redirige `www.` → apex en 301. Deux options possibles (à confirmer) :
-- (A) **Garder le domaine canonique avec `www.`** (statu quo dans `SEOHead.tsx`, `vite.config.ts` sitemap) et laisser Vercel gérer la redirection.
-- (B) **Changer toutes les références canoniques vers le domaine apex** (sans `www.`) pour éviter le saut 301 sur chaque crawl Google.
+**2. Garantir l'empilement au-dessus du hero**
+Le `<header>` parent a déjà `z-50 fixed`. Le panneau mobile en flux normal hérite donc déjà du contexte d'empilement correct. Aucun changement de `z-index` nécessaire — le vrai bug est l'absence de fond, pas le z-index.
 
-L'option (A) est standard et acceptée par Google ; l'option (B) est marginalement plus performante. Je recommande (A) — aucune action requise sur ce point.
+**3. Ajouter un overlay/backdrop semi-transparent sous le menu**
+Pour masquer visuellement le hero derrière et permettre la fermeture au clic extérieur :
+- Ajouter un `<div>` `fixed inset-0 top-20 bg-black/20 z-40 lg:hidden` rendu conditionnellement quand `isMobileMenuOpen`.
+- `onClick` sur le backdrop → ferme le menu.
 
-**4. Vérification après déploiement**
-Re-tester avec curl que `/parodontie`, `/gingivite-marseille`, `/implantologie` retournent désormais leur propre `<title>`, `<meta description>` et `<link rel="canonical">` dans le HTML statique. Puis dans Search Console : "Demander une indexation" pour les pages prioritaires.
+**4. Bloquer le scroll du body quand le menu est ouvert** (UX)
+`useEffect` qui ajoute `overflow-hidden` sur `document.body` tant que `isMobileMenuOpen === true`, retiré au cleanup.
 
-## Fichiers modifiés
+**5. Conservation des fallbacks et tone**
+- Couleurs depuis le design system (`bg-card`, `shadow-soft`) — pas de Tailwind brut comme `bg-white` ou `bg-pink-50` qui contournerait les tokens.
+- Aucun changement aux liens, données Sanity, ou fallbacks.
 
-- `src/App.tsx` : retirer `import { HelmetProvider } from "react-helmet-async"` et l'usage du provider.
+## Détails techniques
 
-C'est tout. Une seule correction chirurgicale, qui devrait débloquer l'extraction `<Head>` par `vite-react-ssg` pour toutes les pages.
+```tsx
+// Header.tsx — extraits modifiés
+
+// 1. Lock body scroll
+useEffect(() => {
+  document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+  return () => { document.body.style.overflow = ""; };
+}, [isMobileMenuOpen]);
+
+// 2. Backdrop (rendu en frère du panneau menu, à l'intérieur du header)
+{isMobileMenuOpen && (
+  <div
+    className="fixed inset-0 top-20 bg-foreground/20 z-40 lg:hidden"
+    onClick={() => setIsMobileMenuOpen(false)}
+    aria-hidden="true"
+  />
+)}
+
+// 3. Panneau mobile avec fond opaque garanti
+{isMobileMenuOpen && (
+  <div className="lg:hidden pb-6 pt-2 -mx-4 px-4 bg-card shadow-soft animate-fade-in relative z-50">
+    {/* nav + boutons inchangés */}
+  </div>
+)}
+```
+
+## Vérification post-fix
+
+Au viewport 375px ou 414px, ouvrir le menu hamburger sur la home (top de page, header transparent) :
+- Le panneau doit avoir un fond pastel opaque.
+- Le hero derrière doit être assombri par le backdrop.
+- Cliquer sur le backdrop ferme le menu.
+- Le scroll de la page est bloqué tant que le menu est ouvert.
 
