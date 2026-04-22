@@ -19,9 +19,12 @@ describe("SSG SEO output — /gingivite-marseille", () => {
   let doc: Document;
 
   beforeAll(() => {
-    const target = path.join(DIST, "gingivite-marseille", "index.html");
+    const candidates = [
+      path.join(DIST, "gingivite-marseille.html"),
+      path.join(DIST, "gingivite-marseille", "index.html"),
+    ];
 
-    if (!existsSync(target)) {
+    if (!candidates.some(existsSync)) {
       // Lance le build SSG une seule fois si dist n'est pas déjà présent.
       execSync("npm run build", {
         stdio: "inherit",
@@ -29,8 +32,9 @@ describe("SSG SEO output — /gingivite-marseille", () => {
       });
     }
 
-    expect(existsSync(target), `Fichier SSG manquant: ${target}`).toBe(true);
-    html = readFileSync(target, "utf-8");
+    const target = candidates.find(existsSync);
+    expect(target, `Aucun HTML SSG trouvé pour /gingivite-marseille (testé: ${candidates.join(", ")})`).toBeTruthy();
+    html = readFileSync(target!, "utf-8");
     doc = new JSDOM(html).window.document;
   });
 
