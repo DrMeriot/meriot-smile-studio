@@ -1,4 +1,5 @@
 import { GraduationCap, Award, Heart, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 import drMeriotPortrait from "@/assets/dr-meriot-portrait.jpg";
 
 const About = () => {
@@ -29,9 +30,16 @@ const About = () => {
             </h2>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
               Diplômée de la Faculté d'odontologie de Marseille, je suis
-              chirurgien-dentiste spécialisée en <strong>parodontie</strong> et{" "}
-              <strong>implantologie</strong>. Mon approche repose sur l'écoute, la
-              douceur et le respect du rythme de chaque patient.
+              chirurgien-dentiste spécialisée en{" "}
+              <Link to="/parodontie" className="text-primary font-semibold hover:underline">
+                parodontie
+              </Link>{" "}
+              et{" "}
+              <Link to="/implantologie" className="text-primary font-semibold hover:underline">
+                implantologie
+              </Link>
+              . Mon approche repose sur l'écoute, la douceur et le respect du rythme
+              de chaque patient.
             </p>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               Ma thèse sur la <em>dentisterie à minima</em> reflète ma philosophie :
