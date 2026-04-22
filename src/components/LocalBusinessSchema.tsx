@@ -74,7 +74,52 @@ const LocalBusinessSchema = () => {
       { "@type": "EducationalOccupationalCredential", "credentialCategory": "Formation", "name": "Formation IFPIO Implantologie" },
     ],
     "knowsLanguage": ["French", "English", "Spanish"],
-    "isAcceptingNewPatients": true
+    "isAcceptingNewPatients": true,
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "47",
+      "reviewCount": "47"
+    }
+  };
+
+  const personSchema = {
+    "@type": "Person",
+    "@id": `${siteUrl}/#person`,
+    "name": nom,
+    "givenName": "Stéphanie",
+    "familyName": "Meriot",
+    "honorificPrefix": "Dr",
+    "jobTitle": "Chirurgien-dentiste spécialisée en parodontologie",
+    "worksFor": { "@id": `${siteUrl}/#dentist` },
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "Faculté d'Odontologie de Marseille" },
+      { "@type": "EducationalOrganization", "name": "IFPIO Marseille", "description": "Institut de Formation en Parodontologie et Implantologie Orale" },
+      { "@type": "EducationalOrganization", "name": "Académie de Parodontologie d'Aix-en-Provence" }
+    ],
+    "knowsAbout": ["Periodontics", "Dental Implantology", "Parodontologie", "Implantologie"],
+    "knowsLanguage": [
+      { "@type": "Language", "name": "French", "alternateName": "Français" },
+      { "@type": "Language", "name": "English", "alternateName": "Anglais" },
+      { "@type": "Language", "name": "Spanish", "alternateName": "Espagnol" }
+    ]
+  };
+
+  const websiteSchema = {
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    "url": siteUrl,
+    "name": "Dr Stéphanie Meriot - Dentiste Parodontiste Marseille",
+    "description": "Site officiel du cabinet dentaire Dr Stéphanie Meriot, spécialiste en parodontologie à Marseille",
+    "publisher": { "@id": `${siteUrl}/#dentist` },
+    "inLanguage": "fr-FR"
+  };
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [dentistSchema, personSchema, websiteSchema]
   };
 
   return (
