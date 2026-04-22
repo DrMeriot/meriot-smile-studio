@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone, CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
 
@@ -52,7 +53,7 @@ const Hero = () => {
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">{sousTitre}</p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <a href={ctaUrl} target="_blank" rel="noopener noreferrer">
+            <a href={ctaUrl} target="_blank" rel="noopener noreferrer" aria-label="Prendre rendez-vous sur Doctolib avec le Dr Meriot">
               <Button size="lg" className="w-full sm:w-auto gap-2 bg-primary hover:bg-primary-hover text-lg px-8 py-6">
                 <Calendar className="h-5 w-5" />
                 {ctaTexte}
@@ -65,6 +66,27 @@ const Hero = () => {
               </Button>
             </a>
           </div>
+
+          <p className="mt-6 text-sm text-muted-foreground">
+            Consultez nos spécialités :{" "}
+            <Link to="/parodontie" className="text-primary font-medium hover:underline">
+              parodontie
+            </Link>
+            {", "}
+            <Link to="/implantologie" className="text-primary font-medium hover:underline">
+              implantologie
+            </Link>
+            {" — ou "}
+            <a
+              href={doctolibUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-medium hover:underline"
+            >
+              réservez en ligne sur Doctolib
+            </a>
+            .
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
             {["Métro Chartreux (M1)", "⭐⭐⭐⭐⭐ 5/5 étoiles", "🇫🇷 🇬🇧 🇪🇸 Trilingue"].map((f, i) => (

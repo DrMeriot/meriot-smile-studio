@@ -17,6 +17,8 @@ type ServiceItem = {
   color: string;
   bgColor: string;
   featured?: boolean;
+  href: string;
+  linkLabel?: string;
 };
 
 const services: ServiceItem[] = [
@@ -27,24 +29,29 @@ const services: ServiceItem[] = [
       "Consultations, détartrage, soins des caries, dévitalisation. Prise en charge complète de votre santé bucco-dentaire.",
     color: "text-primary",
     bgColor: "bg-primary/10",
+    href: "/services",
   },
   {
     image: paroLogo,
     title: "Parodontie - Spécialité",
     description:
-      "Traitement des maladies des gencives, détartrage approfondi, chirurgie parodontale, greffe gingivale.",
+      "Traitement des maladies des gencives, détartrage approfondi, chirurgie parodontale, greffe gingivale. Découvrez aussi nos pages dédiées à la gingivite et au déchaussement dentaire.",
     color: "text-accent",
     bgColor: "bg-accent/10",
     featured: true,
+    href: "/parodontie",
+    linkLabel: "Découvrir la parodontie",
   },
   {
     image: implantoLogo,
     title: "Implantologie - Spécialité",
     description:
-      "Pose d'implants dentaires, régénération osseuse, restauration complète. Solution durable pour remplacer vos dents.",
+      "Pose d'implants dentaires, régénération osseuse, restauration complète. Solution durable pour remplacer vos dents manquantes.",
     color: "text-primary",
     bgColor: "bg-primary/10",
     featured: true,
+    href: "/implantologie",
+    linkLabel: "Découvrir l'implantologie",
   },
   {
     icon: Shield,
@@ -53,6 +60,8 @@ const services: ServiceItem[] = [
       "Conseils personnalisés, suivi régulier, techniques de brossage adaptées. Prévenir vaut mieux que guérir.",
     color: "text-secondary-foreground",
     bgColor: "bg-secondary",
+    href: "/gencives-qui-saignent",
+    linkLabel: "Gencives qui saignent ?",
   },
   {
     icon: Sparkles,
@@ -61,6 +70,7 @@ const services: ServiceItem[] = [
       "Blanchiment, corrections esthétiques. Retrouvez un sourire éclatant en toute sérénité.",
     color: "text-accent",
     bgColor: "bg-accent/10",
+    href: "/esthetique",
   },
   {
     icon: FileHeart,
@@ -69,6 +79,7 @@ const services: ServiceItem[] = [
       "Approche minimale invasive selon ma thèse. Préservation maximale de vos tissus naturels.",
     color: "text-primary",
     bgColor: "bg-primary/10",
+    href: "/services",
   },
 ];
 
@@ -123,10 +134,10 @@ const Services = () => {
                     {service.description}
                   </p>
                   <Link
-                    to="/services"
+                    to={service.href}
                     className="text-primary hover:text-primary-hover font-medium text-sm inline-flex items-center gap-1 transition-colors"
                   >
-                    En savoir plus
+                    {service.linkLabel ?? "En savoir plus"}
                     <span>→</span>
                   </Link>
                 </CardContent>
