@@ -17,19 +17,21 @@ const LocalBusinessSchema = () => {
   const postalCity = adresse.split(",")[1]?.trim() ?? "13004 Marseille";
   const postalCode = postalCity.match(/\d{5}/)?.[0] ?? "13004";
 
-  const schema = {
-    "@context": "https://schema.org",
+  const dentistSchema = {
     "@type": "Dentist",
+    "@id": `${siteUrl}/#dentist`,
     "name": `${nom} - Chirurgien-Dentiste Marseille`,
+    "alternateName": "Dr Stéphanie Meriot - Parodontiste Marseille",
     "description": "Chirurgien-dentiste spécialisée en parodontie et implantologie à Marseille 4ème. Traitement laser des maladies parodontales, pose d'implants dentaires. Conventionnée Secteur 1.",
     "url": siteUrl,
     "telephone": tel.startsWith("+") ? tel : `+33${tel.replace(/\s/g, "").replace(/^0/, "")}`,
     "email": email,
     "image": `${siteUrl}/og-image.jpg`,
-    "logo": `${siteUrl}/og-image.jpg`,
+    "logo": `${siteUrl}/logo.png`,
     "priceRange": "€€",
     "currenciesAccepted": "EUR",
-    "paymentAccepted": "Cash, Credit Card, Check, Carte Vitale",
+    "paymentAccepted": "Cash, Credit Card, Check, Carte Vitale, Tiers payant",
+    "hasMap": "https://maps.google.com/?q=23+Boulevard+de+la+Fédération+13004+Marseille",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": streetAddress,
