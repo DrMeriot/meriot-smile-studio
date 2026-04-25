@@ -416,10 +416,26 @@ describe("SSG JSON-LD — pas de doublons + entités attendues par page", () => 
     }
   });
 
-  // Aplatit récursivement toute la structure : @graph, mainEntity, about,
-  // author, reviewedBy, etc. Toute valeur (objet ou tableau) est visitée
-  // pour collecter chaque entité typée.
-  const flatten = (blocks: any[]): any[] => {
+  // Entités "top-level" : racine de chaque <script> + items directs de @graph.
+  // C'est le niveau pertinent pour parler de "doublons de scripts JSON-LD" :
+  // les sous-entités (author, reviewedBy, signOrSymptom…) sont structurellement
+  // légitimes et ne sont pas comptées comme des doublons.
+  const topLevel = (blocks: any[]): any[] => {
+    const out: any[] = [];
+    for (const block of blocks) {
+      if (!block || typeof block !== "object") continue;
+      if (Array.isArray(block["@graph"])) {
+        for (const e of block["@graph"]) if (e && typeof e === "object") out.push(e);
+      } else if (block["@type"]) {
+        out.push(block);
+      }
+    }
+    return out;
+  };
+
+  // Aplatit récursivement (incluant mainEntity, about, author, etc.)
+  // Utilisé pour vérifier la PRÉSENCE d'une entité, pas pour les doublons.
+  const flattenDeep = (blocks: any[]): any[] => {
     const out: any[] = [];
     const seen = new WeakSet<object>();
     const visit = (node: any) => {
