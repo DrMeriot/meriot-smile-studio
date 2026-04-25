@@ -235,7 +235,7 @@ describe("SSG JSON-LD — homepage Dentist (NAP, geo, horaires)", () => {
 
     const scripts = Array.from(
       doc.head.querySelectorAll('script[type="application/ld+json"]')
-    );
+    ) as HTMLScriptElement[];
     for (const s of scripts) {
       const block = JSON.parse(s.textContent ?? "{}");
       const graph: any[] = Array.isArray(block["@graph"]) ? block["@graph"] : [];
