@@ -338,3 +338,200 @@ describe("SSG JSON-LD — homepage Dentist (NAP, geo, horaires)", () => {
     expect(dentist.isAcceptingNewPatients).toBe(true);
   });
 });
+
+/**
+ * Vérifie sur chaque page-clé du site qu'il n'y a pas de doublons
+ * de scripts JSON-LD (même @type ou même @id) et que les entités
+ * pertinentes pour le SEO sont bien présentes.
+ *
+ * Mappage attendu (extrait des composants de chaque page) :
+ *   - / (home)         : Dentist + Person + WebSite (LocalBusinessSchema)
+ *   - /services        : aucune entité spécifique requise (page agrégat)
+ *   - /parodontie      : FAQPage + BreadcrumbList + MedicalCondition + HowTo
+ *   - /implantologie   : FAQPage + BreadcrumbList
+ *   - /contact         : page de prise de rendez-vous (lien Doctolib + NAP visibles)
+ */
+describe("SSG JSON-LD — pas de doublons + entités attendues par page", () => {
+  type PageSpec = {
+    route: string;
+    files: string[];
+    requiredTypes: string[];
+  };
+
+  const pages: PageSpec[] = [
+    {
+      route: "/",
+      files: ["index.html", "index/index.html"],
+      requiredTypes: ["Dentist", "Person", "WebSite"],
+    },
+    {
+      route: "/services",
+      files: ["services.html", "services/index.html"],
+      requiredTypes: [],
+    },
+    {
+      route: "/parodontie",
+      files: ["parodontie.html", "parodontie/index.html"],
+      requiredTypes: ["FAQPage", "BreadcrumbList", "MedicalCondition", "HowTo"],
+    },
+    {
+      route: "/implantologie",
+      files: ["implantologie.html", "implantologie/index.html"],
+      requiredTypes: ["FAQPage", "BreadcrumbList"],
+    },
+    {
+      route: "/contact",
+      files: ["contact.html", "contact/index.html"],
+      requiredTypes: [],
+    },
+  ];
+
+  const cache = new Map<string, { blocks: any[]; html: string }>();
+
+  beforeAll(() => {
+    const allMissing = pages.some((p) => !p.files.some((f) => existsSync(path.join(DIST, f))));
+    if (allMissing) {
+      execSync("npm run build", {
+        stdio: "inherit",
+        cwd: path.resolve(__dirname, "../.."),
+      });
+    }
+
+    for (const p of pages) {
+      const target = p.files.map((f) => path.join(DIST, f)).find(existsSync);
+      expect(target, `HTML SSG introuvable pour ${p.route} (testé: ${p.files.join(", ")})`).toBeTruthy();
+      const html = readFileSync(target!, "utf-8");
+      const doc = new JSDOM(html).window.document;
+      const scripts = Array.from(
+        doc.querySelectorAll('script[type="application/ld+json"]')
+      ) as HTMLScriptElement[];
+      const blocks = scripts.map((s, i) => {
+        try {
+          return JSON.parse(s.textContent ?? "");
+        } catch (e) {
+          throw new Error(`[${p.route}] Bloc JSON-LD #${i} invalide: ${(e as Error).message}`);
+        }
+      });
+      cache.set(p.route, { blocks, html });
+    }
+  });
+
+  // Entités "top-level" : racine de chaque <script> + items directs de @graph.
+  // C'est le niveau pertinent pour parler de "doublons de scripts JSON-LD" :
+  // les sous-entités (author, reviewedBy, signOrSymptom…) sont structurellement
+  // légitimes et ne sont pas comptées comme des doublons.
+  const topLevel = (blocks: any[]): any[] => {
+    const out: any[] = [];
+    for (const block of blocks) {
+      if (!block || typeof block !== "object") continue;
+      if (Array.isArray(block["@graph"])) {
+        for (const e of block["@graph"]) if (e && typeof e === "object") out.push(e);
+      } else if (block["@type"]) {
+        out.push(block);
+      }
+    }
+    return out;
+  };
+
+  // Aplatit récursivement (incluant mainEntity, about, author, etc.)
+  // Utilisé pour vérifier la PRÉSENCE d'une entité, pas pour les doublons.
+  const flattenDeep = (blocks: any[]): any[] => {
+    const out: any[] = [];
+    const seen = new WeakSet<object>();
+    const visit = (node: any) => {
+      if (!node || typeof node !== "object") return;
+      if (seen.has(node)) return;
+      seen.add(node);
+      if (Array.isArray(node)) { node.forEach(visit); return; }
+      if (node["@type"]) out.push(node);
+      for (const key of Object.keys(node)) {
+        if (key === "@type" || key === "@id" || key === "@context") continue;
+        visit(node[key]);
+      }
+    };
+    blocks.forEach(visit);
+    return out;
+  };
+
+  const typesOf = (entity: any): string[] =>
+    Array.isArray(entity["@type"]) ? entity["@type"] : [entity["@type"]];
+
+  for (const p of pages) {
+    describe(`route ${p.route}`, () => {
+      it("tous les blocs JSON-LD sont du JSON valide (vérifié au beforeAll)", () => {
+        const cached = cache.get(p.route)!;
+        expect(cached.blocks.length).toBeGreaterThanOrEqual(0);
+      });
+
+      if (p.requiredTypes.length > 0) {
+        it(`contient les entités requises : ${p.requiredTypes.join(", ")}`, () => {
+          const entities = flattenDeep(cache.get(p.route)!.blocks);
+          const presentTypes = new Set(entities.flatMap(typesOf));
+          for (const t of p.requiredTypes) {
+            expect(presentTypes.has(t), `Entité manquante sur ${p.route} : ${t}`).toBe(true);
+          }
+        });
+      }
+
+      it("chaque @type principal n'apparaît qu'une seule fois (pas de doublon d'entité)", () => {
+        const entities = topLevel(cache.get(p.route)!.blocks);
+        const counts = new Map<string, number>();
+        for (const e of entities) {
+          for (const t of typesOf(e)) {
+            if (typeof t !== "string") continue;
+            counts.set(t, (counts.get(t) ?? 0) + 1);
+          }
+        }
+        const duplicated = [...counts.entries()].filter(([, n]) => n > 1).map(([t, n]) => `${t}×${n}`);
+        expect(
+          duplicated,
+          `Doublons d'entités JSON-LD détectés sur ${p.route} : ${duplicated.join(", ")}`
+        ).toEqual([]);
+      });
+
+      it("chaque @id n'apparaît qu'une seule fois (pas de collision d'identifiant)", () => {
+        const entities = topLevel(cache.get(p.route)!.blocks);
+        const ids = entities
+          .map((e) => e["@id"])
+          .filter((id): id is string => typeof id === "string");
+        const seen = new Set<string>();
+        const duplicates: string[] = [];
+        for (const id of ids) {
+          if (seen.has(id)) duplicates.push(id);
+          seen.add(id);
+        }
+        expect(
+          duplicates,
+          `@id dupliqués sur ${p.route} : ${duplicates.join(", ")}`
+        ).toEqual([]);
+      });
+
+      it("ne contient pas deux scripts JSON-LD strictement identiques", () => {
+        const cached = cache.get(p.route)!;
+        const serialized = cached.blocks.map((b) => JSON.stringify(b));
+        const uniq = new Set(serialized);
+        expect(
+          uniq.size,
+          `Deux blocs <script type="application/ld+json"> identiques détectés sur ${p.route}`
+        ).toBe(serialized.length);
+      });
+    });
+  }
+
+  it("seule la home expose une entité Dentist (pas de fuite sur les autres pages)", () => {
+    for (const p of pages) {
+      const entities = topLevel(cache.get(p.route)!.blocks);
+      const hasDentist = entities.some((e) => typesOf(e).includes("Dentist"));
+      if (p.route === "/") {
+        expect(hasDentist, "La home doit exposer un Dentist").toBe(true);
+      } else {
+        expect(hasDentist, `Le Dentist ne doit apparaître QUE sur la home, pas sur ${p.route}`).toBe(false);
+      }
+    }
+  });
+
+  it("la page /contact mentionne Doctolib dans son HTML (parcours prise de RDV)", () => {
+    const html = cache.get("/contact")!.html;
+    expect(html).toMatch(/doctolib\.fr\/dentiste\/marseille\/stephanie-meriot/i);
+  });
+});
