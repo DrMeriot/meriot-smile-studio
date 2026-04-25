@@ -465,7 +465,7 @@ describe("SSG JSON-LD — pas de doublons + entités attendues par page", () => 
 
       if (p.requiredTypes.length > 0) {
         it(`contient les entités requises : ${p.requiredTypes.join(", ")}`, () => {
-          const entities = flatten(cache.get(p.route)!.blocks);
+          const entities = flattenDeep(cache.get(p.route)!.blocks);
           const presentTypes = new Set(entities.flatMap(typesOf));
           for (const t of p.requiredTypes) {
             expect(presentTypes.has(t), `Entité manquante sur ${p.route} : ${t}`).toBe(true);
@@ -474,7 +474,7 @@ describe("SSG JSON-LD — pas de doublons + entités attendues par page", () => 
       }
 
       it("chaque @type principal n'apparaît qu'une seule fois (pas de doublon d'entité)", () => {
-        const entities = flatten(cache.get(p.route)!.blocks);
+        const entities = topLevel(cache.get(p.route)!.blocks);
         const counts = new Map<string, number>();
         for (const e of entities) {
           for (const t of typesOf(e)) {
@@ -490,7 +490,7 @@ describe("SSG JSON-LD — pas de doublons + entités attendues par page", () => 
       });
 
       it("chaque @id n'apparaît qu'une seule fois (pas de collision d'identifiant)", () => {
-        const entities = flatten(cache.get(p.route)!.blocks);
+        const entities = topLevel(cache.get(p.route)!.blocks);
         const ids = entities
           .map((e) => e["@id"])
           .filter((id): id is string => typeof id === "string");
@@ -520,7 +520,7 @@ describe("SSG JSON-LD — pas de doublons + entités attendues par page", () => 
 
   it("seule la home expose une entité Dentist (pas de fuite sur les autres pages)", () => {
     for (const p of pages) {
-      const entities = flatten(cache.get(p.route)!.blocks);
+      const entities = topLevel(cache.get(p.route)!.blocks);
       const hasDentist = entities.some((e) => typesOf(e).includes("Dentist"));
       if (p.route === "/") {
         expect(hasDentist, "La home doit exposer un Dentist").toBe(true);
