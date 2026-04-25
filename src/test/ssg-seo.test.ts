@@ -416,14 +416,22 @@ describe("SSG JSON-LD — pas de doublons + entités attendues par page", () => 
     }
   });
 
-  // Aplatit @graph et @type-array vers la liste de toutes les entités.
+  // Aplatit récursivement toute la structure : @graph, mainEntity, about,
+  // author, reviewedBy, etc. Toute valeur (objet ou tableau) est visitée
+  // pour collecter chaque entité typée.
   const flatten = (blocks: any[]): any[] => {
     const out: any[] = [];
+    const seen = new WeakSet<object>();
     const visit = (node: any) => {
       if (!node || typeof node !== "object") return;
+      if (seen.has(node)) return;
+      seen.add(node);
       if (Array.isArray(node)) { node.forEach(visit); return; }
       if (node["@type"]) out.push(node);
-      if (Array.isArray(node["@graph"])) node["@graph"].forEach(visit);
+      for (const key of Object.keys(node)) {
+        if (key === "@type" || key === "@id" || key === "@context") continue;
+        visit(node[key]);
+      }
     };
     blocks.forEach(visit);
     return out;
