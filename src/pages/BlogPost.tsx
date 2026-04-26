@@ -79,10 +79,14 @@ const BlogPost = () => {
                 <span className="text-lg font-medium text-primary">{post.category}</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">{post.title}</h1>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="w-5 h-5" />
-                <time dateTime={post.date}>Publié le {new Date(post.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-              </div>
+              {hasValidDate && (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Calendar className="w-5 h-5" />
+                  <time dateTime={post.date}>
+                    Publié le {parsedDate!.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </time>
+                </div>
+              )}
             </header>
 
             <div className="prose prose-lg max-w-none animate-fade-in" style={{ animationDelay: '100ms' }}>
