@@ -27,7 +27,7 @@ const Tarifs = () => {
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const consultation = page?.consultation ?? "23€";
   const implant = page?.implant ?? "950€";
-  const blanchiment = page?.blanchiment ?? "400€";
+  
   const secteurItems = page?.secteurItems ?? defaultSecteurItems;
   const remboursements = page?.remboursementsList ?? defaultRemboursements;
   const seoTitle = page?.seoTitle ?? "Tarifs Dentiste Marseille & PACA | Secteur 1 Conventionné | Dr Meriot";
