@@ -3,7 +3,7 @@ import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Stethoscope, Heart, Zap, Shield, Sparkles, FileHeart, Calendar } from "lucide-react";
+import { Stethoscope, Heart, Zap, Shield, FileHeart, Calendar } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 
@@ -50,14 +50,6 @@ const defaultServicesDetails = [
     ],
   },
   {
-    icon: "Sparkles", title: "Esthétique dentaire", color: "text-accent", bgColor: "bg-accent/10",
-    description: "Retrouvez un sourire éclatant grâce à des solutions esthétiques douces.",
-    details: [
-      { subtitle: "Blanchiment dentaire", text: "Éclaircissement professionnel des dents." },
-      { subtitle: "Corrections esthétiques", text: "Facettes, composites esthétiques." },
-    ],
-  },
-  {
     icon: "FileHeart", title: "Dentisterie conservatrice", color: "text-primary", bgColor: "bg-primary/10",
     description: "Préserver au maximum vos tissus naturels. Au cœur de ma thèse universitaire.",
     details: [
@@ -69,7 +61,7 @@ const defaultServicesDetails = [
 ];
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  Stethoscope, Heart, Zap, Shield, Sparkles, FileHeart,
+  Stethoscope, Heart, Zap, Shield, FileHeart,
 };
 
 const Services = () => {
@@ -81,7 +73,7 @@ const Services = () => {
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const servicesList = page?.servicesList ?? defaultServicesDetails;
   const seoTitle = page?.seoTitle ?? "Services Dentaires Marseille & PACA | Dr Stéphanie Meriot";
-  const seoDesc = page?.seoDescription ?? `Services dentaires à Marseille : parodontie, implantologie, soins, prévention, esthétique. Secteur 1. ☎ ${tel}`;
+  const seoDesc = page?.seoDescription ?? `Services dentaires à Marseille : parodontie, implantologie, soins, prévention. Secteur 1. ☎ ${tel}`;
 
   const structuredData = {
     "@context": "https://schema.org",

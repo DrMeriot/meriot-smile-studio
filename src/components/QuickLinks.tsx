@@ -10,8 +10,10 @@ const defaultSpecialties = [
 
 const QuickLinks = () => {
   const { data: accueil } = useSanityPage("accueil");
-  // Flat fields: specialites array, quicklinksLabel, quicklinksTitle
-  const items = accueil?.specialites ?? defaultSpecialties;
+  // Spécialités mises en avant : Parodontie + Implantologie uniquement.
+  // On ignore volontairement accueil?.specialites pour éviter qu'une entrée CMS
+  // résiduelle (ex: "Esthétique dentaire") ne réapparaisse sur l'accueil.
+  const items = defaultSpecialties;
   const label = accueil?.quicklinksLabel ?? "✨ Découvrez nos spécialités";
   const titre = accueil?.quicklinksTitle ?? "Accès direct à nos expertises";
 
