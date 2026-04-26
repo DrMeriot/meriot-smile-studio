@@ -59,7 +59,6 @@ const queryMap: Record<string, string> = {
   accueil: accueilQuery,
   parodontie: parodontieQuery,
   implantologie: implantologieQuery,
-  
   tarifs: tarifsQuery,
   about: aboutQuery,
   services_page: servicesPageQuery,
