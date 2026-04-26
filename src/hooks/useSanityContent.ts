@@ -5,7 +5,7 @@ import {
   accueilQuery,
   parodontieQuery,
   implantologieQuery,
-  esthetiqueQuery,
+  
   tarifsQuery,
   aboutQuery,
   servicesPageQuery,
