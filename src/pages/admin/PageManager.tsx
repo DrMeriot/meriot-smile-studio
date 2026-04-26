@@ -65,7 +65,7 @@ const pageNames: Record<string, { label: string; icon: typeof Home; url: string 
   accueil: { label: "🏠 Page d'accueil", icon: Home, url: "/" },
   parodontie: { label: "🦷 Parodontie", icon: Stethoscope, url: "/parodontie" },
   implantologie: { label: "🔩 Implantologie", icon: Stethoscope, url: "/implantologie" },
-  esthetique: { label: "✨ Esthétique", icon: Sparkles, url: "/esthetique" },
+  
   tarifs: { label: "💰 Tarifs", icon: CreditCard, url: "/tarifs" },
 };
 
@@ -214,7 +214,7 @@ const PageManager = () => {
   };
 
   // Order pages consistently
-  const pageOrder = ['accueil', 'parodontie', 'implantologie', 'esthetique', 'tarifs'];
+  const pageOrder = ['accueil', 'parodontie', 'implantologie', 'tarifs'];
 
   return (
     <AdminLayout title="Modifier le contenu du site">
