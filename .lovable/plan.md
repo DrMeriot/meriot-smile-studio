@@ -1,41 +1,30 @@
-## Objectif
+## Contexte
 
-Ajouter un test SSG qui garantit, après chaque build, que la page d'accueil (`/`) contient **exactement un seul** bloc JSON-LD `@graph` regroupant les entités `Dentist`, `Person` et `WebSite` — et qu'aucune de ces entités ne fuit dans un second `<script type="application/ld+json">` séparé.
+La carte « Esthétique dentaire » visible dans la section « Accès direct à nos expertises » (composant `QuickLinks`) est injectée par le CMS Sanity (`accueil.specialites`), pas par le code. Le code par défaut ne contient déjà que Parodontie + Implantologie, mais le hook `useSanityPage("accueil")` remonte un troisième élément stocké dans Sanity, qui s'affiche en priorité (`accueil?.specialites ?? defaultSpecialties`).
 
-## Pourquoi
+Trois autres résidus « esthétique » ont été oubliés lors du nettoyage précédent :
+- `src/pages/Services.tsx` : carte service par défaut « Esthétique dentaire » (ligne 52-59) + mot « esthétique » dans la SEO description fallback (ligne 84).
+- `src/pages/Tarifs.tsx` : bloc tarif « Esthétique » (ligne 110-113).
 
-Le `LocalBusinessSchema` actuel injecte un `@graph` unique avec trois entités liées par `@id` (`#dentist`, `#person`, `#website`). Si quelqu'un ajoute par mégarde un second schema Dentist (cf. décision précédente sur `#cabinet`), ou si un refactor casse la structure `@graph`, on perd la cohérence sémantique sans que rien ne le signale. Ce test bloque toute régression au build.
+## Modifications
 
-## Approche
+### 1. Forcer la liste des spécialités (`src/components/QuickLinks.tsx`)
+Ignorer le champ Sanity `specialites` et utiliser uniquement `defaultSpecialties` (Parodontie + Implantologie), pour neutraliser l'entrée CMS résiduelle sans toucher au studio Sanity. Garder le titre/label Sanity (`quicklinksLabel`, `quicklinksTitle`) qui restent valides.
 
-Étendre la suite existante `src/test/ssg-seo.test.ts` (qui réutilise déjà `dist/`) avec un nouveau `describe("SSG JSON-LD — homepage")` qui :
+### 2. Nettoyer la page Services (`src/pages/Services.tsx`)
+- Retirer entièrement l'objet `Esthétique dentaire` des `defaultServicesDetails`.
+- Retirer `Sparkles` de l'`iconMap` et de l'import `lucide-react` s'il n'est plus utilisé ailleurs dans le fichier.
+- Retirer le mot « esthétique » de `seoDesc` fallback (remplacer par « parodontie, implantologie, soins, prévention. Secteur 1. »).
 
-1. Lit `dist/index.html` (build SSG déjà déclenché par la suite existante via `beforeAll`).
-2. Parse tous les `<script type="application/ld+json">` du `<head>`.
-3. Filtre ceux qui contiennent une entité `Dentist`, `Person` ou `WebSite` (LocalBusinessSchema). Les autres schemas globaux éventuels (FAQ, Breadcrumb, MedicalSchema…) sont ignorés.
+### 3. Nettoyer la page Tarifs (`src/pages/Tarifs.tsx`)
+- Supprimer le bloc « Esthétique » (h4 + p, lignes ~110-113) dans la carte « Soins spécialisés ».
+- Vérifier et retirer la variable `blanchiment` si elle n'est plus utilisée ailleurs.
 
-## Assertions
-
-Sur le bloc LocalBusinessSchema :
-
-- **Un seul script** parmi tous les JSON-LD contient un `Dentist` (pas de doublon `#cabinet` vs `#dentist`).
-- Ce script a `@context === "https://schema.org"` et un champ `@graph` qui est un tableau.
-- Le `@graph` contient **exactement trois entités** avec les `@type` `Dentist`, `Person`, `WebSite` (un de chaque).
-- Les `@id` correspondent au pattern attendu : `…/#dentist`, `…/#person`, `…/#website`.
-- Aucune autre balise JSON-LD de la page ne contient `"@type": "Dentist"`, `"@type": "Person"` ou `"@type": "WebSite"` (anti-fuite).
-- Le `Person` référence bien le `Dentist` via `worksFor.@id === Dentist["@id"]`, et le `WebSite` via `publisher.@id === Dentist["@id"]` (cohérence du graphe).
-- Chaque script JSON-LD est un JSON valide (`JSON.parse` ne throw pas), pour éviter qu'un schema cassé passe inaperçu.
-
-## Détails techniques
-
-- Fichier : compléter `src/test/ssg-seo.test.ts` avec un second bloc `describe`. Pas de nouvelle dépendance, pas de modif de `vitest.config.ts`.
-- Cible HTML : `path.resolve(__dirname, "../../dist/index.html")` (avec fallback `dist/index/index.html` par sécurité, comme déjà fait pour gingivite).
-- Parsing : réutiliser `JSDOM`, puis `Array.from(doc.head.querySelectorAll('script[type="application/ld+json"]'))`.
-- Le test `beforeAll` fait déjà tourner `npm run build` si `dist/` est absent — pas besoin de le redéclencher.
-- Lancement : `npx vitest run` (déjà fonctionnel via la suite existante).
+### 4. Vérification
+Lancer `npx vitest run src/test/ssg-seo.test.ts` pour confirmer que les 46 tests passent toujours et que l'accueil ne propose plus que les deux spécialités attendues.
 
 ## Hors scope
 
-- Pas de validation des autres schemas (FAQ, Breadcrumb, HowTo, Medical) — tests séparés si besoin un jour.
-- Pas de modif de `LocalBusinessSchema.tsx` ni d'`Index.tsx`.
-- Pas de test sur les autres pages (parodontie, implantologie, etc.) — le LocalBusinessSchema n'est rendu que sur `/`.
+- Aucune modification du schéma Sanity (`accueil.ts` ne déclare pas `specialites`, donc rien à nettoyer côté schéma).
+- Pas de changement dans `blogData.ts` : les occurrences « esthétique » y sont des termes médicaux légitimes (matériaux esthétiques, profil de gencive esthétique), pas des renvois vers la page supprimée.
+- Pas de touche au studio Sanity en ligne : le forçage côté front suffit à masquer la donnée résiduelle.
