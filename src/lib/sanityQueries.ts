@@ -7,7 +7,7 @@ export const accueilQuery = `*[_type == "accueil"][0]`;
 // Specialty singletons
 export const parodontieQuery = `*[_type == "parodontie"][0]`;
 export const implantologieQuery = `*[_type == "implantologie"][0]`;
-export const esthetiqueQuery = `*[_type == "esthetique"][0]`;
+
 export const tarifsQuery = `*[_type == "tarifs"][0]`;
 export const aboutQuery = `*[_type == "about"][0]`;
 export const servicesPageQuery = `*[_type == "services_page"][0]`;
