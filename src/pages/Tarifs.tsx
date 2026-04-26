@@ -27,7 +27,7 @@ const Tarifs = () => {
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const consultation = page?.consultation ?? "23€";
   const implant = page?.implant ?? "950€";
-  const blanchiment = page?.blanchiment ?? "400€";
+  
   const secteurItems = page?.secteurItems ?? defaultSecteurItems;
   const remboursements = page?.remboursementsList ?? defaultRemboursements;
   const seoTitle = page?.seoTitle ?? "Tarifs Dentiste Marseille & PACA | Secteur 1 Conventionné | Dr Meriot";
@@ -103,13 +103,9 @@ const Tarifs = () => {
                       <h4 className="font-semibold text-accent mb-1">Parodontie</h4>
                       <p className="text-sm text-muted-foreground">{page?.parodontieInfo ?? "Devis personnalisé selon la complexité"}</p>
                     </div>
-                    <div className="border-b border-border pb-4">
+                    <div>
                       <h4 className="font-semibold text-primary mb-1">Implantologie</h4>
                       <p className="text-sm text-muted-foreground">Implant dentaire : <span className="font-semibold">{implant}</span></p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-1">Esthétique</h4>
-                      <p className="text-sm text-muted-foreground">Blanchiment <span className="font-semibold">{blanchiment}</span></p>
                     </div>
                   </CardContent>
                 </Card>
