@@ -11,7 +11,7 @@ import { useGlobalSettings, useBlogPost } from "@/hooks/useSanityContent";
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: global } = useGlobalSettings();
-  const { data: sanityPost } = useBlogPost(slug ?? "");
+  const { data: sanityPost, isFetching: isFetchingPost } = useBlogPost(slug ?? "");
 
   const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
@@ -31,9 +31,27 @@ const BlogPost = () => {
       }
     : localPost;
 
+  // While the client is re-fetching (e.g. an article published after the
+  // last SSG build), don't redirect to /blog — show a minimal loading state.
   if (!post) {
+    if (isFetchingPost) {
+      return (
+        <div className="min-h-screen bg-background">
+          <Header />
+          <main className="container mx-auto px-4 py-16 mt-20">
+            <p className="text-center text-muted-foreground">Chargement de l'article…</p>
+          </main>
+          <Footer />
+        </div>
+      );
+    }
     return <Navigate to="/blog" replace />;
   }
+
+  // Safe date: avoid rendering "1 janvier 1970" when post.date is null/undefined
+  // or otherwise invalid.
+  const parsedDate = post.date ? new Date(post.date) : null;
+  const hasValidDate = parsedDate !== null && !Number.isNaN(parsedDate.getTime());
 
   return (
     <>
@@ -61,10 +79,14 @@ const BlogPost = () => {
                 <span className="text-lg font-medium text-primary">{post.category}</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">{post.title}</h1>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="w-5 h-5" />
-                <time dateTime={post.date}>Publié le {new Date(post.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-              </div>
+              {hasValidDate && (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Calendar className="w-5 h-5" />
+                  <time dateTime={post.date}>
+                    Publié le {parsedDate!.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </time>
+                </div>
+              )}
             </header>
 
             <div className="prose prose-lg max-w-none animate-fade-in" style={{ animationDelay: '100ms' }}>

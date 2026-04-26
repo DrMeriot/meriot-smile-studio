@@ -8,6 +8,24 @@ const baseClient = createClient({
   timeout: 3000,
 });
 
+// Are we in dev mode (Vite) or in a Node SSG/SSR build context?
+// We log in dev (browser DevTools) and always in Node (build logs visible
+// in Vercel/Lovable), but stay quiet in production browser bundles.
+const isNode = typeof window === "undefined";
+const isDev =
+  (typeof import.meta !== "undefined" && (import.meta as { env?: { DEV?: boolean } }).env?.DEV) ||
+  (typeof process !== "undefined" && process.env?.NODE_ENV !== "production");
+const shouldLog = isNode || isDev;
+
+function queryPreview(query: string): string {
+  const cleaned = query.replace(/\s+/g, " ").trim();
+  return cleaned.length > 80 ? `${cleaned.slice(0, 80)}…` : cleaned;
+}
+
+function logTag(): string {
+  return isNode ? "[sanity SSG/SSR]" : "[sanity]";
+}
+
 /**
  * Hardened wrapper around the Sanity client.
  *
@@ -32,12 +50,27 @@ export const sanityClient = {
   ): Promise<T | null> {
     try {
       const result = await baseClient.fetch<T>(query, params ?? {}, options);
+      if ((result === null || result === undefined) && shouldLog) {
+        // Helps diagnose SSG builds where a published doc isn't yet
+        // available, or the slug param doesn't match anything.
+        // eslint-disable-next-line no-console
+        console.warn(
+          `${logTag()} empty result for query: ${queryPreview(query)}`,
+          params ? { params } : ""
+        );
+      }
       return result ?? null;
     } catch (error) {
       // SyntaxError = non-JSON upstream response. Other errors = network/abort/CORS.
       // In all cases we return null and let the UI use its fallback content.
-      if (typeof console !== "undefined") {
-        console.warn("[sanity] fetch failed, using fallback:", (error as Error)?.message);
+      if (shouldLog) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `${logTag()} fetch failed for query: ${queryPreview(query)} — ${
+            (error as Error)?.message
+          }`,
+          params ? { params } : ""
+        );
       }
       return null;
     }
