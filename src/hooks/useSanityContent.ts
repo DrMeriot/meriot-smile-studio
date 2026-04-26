@@ -5,7 +5,7 @@ import {
   accueilQuery,
   parodontieQuery,
   implantologieQuery,
-  esthetiqueQuery,
+  
   tarifsQuery,
   aboutQuery,
   servicesPageQuery,
@@ -59,7 +59,6 @@ const queryMap: Record<string, string> = {
   accueil: accueilQuery,
   parodontie: parodontieQuery,
   implantologie: implantologieQuery,
-  esthetique: esthetiqueQuery,
   tarifs: tarifsQuery,
   about: aboutQuery,
   services_page: servicesPageQuery,

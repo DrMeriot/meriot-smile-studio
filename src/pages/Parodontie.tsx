@@ -290,15 +290,12 @@ const Parodontie = () => {
           <section className="py-12 bg-muted/30" aria-labelledby="crosslinks-title">
             <div className="container mx-auto px-4 max-w-4xl">
               <h2 id="crosslinks-title" className="text-2xl font-bold mb-6 text-center">{page?.crosslinksTitre ?? "Découvrez nos autres spécialités"}</h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-1 md:grid-cols-3 gap-6">
                 <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                   <h3 className="font-semibold text-lg mb-2">Implantologie</h3>
                   <p className="text-muted-foreground text-sm">Remplacez vos dents manquantes par des implants dentaires durables et esthétiques.</p>
                 </Link>
-                <Link to="/esthetique" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
-                  <h3 className="font-semibold text-lg mb-2">Esthétique dentaire</h3>
-                  <p className="text-muted-foreground text-sm">Retrouvez un sourire éclatant grâce à nos solutions esthétiques personnalisées.</p>
-                </Link>
+                
                 <Link to="/gingivite-marseille" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                   <h3 className="font-semibold text-lg mb-2">Gingivite</h3>
                   <p className="text-muted-foreground text-sm">Tout savoir sur la gingivite : causes, symptômes et traitement à Marseille.</p>

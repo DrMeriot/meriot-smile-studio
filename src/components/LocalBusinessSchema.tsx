@@ -54,12 +54,11 @@ const LocalBusinessSchema = () => {
       "Martigues", "Istres", "Fos-sur-Mer", "Port-de-Bouc", "Berre-l'Étang", "Rognac", "Velaux", "Miramas", "Saint-Chamas", "Saint-Mitre-les-Remparts", "Grans", "La Fare-les-Oliviers", "Coudoux", "Lançon-Provence",
       "Salon-de-Provence", "Pélissanne", "Eyguières", "Lambesc"
     ],
-    "medicalSpecialty": ["Periodontics", "Dental Implants", "Cosmetic Dentistry"],
+    "medicalSpecialty": ["Periodontics", "Dental Implants"],
     "availableService": [
       { "@type": "MedicalProcedure", "name": "Traitement parodontal", "description": "Traitement des maladies parodontales par surfaçage radiculaire et laser" },
       { "@type": "MedicalProcedure", "name": "Pose d'implants dentaires", "description": "Chirurgie implantaire pour remplacement des dents manquantes" },
       { "@type": "MedicalProcedure", "name": "Traitement laser", "description": "Thérapie laser pour le traitement des poches parodontales" },
-      { "@type": "MedicalProcedure", "name": "Esthétique dentaire", "description": "Blanchiment, facettes et corrections esthétiques" },
     ],
     "openingHoursSpecification": [
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday"], "opens": "09:00", "closes": "12:00" },

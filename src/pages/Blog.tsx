@@ -72,10 +72,9 @@ const Blog = () => {
 
           <section className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">Nos spécialités</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border"><h3 className="font-semibold text-lg mb-2 text-primary">Parodontie</h3><p className="text-muted-foreground text-sm">Traitement des gencives par le Dr Meriot.</p></Link>
               <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border"><h3 className="font-semibold text-lg mb-2 text-primary">Implantologie</h3><p className="text-muted-foreground text-sm">Pose d'implants dentaires durables.</p></Link>
-              <Link to="/esthetique" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border"><h3 className="font-semibold text-lg mb-2 text-primary">Esthétique dentaire</h3><p className="text-muted-foreground text-sm">Blanchiment, facettes et harmonisation.</p></Link>
             </div>
           </section>
 

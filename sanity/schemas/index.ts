@@ -2,7 +2,7 @@ import global from './global'
 import accueil from './accueil'
 import parodontie from './parodontie'
 import implantologie from './implantologie'
-import esthetique from './esthetique'
+
 import services_page from './services_page'
 import tarifs from './tarifs'
 import about from './about'
@@ -18,7 +18,7 @@ export const schemaTypes = [
   accueil,
   parodontie,
   implantologie,
-  esthetique,
+  
   services_page,
   tarifs,
   about,

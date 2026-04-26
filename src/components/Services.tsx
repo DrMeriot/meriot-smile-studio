@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import {
   Stethoscope,
   Shield,
-  Sparkles,
   FileHeart,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -62,15 +61,6 @@ const services: ServiceItem[] = [
     bgColor: "bg-secondary",
     href: "/gencives-qui-saignent",
     linkLabel: "Gencives qui saignent ?",
-  },
-  {
-    icon: Sparkles,
-    title: "Esthétique dentaire",
-    description:
-      "Blanchiment, corrections esthétiques. Retrouvez un sourire éclatant en toute sérénité.",
-    color: "text-accent",
-    bgColor: "bg-accent/10",
-    href: "/esthetique",
   },
   {
     icon: FileHeart,
