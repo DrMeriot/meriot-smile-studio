@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
-import { Save, Loader2, ExternalLink, Home, Stethoscope, Sparkles, CreditCard } from 'lucide-react';
+import { Save, Loader2, ExternalLink, Home, Stethoscope, CreditCard } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
 
 interface PageSection {
