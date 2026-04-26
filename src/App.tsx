@@ -11,7 +11,7 @@ import Tarifs from "./pages/Tarifs";
 import ContactPage from "./pages/ContactPage";
 import Parodontie from "./pages/Parodontie";
 import Implantologie from "./pages/Implantologie";
-import Esthetique from "./pages/Esthetique";
+
 import MentionsLegales from "./pages/MentionsLegales";
 import Confidentialite from "./pages/Confidentialite";
 import NotFound from "./pages/NotFound";
@@ -68,7 +68,7 @@ export const routes: RouteRecord[] = [
       { path: 'contact', element: <ContactPage /> },
       { path: 'parodontie', element: <Parodontie /> },
       { path: 'implantologie', element: <Implantologie /> },
-      { path: 'esthetique', element: <Esthetique /> },
+      
       { path: 'blog', element: <Blog /> },
       { path: 'blog/:slug', element: <BlogPost /> },
       { path: 'gingivite-marseille', element: <GingiviteMarseille /> },

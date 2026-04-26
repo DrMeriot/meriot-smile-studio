@@ -73,7 +73,7 @@ const Footer = () => {
               {[
                 { to: "/parodontie", label: "Parodontie" },
                 { to: "/implantologie", label: "Implantologie" },
-                { to: "/esthetique", label: "Esthétique dentaire" },
+                
                 { to: "/services", label: "Tous les soins" },
                 { to: "/tarifs", label: "Tarifs" },
                 { to: "/blog", label: "Blog & Conseils" },

@@ -64,15 +64,6 @@ const services: ServiceItem[] = [
     linkLabel: "Gencives qui saignent ?",
   },
   {
-    icon: Sparkles,
-    title: "Esthétique dentaire",
-    description:
-      "Blanchiment, corrections esthétiques. Retrouvez un sourire éclatant en toute sérénité.",
-    color: "text-accent",
-    bgColor: "bg-accent/10",
-    href: "/esthetique",
-  },
-  {
     icon: FileHeart,
     title: "Dentisterie conservatrice",
     description:
