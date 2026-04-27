@@ -21,12 +21,40 @@ export const dechaussementDentaireQuery = `*[_type == "dechaussement_dentaire"][
 export const gencivesQuiSaignentQuery = `*[_type == "gencives_qui_saignent"][0]`;
 
 // Blog
-export const blogPostsQuery = `*[_type == "blog_post"] | order(date desc) {
-  _id, slug, title, excerpt, category, date, keywords,
-  "seo": seo { title, description }
+// NOTE: aligned with the real Sanity `blog_post` schema:
+//  - body (PortableText array) — NOT `content`
+//  - publishedAt (datetime ISO) — NOT `date`
+//  - seoTitle / seoDescription (flat strings) — NOT a `seo` sub-object
+//  - mainImage (Sanity image with asset + alt)
+export const blogPostsQuery = `*[_type == "blog_post" && defined(slug.current)] | order(publishedAt desc) {
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  publishedAt,
+  category,
+  keywords,
+  seoTitle,
+  seoDescription,
+  mainImage {
+    asset->{ _id, url },
+    alt
+  }
 }`;
 
 export const blogPostBySlugQuery = `*[_type == "blog_post" && slug.current == $slug][0] {
-  _id, slug, title, excerpt, content, category, date, keywords,
-  "seo": seo { title, description }
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  body,
+  publishedAt,
+  category,
+  keywords,
+  seoTitle,
+  seoDescription,
+  mainImage {
+    asset->{ _id, url },
+    alt
+  }
 }`;
