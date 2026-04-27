@@ -13,7 +13,6 @@ const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string 
   { path: "/services", priority: "0.9", changefreq: "weekly" },
   { path: "/parodontie", priority: "0.9", changefreq: "weekly" },
   { path: "/implantologie", priority: "0.9", changefreq: "weekly" },
-  { path: "/esthetique", priority: "0.7", changefreq: "weekly" },
   { path: "/blog", priority: "0.8", changefreq: "weekly" },
   { path: "/a-propos", priority: "0.8", changefreq: "monthly" },
   { path: "/tarifs", priority: "0.7", changefreq: "monthly" },
@@ -25,6 +24,13 @@ const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string 
   { path: "/confidentialite", priority: "0.3", changefreq: "yearly" },
 ];
 
+// Routes that must NEVER be pre-rendered as public HTML files.
+// Admin routes are React-only (need auth) and `*` is the catch-all.
+const SSG_EXCLUDED_PREFIXES = ["/admin"];
+
+// Single source of truth for blog slugs published in Sanity. Used by both
+// the dynamic sitemap plugin AND the SSG `includedRoutes` hook so they
+// can never drift apart.
 async function fetchBlogSlugs(): Promise<Array<{ slug: string; date?: string }>> {
   const projectId = process.env.VITE_SANITY_PROJECT_ID || "6a2np8jy";
   const dataset = process.env.VITE_SANITY_DATASET || "production";
@@ -34,11 +40,15 @@ async function fetchBlogSlugs(): Promise<Array<{ slug: string; date?: string }>>
   const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
   try {
     const res = await fetch(url);
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.warn(`[sanity] Failed to fetch blog slugs: HTTP ${res.status}`);
+      return [];
+    }
     const json = (await res.json()) as { result?: Array<{ slug: string; date?: string }> };
-    return Array.isArray(json.result) ? json.result : [];
+    const result = Array.isArray(json.result) ? json.result : [];
+    return result.filter((p) => typeof p.slug === "string" && p.slug.length > 0);
   } catch (err) {
-    console.warn("[sitemap] Sanity fetch failed, skipping blog posts:", (err as Error).message);
+    console.warn("[sanity] Sanity fetch failed, skipping blog posts:", (err as Error).message);
     return [];
   }
 }
@@ -135,5 +145,31 @@ export default defineConfig(({ mode }) => ({
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
+    // Build the explicit list of routes to pre-render. vite-react-ssg
+    // discovers static routes from `routes` in src/App.tsx and passes them
+    // as `paths`. We must add dynamic blog routes ourselves, otherwise
+    // /blog/<slug> falls back to the SPA shell only and Vercel returns 404
+    // on direct visits / reloads.
+    async includedRoutes(paths: string[]): Promise<string[]> {
+      // Normalise then filter: vite-react-ssg may pass paths with or without
+      // a leading "/", so we compare against both forms.
+      const isExcluded = (p: string) =>
+        SSG_EXCLUDED_PREFIXES.some(
+          (prefix) => p.startsWith(prefix) || p.startsWith(prefix.replace(/^\//, ""))
+        );
+      const staticPaths = paths.filter(
+        (p) => !isExcluded(p) && !p.includes(":") && p !== "*"
+      );
+
+      const posts = await fetchBlogSlugs();
+      const blogPaths = posts.map((p) => `/blog/${p.slug}`);
+
+      const all = Array.from(new Set([...staticPaths, ...blogPaths]));
+      console.log("[ssg] generating routes:", all);
+      console.log(
+        `[ssg] total: ${all.length} (static: ${staticPaths.length}, blog: ${blogPaths.length})`
+      );
+      return all;
+    },
   },
 }));
