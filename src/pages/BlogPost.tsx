@@ -1,4 +1,5 @@
 import { useParams, Link, Navigate } from "react-router-dom";
+import { Head } from "vite-react-ssg";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -8,6 +9,100 @@ import { Calendar, Tag, ArrowLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { useGlobalSettings, useBlogPost } from "@/hooks/useSanityContent";
+
+// ---------------------------------------------------------------------------
+// FAQ extraction from PortableText body.
+// ---------------------------------------------------------------------------
+// Detects a FAQ section inside a PortableText `body` array and returns the
+// list of { question, answer } pairs so we can inject a JSON-LD FAQPage
+// schema in the document head.
+//
+// Heuristic:
+//   1. Find an h2 block whose text matches "Foire aux questions", "FAQ",
+//      or "Questions fréquentes" (case/diacritics-insensitive).
+//   2. After that anchor, every h3 block is a question.
+//   3. Every following `normal` block (until the next h2 or h3) is part of
+//      the answer; their plain text is concatenated with spaces.
+//   4. Stops at the next h2 (end of FAQ section).
+type PortableBlock = {
+  _type?: string;
+  style?: string;
+  children?: Array<{ _type?: string; text?: string }>;
+};
+
+const blockText = (block: PortableBlock): string =>
+  (block.children ?? [])
+    .filter((c) => c?._type === "span" && typeof c.text === "string")
+    .map((c) => c.text as string)
+    .join("")
+    .trim();
+
+const normalize = (s: string): string =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+const isFaqHeading = (text: string): boolean => {
+  const n = normalize(text);
+  return (
+    n.includes("foire aux questions") ||
+    n.includes("questions frequentes") ||
+    /\bfaq\b/.test(n)
+  );
+};
+
+export const extractFAQFromPortableText = (
+  body: unknown
+): Array<{ question: string; answer: string }> => {
+  if (!Array.isArray(body)) return [];
+
+  const blocks = body.filter(
+    (b): b is PortableBlock => !!b && (b as PortableBlock)._type === "block"
+  );
+
+  // Find FAQ anchor (an h2 whose text matches the FAQ heading patterns).
+  const anchorIdx = blocks.findIndex(
+    (b) => b.style === "h2" && isFaqHeading(blockText(b))
+  );
+  if (anchorIdx === -1) return [];
+
+  const faqs: Array<{ question: string; answer: string }> = [];
+  let current: { question: string; answerParts: string[] } | null = null;
+
+  for (let i = anchorIdx + 1; i < blocks.length; i++) {
+    const block = blocks[i];
+    const style = block.style ?? "normal";
+
+    // End of FAQ section when we hit another h2.
+    if (style === "h2") break;
+
+    if (style === "h3") {
+      if (current && current.question) {
+        faqs.push({
+          question: current.question,
+          answer: current.answerParts.join(" ").trim(),
+        });
+      }
+      current = { question: blockText(block), answerParts: [] };
+      continue;
+    }
+
+    if (current && (style === "normal" || style === "blockquote")) {
+      const text = blockText(block);
+      if (text) current.answerParts.push(text);
+    }
+  }
+
+  if (current && current.question) {
+    faqs.push({
+      question: current.question,
+      answer: current.answerParts.join(" ").trim(),
+    });
+  }
+
+  return faqs.filter((f) => f.question && f.answer);
+};
 
 // Custom rendering for PortableText: Tailwind styling + react-router <Link>
 // for internal links (so SPA navigation isn't broken with full reloads).
@@ -155,6 +250,53 @@ const BlogPost = () => {
   const hasPortableBody = Array.isArray(post.body) && post.body.length > 0;
   const hasMarkdownContent = typeof post.content === "string" && post.content.length > 0;
 
+  // Auto-extracted FAQ for FAQPage JSON-LD schema (PortableText only).
+  const faqs = hasPortableBody ? extractFAQFromPortableText(post.body) : [];
+
+  // Article JSON-LD: only emitted when we have a real title (skip loading
+  // states). Date is normalized to ISO 8601 when available.
+  const articleSchema = post.title
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.excerpt,
+        ...(mainImageUrl ? { image: mainImageUrl } : {}),
+        ...(hasValidDate
+          ? {
+              datePublished: parsedDate!.toISOString(),
+              dateModified: parsedDate!.toISOString(),
+            }
+          : {}),
+        author: {
+          "@type": "Person",
+          name: "Dr Stéphanie Meriot",
+          url: "https://www.dr-meriot-chirurgien-dentiste.fr/a-propos",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Cabinet Dr Stéphanie Meriot",
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://www.dr-meriot-chirurgien-dentiste.fr/blog/${post.slug}`,
+        },
+      }
+    : null;
+
+  const faqSchema =
+    faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map(({ question, answer }) => ({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: { "@type": "Answer", text: answer },
+          })),
+        }
+      : null;
+
   return (
     <>
       <SEOHead
@@ -165,6 +307,16 @@ const BlogPost = () => {
         ogTitle={post.title}
         ogDescription={post.excerpt}
       />
+      {(articleSchema || faqSchema) && (
+        <Head>
+          {articleSchema && (
+            <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+          )}
+          {faqSchema && (
+            <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+          )}
+        </Head>
+      )}
       <div className="min-h-screen bg-background">
         <Header />
         <FloatingCTA />
