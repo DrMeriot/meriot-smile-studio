@@ -201,7 +201,7 @@ const DechaussementDentaire = () => {
             <section className="py-12 bg-muted/30">
               <div className="container mx-auto px-4 max-w-4xl">
                 <h2 className="text-2xl font-bold mb-6 text-center">En savoir plus</h2>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-3 gap-6">
                   <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                     <h3 className="font-semibold text-lg mb-2">Parodontie</h3>
                     <p className="text-muted-foreground text-sm">Découvrez notre expertise complète en parodontie : diagnostic, traitements et suivi.</p>
@@ -209,6 +209,10 @@ const DechaussementDentaire = () => {
                   <Link to="/gingivite-marseille" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                     <h3 className="font-semibold text-lg mb-2">Gingivite</h3>
                     <p className="text-muted-foreground text-sm">Tout savoir sur la gingivite : causes, symptômes et traitement à Marseille.</p>
+                  </Link>
+                  <Link to="/blog/dent-qui-bouge-adulte-que-faire" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                    <h3 className="font-semibold text-lg mb-2">Dent qui bouge chez l'adulte</h3>
+                    <p className="text-muted-foreground text-sm">Que faire face à une dent mobile ? Causes, urgences et solutions expliquées par le Dr Meriot.</p>
                   </Link>
                 </div>
               </div>
