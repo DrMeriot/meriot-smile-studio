@@ -151,8 +151,14 @@ export default defineConfig(({ mode }) => ({
     // /blog/<slug> falls back to the SPA shell only and Vercel returns 404
     // on direct visits / reloads.
     async includedRoutes(paths: string[]): Promise<string[]> {
+      // Normalise then filter: vite-react-ssg may pass paths with or without
+      // a leading "/", so we compare against both forms.
+      const isExcluded = (p: string) =>
+        SSG_EXCLUDED_PREFIXES.some(
+          (prefix) => p.startsWith(prefix) || p.startsWith(prefix.replace(/^\//, ""))
+        );
       const staticPaths = paths.filter(
-        (p) => !SSG_EXCLUDED_PREFIXES.some((prefix) => p.startsWith(prefix)) && !p.includes(":") && p !== "*"
+        (p) => !isExcluded(p) && !p.includes(":") && p !== "*"
       );
 
       const posts = await fetchBlogSlugs();
