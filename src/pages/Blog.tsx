@@ -15,16 +15,43 @@ const Blog = () => {
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
-  // Use Sanity posts if available, otherwise fallback to local data
-  const posts = sanityPosts && sanityPosts.length > 0
-    ? sanityPosts.map((p: { _id: string; slug: { current: string } | string; title: string; excerpt: string; category: string; date: string }) => ({
+  // Use Sanity posts if available, otherwise fallback to local data.
+  // Sanity schema fields are flat: publishedAt, mainImage{asset,alt}.
+  type SanityPost = {
+    _id: string;
+    slug: { current: string } | string;
+    title: string;
+    excerpt: string;
+    category: string;
+    publishedAt?: string;
+    mainImage?: { asset?: { url?: string }; alt?: string };
+  };
+  type CardPost = {
+    slug: string;
+    title: string;
+    excerpt: string;
+    category: string;
+    date?: string;
+    imageUrl?: string;
+    imageAlt?: string;
+  };
+  const posts: CardPost[] = sanityPosts && sanityPosts.length > 0
+    ? (sanityPosts as SanityPost[]).map((p) => ({
         slug: typeof p.slug === "string" ? p.slug : p.slug?.current,
         title: p.title,
         excerpt: p.excerpt,
         category: p.category,
-        date: p.date,
+        date: p.publishedAt,
+        imageUrl: p.mainImage?.asset?.url,
+        imageAlt: p.mainImage?.alt ?? p.title,
       }))
-    : blogPosts;
+    : blogPosts.map((p) => ({
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        category: p.category,
+        date: p.date,
+      }));
 
   return (
     <>
@@ -47,27 +74,43 @@ const Blog = () => {
           </section>
 
           <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {posts.map((post: { slug: string; title: string; excerpt: string; category: string; date: string }, index: number) => (
-              <article key={post.slug} className="bg-card rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover-scale animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                <div className="p-6 pb-4">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Tag className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-medium text-primary">{post.category}</span>
+            {posts.map((post, index) => {
+              const parsed = post.date ? new Date(post.date) : null;
+              const validDate = parsed !== null && !Number.isNaN(parsed.getTime());
+              return (
+                <article key={post.slug} className="bg-card rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover-scale animate-fade-in flex flex-col" style={{ animationDelay: `${index * 100}ms` }}>
+                  {post.imageUrl && (
+                    <Link to={`/blog/${post.slug}`} className="block aspect-video overflow-hidden bg-muted">
+                      <img
+                        src={post.imageUrl}
+                        alt={post.imageAlt ?? post.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      />
+                    </Link>
+                  )}
+                  <div className="p-6 pb-4 flex-1 flex flex-col">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Tag className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-primary">{post.category}</span>
+                    </div>
+                    <h2 className="text-2xl font-bold text-card-foreground mb-3 hover:text-primary transition-colors">
+                      <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                    </h2>
+                    <p className="text-muted-foreground mb-4 line-clamp-3">{post.excerpt}</p>
+                    {validDate && (
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                        <Calendar className="w-4 h-4" />
+                        <time dateTime={post.date}>{parsed!.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                      </div>
+                    )}
+                    <Link to={`/blog/${post.slug}`} className="inline-flex items-center text-primary font-medium hover:underline mt-auto">
+                      Lire l'article <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                    </Link>
                   </div>
-                  <h2 className="text-2xl font-bold text-card-foreground mb-3 hover:text-primary transition-colors">
-                    <Link to={`/blog/${post.slug}`}>{post.title}</Link>
-                  </h2>
-                  <p className="text-muted-foreground mb-4 line-clamp-3">{post.excerpt}</p>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                    <Calendar className="w-4 h-4" />
-                    <time dateTime={post.date}>{new Date(post.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-                  </div>
-                  <Link to={`/blog/${post.slug}`} className="inline-flex items-center text-primary font-medium hover:underline">
-                    Lire l'article <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                  </Link>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </section>
 
           <section className="mb-16">
