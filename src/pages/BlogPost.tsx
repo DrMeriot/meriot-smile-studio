@@ -250,6 +250,53 @@ const BlogPost = () => {
   const hasPortableBody = Array.isArray(post.body) && post.body.length > 0;
   const hasMarkdownContent = typeof post.content === "string" && post.content.length > 0;
 
+  // Auto-extracted FAQ for FAQPage JSON-LD schema (PortableText only).
+  const faqs = hasPortableBody ? extractFAQFromPortableText(post.body) : [];
+
+  // Article JSON-LD: only emitted when we have a real title (skip loading
+  // states). Date is normalized to ISO 8601 when available.
+  const articleSchema = post.title
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: post.title,
+        description: post.excerpt,
+        ...(mainImageUrl ? { image: mainImageUrl } : {}),
+        ...(hasValidDate
+          ? {
+              datePublished: parsedDate!.toISOString(),
+              dateModified: parsedDate!.toISOString(),
+            }
+          : {}),
+        author: {
+          "@type": "Person",
+          name: "Dr Stéphanie Meriot",
+          url: "https://www.dr-meriot-chirurgien-dentiste.fr/a-propos",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Cabinet Dr Stéphanie Meriot",
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://www.dr-meriot-chirurgien-dentiste.fr/blog/${post.slug}`,
+        },
+      }
+    : null;
+
+  const faqSchema =
+    faqs.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map(({ question, answer }) => ({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: { "@type": "Answer", text: answer },
+          })),
+        }
+      : null;
+
   return (
     <>
       <SEOHead
@@ -260,6 +307,16 @@ const BlogPost = () => {
         ogTitle={post.title}
         ogDescription={post.excerpt}
       />
+      {(articleSchema || faqSchema) && (
+        <Head>
+          {articleSchema && (
+            <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
+          )}
+          {faqSchema && (
+            <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+          )}
+        </Head>
+      )}
       <div className="min-h-screen bg-background">
         <Header />
         <FloatingCTA />
