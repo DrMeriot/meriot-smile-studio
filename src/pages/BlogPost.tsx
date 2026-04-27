@@ -6,7 +6,73 @@ import SEOHead from "@/components/SEOHead";
 import { getBlogPostBySlug } from "@/data/blogData";
 import { Calendar, Tag, ArrowLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { useGlobalSettings, useBlogPost } from "@/hooks/useSanityContent";
+
+// Custom rendering for PortableText: Tailwind styling + react-router <Link>
+// for internal links (so SPA navigation isn't broken with full reloads).
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    h1: ({ children }) => (
+      <h2 className="text-3xl font-bold text-foreground mt-8 mb-4">{children}</h2>
+    ),
+    h2: ({ children }) => (
+      <h3 className="text-2xl font-bold text-foreground mt-6 mb-3">{children}</h3>
+    ),
+    h3: ({ children }) => (
+      <h4 className="text-xl font-semibold text-foreground mt-4 mb-2">{children}</h4>
+    ),
+    h4: ({ children }) => (
+      <h5 className="text-lg font-semibold text-foreground mt-4 mb-2">{children}</h5>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4">
+        {children}
+      </blockquote>
+    ),
+    normal: ({ children }) => (
+      <p className="text-muted-foreground mb-4 leading-relaxed">{children}</p>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc pl-6 mb-4 text-muted-foreground space-y-2">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal pl-6 mb-4 text-muted-foreground space-y-2">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    number: ({ children }) => <li className="leading-relaxed">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
+    em: ({ children }) => <em className="italic">{children}</em>,
+    link: ({ value, children }) => {
+      const href: string = value?.href ?? "#";
+      const isInternal = href.startsWith("/");
+      if (isInternal) {
+        return (
+          <Link to={href} className="text-primary hover:underline font-medium">
+            {children}
+          </Link>
+        );
+      }
+      const isExternal = href.startsWith("http");
+      return (
+        <a
+          href={href}
+          className="text-primary hover:underline font-medium"
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "nofollow noopener noreferrer" : undefined}
+        >
+          {children}
+        </a>
+      );
+    },
+  },
+};
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -17,19 +83,44 @@ const BlogPost = () => {
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
-  // Sanity post or fallback to local
+  // Sanity post or fallback to local. The Sanity schema fields are flat:
+  //   body / publishedAt / seoTitle / seoDescription / mainImage.
+  // Local posts use `content` (Markdown string) and `date`.
   const localPost = slug ? getBlogPostBySlug(slug) : undefined;
   const post = sanityPost
     ? {
-        slug: typeof sanityPost.slug === "string" ? sanityPost.slug : sanityPost.slug?.current,
+        slug:
+          typeof sanityPost.slug === "string"
+            ? sanityPost.slug
+            : sanityPost.slug?.current,
         title: sanityPost.title,
         excerpt: sanityPost.excerpt,
-        content: sanityPost.content,
+        body: sanityPost.body, // PortableText array (Sanity)
+        content: undefined as string | undefined, // no Markdown from Sanity
         category: sanityPost.category,
-        date: sanityPost.date,
+        date: sanityPost.publishedAt,
         keywords: sanityPost.keywords ?? "",
+        seoTitle: sanityPost.seoTitle as string | undefined,
+        seoDescription: sanityPost.seoDescription as string | undefined,
+        mainImage: sanityPost.mainImage as
+          | { asset?: { url?: string }; alt?: string }
+          | undefined,
       }
-    : localPost;
+    : localPost
+    ? {
+        slug: localPost.slug,
+        title: localPost.title,
+        excerpt: localPost.excerpt,
+        body: undefined,
+        content: localPost.content, // Markdown string (local fallback)
+        category: localPost.category,
+        date: localPost.date,
+        keywords: localPost.keywords ?? "",
+        seoTitle: undefined,
+        seoDescription: undefined,
+        mainImage: undefined,
+      }
+    : undefined;
 
   // While the client is re-fetching (e.g. an article published after the
   // last SSG build), don't redirect to /blog — show a minimal loading state.
@@ -53,11 +144,22 @@ const BlogPost = () => {
   const parsedDate = post.date ? new Date(post.date) : null;
   const hasValidDate = parsedDate !== null && !Number.isNaN(parsedDate.getTime());
 
+  const seoTitle = post.seoTitle ?? `${post.title} | Dr Stéphanie Meriot`;
+  const seoDescription = post.seoDescription ?? post.excerpt;
+  const mainImageUrl = post.mainImage?.asset?.url;
+  const mainImageAlt = post.mainImage?.alt ?? post.title;
+
+  // Choose the right renderer:
+  //   - Sanity articles use PortableText (`body` array)
+  //   - Local fallback articles use Markdown (`content` string)
+  const hasPortableBody = Array.isArray(post.body) && post.body.length > 0;
+  const hasMarkdownContent = typeof post.content === "string" && post.content.length > 0;
+
   return (
     <>
       <SEOHead
-        title={`${post.title} | Dr Stéphanie Meriot`}
-        description={post.excerpt}
+        title={seoTitle}
+        description={seoDescription}
         canonical={`/blog/${post.slug}`}
         keywords={post.keywords}
         ogTitle={post.title}
@@ -89,30 +191,50 @@ const BlogPost = () => {
               )}
             </header>
 
-            <div className="prose prose-lg max-w-none animate-fade-in" style={{ animationDelay: '100ms' }}>
-              <ReactMarkdown
-                components={{
-                  h1: ({node, ...props}) => <h2 className="text-3xl font-bold text-foreground mt-8 mb-4" {...props} />,
-                  h2: ({node, ...props}) => <h3 className="text-2xl font-bold text-foreground mt-6 mb-3" {...props} />,
-                  h3: ({node, ...props}) => <h4 className="text-xl font-semibold text-foreground mt-4 mb-2" {...props} />,
-                  p: ({node, ...props}) => <p className="text-muted-foreground mb-4 leading-relaxed" {...props} />,
-                  ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 text-muted-foreground space-y-2" {...props} />,
-                  ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 text-muted-foreground space-y-2" {...props} />,
-                  li: ({node, ...props}) => <li className="leading-relaxed" {...props} />,
-                  strong: ({node, ...props}) => <strong className="font-bold text-foreground" {...props} />,
-                  a: ({node, href, ...props}) => {
-                    const isExternal = href?.startsWith('http');
-                    return <a className="text-primary hover:underline font-medium" href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "nofollow noopener noreferrer" : undefined} {...props} />;
-                  },
-                  blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4" {...props} />,
-                  table: ({node, ...props}) => <div className="overflow-x-auto my-6"><table className="min-w-full border-collapse border border-border" {...props} /></div>,
-                  thead: ({node, ...props}) => <thead className="bg-muted" {...props} />,
-                  th: ({node, ...props}) => <th className="border border-border px-4 py-2 text-left font-semibold" {...props} />,
-                  td: ({node, ...props}) => <td className="border border-border px-4 py-2" {...props} />,
-                }}
-              >
-                {post.content}
-              </ReactMarkdown>
+            {mainImageUrl && (
+              <figure className="mb-10 animate-fade-in">
+                <img
+                  src={mainImageUrl}
+                  alt={mainImageAlt}
+                  className="w-full h-auto rounded-xl shadow-lg object-cover"
+                  loading="lazy"
+                />
+              </figure>
+            )}
+
+            <div
+              className="prose prose-lg max-w-none animate-fade-in"
+              style={{ animationDelay: '100ms' }}
+            >
+              {hasPortableBody ? (
+                <PortableText value={post.body} components={portableTextComponents} />
+              ) : hasMarkdownContent ? (
+                <ReactMarkdown
+                  components={{
+                    h1: ({node, ...props}) => <h2 className="text-3xl font-bold text-foreground mt-8 mb-4" {...props} />,
+                    h2: ({node, ...props}) => <h3 className="text-2xl font-bold text-foreground mt-6 mb-3" {...props} />,
+                    h3: ({node, ...props}) => <h4 className="text-xl font-semibold text-foreground mt-4 mb-2" {...props} />,
+                    p: ({node, ...props}) => <p className="text-muted-foreground mb-4 leading-relaxed" {...props} />,
+                    ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 text-muted-foreground space-y-2" {...props} />,
+                    ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 text-muted-foreground space-y-2" {...props} />,
+                    li: ({node, ...props}) => <li className="leading-relaxed" {...props} />,
+                    strong: ({node, ...props}) => <strong className="font-bold text-foreground" {...props} />,
+                    a: ({node, href, ...props}) => {
+                      const isExternal = href?.startsWith('http');
+                      return <a className="text-primary hover:underline font-medium" href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "nofollow noopener noreferrer" : undefined} {...props} />;
+                    },
+                    blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-4" {...props} />,
+                    table: ({node, ...props}) => <div className="overflow-x-auto my-6"><table className="min-w-full border-collapse border border-border" {...props} /></div>,
+                    thead: ({node, ...props}) => <thead className="bg-muted" {...props} />,
+                    th: ({node, ...props}) => <th className="border border-border px-4 py-2 text-left font-semibold" {...props} />,
+                    td: ({node, ...props}) => <td className="border border-border px-4 py-2" {...props} />,
+                  }}
+                >
+                  {post.content!}
+                </ReactMarkdown>
+              ) : (
+                <p className="text-muted-foreground">Contenu en cours de chargement…</p>
+              )}
             </div>
 
             <footer className="mt-12 pt-8 border-t border-border animate-fade-in" style={{ animationDelay: '200ms' }}>
