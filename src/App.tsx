@@ -27,6 +27,8 @@ import BlogEditor from "./pages/admin/BlogEditor";
 import PageManager from "./pages/admin/PageManager";
 import { Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { sanityClient } from '@/lib/sanity';
+import { blogPostBySlugQuery } from '@/lib/sanityQueries';
 
 const queryClient = new QueryClient();
 
@@ -70,7 +72,47 @@ export const routes: RouteRecord[] = [
       { path: 'implantologie', element: <Implantologie /> },
       
       { path: 'blog', element: <Blog /> },
-      { path: 'blog/:slug', element: <BlogPost /> },
+      {
+        path: 'blog/:slug',
+        element: <BlogPost />,
+        // SSG: fetch the article from Sanity at build time so the generated
+        // HTML contains the full content (~35 KiB) instead of a loading shell.
+        // The data is also seeded into React Query in BlogPost.tsx.
+        loader: async ({ params }) => {
+          const slug = params.slug;
+          if (!slug) return { post: null };
+          try {
+            const post = await sanityClient.fetch(blogPostBySlugQuery, { slug });
+            return { post: post ?? null };
+          } catch {
+            return { post: null };
+          }
+        },
+        // Enumerate dynamic slugs to pre-render. vite-react-ssg uses this to
+        // know which /blog/:slug paths to generate static HTML for.
+        getStaticPaths: async () => {
+          const projectId =
+            (import.meta as { env?: { VITE_SANITY_PROJECT_ID?: string } }).env
+              ?.VITE_SANITY_PROJECT_ID || '6a2np8jy';
+          const dataset =
+            (import.meta as { env?: { VITE_SANITY_DATASET?: string } }).env
+              ?.VITE_SANITY_DATASET || 'production';
+          const query = encodeURIComponent(
+            `*[_type=="blog_post" && defined(slug.current)]{"slug": slug.current}`
+          );
+          const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
+          try {
+            const res = await fetch(url);
+            if (!res.ok) return [];
+            const json = (await res.json()) as { result?: Array<{ slug: string }> };
+            return (json.result ?? [])
+              .filter((p) => typeof p.slug === 'string' && p.slug.length > 0)
+              .map((p) => `blog/${p.slug}`);
+          } catch {
+            return [];
+          }
+        },
+      },
       { path: 'gingivite-marseille', element: <GingiviteMarseille /> },
       { path: 'dechaussement-dentaire-marseille', element: <DechaussementDentaire /> },
       { path: 'gencives-qui-saignent', element: <GencivesQuiSaignent /> },

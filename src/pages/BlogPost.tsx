@@ -1,5 +1,6 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, Navigate, useLoaderData } from "react-router-dom";
 import { Head } from "vite-react-ssg";
+import { useQueryClient } from "@tanstack/react-query";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -172,6 +173,21 @@ const portableTextComponents: PortableTextComponents = {
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: global } = useGlobalSettings();
+
+  // SSG: the route loader (src/App.tsx) prefetches the article from Sanity at
+  // build time. We seed it into React Query BEFORE useBlogPost runs so that
+  // the SSG-rendered HTML contains the full article content (not a loading
+  // shell). On the client, `alwaysFresh: true` will still re-fetch on mount,
+  // so newly published posts remain visible without rebuild.
+  const loaderData = useLoaderData() as { post: unknown } | undefined;
+  const queryClient = useQueryClient();
+  if (loaderData?.post && slug) {
+    const key = ["sanity", `blogPost-${slug}`, { slug }];
+    if (queryClient.getQueryData(key) === undefined) {
+      queryClient.setQueryData(key, loaderData.post);
+    }
+  }
+
   const { data: sanityPost, isFetching: isFetchingPost } = useBlogPost(slug ?? "");
 
   const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
