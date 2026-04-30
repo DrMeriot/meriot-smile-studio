@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import SEOHead from "@/components/SEOHead";
+import RelatedParodontieLinks from "@/components/RelatedParodontieLinks";
 import { getBlogPostBySlug } from "@/data/blogData";
 import { Calendar, Tag, ArrowLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
