@@ -153,7 +153,72 @@ const Parodontie = () => {
             </div>
           </section>
 
-          {/* Symptômes */}
+          {/* Notre approche & expertise — capte "parodontologue Marseille", "spécialiste gencives" */}
+          <section className="py-20 bg-muted/30" aria-labelledby="approche-title">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 id="approche-title" className="text-3xl md:text-4xl font-bold mb-8 text-center">
+                Notre approche : un parodontologue de confiance à Marseille
+              </h2>
+              <div className="prose prose-lg max-w-none">
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Au cabinet, le Dr Stéphanie Meriot a fait de la santé des gencives l'un des piliers de son
+                  exercice. Diplômée de la Faculté d'Odontologie de Marseille et formée à l'<strong>Académie de
+                  Parodontologie d'Aix-en-Provence</strong> ainsi qu'à l'<strong>IFPIO Marseille</strong>, elle
+                  consulte en tant que chirurgien-dentiste spécialisée en parodontie et implantologie — l'équivalent,
+                  dans le langage courant, d'un parodontologue.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Notre approche se veut <strong>douce, progressive et personnalisée</strong> : chaque traitement
+                  parodontal commence par un bilan complet (sondage des poches, analyse de la mobilité, radiographies
+                  ciblées), suivi d'explications claires et d'un plan de soins adapté à votre rythme. L'objectif n'est
+                  jamais de multiplier les actes, mais de stopper l'inflammation au plus tôt et de préserver vos dents
+                  naturelles.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  Le cabinet est <strong>conventionné Secteur 1</strong>, accepte la Carte Vitale et le tiers payant.
+                  Vous pouvez consulter directement, sans courrier ni ordonnance.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Zone d'intervention — couvre la longue traîne géo sans créer de pages dédiées */}
+          <section className="py-16" aria-labelledby="zone-title">
+            <div className="container mx-auto px-4 max-w-5xl">
+              <h2 id="zone-title" className="text-3xl md:text-4xl font-bold mb-6 text-center">
+                Notre zone d'intervention en parodontie
+              </h2>
+              <p className="text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-10">
+                Le cabinet est situé au <strong>23 Boulevard de la Fédération, Marseille 4ème</strong>, à proximité
+                immédiate du métro Chartreux (M1). Nous accueillons régulièrement des patients adressés ou venus de
+                toute la métropole et de la région PACA pour des soins parodontaux.
+              </p>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-card rounded-2xl p-6 shadow-soft border border-border/50">
+                  <h3 className="font-semibold text-lg mb-3 text-primary">Marseille intra-muros</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Patients principalement issus du <strong>4ème, 5ème, 6ème, 7ème, 8ème et 1er arrondissement</strong>,
+                    facilement accessibles par le métro M1 (station Chartreux) ou en voiture.
+                  </p>
+                </div>
+                <div className="bg-card rounded-2xl p-6 shadow-soft border border-border/50">
+                  <h3 className="font-semibold text-lg mb-3 text-primary">Métropole Aix-Marseille</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Aix-en-Provence, Aubagne, La Ciotat, Cassis, Allauch, Plan-de-Cuques, Marignane,
+                    Vitrolles</strong> — la prise en charge parodontale est souvent un motif de consultation
+                    spécifique.
+                  </p>
+                </div>
+                <div className="bg-card rounded-2xl p-6 shadow-soft border border-border/50">
+                  <h3 className="font-semibold text-lg mb-3 text-primary">Côte Bleue & Étang de Berre</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Carry-le-Rouet, Sausset-les-Pins, Martigues, Istres, Salon-de-Provence</strong> — pour des
+                    bilans parodontaux et un suivi à long terme.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
           <section className="py-20 bg-muted/30" aria-labelledby="symptomes-title">
             <div className="container mx-auto px-4 max-w-5xl">
               <h2 id="symptomes-title" className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.symptomesTitre ?? "Symptômes à surveiller"}</h2>
