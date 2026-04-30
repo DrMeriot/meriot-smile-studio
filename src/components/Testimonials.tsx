@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Star } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useSanityPage } from "@/hooks/useSanityContent";
 
 const defaultTestimonials = [
@@ -57,6 +58,16 @@ const Testimonials = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link
+            to="/parodontie/temoignages"
+            className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+          >
+            Voir tous les témoignages parodontie
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>

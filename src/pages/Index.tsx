@@ -17,12 +17,12 @@ const Index = () => {
   return (
     <>
       <SEOHead
-        title="Parodontie et Soins Dentaires à Marseille - Dr Stéphanie Meriot"
-        description="Spécialiste du traitement des gencives et du déchaussement dentaire à Marseille. Le Dr Stéphanie Meriot soigne gingivite, parodontite et pose d'implants. Cabinet conventionné secteur 1."
+        title="Dr Meriot — Spécialiste des gencives à Marseille | Parodontie"
+        description="Dr Stéphanie Meriot, chirurgien-dentiste spécialiste des gencives à Marseille 4ème. Traitement gingivite, parodontite, déchaussement, implants. Conventionnée Secteur 1. Prise de RDV en ligne."
         canonical="/"
-        ogTitle="Dr Stéphanie Meriot | Experte Parodontie à Marseille"
-        ogDescription="Traitement des maladies des gencives, déchaussement dentaire et implantologie. Cabinet dentaire de confiance à Marseille 4ème. Prenez RDV en ligne."
-        keywords="parodontie marseille, traitement gencives, déchaussement dentaire, gingivite, parodontite, implantologie marseille, dentiste marseille 4"
+        ogTitle="Dr Stéphanie Meriot | Spécialiste des gencives — Marseille"
+        ogDescription="Chirurgien-dentiste spécialiste des gencives à Marseille 4ème : parodontie, traitement de la parodontite et implantologie. Cabinet conventionné Secteur 1."
+        keywords="spécialiste gencives marseille, parodontie marseille, parodontologue marseille, traitement parodontite, gingivite, déchaussement dentaire, implantologie marseille, dentiste marseille 4"
       />
       <LocalBusinessSchema />
       <FloatingCTA />

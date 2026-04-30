@@ -23,11 +23,11 @@ const Footer = () => {
   return (
     <footer className="bg-dental-navy text-white">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-2">
             <h3 className="text-lg font-playfair font-semibold mb-4">{nom}</h3>
             <p className="text-dental-soft-blue text-sm mb-4">
-              Chirurgien-Dentiste spécialisée en parodontie et implantologie
+              Chirurgien-dentiste spécialisée en parodontie et implantologie
             </p>
             <div className="flex items-start space-x-2 text-sm text-dental-soft-blue mb-2">
               <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
@@ -51,6 +51,25 @@ const Footer = () => {
           </div>
 
           <div>
+            <h3 className="text-lg font-playfair font-semibold mb-4">Parodontie</h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                { to: "/parodontie", label: "Soins des gencives" },
+                { to: "/gingivite-marseille", label: "Gingivite Marseille" },
+                { to: "/dechaussement-dentaire-marseille", label: "Déchaussement dentaire" },
+                { to: "/gencives-qui-saignent", label: "Gencives qui saignent" },
+                { to: "/parodontie/temoignages", label: "Témoignages patients" },
+              ].map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className="text-dental-soft-blue hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
             <h3 className="text-lg font-playfair font-semibold mb-4 flex items-center">
               <Clock className="w-4 h-4 mr-2" />
               Horaires
@@ -68,34 +87,17 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-playfair font-semibold mb-4">Liens Rapides</h3>
+            <h3 className="text-lg font-playfair font-semibold mb-4">Cabinet</h3>
             <ul className="space-y-2 text-sm">
               {[
-                { to: "/parodontie", label: "Parodontie" },
                 { to: "/implantologie", label: "Implantologie" },
-                
                 { to: "/services", label: "Tous les soins" },
                 { to: "/tarifs", label: "Tarifs" },
                 { to: "/blog", label: "Blog & Conseils" },
-                { to: "/contact", label: "Contact" },
-              ].map((link) => (
-                <li key={link.to}>
-                  <Link to={link.to} className="text-dental-soft-blue hover:text-white transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-playfair font-semibold mb-4">Informations</h3>
-            <ul className="space-y-2 text-sm">
-              {[
                 { to: "/a-propos", label: "À propos" },
-                { to: "/contact", label: "Contact & Accès" },
+                { to: "/contact", label: "Contact" },
                 { to: "/mentions-legales", label: "Mentions légales" },
-                { to: "/confidentialite", label: "Politique de confidentialité" },
+                { to: "/confidentialite", label: "Confidentialité" },
               ].map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className="text-dental-soft-blue hover:text-white transition-colors">
@@ -105,7 +107,7 @@ const Footer = () => {
               ))}
             </ul>
             <p className="text-dental-soft-blue/70 text-xs mt-6">
-              Cabinet dentaire à Marseille et environs (50km)
+              Marseille et environs (50 km)
             </p>
           </div>
         </div>

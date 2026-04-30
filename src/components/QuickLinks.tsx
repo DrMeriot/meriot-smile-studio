@@ -63,10 +63,35 @@ const QuickLinks = () => {
           ))}
         </div>
 
-        <div className="mt-6 mb-2 flex items-center justify-center">
-          <div className="h-px bg-border w-32"></div>
-          <div className="mx-4 text-muted-foreground text-sm">ou explorez</div>
-          <div className="h-px bg-border w-32"></div>
+        <div className="mt-12 mb-2">
+          <div className="flex items-center justify-center mb-6">
+            <div className="h-px bg-border w-32"></div>
+            <div className="mx-4 text-muted-foreground text-sm">Focus parodontie — gencives</div>
+            <div className="h-px bg-border w-32"></div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            {[
+              { to: "/gingivite-marseille", title: "Gingivite", desc: "Gencives rouges, gonflées, qui saignent" },
+              { to: "/dechaussement-dentaire-marseille", title: "Déchaussement", desc: "Racines exposées, mobilité dentaire" },
+              { to: "/gencives-qui-saignent", title: "Gencives qui saignent", desc: "Saignements au brossage : agir tôt" },
+            ].map((sub) => (
+              <Link
+                key={sub.to}
+                to={sub.to}
+                className="group bg-card rounded-2xl p-5 border border-border hover:border-primary/50 hover:shadow-medium transition-all"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <h4 className="font-semibold text-base mb-1 group-hover:text-primary transition-colors">
+                      {sub.title}
+                    </h4>
+                    <p className="text-xs text-muted-foreground leading-snug">{sub.desc}</p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>

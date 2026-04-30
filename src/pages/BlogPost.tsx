@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import SEOHead from "@/components/SEOHead";
+import RelatedParodontieLinks from "@/components/RelatedParodontieLinks";
 import { getBlogPostBySlug } from "@/data/blogData";
 import { Calendar, Tag, ArrowLeft } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -404,6 +405,10 @@ const BlogPost = () => {
                 <p className="text-muted-foreground">Contenu en cours de chargement…</p>
               )}
             </div>
+
+            {typeof post.category === "string" && /parodont/i.test(post.category) && (
+              <RelatedParodontieLinks />
+            )}
 
             <footer className="mt-12 pt-8 border-t border-border animate-fade-in" style={{ animationDelay: '200ms' }}>
               <div className="bg-muted/50 rounded-xl p-6">

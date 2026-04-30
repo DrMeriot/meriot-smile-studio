@@ -56,9 +56,13 @@ const LocalBusinessSchema = () => {
     ],
     "medicalSpecialty": ["Periodontics", "Dental Implants"],
     "availableService": [
-      { "@type": "MedicalProcedure", "name": "Traitement parodontal", "description": "Traitement des maladies parodontales par surfaçage radiculaire et laser" },
-      { "@type": "MedicalProcedure", "name": "Pose d'implants dentaires", "description": "Chirurgie implantaire pour remplacement des dents manquantes" },
-      { "@type": "MedicalProcedure", "name": "Traitement laser", "description": "Thérapie laser pour le traitement des poches parodontales" },
+      { "@type": "MedicalProcedure", "name": "Bilan parodontal complet", "description": "Examen clinique, sondage des poches, évaluation de la mobilité dentaire et radiographies pour diagnostiquer la maladie parodontale.", "procedureType": "Diagnostic" },
+      { "@type": "MedicalProcedure", "name": "Détartrage et surfaçage radiculaire", "description": "Nettoyage en profondeur sous la gencive sous anesthésie locale pour traiter la parodontite et réduire les poches parodontales.", "procedureType": "Therapeutic" },
+      { "@type": "MedicalProcedure", "name": "Greffe gingivale", "description": "Chirurgie muco-gingivale pour recouvrir une racine exposée ou épaissir une gencive fragilisée par la récession.", "procedureType": "Surgical" },
+      { "@type": "MedicalProcedure", "name": "Régénération osseuse guidée", "description": "Technique chirurgicale visant à reconstituer l'os alvéolaire perdu autour des dents ou avant la pose d'un implant.", "procedureType": "Surgical" },
+      { "@type": "MedicalProcedure", "name": "Maintenance parodontale", "description": "Suivi tous les 3 à 6 mois après traitement parodontal pour prévenir les récidives et préserver la santé des gencives.", "procedureType": "Therapeutic" },
+      { "@type": "MedicalProcedure", "name": "Pose d'implants dentaires", "description": "Chirurgie implantaire pour le remplacement durable des dents manquantes.", "procedureType": "Surgical" },
+      { "@type": "MedicalProcedure", "name": "Traitement laser parodontal", "description": "Thérapie laser complémentaire pour assainir les poches parodontales profondes.", "procedureType": "Therapeutic" },
     ],
     "openingHoursSpecification": [
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday"], "opens": "09:00", "closes": "12:00" },
@@ -91,19 +95,24 @@ const LocalBusinessSchema = () => {
     "givenName": "Stéphanie",
     "familyName": "Meriot",
     "honorificPrefix": "Dr",
-    "jobTitle": "Chirurgien-dentiste spécialisée en parodontologie",
+    "jobTitle": "Chirurgien-dentiste spécialisée en parodontie et implantologie",
+    "description": "Chirurgien-dentiste à Marseille 4ème, spécialisée dans le traitement des maladies des gencives (gingivite, parodontite, déchaussement) et la pose d'implants dentaires.",
+    "image": `${siteUrl}/og-image.jpg`,
+    "url": `${siteUrl}/a-propos`,
     "worksFor": { "@id": `${siteUrl}/#dentist` },
     "alumniOf": [
       { "@type": "EducationalOrganization", "name": "Faculté d'Odontologie de Marseille" },
       { "@type": "EducationalOrganization", "name": "IFPIO Marseille", "description": "Institut de Formation en Parodontologie et Implantologie Orale" },
       { "@type": "EducationalOrganization", "name": "Académie de Parodontologie d'Aix-en-Provence" }
     ],
-    "knowsAbout": ["Periodontics", "Dental Implantology", "Parodontologie", "Implantologie"],
+    "medicalSpecialty": ["Periodontics", "Dentistry"],
+    "knowsAbout": ["Periodontics", "Dental Implantology", "Parodontologie", "Implantologie", "Gingivite", "Parodontite", "Greffe gingivale", "Surfaçage radiculaire"],
     "knowsLanguage": [
       { "@type": "Language", "name": "French", "alternateName": "Français" },
       { "@type": "Language", "name": "English", "alternateName": "Anglais" },
       { "@type": "Language", "name": "Spanish", "alternateName": "Espagnol" }
-    ]
+    ],
+    "sameAs": [doctolibUrl]
   };
 
   const websiteSchema = {
