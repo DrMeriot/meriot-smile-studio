@@ -406,6 +406,10 @@ const BlogPost = () => {
               )}
             </div>
 
+            {typeof post.category === "string" && /parodont/i.test(post.category) && (
+              <RelatedParodontieLinks />
+            )}
+
             <footer className="mt-12 pt-8 border-t border-border animate-fade-in" style={{ animationDelay: '200ms' }}>
               <div className="bg-muted/50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-foreground mb-3">À propos de l'auteur</h3>
