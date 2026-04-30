@@ -129,10 +129,10 @@ const Parodontie = () => {
                   <span className="text-sm font-medium">Spécialité</span>
                 </div>
                 <h1 id="hero-title" className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  {page?.heroTitle ?? "Parodontie à Marseille"}
+                  {page?.heroTitle ?? "Parodontie à Marseille — Spécialiste des gencives"}
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  {page?.heroSubtitle ?? "Spécialiste en parodontie, je prends soin de la santé de vos gencives et des tissus de soutien de vos dents. Formation approfondie à l'Académie de paro à Aix-en-Provence."}
+                  {page?.heroSubtitle ?? "Dr Stéphanie Meriot, chirurgien-dentiste spécialisée en parodontie à Marseille 4ème. Diagnostic, traitement et suivi des maladies des gencives — gingivite, parodontite, déchaussement, récession — pour préserver durablement votre sourire."}
                 </p>
               </div>
             </div>
