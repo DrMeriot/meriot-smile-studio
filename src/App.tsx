@@ -70,6 +70,7 @@ export const routes: RouteRecord[] = [
       { path: 'tarifs', element: <Tarifs /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'parodontie', element: <Parodontie /> },
+      { path: 'parodontie/temoignages', element: <TemoignagesParodontie /> },
       { path: 'implantologie', element: <Implantologie /> },
       
       { path: 'blog', element: <Blog /> },
