@@ -95,19 +95,24 @@ const LocalBusinessSchema = () => {
     "givenName": "Stéphanie",
     "familyName": "Meriot",
     "honorificPrefix": "Dr",
-    "jobTitle": "Chirurgien-dentiste spécialisée en parodontologie",
+    "jobTitle": "Chirurgien-dentiste spécialisée en parodontie et implantologie",
+    "description": "Chirurgien-dentiste à Marseille 4ème, spécialisée dans le traitement des maladies des gencives (gingivite, parodontite, déchaussement) et la pose d'implants dentaires.",
+    "image": `${siteUrl}/og-image.jpg`,
+    "url": `${siteUrl}/a-propos`,
     "worksFor": { "@id": `${siteUrl}/#dentist` },
     "alumniOf": [
       { "@type": "EducationalOrganization", "name": "Faculté d'Odontologie de Marseille" },
       { "@type": "EducationalOrganization", "name": "IFPIO Marseille", "description": "Institut de Formation en Parodontologie et Implantologie Orale" },
       { "@type": "EducationalOrganization", "name": "Académie de Parodontologie d'Aix-en-Provence" }
     ],
-    "knowsAbout": ["Periodontics", "Dental Implantology", "Parodontologie", "Implantologie"],
+    "medicalSpecialty": ["Periodontics", "Dentistry"],
+    "knowsAbout": ["Periodontics", "Dental Implantology", "Parodontologie", "Implantologie", "Gingivite", "Parodontite", "Greffe gingivale", "Surfaçage radiculaire"],
     "knowsLanguage": [
       { "@type": "Language", "name": "French", "alternateName": "Français" },
       { "@type": "Language", "name": "English", "alternateName": "Anglais" },
       { "@type": "Language", "name": "Spanish", "alternateName": "Espagnol" }
-    ]
+    ],
+    "sameAs": [doctolibUrl]
   };
 
   const websiteSchema = {
