@@ -74,8 +74,8 @@ const Parodontie = () => {
   const gingiviteItems = page?.gingiviteItems ?? defaultGingiviteItems;
   const parodontiteItems = page?.parodontiteItems ?? defaultParodontiteItems;
   const traitements = page?.traitementsList ?? defaultTraitements;
-  const seoTitle = page?.seoTitle ?? "Parodontie Marseille & PACA | Dr Stéphanie Meriot - Spécialiste Gencives";
-  const seoDesc = page?.seoDescription ?? `Spécialiste parodontie à Marseille et région PACA : Pays d'Aix, Aubagne, La Ciotat, Côte Bleue, Étang de Berre. Traitement gingivite et parodontite. ☎ ${tel}`;
+  const seoTitle = page?.seoTitle ?? "Parodontie Marseille — Spécialiste des gencives | Dr Meriot";
+  const seoDesc = page?.seoDescription ?? `Dr Meriot, chirurgien-dentiste spécialiste des gencives à Marseille 4ème. Traitement gingivite, parodontite, déchaussement, greffe gingivale. PACA. ☎ ${tel}`;
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
