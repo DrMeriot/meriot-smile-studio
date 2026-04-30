@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Tarifs from "./pages/Tarifs";
 import ContactPage from "./pages/ContactPage";
 import Parodontie from "./pages/Parodontie";
+import TemoignagesParodontie from "./pages/TemoignagesParodontie";
 import Implantologie from "./pages/Implantologie";
 
 import MentionsLegales from "./pages/MentionsLegales";
