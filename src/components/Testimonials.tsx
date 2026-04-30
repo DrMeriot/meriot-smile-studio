@@ -59,6 +59,16 @@ const Testimonials = () => {
             </Card>
           ))}
         </div>
+
+        <div className="text-center mt-12">
+          <Link
+            to="/parodontie/temoignages"
+            className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+          >
+            Voir tous les témoignages parodontie
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );
