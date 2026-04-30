@@ -14,7 +14,7 @@ const Hero = () => {
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
   const titre = accueil?.heroTitle ?? "Votre sourire entre de bonnes mains";
-  const sousTitre = accueil?.heroSubtitle ?? "Spécialiste en parodontie et implantologie à Marseille 4ème — Traitement des gencives et pose d'implants";
+  const sousTitre = accueil?.heroSubtitle ?? "Dr Stéphanie Meriot — Chirurgien-dentiste, spécialiste des gencives à Marseille 4ème. Traitement de la gingivite, parodontite, déchaussement et pose d'implants.";
   const heroPhoto = accueil?.heroImage ? accueil.heroImage : drMeriotPhoto;
   const ctaTexte = accueil?.heroCtaText ?? "Prendre rendez-vous";
   const ctaUrl = accueil?.heroCtaUrl ?? doctolibUrl;
