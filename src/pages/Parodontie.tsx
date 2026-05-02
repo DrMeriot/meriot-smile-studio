@@ -376,10 +376,6 @@ const Parodontie = () => {
                   <h3 className="font-semibold text-lg mb-2">Déchaussement dentaire</h3>
                   <p className="text-muted-foreground text-sm">Comprendre le déchaussement : causes, traitement et prévention par le Dr Meriot.</p>
                 </Link>
-                <Link to="/parodontie/temoignages" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow border border-primary/20">
-                  <h3 className="font-semibold text-lg mb-2 text-primary">Témoignages parodontie</h3>
-                  <p className="text-muted-foreground text-sm">Lisez les retours de patients pris en charge pour des soins parodontaux au cabinet.</p>
-                </Link>
               </div>
             </div>
           </section>

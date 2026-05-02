@@ -58,7 +58,6 @@ const Footer = () => {
                 { to: "/gingivite-marseille", label: "Gingivite Marseille" },
                 { to: "/dechaussement-dentaire-marseille", label: "Déchaussement dentaire" },
                 { to: "/gencives-qui-saignent", label: "Gencives qui saignent" },
-                { to: "/parodontie/temoignages", label: "Témoignages patients" },
               ].map((link) => (
                 <li key={link.to}>
                   <Link to={link.to} className="text-dental-soft-blue hover:text-white transition-colors">

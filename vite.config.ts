@@ -12,7 +12,7 @@ const STATIC_ROUTES: Array<{ path: string; priority: string; changefreq: string 
   { path: "/", priority: "1.0", changefreq: "weekly" },
   { path: "/services", priority: "0.9", changefreq: "weekly" },
   { path: "/parodontie", priority: "0.9", changefreq: "weekly" },
-  { path: "/parodontie/temoignages", priority: "0.6", changefreq: "monthly" },
+  
   { path: "/implantologie", priority: "0.9", changefreq: "weekly" },
   { path: "/blog", priority: "0.8", changefreq: "weekly" },
   { path: "/a-propos", priority: "0.8", changefreq: "monthly" },
