@@ -10,7 +10,6 @@ import About from "./pages/About";
 import Tarifs from "./pages/Tarifs";
 import ContactPage from "./pages/ContactPage";
 import Parodontie from "./pages/Parodontie";
-import TemoignagesParodontie from "./pages/TemoignagesParodontie";
 import Implantologie from "./pages/Implantologie";
 
 import MentionsLegales from "./pages/MentionsLegales";
@@ -70,7 +69,6 @@ export const routes: RouteRecord[] = [
       { path: 'tarifs', element: <Tarifs /> },
       { path: 'contact', element: <ContactPage /> },
       { path: 'parodontie', element: <Parodontie /> },
-      { path: 'parodontie/temoignages', element: <TemoignagesParodontie /> },
       { path: 'implantologie', element: <Implantologie /> },
       
       { path: 'blog', element: <Blog /> },
