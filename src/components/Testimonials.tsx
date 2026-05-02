@@ -1,21 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Star } from "lucide-react";
 import { useSanityPage } from "@/hooks/useSanityContent";
-
-const defaultTestimonials = [
-  { name: "Marie D.", rating: 5, text: "Professionnelle, douce et à l'écoute. Le Dr Meriot prend le temps d'expliquer et de rassurer. Je recommande vivement !", date: "Il y a 2 mois" },
-  { name: "Jean-Paul R.", rating: 5, text: "Enfin un cabinet où on se sent en confiance. Explications claires avant chaque soin. Mes gencives vont beaucoup mieux.", date: "Il y a 1 mois" },
-  { name: "Sophie L.", rating: 5, text: "Excellente parodontiste. J'avais très peur du dentiste, mais le Dr Meriot a su me mettre à l'aise. Cabinet moderne et accueillant.", date: "Il y a 3 semaines" },
-  { name: "Antoine M.", rating: 5, text: "Très satisfait de ma pose d'implant. Le Dr Meriot est compétente et rassurante. Le résultat est parfait !", date: "Il y a 1 semaine" },
-];
 
 const Testimonials = () => {
   const { data: accueil } = useSanityPage("accueil");
 
-  // Flat fields from Sanity
-  const testimonials = accueil?.temoignages ?? defaultTestimonials;
+  const testimonials = accueil?.temoignages ?? [];
   const titre = accueil?.temoignagesTitle ?? "Ils nous font confiance";
+
+  // Aucun témoignage réel disponible : on n'affiche pas la section
+  // (pas de faux avis pour respecter la conformité YMYL santé).
+  if (!testimonials.length) return null;
 
   return (
     <section className="py-20 bg-muted/30" id="temoignages">
@@ -23,15 +18,6 @@ const Testimonials = () => {
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <span className="text-primary font-medium text-sm uppercase tracking-wide">Témoignages patients</span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">{titre}</h2>
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-6 w-6 fill-accent text-accent" />
-              ))}
-            </div>
-            <span className="text-2xl font-bold">5/5</span>
-            <span className="text-muted-foreground">({testimonials.length} avis)</span>
-          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
@@ -54,20 +40,12 @@ const Testimonials = () => {
                 <p className="text-muted-foreground mb-3 leading-relaxed">
                   "{testimonial.texte ?? testimonial.text}"
                 </p>
-                <p className="text-xs text-muted-foreground">{testimonial.date}</p>
+                {testimonial.date && (
+                  <p className="text-xs text-muted-foreground">{testimonial.date}</p>
+                )}
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Link
-            to="/parodontie/temoignages"
-            className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
-          >
-            Voir tous les témoignages parodontie
-            <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
       </div>
     </section>
@@ -75,3 +53,4 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
+
