@@ -12,6 +12,7 @@ import {
   legalQuery,
   blogPostsQuery,
   blogPostBySlugQuery,
+  landingPageBySlugQuery,
   contactQuery,
   confidentialiteQuery,
   gingiviteMarseilleQuery,
@@ -111,4 +112,11 @@ export function useBlogPosts<T = any>() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useBlogPost<T = any>(slug: string) {
   return useSanityQuery<T>(`blogPost-${slug}`, blogPostBySlugQuery, { slug }, { alwaysFresh: true });
+}
+
+// Generic Sanity landing page fetched by slug. Returns `null` when no
+// matching document exists, allowing callers to fall back to hardcoded JSX.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useLandingPage<T = any>(slug: string) {
+  return useSanityQuery<T>(`landingPage-${slug}`, landingPageBySlugQuery, { slug });
 }

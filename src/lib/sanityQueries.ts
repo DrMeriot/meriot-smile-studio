@@ -15,6 +15,16 @@ export const legalQuery = `*[_type == "legal"][0]`;
 export const contactQuery = `*[_type == "contact"][0]`;
 export const confidentialiteQuery = `*[_type == "confidentialite"][0]`;
 
+// Generic landing page (by slug) — PortableText body + SEO
+export const landingPageBySlugQuery = `*[_type == "landing_page" && slug.current == $slug][0] {
+  _id,
+  title,
+  "slug": slug.current,
+  body,
+  seoTitle,
+  seoDescription
+}`;
+
 // Long-tail pages
 export const gingiviteMarseilleQuery = `*[_type == "gingivite_marseille"][0]`;
 export const dechaussementDentaireQuery = `*[_type == "dechaussement_dentaire"][0]`;
