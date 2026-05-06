@@ -1,6 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/esthetique", "destination": "/services", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/blog/:slug", "destination": "/index.html" },
     { "source": "/admin/:path*", "destination": "/index.html" }
