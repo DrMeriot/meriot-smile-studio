@@ -1,7 +1,7 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
-import { schemaTypes } from '../sanity/schemas'
+import { schemaTypes } from './schemaTypes'
 
 // Types with a single document (no "create new" button)
 const singletonTypes = new Set([
