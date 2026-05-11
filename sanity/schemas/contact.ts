@@ -5,9 +5,10 @@ export default defineType({
   title: 'Contact',
   type: 'document',
   fields: [
-    defineField({ name: 'heroTitle', title: 'Hero — Titre', type: 'string' }),
-    defineField({ name: 'heroSubtitle', title: 'Hero — Sous-titre', type: 'text', rows: 3 }),
-    defineField({ name: 'seoTitle', title: 'SEO — Titre', type: 'string' }),
-    defineField({ name: 'seoDescription', title: 'SEO — Description', type: 'text', rows: 3 }),
+    defineField({ name: 'heroTitle', title: 'Hero - Titre', type: 'string' }),
+    defineField({ name: 'heroSubtitle', title: 'Hero - Sous-titre', type: 'text', rows: 3 }),
+    defineField({ name: 'seoTitle', title: 'SEO - Title', type: 'string' }),
+    defineField({ name: 'seoDescription', title: 'SEO - Description', type: 'text', rows: 2 }),
   ],
+  preview: { prepare: () => ({ title: '📞 Contact' }) }
 })

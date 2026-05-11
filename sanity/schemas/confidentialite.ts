@@ -5,9 +5,10 @@ export default defineType({
   title: 'Politique de confidentialité',
   type: 'document',
   fields: [
-    defineField({ name: 'titre', title: 'Titre', type: 'string' }),
-    defineField({ name: 'introTexte', title: 'Texte d\'introduction', type: 'text', rows: 4 }),
-    defineField({ name: 'seoTitle', title: 'SEO — Titre', type: 'string' }),
-    defineField({ name: 'seoDescription', title: 'SEO — Description', type: 'text', rows: 3 }),
+    defineField({ name: 'titre', title: 'Titre de la page', type: 'string' }),
+    defineField({ name: 'introTexte', title: 'Texte d\'introduction', type: 'text', rows: 5 }),
+    defineField({ name: 'seoTitle', title: 'SEO - Title', type: 'string' }),
+    defineField({ name: 'seoDescription', title: 'SEO - Description', type: 'text', rows: 2 }),
   ],
+  preview: { prepare: () => ({ title: '🔒 Confidentialité' }) }
 })
