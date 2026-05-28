@@ -22,6 +22,14 @@ import {
 
 const STALE_TIME = 5 * 60 * 1000; // 5 minutes
 
+/**
+ * Documents are loosely typed at the Sanity fetch boundary: shapes vary per
+ * page and the UI reads them as `doc?.field ?? fallback`. Callers that need
+ * field-level safety pass a concrete type param (e.g. `useBlogPosts<Post>()`).
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SanityData = Record<string, any>;
+
 // During SSG/SSR there is no `window`. We must not fetch Sanity then,
 // otherwise the server-rendered HTML differs from the first client render
 // and React throws hydration errors (#418/#423).
@@ -36,8 +44,7 @@ interface SanityQueryOptions {
   alwaysFresh?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function useSanityQuery<T = any>(
+function useSanityQuery<T = SanityData>(
   key: string,
   query: string,
   params?: Record<string, unknown>,
@@ -87,13 +94,11 @@ const queryMap: Record<string, string> = {
   gencives_qui_saignent: gencivesQuiSaignentQuery,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useGlobalSettings<T = any>() {
+export function useGlobalSettings<T = SanityData>() {
   return useSanityQuery<T>("global", globalQuery);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useSanityPage<T = any>(type: string) {
+export function useSanityPage<T = SanityData>(type: string) {
   const query = queryMap[type];
   if (!query) {
     throw new Error(`Unknown Sanity page type: ${type}`);
@@ -104,19 +109,16 @@ export function useSanityPage<T = any>(type: string) {
 // Blog content is uniquely sensitive to staleness: a new post may be
 // published after the SSG build, so the client must always re-fetch on
 // mount even if SSG injected an empty/null payload.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useBlogPosts<T = any>() {
+export function useBlogPosts<T = SanityData>() {
   return useSanityQuery<T[]>("blogPosts", blogPostsQuery, undefined, { alwaysFresh: true });
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useBlogPost<T = any>(slug: string) {
+export function useBlogPost<T = SanityData>(slug: string) {
   return useSanityQuery<T>(`blogPost-${slug}`, blogPostBySlugQuery, { slug }, { alwaysFresh: true });
 }
 
 // Generic Sanity landing page fetched by slug. Returns `null` when no
 // matching document exists, allowing callers to fall back to hardcoded JSX.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useLandingPage<T = any>(slug: string) {
+export function useLandingPage<T = SanityData>(slug: string) {
   return useSanityQuery<T>(`landingPage-${slug}`, landingPageBySlugQuery, { slug });
 }

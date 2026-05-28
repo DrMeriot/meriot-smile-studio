@@ -2,10 +2,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/esthetique", "destination": "/services", "permanent": true }
+    { "source": "/esthetique", "destination": "/services", "permanent": true },
+    { "source": "/acces-cabinet", "destination": "/contact", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/blog/:slug", "destination": "/index.html" },
-    { "source": "/admin/:path*", "destination": "/index.html" }
+    { "source": "/blog/:slug", "destination": "/index.html" }
   ]
 }

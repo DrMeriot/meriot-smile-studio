@@ -39,7 +39,6 @@ spécialisée en parodontie et implantologie, Marseille 4ème.
 | CMS client | `@sanity/client` | 7.20.x |
 | Rich text | `@portabletext/react` | 6.0.x |
 | Formulaires | React Hook Form + Zod | 7.x / 3.x |
-| Auth / DB secondaire | Supabase | 2.84.x |
 | Tests | Vitest + Testing Library | 3.x |
 
 ### Flux de données
@@ -73,15 +72,15 @@ meriot-smile-studio/
 ├── src/
 │   ├── pages/              # Une page par route (Index.tsx, Parodontie.tsx, etc.)
 │   ├── components/         # Composants partagés (Header, Footer, QuickLinks, etc.)
+│   │   └── ui/             # 3 composants shadcn utilisés : accordion, button, card
 │   ├── lib/
-│   │   ├── sanity.ts       # Client Sanity hardenisé (wrapper try/catch → null)
+│   │   ├── sanity.ts       # Client Sanity hardenisé + getSanityStaticPaths (SSG)
 │   │   ├── sanityQueries.ts # Toutes les requêtes GROQ
 │   │   ├── sanityImage.ts  # Helper @sanity/image-url
 │   │   ├── portableTextComponents.tsx  # Renderers PortableText custom
 │   │   └── utils.ts        # Utilitaires (cn, etc.)
 │   └── hooks/
-│       ├── useSanityContent.ts  # Hook central — tous les useSanityPage()
-│       └── usePageContent.ts   # Hook haut niveau par type de page
+│       └── useSanityContent.ts  # Hook central — tous les useSanityPage()
 ├── studio/                 # Sanity Studio v3 (sous-projet autonome)
 │   ├── schemaTypes/        # Source de vérité des schemas Sanity (16 fichiers)
 │   │   ├── index.ts        # Export centralisé des 15 types
@@ -349,6 +348,9 @@ import { portableTextComponents } from '@/lib/portableTextComponents'
 | `contact/legal/confidentialite` | 3 fichiers séparés | Plus lisible que `misc.ts` groupé (Lovable) |
 | Fallback contenu | JSX hardcodé `?? defaultValue` | Zéro page blanche si Sanity indisponible |
 | `useCdn: true` + `timeout: 3s` | Activé en prod | Performance CDN, timeout court pour ne pas bloquer le SSG |
+| Stack admin Supabase | **Supprimée** | Remplacée 100% par Sanity Studio. ~5 700 lignes retirées (admin/, AuthContext, supabase, blogData.ts, 46 composants UI inutilisés, double système de toast). |
+| Édition de contenu | Sanity Studio **uniquement** | Plus d'admin custom dans le repo. Tout passe par `meriot-dentiste.sanity.studio`. |
+| `getSanityStaticPaths()` | Helper partagé dans `sanity.ts` | Mutualise l'énumération de slugs pour les `getStaticPaths` SSG (avant : `fetch` dupliqué dans App.tsx). |
 
 ---
 
@@ -359,6 +361,8 @@ import { portableTextComponents } from '@/lib/portableTextComponents'
 - **Ne pas supprimer le redirect `vercel.json`** `/esthetique → /services`.
 - **Ne pas utiliser `baseClient` directement** — toujours `sanityClient.fetch()`.
 - **Ne pas ajouter de token dans `.env`** (commité) — seulement dans `.env.local`.
+- **Ne pas réintroduire Supabase ni d'admin custom** — l'édition passe exclusivement par Sanity Studio.
+- **Ne pas réintroduire `blogData.ts`** — les articles viennent uniquement de Sanity (`blog_post`).
 
 ---
 
@@ -421,3 +425,24 @@ import { portableTextComponents } from '@/lib/portableTextComponents'
 
 **Fix post-migration** — commit `915e973`
 - `studio/tsconfig.json` : `include` stale `../sanity/schemas/**` → `./schemaTypes/**`
+
+### Session nettoyage code (28 mai 2026)
+
+Suppression de toute l'infrastructure Lovable/Supabase devenue morte après
+le passage à Sanity comme source unique de contenu. ~5 700 lignes retirées,
+254 packages npm élagués.
+
+- **Stack admin Supabase supprimée** : `src/pages/admin/`, `src/components/admin/`,
+  `src/contexts/AuthContext.tsx`, `src/integrations/supabase/`, `src/hooks/usePageContent.ts`,
+  `src/lib/sanitize.ts` + routes `/admin/*` retirées de `App.tsx`
+- **`src/data/blogData.ts` supprimé** (1 232 lignes) — articles hardcodés en doublon de Sanity.
+  `Blog.tsx`/`BlogPost.tsx` simplifiés, `ReactMarkdown` retiré (seul PortableText subsiste)
+- **46 composants `src/components/ui/` inutilisés supprimés** (gardés : accordion, button, card)
+- **Hooks morts supprimés** : `use-toast.ts`, `use-mobile.tsx`, `useIsClient.ts`
+- **Double système de toast retiré** — aucune page publique n'en utilisait
+- **`getSanityStaticPaths()`** extrait dans `sanity.ts` (mutualise les `getStaticPaths` SSG)
+- **`/acces-cabinet`** → redirect 301 vers `/contact` dans `vercel.json` (était un alias dupliqué)
+- **`useSanityContent.ts`** : 5 `eslint-disable any` → 1 type `SanityData` documenté
+- **`package.json`** : 40 dépendances retirées (tiptap, supabase, react-hook-form, zod,
+  react-markdown, recharts, embla, vaul, cmdk, next-themes, date-fns, react-helmet-async, etc.)
+- Vérifs : build SSG 21 pages OK, `tsc --noEmit` exit 0, 46/46 tests OK, lint 0 erreur sur fichiers touchés

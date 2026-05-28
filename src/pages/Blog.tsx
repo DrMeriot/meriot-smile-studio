@@ -3,20 +3,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import SEOHead from "@/components/SEOHead";
-import { blogPosts } from "@/data/blogData";
 import { Calendar, Tag } from "lucide-react";
 import { useGlobalSettings, useBlogPosts } from "@/hooks/useSanityContent";
 
 const Blog = () => {
-  const { data: global } = useGlobalSettings();
-  const { data: sanityPosts } = useBlogPosts();
-
-  const tel = global?.phone ?? global?.telephone ?? "09 83 43 96 21";
-  const telHref = `tel:${tel.replace(/\s/g, "")}`;
-  const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
-
-  // Use Sanity posts if available, otherwise fallback to local data.
-  // Sanity schema fields are flat: publishedAt, mainImage{asset,alt}.
+  // Sanity blog posts. Fields are flat: publishedAt, mainImage{asset,alt}.
   type SanityPost = {
     _id: string;
     slug: { current: string } | string;
@@ -35,23 +26,23 @@ const Blog = () => {
     imageUrl?: string;
     imageAlt?: string;
   };
-  const posts: CardPost[] = sanityPosts && sanityPosts.length > 0
-    ? (sanityPosts as SanityPost[]).map((p) => ({
-        slug: typeof p.slug === "string" ? p.slug : p.slug?.current,
-        title: p.title,
-        excerpt: p.excerpt,
-        category: p.category,
-        date: p.publishedAt,
-        imageUrl: p.mainImage?.asset?.url,
-        imageAlt: p.mainImage?.alt ?? p.title,
-      }))
-    : blogPosts.map((p) => ({
-        slug: p.slug,
-        title: p.title,
-        excerpt: p.excerpt,
-        category: p.category,
-        date: p.date,
-      }));
+
+  const { data: global } = useGlobalSettings();
+  const { data: sanityPosts } = useBlogPosts<SanityPost>();
+
+  const tel = global?.phone ?? "09 83 43 96 21";
+  const telHref = `tel:${tel.replace(/\s/g, "")}`;
+  const doctolibUrl = global?.doctolib ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+
+  const posts: CardPost[] = (sanityPosts ?? []).map((p) => ({
+    slug: typeof p.slug === "string" ? p.slug : p.slug?.current,
+    title: p.title,
+    excerpt: p.excerpt,
+    category: p.category,
+    date: p.publishedAt,
+    imageUrl: p.mainImage?.asset?.url,
+    imageAlt: p.mainImage?.alt ?? p.title,
+  }));
 
   return (
     <>
