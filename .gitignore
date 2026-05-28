@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Données analytics externes (Google Search Console exports, etc.)
+GSC CSV/
+*-Performance-on-Search-*.zip

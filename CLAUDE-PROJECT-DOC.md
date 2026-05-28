@@ -379,6 +379,65 @@ import { portableTextComponents } from '@/lib/portableTextComponents'
 
 ---
 
+## 12 bis. 🔖 REPRISE — Audit technique SEO (en cours, 28 mai 2026)
+
+> Audit demandé : balises meta manquantes/dupliquées, liens internes 404,
+> hiérarchie Hn, images sans `alt`, pages lentes, puis test responsive
+> laptop / mobile / tablette. **Interrompu après l'étape 1 (meta).**
+
+### Méthode
+- L'audit se fait sur le **HTML généré** (`dist/`) = surface SEO réelle (les
+  balises sont injectées par react-helmet via `<Head>` de vite-react-ssg,
+  attribut `data-rh="true"`).
+- Avant de relancer : `npm run build` pour régénérer `dist/`.
+- Script réutilisable : **`scripts/seo-audit.mjs`** (titres/desc/canonical/H1/OG
+  + détection doublons). ⚠️ Non commité. `scripts/seo-values.mjs` = jetable.
+- Piège regex : matcher le **même** guillemet ouvrant pour `content="…"`, sinon
+  une apostrophe dans le texte (`Pose d'implants`) tronque la valeur → faux
+  `DESC-LEN` courts. Déjà corrigé dans `seo-audit.mjs`.
+
+### ✅ Étape 1 — Balises meta (FAIT)
+- **Aucun titre manquant, aucun doublon** de title ni de description. ✓
+- **Title trop longs (>65 car.)** à raccourcir : `blog` (77), `blog/dent-qui-bouge`
+  (74), `dechaussement-dentaire-marseille` (77), `tarifs` (73), `gencives-qui-saignent`
+  (66), `implantologie` (66). *(Le `&amp;` dans blog/tarifs = encodage correct, OK.)*
+- **Description `index` trop longue** : 191 car. (cible ≤ 160) → à resserrer.
+- **Description `blog/implants-idees-recues`** : 50 car. (courte, vient de l'`excerpt`
+  Sanity — corriger côté contenu, pas code).
+- Les title/desc viennent de `<SEOHead>` (props par page) sauf blog (excerpt Sanity).
+
+### ⏳ Étapes restantes (À FAIRE demain)
+1. **Liens internes 404** — extraire tous les `to=`/`href=` internes et croiser
+   avec les routes de `src/App.tsx`. Routes valides actuelles : `/`, `/services`,
+   `/a-propos`, `/tarifs`, `/contact`, `/parodontie`, `/implantologie`, `/blog`,
+   `/blog/:slug`, `/gingivite-marseille`, `/dechaussement-dentaire-marseille`,
+   `/gencives-qui-saignent`, `/mentions-legales`, `/confidentialite`.
+   ⚠️ Point de vigilance déjà repéré : la route est `dechaussement-dentaire-marseille`
+   (avec `-marseille`) — vérifier que tous les liens internes pointent bien dessus.
+2. **Hiérarchie Hn** — H1 OK (exactement 1 par page, déjà vérifié). Reste à
+   contrôler l'enchaînement H2→H3 (pas de saut H2→H4) page par page.
+3. **Images sans `alt`** — grep `<img` dans `src/` + vérifier le rendu `dist/`.
+   Penser aux images Sanity (`mainImage.alt`, `praticienPhoto.alt`).
+4. **Pages lentes / poids** — le build liste le poids HTML par page (les plus
+   lourdes : `index` 71 KiB, `parodontie` 67 KiB, `blog/dent-qui-bouge` 71 KiB).
+   Analyser le bundle JS (`dist/assets/`) + images non optimisées.
+5. **Responsive laptop / mobile / tablette** — nécessite le site lancé
+   (`npm run preview`) + navigateur. ⚠️ L'extension **Claude in Chrome n'était pas
+   connectée** lors de la dernière tentative — à reconnecter avant ce test, ou
+   utiliser le MCP Preview. Breakpoints Tailwind : `sm` 640, `md` 768, `lg` 1024.
+
+### Données SEO externes disponibles (déposées par l'utilisateur, non commitées)
+- `GSC CSV/` + `dr-meriot-chirurgien-dentiste.fr-Performance-on-Search-2026-05-28.zip`
+  = export **Google Search Console**. À exploiter pour prioriser l'audit (requêtes
+  réelles, pages à fort trafic, CTR faibles). ⚠️ Ne pas commiter (données analytics).
+
+### État working tree à la reprise
+- Dernier commit poussé : `560b16b` (refactor cleanup Lovable/Supabase).
+- Non commité : `scripts/seo-audit.mjs` (à garder), `scripts/seo-values.mjs`
+  (jetable), `GSC CSV/`, le `.zip` GSC (à gitignore).
+
+---
+
 ## 13. Historique migration (sessions Claude Code)
 
 ### Session précédente (mai 2026) — `1c692d3`
