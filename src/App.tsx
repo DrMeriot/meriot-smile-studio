@@ -16,15 +16,41 @@ import GingiviteMarseille from "./pages/GingiviteMarseille";
 import DechaussementDentaire from "./pages/DechaussementDentaire";
 import GencivesQuiSaignent from "./pages/GencivesQuiSaignent";
 import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { track } from '@vercel/analytics';
 import { sanityClient, getSanityStaticPaths } from '@/lib/sanity';
 import { blogPostBySlugQuery } from '@/lib/sanityQueries';
 
 const queryClient = new QueryClient();
 
+// Suivi des conversions par délégation : un seul listener au niveau racine capte
+// tous les clics sur les liens Doctolib et téléphone (présents et futurs), sans
+// avoir à instrumenter chaque CTA dispersé dans les composants. `track()` est un
+// no-op si Vercel Web Analytics n'est pas activé / en dev — donc sans effet de bord.
+function useConversionTracking() {
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      const link = (e.target as HTMLElement | null)?.closest?.('a');
+      if (!link) return;
+      const href = link.getAttribute('href') ?? '';
+      if (href.startsWith('tel:')) {
+        track('phone_click', { href });
+      } else if (href.includes('doctolib')) {
+        track('doctolib_click', { href });
+      }
+    };
+    document.addEventListener('click', handler, { capture: true });
+    return () => document.removeEventListener('click', handler, { capture: true });
+  }, []);
+}
+
 function Layout() {
+  useConversionTracking();
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Analytics />
     </QueryClientProvider>
   );
 }
