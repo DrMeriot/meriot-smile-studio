@@ -1,7 +1,7 @@
 # CLAUDE-PROJECT-DOC — Meriot Smile Studio
 
 > Document de référence pour toute session Claude Code sur ce projet.
-> Dernière mise à jour : 2026-05-11 (migration Option B complète).
+> Dernière mise à jour : 2026-05-29 (nettoyage résidus Supabase/Lovable + analyse GSC, section 12 ter).
 
 ---
 
@@ -427,14 +427,75 @@ import { portableTextComponents } from '@/lib/portableTextComponents'
    utiliser le MCP Preview. Breakpoints Tailwind : `sm` 640, `md` 768, `lg` 1024.
 
 ### Données SEO externes disponibles (déposées par l'utilisateur, non commitées)
-- `GSC CSV/` + `dr-meriot-chirurgien-dentiste.fr-Performance-on-Search-2026-05-28.zip`
-  = export **Google Search Console**. À exploiter pour prioriser l'audit (requêtes
-  réelles, pages à fort trafic, CTR faibles). ⚠️ Ne pas commiter (données analytics).
+- `GSC CSV/` + exports `.zip` Google Search Console (Performance + Coverage).
+  ⚠️ Ne pas commiter (données analytics). `.gitignore` couvre `GSC CSV/`,
+  `dr-meriot-chirurgien-dentiste.fr-*.zip`, `*-Performance-on-Search-*.zip`,
+  `*-Coverage-*.zip`.
+- **Analyse exploitée le 29 mai 2026 → voir section 12 ter.**
 
 ### État working tree à la reprise
 - Dernier commit poussé : `560b16b` (refactor cleanup Lovable/Supabase).
 - Non commité : `scripts/seo-audit.mjs` (à garder), `scripts/seo-values.mjs`
   (jetable), `GSC CSV/`, le `.zip` GSC (à gitignore).
+
+---
+
+## 12 ter. 📊 Analyse Google Search Console + priorisation SEO (29 mai 2026)
+
+> Exploitation des exports GSC **Performance (3 mois : 5 avr → 27 mai)** et
+> **Coverage/Indexation**. Remplace l'analyse 7 jours initiale. Données dans
+> `GSC CSV/29 mai (3 mois)/` et `GSC CSV/29 mai (indexation)/` (non commitées).
+
+### Chiffres clés (3 mois)
+- ~**417 impressions, 10 clics**, position moyenne ~23. France = 317 imp / 10 clics.
+- **Tous les clics viennent de la marque** ("stephanie meriot" pos 3,8 ; "dr meriot"
+  pos 4) + accueil/tarifs. **Zéro clic sur une requête informationnelle ou commerciale.**
+
+### Constats majeurs
+1. **Demande n°1 non captée — cluster « saignement de gencives »** : ~35 % de toutes
+   les impressions (≈140 réparties sur 30+ requêtes). La page `/gencives-qui-saignent`
+   est la **page la plus vue (162 imp)** mais en **position 50,8 (page 5), 0 clic.**
+   → Plus gros levier du site.
+2. **`/a-propos`** : 105 imp, **pos 7,9, 0 clic en 3 mois** → pur problème de CTR (title/meta).
+3. **Clusters secondaires mal classés** : « dent qui bouge / dents qui bougent »
+   (→ `/dechaussement-dentaire-marseille` + blog `dent-qui-bouge`), local commercial
+   « parodontologue/parodontiste marseille » (→ `/parodontie`, pos 11-37),
+   « prix implant marseille » (→ `/implantologie`, pos 12,6).
+
+### Indexation (Coverage) — saine
+- **12 pages indexées, 6 non indexées** (au 25 mai). Maturation normale (15 → 6 depuis avril).
+- 6 non-indexées = **5 « Page avec redirection »** (attendu : `/esthetique`,
+  `/acces-cabinet`, non-www) **+ 1 « Explorée, actuellement non indexée »** (page jugée
+  trop maigre par Google — **à identifier dans GSC → Indexation → Pages**).
+- Sitemap OK, **zéro erreur d'exploration, aucun blocage critique**.
+
+### Points techniques tranchés
+- **www / non-www : NON critique.** La balise `canonical` pointe correctement vers
+  **www** sur toutes les pages (injectée par `SEOHead`) → Google consolide de lui-même.
+  Reste optionnel : confirmer dans *Vercel → Domains* que non-www fait un 308 → www.
+- **`/parodontie/temoignages` = 404 live confirmé** mais ranke **pos 10** (10 imp).
+  URL fantôme (l'ancre `#temoignages` de l'accueil mal interprétée). → 301 à ajouter.
+- ⚠️ **La route `/:slug` (landing_page) listée en section 4 n'existe PAS dans
+  `src/App.tsx`** (seul `*` → NotFound). Type Sanity non câblé au routing (0 doc, sans
+  impact immédiat, mais à savoir avant de créer des `landing_page`).
+
+### Plan SEO priorisé (piloté par les données)
+| Prio | Action | Justification GSC |
+|---|---|---|
+| 🔴 P1 | Refonte on-page `/gencives-qui-saignent` (contenu, Hn, intentions pourquoi/comment/la nuit, maillage) | page n°1 en imp (162), pos 51, 0 clic |
+| 🟠 P2 | Réécrire title + meta `/a-propos` | 105 imp, pos 8, 0 clic |
+| 🟠 P3 | 301 `/parodontie/temoignages` → `/parodontie` (`vercel.json`) | 404 qui ranke pos 10 |
+| 🟠 P4 | Identifier + étoffer la page « explorée, non indexée » | 1 page trop maigre |
+| 🟡 P5 | Optimiser `/parodontie` pour « parodontologue marseille » (pos 11) | intention commerciale locale |
+| 🟡 P6 | Renforcer cluster « dent qui bouge » (dechaussement + blog) | demande émergente |
+| ⚪ P7 | Confirmer 308 non-www → www (Vercel) | hygiène, non urgent |
+
+### Analytics — état & manque
+- **Aucun Google Analytics installé** (vérifié 29 mai : pas de snippet dans
+  `index.html`, pas de `gtag`/GTM dans le HTML livré, aucune dépendance analytics).
+- GSC dit « qui arrive depuis Google » ; **il manque la mesure du comportement
+  on-site et des conversions** (clics Doctolib/téléphone). → Installer **GA4**
+  (voir procédure transmise en session, ou un équivalent privacy-friendly type Plausible).
 
 ---
 

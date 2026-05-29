@@ -26,4 +26,6 @@ dist-ssr
 
 # Données analytics externes (Google Search Console exports, etc.)
 GSC CSV/
+dr-meriot-chirurgien-dentiste.fr-*.zip
 *-Performance-on-Search-*.zip
+*-Coverage-*.zip
