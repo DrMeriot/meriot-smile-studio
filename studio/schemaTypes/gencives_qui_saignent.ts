@@ -7,6 +7,10 @@ export default defineType({
   fields: [
     defineField({ name: 'heroTitle', title: 'Hero — Titre', type: 'string' }),
     defineField({ name: 'heroSubtitle', title: 'Hero — Sous-titre', type: 'text', rows: 3 }),
+    defineField({ name: 'diagnosticTitre', title: 'Auto-diagnostic — Titre', type: 'string' }),
+    defineField({ name: 'diagnosticIntro', title: 'Auto-diagnostic — Intro', type: 'text', rows: 3 }),
+    defineField({ name: 'diagnosticSignes', title: 'Auto-diagnostic — Signes', type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'diagnosticConclusion', title: 'Auto-diagnostic — Conclusion', type: 'text', rows: 3 }),
     defineField({ name: 'definitionTitre', title: 'Définition — Titre', type: 'string' }),
     defineField({ name: 'definitionTexte1', title: 'Définition — Texte 1', type: 'text', rows: 4 }),
     defineField({ name: 'definitionTexte2', title: 'Définition — Texte 2', type: 'text', rows: 4 }),
