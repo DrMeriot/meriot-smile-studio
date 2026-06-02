@@ -15,12 +15,19 @@ import BlogPost from "./pages/BlogPost";
 import GingiviteMarseille from "./pages/GingiviteMarseille";
 import DechaussementDentaire from "./pages/DechaussementDentaire";
 import GencivesQuiSaignent from "./pages/GencivesQuiSaignent";
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { track } from '@vercel/analytics';
 import { sanityClient, getSanityStaticPaths } from '@/lib/sanity';
-import { blogPostBySlugQuery } from '@/lib/sanityQueries';
+import {
+  blogPostBySlugQuery,
+  parodontieQuery,
+  globalQuery,
+  gencivesQuiSaignentQuery,
+  gingiviteMarseilleQuery,
+  dechaussementDentaireQuery,
+} from '@/lib/sanityQueries';
 
 const queryClient = new QueryClient();
 
@@ -47,6 +54,16 @@ function useConversionTracking() {
 
 function Layout() {
   useConversionTracking();
+  // SSG: seed the build-time `global` settings (root loader) into React Query so
+  // phone/Doctolib/address render from Sanity (golden) in the static HTML of
+  // every page. Uses the module-level queryClient (Layout is above the provider).
+  const data = useLoaderData() as { global?: unknown } | undefined;
+  if (data?.global) {
+    const key = ["sanity", "global", undefined];
+    if (queryClient.getQueryData(key) === undefined) {
+      queryClient.setQueryData(key, data.global);
+    }
+  }
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
@@ -59,13 +76,29 @@ export const routes: RouteRecord[] = [
   {
     path: '/',
     element: <Layout />,
+    // SSG: fetch global settings at build time so they are baked into every
+    // page's HTML (Sanity golden), seeded into React Query in Layout.
+    loader: async () => {
+      const global = await sanityClient.fetch(globalQuery);
+      return { global: global ?? null };
+    },
     children: [
       { index: true, element: <Index /> },
       { path: 'services', element: <Services /> },
       { path: 'a-propos', element: <About /> },
       { path: 'tarifs', element: <Tarifs /> },
       { path: 'contact', element: <ContactPage /> },
-      { path: 'parodontie', element: <Parodontie /> },
+      {
+        path: 'parodontie',
+        element: <Parodontie />,
+        // SSG: fetch the Sanity doc at build time so the generated HTML carries
+        // the CMS content (Sanity = golden source) instead of the JSX fallback.
+        // The doc is seeded into React Query in Parodontie.tsx via useSeedSanity.
+        loader: async () => {
+          const doc = await sanityClient.fetch(parodontieQuery);
+          return { doc: doc ?? null };
+        },
+      },
       { path: 'implantologie', element: <Implantologie /> },
       { path: 'blog', element: <Blog /> },
       {
@@ -85,9 +118,30 @@ export const routes: RouteRecord[] = [
         getStaticPaths: () =>
           getSanityStaticPaths('blog_post', (slug) => `blog/${slug}`),
       },
-      { path: 'gingivite-marseille', element: <GingiviteMarseille /> },
-      { path: 'dechaussement-dentaire-marseille', element: <DechaussementDentaire /> },
-      { path: 'gencives-qui-saignent', element: <GencivesQuiSaignent /> },
+      {
+        path: 'gingivite-marseille',
+        element: <GingiviteMarseille />,
+        loader: async () => {
+          const doc = await sanityClient.fetch(gingiviteMarseilleQuery);
+          return { doc: doc ?? null };
+        },
+      },
+      {
+        path: 'dechaussement-dentaire-marseille',
+        element: <DechaussementDentaire />,
+        loader: async () => {
+          const doc = await sanityClient.fetch(dechaussementDentaireQuery);
+          return { doc: doc ?? null };
+        },
+      },
+      {
+        path: 'gencives-qui-saignent',
+        element: <GencivesQuiSaignent />,
+        loader: async () => {
+          const doc = await sanityClient.fetch(gencivesQuiSaignentQuery);
+          return { doc: doc ?? null };
+        },
+      },
       { path: 'mentions-legales', element: <MentionsLegales /> },
       { path: 'confidentialite', element: <Confidentialite /> },
       { path: '*', element: <NotFound /> },

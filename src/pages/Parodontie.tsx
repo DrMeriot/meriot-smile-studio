@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
+import { useSeedSanity } from "@/hooks/useSeedSanity";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -64,6 +65,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const Parodontie = () => {
+  // SSG: seed the build-time loader payload (App.tsx) into React Query before
+  // useSanityPage reads it, so the generated HTML carries the Sanity content.
+  const loaderData = useLoaderData() as { doc: unknown } | undefined;
+  useSeedSanity("parodontie", loaderData?.doc);
+
   const { data: global } = useGlobalSettings();
   const { data: page } = useSanityPage("parodontie");
 
