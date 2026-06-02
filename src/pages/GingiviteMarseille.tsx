@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { PortableText } from "@portabletext/react";
 import { useGlobalSettings, useSanityPage, useLandingPage } from "@/hooks/useSanityContent";
+import { useSeedSanity } from "@/hooks/useSeedSanity";
 import { portableTextComponents } from "@/lib/portableTextComponents";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -45,6 +46,9 @@ const breadcrumbItems = [
 ];
 
 const GingiviteMarseille = () => {
+  const loaderData = useLoaderData() as { doc: unknown } | undefined;
+  useSeedSanity("gingivite_marseille", loaderData?.doc);
+
   const { data: global } = useGlobalSettings();
   const { data: page } = useSanityPage("gingivite_marseille");
   const { data: landing } = useLandingPage<{ body?: unknown[] }>("gingivite-marseille");
