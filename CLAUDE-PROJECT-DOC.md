@@ -1,7 +1,7 @@
 # CLAUDE-PROJECT-DOC — Meriot Smile Studio
 
 > Document de référence pour toute session Claude Code sur ce projet.
-> Dernière mise à jour : 2026-05-29 (nettoyage résidus Supabase/Lovable + analyse GSC, section 12 ter).
+> Dernière mise à jour : 2026-06-03 (Sanity golden source + refonte contenu cluster paro, section 12 quater).
 
 ---
 
@@ -62,6 +62,15 @@ Vercel CDN
 **Principe clé :** chaque champ de chaque page a une valeur de fallback JSX
 hardcodée. Si Sanity est vide ou indisponible, le site affiche quand même
 le contenu par défaut. Zéro page blanche.
+
+> ⚠️ **MAJ juin 2026 (voir § 12 quater) :** par défaut, les pages singleton ne
+> fetchaient PAS Sanity au build (`enabled: isBrowser` dans `useSanityContent.ts`)
+> → le HTML SSG indexé servait **toujours le fallback JSX** (Sanity invisible SEO).
+> Désormais **/parodontie + spokes (gencives, gingivite, déchaussement) + `global`**
+> fetchent Sanity **au build** via un **`loader`** (+ helper `useSeedSanity`) → Sanity
+> est la **source indexée**. Les autres singletons restent fallback-only au build
+> (pattern à étendre si besoin). Site statique ⇒ une édition Studio n'apparaît
+> qu'au prochain build (webhook Sanity→Vercel à brancher).
 
 ---
 
@@ -496,6 +505,80 @@ import { portableTextComponents } from '@/lib/portableTextComponents'
 - GSC dit « qui arrive depuis Google » ; **il manque la mesure du comportement
   on-site et des conversions** (clics Doctolib/téléphone). → Installer **GA4**
   (voir procédure transmise en session, ou un équivalent privacy-friendly type Plausible).
+
+---
+
+## 12 quater. 🚀 Session juin 2026 — Sanity golden source + refonte contenu (cluster paro)
+
+> Exécution du plan SEO (§ 12 ter) sous un angle **conversion-first / local**
+> (mémoire `seo-goal-local-parodontie`). Surtout : correction d'un défaut
+> d'architecture qui rendait Sanity invisible au SEO, puis refonte de contenu.
+
+### 🔑 Découverte d'architecture
+Les pages **singleton** utilisaient `enabled: isBrowser` (`useSanityContent.ts`) → la
+requête Sanity **ne tournait pas au build** → le HTML SSG servait **toujours le fallback
+JSX**, et **Sanity était invisible pour Google** (seul le blog faisait un prefetch correct).
+
+### ✅ Fix livré — « Sanity golden » (pattern loader)
+Généralisation du pattern blog : **`loader` au build** (fetch Sanity) + **`useSeedSanity`**
+(seed React Query avant les hooks) → le HTML SSG porte le contenu **Sanity**, indexable ;
+le fallback JSX redevient un simple filet.
+- Appliqué à : **/parodontie + spokes (gencives, gingivite, déchaussement) + `global`**.
+- Helper : `src/hooks/useSeedSanity.ts` · loaders dans `src/App.tsx` (loader racine pour `global`, seedé dans `Layout`).
+- Singletons restants (accueil, services, tarifs, about, contact, implantologie, mentions,
+  confidentialité) = **fallback-only au build** (pattern à étendre si besoin).
+
+### ✅ Réconciliation contenu Sanity (anti-régression)
+- **parodontie** : doc Sanity = brouillon V0 (fautes, 3 FAQ) → réécrit (contenu poli + deltas
+  SEO : title/H1 « Parodontologue à Marseille », 8 FAQ, 5 symptômes, 5 étapes) via
+  `scripts/patch-parodontie.mjs`.
+- **spokes** : docs == fallback (jamais édités depuis le seed) → aucune réconciliation.
+
+### ✅ Refonte /gencives-qui-saignent (P1, conversion-first/local)
+- 🆕 Bloc **auto-diagnostic** (« faut-il consulter ? ») = entonnoir signe → maladie
+  parodontale → parodontologue Marseille → RDV. Champs Sanity **éditables** : `diagnosticTitre`,
+  `diagnosticIntro`, `diagnosticSignes`, `diagnosticConclusion` (schéma déployé via `sanity deploy`).
+- FAQ **5 → 8** (spécialiste à Marseille, saignements la nuit, grossesse) · cause **Stress**.
+- Maillage hub-and-spoke : ancre /parodontie → « Parodontologue à Marseille » + lien /dechaussement.
+- Contenu via `scripts/patch-gencives.mjs`.
+
+### ✅ Voix éditoriale (décidée)
+Site à la **1ère personne « je »**, ton **doux**, philosophie **« dentisterie à minima » /
+conservation des dents** (thèse de Dr Meriot). Faits médicaux laissés neutres ; meta/title/schema
+en 3e pers. nommée (entité/AEO). /gencives déjà refait ainsi.
+⚠️ **À harmoniser** : /parodontie (hardcodé) encore en « nous », + accueil/about.
+
+### Correctifs
+- **« Assurance Maladie »** : retiré l'affirmation erronée « Une partie des soins est prise en
+  charge… » (la paro n'est PAS remboursée) des FAQ coût parodontie + déchaussement (Sanity + JSX + scripts).
+- **`studio` : ajout de `react-is`** (peer-dep manquante de `@sanity/ui`) qui bloquait `sanity deploy`.
+
+### Analytics — état réel (corrige § 12 ter)
+- **Vercel Web Analytics** installé (commit `0ed1ac4`) + code conversions (`doctolib_click`,
+  `phone_click` dans `App.tsx`).
+- ⚠️ **Custom events = plan Vercel Pro requis** → en Hobby, **no-op silencieux** : les clics ne
+  sont PAS mesurés.
+- **Décision : pas de GA4** (bannière RGPD, trafic trop faible). La **vraie conversion (RDV) se lit
+  dans Doctolib** (gratuit). À rouvrir si le trafic grossit (Vercel Pro / Plausible cookieless / GA4+bannière).
+
+### Notes techniques
+- **IDs Sanity non standardisés** : `parodontie` a `_id="parodontie"`, mais les autres singletons
+  ont un **_id auto-généré** → dans les scripts de patch, cibler **par type**, pas par _id deviné.
+- **`gh` CLI** installé + authentifié (compte **DrMeriot**) → PR/merge en autonomie.
+- Pas de `npm test` (Vitest retiré) ; vérifs = `npm run build` + `npx tsc --noEmit` + `npx eslint`.
+
+### 🎯 Next steps (priorisés — conversion-first / local)
+| Prio | Action | Nature |
+|---|---|---|
+| 🔴 1 | **GBP : reprise de la fiche** + lancer la **collecte d'avis** | hors-code (action Dr Meriot ; process outillable) |
+| 🟠 2 | **Webhook Sanity → Vercel Deploy Hook** (édition Studio → rebuild auto) | infra (conf préparable + activation dashboard) |
+| 🟠 3 | **Harmoniser la voix « je »** (/parodontie, accueil, about…) | contenu/code |
+| 🟠 4 | **Fix NAP** : adresse incohérente (« 23 Bd de la Fédération » page vs « 31 Rue des Chartreux » dans `global` Sanity) — confirmer la bonne | hygiène SEO local |
+| 🟡 5 | **Spokes restants en conversion-first** : refondre gingivite + déchaussement comme /gencives | contenu |
+| 🟡 6 | P2 : réécrire title+meta **/a-propos** (105 imp, pos 8, 0 clic) | rapide |
+| 🟡 7 | P3 : **301 /parodontie/temoignages → /parodontie** (`vercel.json`) | rapide |
+| 🟡 8 | Étendre le **pattern loader** aux singletons restants (Sanity golden partout) | code |
+| ⚪ 9 | P4 page « explorée non indexée » · P7 confirmer 308 non-www→www | divers |
 
 ---
 
