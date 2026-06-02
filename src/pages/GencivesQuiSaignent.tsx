@@ -20,6 +20,9 @@ const defaultFAQs = [
   { question: "Dois-je arrêter de me brosser les dents si mes gencives saignent ?", answer: "Non, au contraire ! Le saignement indique que la zone a besoin d'être mieux nettoyée. Utilisez une brosse à dents souple et brossez doucement mais régulièrement les zones qui saignent. Le saignement devrait diminuer en quelques jours." },
   { question: "Quand faut-il consulter pour des gencives qui saignent ?", answer: "Consultez si les saignements persistent au-delà de 2 semaines malgré une bonne hygiène, s'ils s'accompagnent de douleurs, de gonflements importants, de mauvaise haleine ou si vous constatez un déchaussement des dents." },
   { question: "Les gencives qui saignent peuvent-elles entraîner la perte des dents ?", answer: "Si le saignement est le signe d'une gingivite non traitée, celle-ci peut évoluer en parodontite, qui détruit l'os de soutien des dents et peut effectivement mener à leur perte. D'où l'importance de consulter dès les premiers signes." },
+  { question: "Quel spécialiste consulter pour des gencives qui saignent à Marseille ?", answer: "Un parodontologue, chirurgien-dentiste spécialisé dans les maladies des gencives. Diplômée de la Faculté d'odontologie de Marseille et formée en parodontologie (IFPIO Marseille, Académie de paro d'Aix-en-Provence), je prends en charge les saignements gingivaux à mon cabinet de Marseille 4e. Vous pouvez me consulter directement, sans ordonnance." },
+  { question: "Mes gencives saignent le matin ou la nuit, est-ce grave ?", answer: "Des saignements constatés au réveil ou sur l'oreiller traduisent souvent une inflammation installée (gingivite, parfois parodontite). C'est un signe à ne pas banaliser. Rassurez-vous : pris à temps, cela se traite généralement simplement. Prenez rendez-vous pour un bilan." },
+  { question: "Mes gencives saignent pendant ma grossesse, que faire ?", answer: "Les variations hormonales rendent les gencives plus sensibles : c'est fréquent et réversible. Un détartrage et un suivi doux pendant la grossesse suffisent souvent. J'accompagne les femmes enceintes en toute sécurité, à leur rythme." },
 ];
 
 const defaultCauses = [
@@ -29,6 +32,7 @@ const defaultCauses = [
   { title: "Grossesse", desc: "Les changements hormonaux pendant la grossesse augmentent la sensibilité des gencives et les rendent plus sujettes aux saignements." },
   { title: "Médicaments", desc: "Certains médicaments (anticoagulants, antihypertenseurs) peuvent favoriser les saignements gingivaux." },
   { title: "Carences nutritionnelles", desc: "Un manque de vitamine C ou K peut fragiliser les gencives et augmenter les saignements." },
+  { title: "Stress", desc: "Le stress affaiblit les défenses immunitaires et favorise l'inflammation des gencives." },
 ];
 
 const defaultQuandConsulter = [
@@ -46,6 +50,19 @@ const defaultConseils = [
   { title: "Technique de brossage", desc: "Brossez du rose vers le blanc (de la gencive vers la dent) avec des mouvements doux et roulés, sans appuyer trop fort." },
   { title: "Détartrage régulier", desc: "Faites réaliser un détartrage professionnel au moins une fois par an, ou tous les 6 mois si vous êtes sujet aux problèmes de gencives." },
 ];
+
+const defaultDiagnostic = {
+  titre: "Vos gencives saignent : faut-il consulter ?",
+  intro: "Un saignement isolé et passager n'a rien d'alarmant. Mais s'il se répète ou s'accompagne d'autres signes, il peut révéler une maladie des gencives — qui se soigne d'autant plus simplement qu'elle est prise tôt. Quelques signes qui méritent l'avis d'un parodontologue :",
+  signes: [
+    "Saignements répétés ou persistants (plus de 2 semaines)",
+    "Gencives rouges, gonflées ou douloureuses",
+    "Mauvaise haleine persistante",
+    "Déchaussement, ou dents qui bougent ou paraissent plus longues",
+    "Saignements spontanés, sans brossage",
+  ],
+  conclusion: "Bonne nouvelle : prise tôt, l'inflammation des gencives se traite simplement — un détartrage et de bons gestes d'hygiène suffisent souvent. Fidèle à ma philosophie de dentisterie à minima, je vous accompagne à votre rythme pour préserver au maximum vos tissus naturels, sans sur-traitement.",
+};
 
 const breadcrumbItems = [
   { name: "Accueil", url: "https://www.dr-meriot-chirurgien-dentiste.fr/" },
@@ -66,6 +83,10 @@ const GencivesQuiSaignent = () => {
   const causes = page?.causesList ?? defaultCauses;
   const quandConsulter = page?.quandConsulterList ?? defaultQuandConsulter;
   const conseils = page?.conseilsList ?? defaultConseils;
+  const diagTitre = page?.diagnosticTitre ?? defaultDiagnostic.titre;
+  const diagIntro = page?.diagnosticIntro ?? defaultDiagnostic.intro;
+  const diagSignes = page?.diagnosticSignes ?? defaultDiagnostic.signes;
+  const diagConclusion = page?.diagnosticConclusion ?? defaultDiagnostic.conclusion;
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -109,8 +130,36 @@ const GencivesQuiSaignent = () => {
                     {page?.heroTitle ?? "Gencives qui saignent : que faire ?"}
                   </h1>
                   <p className="text-xl text-muted-foreground leading-relaxed">
-                    {page?.heroSubtitle ?? "Vos gencives saignent quand vous vous brossez les dents ? Ce n'est pas normal. Le saignement gingival est un signe d'inflammation qu'il ne faut pas ignorer. Au cabinet du Dr Meriot à Marseille, nous identifions la cause et vous proposons un traitement adapté."}
+                    {page?.heroSubtitle ?? "Vos gencives saignent au brossage ? Ce n'est pas normal — mais c'est souvent réversible quand on agit tôt. Spécialiste en parodontie à Marseille, j'identifie la cause et, fidèle à la dentisterie à minima, je privilégie les soins les plus doux pour préserver vos tissus naturels et vos dents."}
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Auto-diagnostic — faut-il consulter ? */}
+            <section className="py-16 bg-accent/5" aria-labelledby="diagnostic-title">
+              <div className="container mx-auto px-4 max-w-3xl">
+                <div className="bg-card rounded-2xl p-8 shadow-soft border border-accent/20">
+                  <h2 id="diagnostic-title" className="text-2xl md:text-3xl font-bold mb-4 flex items-start gap-3">
+                    <AlertCircle className="h-7 w-7 text-accent flex-shrink-0 mt-1" />
+                    <span>{diagTitre}</span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">{diagIntro}</p>
+                  <ul className="space-y-3 mb-6">
+                    {diagSignes.map((s: string, i: number) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="text-accent mt-1 flex-shrink-0">•</span>
+                        <span className="text-muted-foreground">{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">{diagConclusion}</p>
+                  <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">
+                      <Calendar className="h-5 w-5" />
+                      Prendre rendez-vous
+                    </Button>
+                  </a>
                 </div>
               </div>
             </section>
@@ -181,7 +230,7 @@ const GencivesQuiSaignent = () => {
                 </h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    {page?.traitementTexte ?? "Le traitement des saignements de gencives commence par un diagnostic précis. Le Dr Meriot examine l'état de vos gencives, mesure les poches parodontales si nécessaire, et identifie la cause du saignement. Le traitement de base consiste en un détartrage professionnel complet, complété par des conseils d'hygiène personnalisés. Si une parodontite est diagnostiquée, un surfaçage radiculaire pourra être proposé pour nettoyer en profondeur sous la gencive."}
+                    {page?.traitementTexte ?? "Le traitement commence toujours par un diagnostic précis : j'examine vos gencives, je mesure les poches parodontales si nécessaire et j'identifie la cause du saignement. Le traitement de base — un détartrage complet et des conseils d'hygiène personnalisés — suffit le plus souvent. Si une parodontite est présente, un surfaçage radiculaire peut compléter les soins pour nettoyer en profondeur sous la gencive. Fidèle à la dentisterie à minima, j'adopte une approche douce et progressive : je commence par le geste le moins invasif et je vous explique chaque étape avec clarté, pour préserver vos dents naturelles."}
                   </p>
                 </div>
               </div>
@@ -191,7 +240,7 @@ const GencivesQuiSaignent = () => {
             <section className="py-20" aria-labelledby="conseils-title">
               <div className="container mx-auto px-4 max-w-5xl">
                 <h2 id="conseils-title" className="text-3xl md:text-4xl font-bold mb-12 text-center">
-                  {page?.conseilsTitre ?? "Nos conseils pour des gencives saines"}
+                  {page?.conseilsTitre ?? "Mes conseils pour des gencives saines"}
                 </h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   {conseils.map((c: { title: string; desc: string }, i: number) => (
@@ -228,14 +277,18 @@ const GencivesQuiSaignent = () => {
             <section className="py-12">
               <div className="container mx-auto px-4 max-w-4xl">
                 <h2 className="text-2xl font-bold mb-6 text-center">En savoir plus</h2>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-3 gap-6">
                   <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
-                    <h3 className="font-semibold text-lg mb-2">Parodontie</h3>
-                    <p className="text-muted-foreground text-sm">Découvrez notre expertise complète en parodontie : diagnostic, traitements et suivi.</p>
+                    <h3 className="font-semibold text-lg mb-2">Parodontologue à Marseille</h3>
+                    <p className="text-muted-foreground text-sm">Mon expertise des maladies des gencives : diagnostic, traitement et suivi.</p>
                   </Link>
                   <Link to="/gingivite-marseille" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                     <h3 className="font-semibold text-lg mb-2">Gingivite</h3>
                     <p className="text-muted-foreground text-sm">Tout savoir sur la gingivite : causes, symptômes et traitement à Marseille.</p>
+                  </Link>
+                  <Link to="/dechaussement-dentaire-marseille" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                    <h3 className="font-semibold text-lg mb-2">Déchaussement dentaire</h3>
+                    <p className="text-muted-foreground text-sm">Dents qui se déchaussent : causes, traitement et prévention à Marseille.</p>
                   </Link>
                 </div>
               </div>
@@ -246,7 +299,7 @@ const GencivesQuiSaignent = () => {
               <div className="container mx-auto px-4 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">{page?.ctaTitre ?? "Vos gencives saignent ?"}</h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  {page?.ctaTexte ?? "Le saignement des gencives est un signal qu'il ne faut pas ignorer. Un diagnostic rapide permet de traiter le problème simplement, avant qu'il ne s'aggrave."}
+                  {page?.ctaTexte ?? "Le saignement des gencives n'est pas à banaliser, mais il se traite d'autant plus simplement qu'on agit tôt. Prenons le temps d'un bilan : je vous propose la solution la plus douce pour préserver vos gencives et vos dents."}
                 </p>
                 <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">
