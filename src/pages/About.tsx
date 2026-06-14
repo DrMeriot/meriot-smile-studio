@@ -54,8 +54,8 @@ const About = () => {
   const formations = page?.formationsList ?? defaultFormations;
   const confiance = page?.confianceList ?? defaultConfiance;
   const philosophie = page?.philosophieList ?? defaultPhilosophie;
-  const seoTitle = page?.seoTitle ?? `${nom} | Dentiste Parodontie Implantologie Marseille`;
-  const seoDesc = page?.seoDescription ?? `${nom}, chirurgien-dentiste à Marseille 4ème. Spécialiste parodontie (IFPIO) et implantologie. Approche conservatrice et bienveillante. Trilingue.`;
+  const seoTitle = page?.seoTitle ?? `${nom}, parodontologue à Marseille 4e`;
+  const seoDesc = page?.seoDescription ?? `${nom}, parodontologue à Marseille 4e formée à l'IFPIO. Soin des gencives en douceur, approche conservatrice. Parcours, expertise et rendez-vous.`;
 
   return (
     <>

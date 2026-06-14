@@ -1,7 +1,7 @@
 # CLAUDE-PROJECT-DOC — Meriot Smile Studio
 
 > Document de référence pour toute session Claude Code sur ce projet.
-> Dernière mise à jour : 2026-06-03 (Sanity golden source + refonte contenu cluster paro, section 12 quater).
+> Dernière mise à jour : 2026-06-03 (session SEO conversion-first : P2/P3, voix « je » /parodontie, NAP — section 12 quinquies).
 
 ---
 
@@ -573,12 +573,92 @@ en 3e pers. nommée (entité/AEO). /gencives déjà refait ainsi.
 | 🔴 1 | **GBP : reprise de la fiche** + lancer la **collecte d'avis** | hors-code (action Dr Meriot ; process outillable) |
 | 🟠 2 | **Webhook Sanity → Vercel Deploy Hook** (édition Studio → rebuild auto) | infra (conf préparable + activation dashboard) |
 | 🟠 3 | **Harmoniser la voix « je »** (/parodontie, accueil, about…) | contenu/code |
-| 🟠 4 | **Fix NAP** : adresse incohérente (« 23 Bd de la Fédération » page vs « 31 Rue des Chartreux » dans `global` Sanity) — confirmer la bonne | hygiène SEO local |
+| ✅ 4 | ~~**Fix NAP** : adresse incohérente~~ — **RÉSOLU/périmé** : le doc `global` Sanity contient déjà la bonne rue (« 23 Bd de la Fédération »), pas « 31 Rue des Chartreux ». Adresse + tél confirmés par Dr Meriot le 2026-06-03. Reste juste une normalisation cosmétique (espace avant virgule) → voir § 12 quinquies. | hygiène SEO local |
 | 🟡 5 | **Spokes restants en conversion-first** : refondre gingivite + déchaussement comme /gencives | contenu |
 | 🟡 6 | P2 : réécrire title+meta **/a-propos** (105 imp, pos 8, 0 clic) | rapide |
 | 🟡 7 | P3 : **301 /parodontie/temoignages → /parodontie** (`vercel.json`) | rapide |
 | 🟡 8 | Étendre le **pattern loader** aux singletons restants (Sanity golden partout) | code |
 | ⚪ 9 | P4 page « explorée non indexée » · P7 confirmer 308 non-www→www | divers |
+
+---
+
+## 12 quinquies. 🛠️ Session 3 juin 2026 — exécution SEO conversion-first (P2/P3, voix « je », NAP)
+
+> Exécution « tout ce qui peut être fait sans Dr Meriot » du plan § 12 quater.
+> ⚠️ **Session interrompue avant de lancer les patchs Sanity et avant tout commit.**
+> Lire l'état working tree ci-dessous AVANT de reprendre.
+
+### ✅ Fait et vérifié (code, build OK)
+- **P3 — 301 `/parodontie/temoignages` → `/parodontie`** ajouté dans `vercel.json`.
+- **P2 — title+meta `/a-propos`** : valeurs `default` réécrites dans `About.tsx`
+  (c'est le fallback JSX qui est indexé — /a-propos n'est pas en loader). Vérifié sur
+  le HTML buildé : title = « Dr Stéphanie Meriot, parodontologue à Marseille 4e » (50 car.),
+  desc = 158 car. (cible ≤ 160). ✓
+- **Voix « je » sur /parodontie** :
+  - Sections **JSX hardcodées** (toujours indexées, PAS de champ Sanity) : « Notre approche »
+    → « Mon approche », « Notre zone d'intervention » → « Ma zone… », « Nous accueillons »
+    → « J'accueille », etc. (`Parodontie.tsx`). **Adresse laissée intacte.**
+  - Valeurs `default` JSX (filet) + **`scripts/patch-parodontie.mjs`** synchronisés :
+    traitements « nous réalisons » → « je réalise » (étapes 1 & 3), 3 réponses FAQ qui
+    parlaient du « Dr Meriot » à la 3e pers. → « je » (style /gencives), crosslinks
+    « nos autres spécialités » → « mes autres spécialités ».
+  - ⚠️ Le **hero subtitle** parodontie reste en 3e pers. nommée (intro entité, OK AEO/SEO).
+- **NAP — diagnostic corrigé** : le doc `global` Sanity contient **déjà** « 23 Bd de la
+  Fédération , 13004 Marseille » (la note § 12 quater #4 « 31 Rue des Chartreux » était
+  **périmée/fausse**). Seul défaut réel = **espace parasite avant la virgule** (le Footer
+  indexé l'affiche tel quel ; le schéma JSON-LD s'en sort via `.trim()`). Adresse + tél
+  (`09 83 43 96 21`) **confirmés par Dr Meriot**. → Script de normalisation créé :
+  **`scripts/patch-global-nap.mjs`** (set `adresse`/`phone`/`nom_praticien` propres).
+
+### ✅ FAIT à la reprise (session 14 juin 2026)
+1. **2 patchs Sanity lancés** (token `.env.local`) → en réalité **no-ops idempotents** :
+   le contenu avait **déjà été appliqué par des sessions antérieures** (vérifié via timestamps
+   serveur Sanity, autoritaires) :
+   - `parodontie` : `_rev OSMPQ20vSkL3vuu25g8PG4`, `_updatedAt` **3 juin 13:38** (pas aujourd'hui).
+   - `global` : `_rev gk7s2QwuRCVFwnmTAy0kVr`, `_updatedAt` **4 juin 12:29** (pas aujourd'hui).
+   - ⇒ mes runs ont retourné les revs **déjà en base** → **aucune nouvelle révision, aucun
+     nouveau build déclenché**. Les revs ci-dessus sont les bonnes (contenu live correct).
+2. **`npm run build`** ✅ (21 pages). Vérifié sur le HTML buildé : `dist/parodontie.html` sert
+   la voix « je » (4 occ., 0 « nous » résiduel) ; `dist/index.html` adresse propre (0 espace parasite).
+3. **Commit + push + PR #6** (lot P2/P3/voix-je/NAP — code uniquement, séparé du lot gingivite).
+   ⚠️ Le merge de #6 = deploy git Vercel → prod récupère les bouts de **code** (301, meta /a-propos,
+   sections JSX voix-je). Le **contenu Sanity** est déjà en prod (buildé au webhook du 4 juin).
+
+### 🔌 Webhook Sanity → Vercel — DÉJÀ EN PLACE (découvert 14 juin, créé le 26 avril)
+Contrairement à ce que disait la doc, le webhook **existe et fonctionne depuis le 26 avril 2026**.
+Vérifié via l'API admin Sanity (`/v2021-10-04/hooks/projects/6a2np8jy`) :
+- Nom « Vercel rebuild » · dataset `production` · `POST` vers le Deploy Hook
+  `prj_5SyJ3JDctJNDgXCnknPKhyaFJGhV/qRHbpwFUkP` · `isDisabled: false`.
+- Triggers `create/update/delete` · **`includeDrafts: false`** (pas de build sur autosave brouillon —
+  rend le filtre GROQ anti-drafts inutile) · `filter: null`.
+- Livraisons en **status 201** (Vercel accepte) — les changements contenu du 3-4 juin sont déjà buildés.
+- ⇒ **Aucune action requise.** Éditer + **publier** un doc loader-câblé (`parodontie`, spokes, `global`)
+  rebuild la prod automatiquement. Lire la config : `cd studio && npx sanity hook list`.
+
+### 🌳 État working tree à la reprise (dernier commit : `b8311e1`, merge PR #5 docs)
+Modifs **de cette session** : `vercel.json`, `src/pages/About.tsx`, `src/pages/Parodontie.tsx`,
+`scripts/patch-parodontie.mjs`, + nouveau `scripts/patch-global-nap.mjs`.
+
+⚠️ **Modifs PRÉ-EXISTANTES non commitées, PAS de cette session** (refonte spoke **gingivite**
+commencée par une session antérieure, **incomplète**) :
+- `src/pages/GingiviteMarseille.tsx` (modifié), `studio/schemaTypes/gingivite_marseille.ts`
+  + `studio/schemaTypes/dechaussement_dentaire.ts` (champs `diagnostic*` ajoutés),
+  nouveau `scripts/patch-gingivite.mjs`.
+- **Reste à faire pour ce spoke** : `npx sanity deploy` (schéma diagnostic), lancer
+  `node scripts/patch-gingivite.mjs`, faire la page **déchaussement** au même modèle,
+  vérifier build. → c'est le **step 🟡 5** de § 12 quater, à finir proprement (idéalement
+  dans un commit/PR séparé du lot P2/P3/voix-je/NAP).
+
+### 🎯 Next steps mis à jour (priorité conversion-first / local)
+| Prio | Action | État |
+|---|---|---|
+| 🔴 1 | **GBP** : récupérer la fiche + collecte d'avis | hors-code (Dr Meriot) — toujours le + gros levier |
+| ✅ 2 | ~~Lancer patchs Sanity (parodontie + global-nap) + build + commit/push~~ | **FAIT (14 juin 2026)** |
+| 🟠 3 | Finir refonte spoke **gingivite** (déjà commencée) + faire **déchaussement** | en cours (working tree) |
+| ✅ 4 | ~~**Webhook Sanity → Vercel Deploy Hook**~~ | **DÉJÀ EN PLACE depuis le 26 avril** (vérifié 14 juin) |
+| 🟠 5 | Harmoniser voix « je » sur **accueil** + **about** (parodontie ✅) | contenu |
+| 🟡 6 | Étendre le **pattern loader** aux singletons restants | code |
+| ⚪ 7 | P4 page « explorée non indexée » · P7 confirmer 308 non-www→www | divers |
 
 ---
 
