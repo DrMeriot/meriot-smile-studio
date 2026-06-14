@@ -611,16 +611,29 @@ en 3e pers. nommée (entité/AEO). /gencives déjà refait ainsi.
   **`scripts/patch-global-nap.mjs`** (set `adresse`/`phone`/`nom_praticien` propres).
 
 ### ✅ FAIT à la reprise (session 14 juin 2026)
-1. **2 patchs Sanity lancés** (token `.env.local`) :
-   - `node scripts/patch-parodontie.mjs` → ✅ doc `parodontie` réécrit (rev `OSMPQ20vSkL3vuu25g8PG4`,
-     27 champs, 8 FAQ / 5 symptômes / 5 étapes, voix « je »).
-   - `node scripts/patch-global-nap.mjs` → ✅ doc `global` normalisé (rev `gk7s2QwuRCVFwnmTAy0kVr`,
-     adresse « 23 Bd de la Fédération, 13004 Marseille » sans espace parasite).
-   - ⚠️ Rappel : site **statique** → ces mutations Sanity n'apparaîtront sur la prod qu'au
-     **prochain rebuild/redeploy Vercel** (webhook toujours pas branché → § next steps).
+1. **2 patchs Sanity lancés** (token `.env.local`) → en réalité **no-ops idempotents** :
+   le contenu avait **déjà été appliqué par des sessions antérieures** (vérifié via timestamps
+   serveur Sanity, autoritaires) :
+   - `parodontie` : `_rev OSMPQ20vSkL3vuu25g8PG4`, `_updatedAt` **3 juin 13:38** (pas aujourd'hui).
+   - `global` : `_rev gk7s2QwuRCVFwnmTAy0kVr`, `_updatedAt` **4 juin 12:29** (pas aujourd'hui).
+   - ⇒ mes runs ont retourné les revs **déjà en base** → **aucune nouvelle révision, aucun
+     nouveau build déclenché**. Les revs ci-dessus sont les bonnes (contenu live correct).
 2. **`npm run build`** ✅ (21 pages). Vérifié sur le HTML buildé : `dist/parodontie.html` sert
    la voix « je » (4 occ., 0 « nous » résiduel) ; `dist/index.html` adresse propre (0 espace parasite).
-3. **Commit + push** (lot P2/P3/voix-je/NAP — séparé du lot gingivite, voir working tree).
+3. **Commit + push + PR #6** (lot P2/P3/voix-je/NAP — code uniquement, séparé du lot gingivite).
+   ⚠️ Le merge de #6 = deploy git Vercel → prod récupère les bouts de **code** (301, meta /a-propos,
+   sections JSX voix-je). Le **contenu Sanity** est déjà en prod (buildé au webhook du 4 juin).
+
+### 🔌 Webhook Sanity → Vercel — DÉJÀ EN PLACE (découvert 14 juin, créé le 26 avril)
+Contrairement à ce que disait la doc, le webhook **existe et fonctionne depuis le 26 avril 2026**.
+Vérifié via l'API admin Sanity (`/v2021-10-04/hooks/projects/6a2np8jy`) :
+- Nom « Vercel rebuild » · dataset `production` · `POST` vers le Deploy Hook
+  `prj_5SyJ3JDctJNDgXCnknPKhyaFJGhV/qRHbpwFUkP` · `isDisabled: false`.
+- Triggers `create/update/delete` · **`includeDrafts: false`** (pas de build sur autosave brouillon —
+  rend le filtre GROQ anti-drafts inutile) · `filter: null`.
+- Livraisons en **status 201** (Vercel accepte) — les changements contenu du 3-4 juin sont déjà buildés.
+- ⇒ **Aucune action requise.** Éditer + **publier** un doc loader-câblé (`parodontie`, spokes, `global`)
+  rebuild la prod automatiquement. Lire la config : `cd studio && npx sanity hook list`.
 
 ### 🌳 État working tree à la reprise (dernier commit : `b8311e1`, merge PR #5 docs)
 Modifs **de cette session** : `vercel.json`, `src/pages/About.tsx`, `src/pages/Parodontie.tsx`,
@@ -642,7 +655,7 @@ commencée par une session antérieure, **incomplète**) :
 | 🔴 1 | **GBP** : récupérer la fiche + collecte d'avis | hors-code (Dr Meriot) — toujours le + gros levier |
 | ✅ 2 | ~~Lancer patchs Sanity (parodontie + global-nap) + build + commit/push~~ | **FAIT (14 juin 2026)** |
 | 🟠 3 | Finir refonte spoke **gingivite** (déjà commencée) + faire **déchaussement** | en cours (working tree) |
-| 🟠 4 | **Webhook Sanity → Vercel Deploy Hook** | infra |
+| ✅ 4 | ~~**Webhook Sanity → Vercel Deploy Hook**~~ | **DÉJÀ EN PLACE depuis le 26 avril** (vérifié 14 juin) |
 | 🟠 5 | Harmoniser voix « je » sur **accueil** + **about** (parodontie ✅) | contenu |
 | 🟡 6 | Étendre le **pattern loader** aux singletons restants | code |
 | ⚪ 7 | P4 page « explorée non indexée » · P7 confirmer 308 non-www→www | divers |
