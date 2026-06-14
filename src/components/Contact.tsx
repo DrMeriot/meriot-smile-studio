@@ -48,10 +48,10 @@ const Contact = () => {
     <section className="py-20 bg-muted/30" id="contact">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
-          <span className="text-primary font-medium text-sm uppercase tracking-wide">Nous contacter</span>
+          <span className="text-primary font-medium text-sm uppercase tracking-wide">Me contacter</span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">Prenez rendez-vous facilement</h2>
           <p className="text-lg text-muted-foreground">
-            Situé à Marseille 4ème, près du métro Chartreux, notre cabinet est facilement accessible.
+            Situé à Marseille 4ème, près du métro Chartreux, mon cabinet est facilement accessible.
           </p>
         </div>
 
@@ -144,7 +144,7 @@ const Contact = () => {
           <div className="text-center mb-10">
             <h3 className="text-2xl md:text-3xl font-bold mb-4">Zone d'intervention</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Le cabinet accueille des patients de Marseille et de toute la région, dans un rayon de 50 km.
+              J'accueille des patients de Marseille et de toute la région, dans un rayon de 50 km.
             </p>
           </div>
 
