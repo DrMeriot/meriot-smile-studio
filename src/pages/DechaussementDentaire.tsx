@@ -15,12 +15,26 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import MedicalSchema from "@/components/MedicalSchema";
 
 const defaultFAQs = [
-  { question: "Le déchaussement dentaire est-il irréversible ?", answer: "La perte osseuse causée par la parodontite est irréversible, mais le traitement permet de stopper son évolution. La greffe gingivale peut recouvrir les racines exposées et les techniques de régénération osseuse peuvent restaurer partiellement le tissu perdu." },
+  { question: "Le déchaussement dentaire est-il irréversible ?", answer: "La perte osseuse causée par la parodontite est irréversible, mais le traitement permet d'en stopper l'évolution. La greffe gingivale peut recouvrir les racines exposées et les techniques de régénération osseuse peuvent restaurer partiellement le tissu perdu. Fidèle à la dentisterie à minima, mon objectif est de conserver vos dents naturelles le plus longtemps possible." },
   { question: "Comment savoir si mes dents se déchaussent ?", answer: "Les signes incluent : des dents qui paraissent plus longues, des racines visibles, une sensibilité au froid et au chaud au niveau des collets, des espaces qui apparaissent entre les dents, et une mobilité dentaire. Un bilan parodontal au cabinet permet un diagnostic précis." },
-  { question: "Combien coûte le traitement du déchaussement dentaire ?", answer: "Le coût dépend de la sévérité du déchaussement et du traitement nécessaire. Le Dr Meriot est conventionnée secteur 1. Un devis détaillé est remis après le bilan parodontal." },
+  { question: "Quel spécialiste consulter pour un déchaussement dentaire à Marseille ?", answer: "Un parodontologue, chirurgien-dentiste spécialisé dans les maladies des gencives et de l'os de soutien des dents. Diplômée de la Faculté d'odontologie de Marseille et formée en parodontologie (IFPIO Marseille, Académie de paro d'Aix-en-Provence), je prends en charge le déchaussement dentaire à mon cabinet de Marseille 4e. Vous pouvez me consulter directement, sans ordonnance." },
+  { question: "Combien coûte le traitement du déchaussement dentaire ?", answer: "Le coût dépend de la sévérité du déchaussement et du traitement nécessaire. Une partie des soins parodontaux n'est pas prise en charge par l'Assurance Maladie : je vous remets toujours un devis détaillé et transparent après le bilan, avant tout traitement." },
   { question: "Peut-on prévenir le déchaussement dentaire ?", answer: "Oui, une hygiène bucco-dentaire rigoureuse, l'arrêt du tabac et des visites régulières chez le dentiste permettent de prévenir le déchaussement. Un détartrage professionnel régulier élimine le tartre que le brossage ne peut pas atteindre." },
   { question: "Le déchaussement dentaire fait-il mal ?", answer: "Le déchaussement est souvent indolore dans les premiers stades, ce qui le rend sournois. La sensibilité au froid et au chaud apparaît quand les racines sont exposées. Une douleur peut survenir en cas d'infection ou d'abcès parodontal." },
 ];
+
+const defaultDiagnostic = {
+  titre: "Vos dents se déchaussent : faut-il consulter ?",
+  intro: "Une racine qui devient visible ou une dent qui paraît plus longue n'est pas qu'un détail esthétique : c'est souvent le signe d'une parodontite qui détruit, en silence, l'os qui soutient la dent. Plus on agit tôt, plus on préserve ce qui peut l'être. Quelques signes qui méritent l'avis d'un parodontologue :",
+  signes: [
+    "Une ou plusieurs dents qui paraissent plus longues",
+    "Des racines visibles ou des collets sensibles au froid",
+    "Des espaces qui s'élargissent entre les dents",
+    "Une dent qui bouge, même légèrement",
+    "Des tassements alimentaires fréquents entre les dents",
+  ],
+  conclusion: "La perte osseuse déjà installée ne se rattrape pas entièrement, mais on peut stopper son évolution et stabiliser vos dents — d'autant mieux qu'on intervient tôt. Fidèle à ma philosophie de dentisterie à minima, mon objectif premier est de conserver vos dents naturelles, sans geste inutile.",
+};
 
 const defaultCauses = [
   { title: "Parodontite", desc: "La cause principale du déchaussement dentaire est la parodontite, une infection bactérienne qui détruit progressivement l'os et la gencive autour des dents." },
@@ -66,13 +80,17 @@ const DechaussementDentaire = () => {
   const causes = page?.causesList ?? defaultCauses;
   const symptomes = page?.symptomesList ?? defaultSymptomes;
   const traitements = page?.traitementsList ?? defaultTraitements;
+  const diagTitre = page?.diagnosticTitre ?? defaultDiagnostic.titre;
+  const diagIntro = page?.diagnosticIntro ?? defaultDiagnostic.intro;
+  const diagSignes = page?.diagnosticSignes ?? defaultDiagnostic.signes;
+  const diagConclusion = page?.diagnosticConclusion ?? defaultDiagnostic.conclusion;
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
   return (
     <>
       <SEOHead
-        title={page?.seoTitle ?? "Déchaussement dentaire Marseille | Traitement récession gingivale — Dr Meriot"}
+        title={page?.seoTitle ?? "Déchaussement dentaire à Marseille — Dr Meriot, parodontologue"}
         description={page?.seoDescription ?? "Traitement du déchaussement dentaire à Marseille. Dents qui se déchaussent, racines exposées ? Le Dr Meriot, spécialiste parodontie, traite la récession gingivale."}
         canonical="/dechaussement-dentaire-marseille"
         keywords="déchaussement dentaire marseille, récession gingivale, dents qui se déchaussent, greffe gingivale marseille, racines exposées, traitement déchaussement"
@@ -109,8 +127,36 @@ const DechaussementDentaire = () => {
                     {page?.heroTitle ?? "Déchaussement dentaire à Marseille"}
                   </h1>
                   <p className="text-xl text-muted-foreground leading-relaxed">
-                    {page?.heroSubtitle ?? "Vos dents paraissent plus longues ? Vos racines sont visibles ? Le déchaussement dentaire (récession gingivale) est un problème fréquent que le Dr Meriot traite avec expertise grâce à des techniques modernes et douces."}
+                    {page?.heroSubtitle ?? "Vos dents paraissent plus longues ? Vos racines sont visibles ? Le déchaussement dentaire (récession gingivale) est souvent le signe d'une parodontite. Spécialiste en parodontie à Marseille, je pose le diagnostic et, fidèle à la dentisterie à minima, je privilégie les soins les plus doux pour stabiliser et conserver vos dents."}
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Auto-diagnostic — faut-il consulter ? */}
+            <section className="py-16 bg-accent/5" aria-labelledby="diagnostic-title">
+              <div className="container mx-auto px-4 max-w-3xl">
+                <div className="bg-card rounded-2xl p-8 shadow-soft border border-accent/20">
+                  <h2 id="diagnostic-title" className="text-2xl md:text-3xl font-bold mb-4 flex items-start gap-3">
+                    <AlertCircle className="h-7 w-7 text-accent flex-shrink-0 mt-1" />
+                    <span>{diagTitre}</span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">{diagIntro}</p>
+                  <ul className="space-y-3 mb-6">
+                    {diagSignes.map((s: string, i: number) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="text-accent mt-1 flex-shrink-0">•</span>
+                        <span className="text-muted-foreground">{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">{diagConclusion}</p>
+                  <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">
+                      <Calendar className="h-5 w-5" />
+                      Prendre rendez-vous
+                    </Button>
+                  </a>
                 </div>
               </div>
             </section>
@@ -180,7 +226,7 @@ const DechaussementDentaire = () => {
                   {page?.traitementTitre ?? "Comment traiter le déchaussement dentaire ?"}
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  {page?.traitementTexte ?? "Le traitement du déchaussement dentaire dépend de sa cause et de sa sévérité. Le Dr Meriot propose des solutions adaptées, allant du traitement non chirurgical à la chirurgie reconstructrice."}
+                  {page?.traitementTexte ?? "Le traitement du déchaussement dentaire dépend de sa cause et de sa sévérité. Je commence toujours par stabiliser la maladie avec les gestes les moins invasifs, et je ne propose une chirurgie reconstructrice que lorsqu'elle apporte un réel bénéfice. Fidèle à la dentisterie à minima, mon objectif reste de conserver vos dents naturelles."}
                 </p>
                 <div className="grid md:grid-cols-2 gap-6">
                   {traitements.map((t: { title: string; desc: string }, i: number) => (
@@ -219,8 +265,8 @@ const DechaussementDentaire = () => {
                 <h2 className="text-2xl font-bold mb-6 text-center">En savoir plus</h2>
                 <div className="grid md:grid-cols-3 gap-6">
                   <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
-                    <h3 className="font-semibold text-lg mb-2">Parodontie</h3>
-                    <p className="text-muted-foreground text-sm">Découvrez notre expertise complète en parodontie : diagnostic, traitements et suivi.</p>
+                    <h3 className="font-semibold text-lg mb-2">Parodontologue à Marseille</h3>
+                    <p className="text-muted-foreground text-sm">Mon expertise des maladies parodontales : diagnostic, traitement et suivi.</p>
                   </Link>
                   <Link to="/gingivite-marseille" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                     <h3 className="font-semibold text-lg mb-2">Gingivite</h3>
@@ -239,7 +285,7 @@ const DechaussementDentaire = () => {
               <div className="container mx-auto px-4 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">{page?.ctaTitre ?? "Vos dents se déchaussent ?"}</h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  {page?.ctaTexte ?? "Plus le diagnostic est précoce, plus les solutions sont simples et efficaces. Le Dr Meriot réalise un bilan parodontal complet pour évaluer votre situation et vous proposer un traitement adapté."}
+                  {page?.ctaTexte ?? "Plus le diagnostic est précoce, plus les solutions sont simples et efficaces. Je réalise un bilan parodontal complet pour évaluer votre situation et vous proposer le traitement le plus doux et le plus adapté."}
                 </p>
                 <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">

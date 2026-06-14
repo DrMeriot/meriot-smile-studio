@@ -574,7 +574,7 @@ en 3e pers. nommée (entité/AEO). /gencives déjà refait ainsi.
 | 🟠 2 | **Webhook Sanity → Vercel Deploy Hook** (édition Studio → rebuild auto) | infra (conf préparable + activation dashboard) |
 | 🟠 3 | **Harmoniser la voix « je »** (/parodontie, accueil, about…) | contenu/code |
 | ✅ 4 | ~~**Fix NAP** : adresse incohérente~~ — **RÉSOLU/périmé** : le doc `global` Sanity contient déjà la bonne rue (« 23 Bd de la Fédération »), pas « 31 Rue des Chartreux ». Adresse + tél confirmés par Dr Meriot le 2026-06-03. Reste juste une normalisation cosmétique (espace avant virgule) → voir § 12 quinquies. | hygiène SEO local |
-| 🟡 5 | **Spokes restants en conversion-first** : refondre gingivite + déchaussement comme /gencives | contenu |
+| ✅ 5 | ~~**Spokes restants en conversion-first** : refondre gingivite + déchaussement comme /gencives~~ — **FAIT 14 juin** | contenu |
 | 🟡 6 | P2 : réécrire title+meta **/a-propos** (105 imp, pos 8, 0 clic) | rapide |
 | 🟡 7 | P3 : **301 /parodontie/temoignages → /parodontie** (`vercel.json`) | rapide |
 | 🟡 8 | Étendre le **pattern loader** aux singletons restants (Sanity golden partout) | code |
@@ -654,7 +654,7 @@ commencée par une session antérieure, **incomplète**) :
 |---|---|---|
 | 🔴 1 | **GBP** : récupérer la fiche + collecte d'avis | hors-code (Dr Meriot) — toujours le + gros levier |
 | ✅ 2 | ~~Lancer patchs Sanity (parodontie + global-nap) + build + commit/push~~ | **FAIT (14 juin 2026)** |
-| 🟠 3 | Finir refonte spoke **gingivite** (déjà commencée) + faire **déchaussement** | en cours (working tree) |
+| ✅ 3 | ~~Finir refonte spoke **gingivite** + faire **déchaussement**~~ | **FAIT (14 juin)** — voix « je », auto-diagnostic, FAQ spécialiste E-E-A-T, titles raccourcis, patchs Sanity appliqués (gingivite rev `xsSQgeoVafjQU53fmvYI2S`, déchaussement rev `xsSQgeoVafjQU53fmvYIDO`), schéma déployé. PR séparée. |
 | ✅ 4 | ~~**Webhook Sanity → Vercel Deploy Hook**~~ | **DÉJÀ EN PLACE depuis le 26 avril** (vérifié 14 juin) |
 | 🟠 5 | Harmoniser voix « je » sur **accueil** + **about** (parodontie ✅) | contenu |
 | 🟡 6 | Étendre le **pattern loader** aux singletons restants | code |
