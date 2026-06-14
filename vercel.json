@@ -3,7 +3,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/esthetique", "destination": "/services", "permanent": true },
-    { "source": "/acces-cabinet", "destination": "/contact", "permanent": true }
+    { "source": "/acces-cabinet", "destination": "/contact", "permanent": true },
+    { "source": "/parodontie/temoignages", "destination": "/parodontie", "permanent": true }
   ],
   "rewrites": [
     { "source": "/blog/:slug", "destination": "/index.html" }

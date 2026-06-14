@@ -17,12 +17,12 @@ import HowToSchema from "@/components/HowToSchema";
 
 const defaultFAQs = [
   { question: "Qu'est-ce que la parodontie ?", answer: "La parodontie est la spécialité dentaire qui traite les maladies des gencives et des tissus de soutien des dents (os alvéolaire, ligament parodontal). Elle prend en charge la gingivite, la parodontite et le déchaussement dentaire." },
-  { question: "Quelle différence entre un dentiste et un parodontologue ?", answer: "Un parodontologue est un chirurgien-dentiste qui a suivi une formation approfondie en parodontologie (maladies des gencives) et qui consacre une part importante de son activité au diagnostic et au traitement de ces pathologies. Le Dr Meriot, formée à l'Académie de Parodontologie d'Aix-en-Provence et à l'IFPIO Marseille, exerce comme chirurgien-dentiste spécialisée en parodontie et implantologie." },
+  { question: "Quelle différence entre un dentiste et un parodontologue ?", answer: "Un parodontologue est un chirurgien-dentiste qui a suivi une formation approfondie en parodontologie (maladies des gencives) et qui consacre une part importante de son activité au diagnostic et au traitement de ces pathologies. Pour ma part, formée à l'Académie de Parodontologie d'Aix-en-Provence et à l'IFPIO Marseille, j'exerce comme chirurgien-dentiste spécialisée en parodontie et implantologie." },
   { question: "Quand consulter un spécialiste des gencives à Marseille ?", answer: "Dès l'apparition de gencives qui saignent au brossage, gonflées, rouges ou douloureuses, en cas de mauvaise haleine persistante, de récession gingivale, de mobilité dentaire ou si votre dentiste traitant vous oriente pour un bilan parodontal. Une consultation précoce permet d'éviter une perte osseuse irréversible." },
-  { question: "Faut-il une ordonnance pour consulter en parodontie ?", answer: "Non, vous pouvez prendre rendez-vous directement avec le Dr Meriot, sans ordonnance ni courrier de votre dentiste traitant. La consultation et les soins parodontaux sont accessibles en accès direct, et le cabinet est conventionné Secteur 1." },
+  { question: "Faut-il une ordonnance pour consulter en parodontie ?", answer: "Non, vous pouvez prendre rendez-vous directement, sans ordonnance ni courrier de votre dentiste traitant. La consultation et les soins parodontaux sont accessibles en accès direct, et le cabinet est conventionné Secteur 1." },
   { question: "Comment savoir si j'ai une maladie des gencives ?", answer: "Les signes d'alerte incluent : gencives qui saignent au brossage, gencives rouges ou gonflées, mauvaise haleine persistante, déchaussement ou mobilité des dents, sensibilité au niveau des collets. Consultez rapidement si vous observez ces symptômes." },
   { question: "Le traitement parodontal fait-il mal ?", answer: "Les traitements parodontaux sont réalisés sous anesthésie locale pour garantir votre confort. Le surfaçage radiculaire est indolore pendant l'intervention. Une légère sensibilité peut persister quelques jours après, facilement soulagée par des antalgiques." },
-  { question: "Combien coûte un traitement parodontal à Marseille ?", answer: "Le coût varie selon la sévérité de la maladie. Le Dr Meriot est conventionnée secteur 1, garantissant des tarifs maîtrisés. Un devis détaillé vous est remis après le bilan parodontal initial." },
+  { question: "Combien coûte un traitement parodontal à Marseille ?", answer: "Le coût varie selon la sévérité de la maladie. Le cabinet est conventionné secteur 1, ce qui garantit des tarifs maîtrisés. Un devis détaillé vous est remis après le bilan parodontal initial." },
   { question: "La parodontite est-elle réversible ?", answer: "La gingivite est totalement réversible avec un traitement adapté. La parodontite entraîne une perte osseuse irréversible, mais le traitement permet de stopper l'évolution de la maladie, de préserver les dents et de retrouver des gencives saines." },
   { question: "Quels sont les facteurs de risque de la parodontite ?", answer: "Les principaux facteurs sont : le tabac (risque multiplié par 3), le diabète mal équilibré, le stress, certains médicaments, la génétique, et une hygiène bucco-dentaire insuffisante. Un suivi régulier permet de prévenir et dépister précocement." },
 ];
@@ -48,9 +48,9 @@ const defaultParodontiteItems = [
 ];
 
 const defaultTraitements = [
-  { icon: "Search", step: "1", title: "Un diagnostic complet pour bien vous accompagner", desc: "Avant tout traitement, nous réalisons un examen précis de vos gencives et de l'os autour des dents. Cela comprend :", items: ["un examen clinique détaillé,", "la mesure des poches parodontales,", "l'évaluation de la mobilité des dents,", "l'analyse de la plaque et de l'inflammation,", "et des radiographies."], note: "Ce bilan complet permet de définir un plan de soins personnalisé et sécurisé, adapté à votre situation et à votre confort." },
+  { icon: "Search", step: "1", title: "Un diagnostic complet pour bien vous accompagner", desc: "Avant tout traitement, je réalise un examen précis de vos gencives et de l'os autour des dents. Cela comprend :", items: ["un examen clinique détaillé,", "la mesure des poches parodontales,", "l'évaluation de la mobilité des dents,", "l'analyse de la plaque et de l'inflammation,", "et des radiographies."], note: "Ce bilan complet permet de définir un plan de soins personnalisé et sécurisé, adapté à votre situation et à votre confort." },
   { icon: "Sparkles", step: "2", title: "Le détartrage et l'accompagnement à l'hygiène", desc: "La première étape du traitement consiste à éliminer la plaque dentaire et le tartre, et à vous accompagner dans l'amélioration de votre hygiène bucco-dentaire au quotidien.", items: ["Détartrage professionnel complet", "Conseils personnalisés de brossage", "Choix des outils adaptés (brossettes, fil dentaire)"], note: null },
-  { icon: "Scissors", step: "3", title: "Le surfaçage radiculaire : un nettoyage en profondeur", desc: "Si nécessaire, nous réalisons un surfaçage radiculaire sous anesthésie locale. Ce soin consiste à nettoyer en profondeur sous la gencive pour éliminer les bactéries et le tartre qui se sont accumulés sur les racines des dents.", items: ["Indolore (sous anesthésie locale)", "Réalisé en 2 à 4 séances selon les cas", "Permet de réduire les poches parodontales"], note: null },
+  { icon: "Scissors", step: "3", title: "Le surfaçage radiculaire : un nettoyage en profondeur", desc: "Si nécessaire, je réalise un surfaçage radiculaire sous anesthésie locale. Ce soin consiste à nettoyer en profondeur sous la gencive pour éliminer les bactéries et le tartre qui se sont accumulés sur les racines des dents.", items: ["Indolore (sous anesthésie locale)", "Réalisé en 2 à 4 séances selon les cas", "Permet de réduire les poches parodontales"], note: null },
   { icon: "UserCheck", step: "4", title: "La chirurgie parodontale (si nécessaire)", desc: "Dans les cas les plus avancés, une chirurgie parodontale peut être proposée pour accéder directement aux racines et à l'os.", items: ["Réduction chirurgicale des poches profondes", "Greffe gingivale pour recouvrir les racines exposées", "Régénération osseuse guidée"], note: null },
   { icon: "ClipboardCheck", step: "5", title: "Le suivi parodontal : la clé du succès à long terme", desc: "Le traitement parodontal ne s'arrête pas après les soins. Un suivi régulier est essentiel.", items: ["Détartrages professionnels tous les 3 à 6 mois", "Contrôle de l'état des gencives", "Ajustement des conseils d'hygiène"], note: null },
 ];
@@ -163,26 +163,26 @@ const Parodontie = () => {
           <section className="py-20 bg-muted/30" aria-labelledby="approche-title">
             <div className="container mx-auto px-4 max-w-4xl">
               <h2 id="approche-title" className="text-3xl md:text-4xl font-bold mb-8 text-center">
-                Notre approche : un parodontologue de confiance à Marseille
+                Mon approche : un parodontologue de confiance à Marseille
               </h2>
               <div className="prose prose-lg max-w-none">
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  Au cabinet, le Dr Stéphanie Meriot a fait de la santé des gencives l'un des piliers de son
-                  exercice. Diplômée de la Faculté d'Odontologie de Marseille et formée à l'<strong>Académie de
-                  Parodontologie d'Aix-en-Provence</strong> ainsi qu'à l'<strong>IFPIO Marseille</strong>, elle
-                  consulte en tant que chirurgien-dentiste spécialisée en parodontie et implantologie — l'équivalent,
-                  dans le langage courant, d'un parodontologue.
+                  J'ai fait de la santé des gencives l'un des piliers de mon exercice. Diplômée de la Faculté
+                  d'Odontologie de Marseille et formée à l'<strong>Académie de Parodontologie d'Aix-en-Provence</strong>
+                  {" "}ainsi qu'à l'<strong>IFPIO Marseille</strong>, je consulte en tant que chirurgien-dentiste
+                  spécialisée en parodontie et implantologie — l'équivalent, dans le langage courant, d'un
+                  parodontologue.
                 </p>
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  Notre approche se veut <strong>douce, progressive et personnalisée</strong> : chaque traitement
+                  Mon approche se veut <strong>douce, progressive et personnalisée</strong> : chaque traitement
                   parodontal commence par un bilan complet (sondage des poches, analyse de la mobilité, radiographies
-                  ciblées), suivi d'explications claires et d'un plan de soins adapté à votre rythme. L'objectif n'est
-                  jamais de multiplier les actes, mais de stopper l'inflammation au plus tôt et de préserver vos dents
-                  naturelles.
+                  ciblées), suivi d'explications claires et d'un plan de soins adapté à votre rythme. Fidèle à la
+                  dentisterie à minima, mon objectif n'est jamais de multiplier les actes, mais de stopper
+                  l'inflammation au plus tôt et de préserver vos dents naturelles.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   Le cabinet est <strong>conventionné Secteur 1</strong>, accepte la Carte Vitale et le tiers payant.
-                  Vous pouvez consulter directement, sans courrier ni ordonnance.
+                  Vous pouvez me consulter directement, sans courrier ni ordonnance.
                 </p>
               </div>
             </div>
@@ -192,11 +192,11 @@ const Parodontie = () => {
           <section className="py-16" aria-labelledby="zone-title">
             <div className="container mx-auto px-4 max-w-5xl">
               <h2 id="zone-title" className="text-3xl md:text-4xl font-bold mb-6 text-center">
-                Notre zone d'intervention en parodontie
+                Ma zone d'intervention en parodontie
               </h2>
               <p className="text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-10">
-                Le cabinet est situé au <strong>23 Boulevard de la Fédération, Marseille 4ème</strong>, à proximité
-                immédiate du métro Chartreux (M1). Nous accueillons régulièrement des patients adressés ou venus de
+                Mon cabinet est situé au <strong>23 Boulevard de la Fédération, Marseille 4ème</strong>, à proximité
+                immédiate du métro Chartreux (M1). J'accueille régulièrement des patients adressés ou venus de
                 toute la métropole et de la région PACA pour des soins parodontaux.
               </p>
               <div className="grid md:grid-cols-3 gap-6">
@@ -363,7 +363,7 @@ const Parodontie = () => {
           {/* Cross-links */}
           <section className="py-12 bg-muted/30" aria-labelledby="crosslinks-title">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 id="crosslinks-title" className="text-2xl font-bold mb-6 text-center">{page?.crosslinksTitre ?? "Découvrez nos autres spécialités"}</h2>
+              <h2 id="crosslinks-title" className="text-2xl font-bold mb-6 text-center">{page?.crosslinksTitre ?? "Découvrez mes autres spécialités"}</h2>
               <div className="grid md:grid-cols-1 md:grid-cols-3 gap-6">
                 <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                   <h3 className="font-semibold text-lg mb-2">Implantologie</h3>

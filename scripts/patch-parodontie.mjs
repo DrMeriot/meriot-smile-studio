@@ -107,7 +107,7 @@ const content = {
     {
       step: `1`,
       title: `Un diagnostic complet pour bien vous accompagner`,
-      desc: `Avant tout traitement, nous réalisons un examen précis de vos gencives et de l'os autour des dents. Cela comprend :`,
+      desc: `Avant tout traitement, je réalise un examen précis de vos gencives et de l'os autour des dents. Cela comprend :`,
       items: [`un examen clinique détaillé,`, `la mesure des poches parodontales,`, `l'évaluation de la mobilité des dents,`, `l'analyse de la plaque et de l'inflammation,`, `et des radiographies.`],
       note: `Ce bilan complet permet de définir un plan de soins personnalisé et sécurisé, adapté à votre situation et à votre confort.`,
     },
@@ -121,7 +121,7 @@ const content = {
     {
       step: `3`,
       title: `Le surfaçage radiculaire : un nettoyage en profondeur`,
-      desc: `Si nécessaire, nous réalisons un surfaçage radiculaire sous anesthésie locale. Ce soin consiste à nettoyer en profondeur sous la gencive pour éliminer les bactéries et le tartre qui se sont accumulés sur les racines des dents.`,
+      desc: `Si nécessaire, je réalise un surfaçage radiculaire sous anesthésie locale. Ce soin consiste à nettoyer en profondeur sous la gencive pour éliminer les bactéries et le tartre qui se sont accumulés sur les racines des dents.`,
       items: [`Indolore (sous anesthésie locale)`, `Réalisé en 2 à 4 séances selon les cas`, `Permet de réduire les poches parodontales`],
       note: ``,
     },
@@ -145,17 +145,17 @@ const content = {
   faqTitre: `Questions fréquentes sur la parodontie`,
   faqList: keyed([
     { question: `Qu'est-ce que la parodontie ?`, answer: `La parodontie est la spécialité dentaire qui traite les maladies des gencives et des tissus de soutien des dents (os alvéolaire, ligament parodontal). Elle prend en charge la gingivite, la parodontite et le déchaussement dentaire.` },
-    { question: `Quelle différence entre un dentiste et un parodontologue ?`, answer: `Un parodontologue est un chirurgien-dentiste qui a suivi une formation approfondie en parodontologie (maladies des gencives) et qui consacre une part importante de son activité au diagnostic et au traitement de ces pathologies. Le Dr Meriot, formée à l'Académie de Parodontologie d'Aix-en-Provence et à l'IFPIO Marseille, exerce comme chirurgien-dentiste spécialisée en parodontie et implantologie.` },
+    { question: `Quelle différence entre un dentiste et un parodontologue ?`, answer: `Un parodontologue est un chirurgien-dentiste qui a suivi une formation approfondie en parodontologie (maladies des gencives) et qui consacre une part importante de son activité au diagnostic et au traitement de ces pathologies. Pour ma part, formée à l'Académie de Parodontologie d'Aix-en-Provence et à l'IFPIO Marseille, j'exerce comme chirurgien-dentiste spécialisée en parodontie et implantologie.` },
     { question: `Quand consulter un spécialiste des gencives à Marseille ?`, answer: `Dès l'apparition de gencives qui saignent au brossage, gonflées, rouges ou douloureuses, en cas de mauvaise haleine persistante, de récession gingivale, de mobilité dentaire ou si votre dentiste traitant vous oriente pour un bilan parodontal. Une consultation précoce permet d'éviter une perte osseuse irréversible.` },
-    { question: `Faut-il une ordonnance pour consulter en parodontie ?`, answer: `Non, vous pouvez prendre rendez-vous directement avec le Dr Meriot, sans ordonnance ni courrier de votre dentiste traitant. La consultation et les soins parodontaux sont accessibles en accès direct, et le cabinet est conventionné Secteur 1.` },
+    { question: `Faut-il une ordonnance pour consulter en parodontie ?`, answer: `Non, vous pouvez prendre rendez-vous directement, sans ordonnance ni courrier de votre dentiste traitant. La consultation et les soins parodontaux sont accessibles en accès direct, et le cabinet est conventionné Secteur 1.` },
     { question: `Comment savoir si j'ai une maladie des gencives ?`, answer: `Les signes d'alerte incluent : gencives qui saignent au brossage, gencives rouges ou gonflées, mauvaise haleine persistante, déchaussement ou mobilité des dents, sensibilité au niveau des collets. Consultez rapidement si vous observez ces symptômes.` },
     { question: `Le traitement parodontal fait-il mal ?`, answer: `Les traitements parodontaux sont réalisés sous anesthésie locale pour garantir votre confort. Le surfaçage radiculaire est indolore pendant l'intervention. Une légère sensibilité peut persister quelques jours après, facilement soulagée par des antalgiques.` },
-    { question: `Combien coûte un traitement parodontal à Marseille ?`, answer: `Le coût varie selon la sévérité de la maladie. Le Dr Meriot est conventionnée secteur 1, garantissant des tarifs maîtrisés. Un devis détaillé vous est remis après le bilan parodontal initial.` },
+    { question: `Combien coûte un traitement parodontal à Marseille ?`, answer: `Le coût varie selon la sévérité de la maladie. Le cabinet est conventionné secteur 1, ce qui garantit des tarifs maîtrisés. Un devis détaillé vous est remis après le bilan parodontal initial.` },
     { question: `La parodontite est-elle réversible ?`, answer: `La gingivite est totalement réversible avec un traitement adapté. La parodontite entraîne une perte osseuse irréversible, mais le traitement permet de stopper l'évolution de la maladie, de préserver les dents et de retrouver des gencives saines.` },
   ]),
 
   // ── Cross-links + CTA ──
-  crosslinksTitre: `Découvrez nos autres spécialités`,
+  crosslinksTitre: `Découvrez mes autres spécialités`,
   ctaTitre: `Prenez soin de vos gencives`,
   ctaTexte: `N'attendez pas que les symptômes s'aggravent. Plus le diagnostic est précoce, plus le traitement est simple et efficace.`,
 }
