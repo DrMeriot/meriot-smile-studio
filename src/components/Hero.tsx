@@ -68,7 +68,7 @@ const Hero = () => {
           </div>
 
           <p className="mt-6 text-sm text-muted-foreground">
-            Consultez nos spécialités :{" "}
+            Consultez mes spécialités :{" "}
             <Link to="/parodontie" className="text-primary font-medium hover:underline">
               parodontie
             </Link>

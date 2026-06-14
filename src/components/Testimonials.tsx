@@ -6,7 +6,7 @@ const Testimonials = () => {
   const { data: accueil } = useSanityPage("accueil");
 
   const testimonials = accueil?.temoignages ?? [];
-  const titre = accueil?.temoignagesTitle ?? "Ils nous font confiance";
+  const titre = accueil?.temoignagesTitle ?? "Ils me font confiance";
 
   // Aucun témoignage réel disponible : on n'affiche pas la section
   // (pas de faux avis pour respecter la conformité YMYL santé).

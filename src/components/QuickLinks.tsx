@@ -14,8 +14,8 @@ const QuickLinks = () => {
   // On ignore volontairement accueil?.specialites pour éviter qu'une entrée CMS
   // résiduelle (ex: "Esthétique dentaire") ne réapparaisse sur l'accueil.
   const items = defaultSpecialties;
-  const label = accueil?.quicklinksLabel ?? "✨ Découvrez nos spécialités";
-  const titre = accueil?.quicklinksTitle ?? "Accès direct à nos expertises";
+  const label = accueil?.quicklinksLabel ?? "✨ Découvrez mes spécialités";
+  const titre = accueil?.quicklinksTitle ?? "Accès direct à mes expertises";
 
   return (
     <section className="py-16 bg-gradient-to-b from-background to-muted/30 -mt-12">

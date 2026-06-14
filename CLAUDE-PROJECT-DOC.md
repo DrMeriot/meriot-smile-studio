@@ -656,7 +656,7 @@ commencée par une session antérieure, **incomplète**) :
 | ✅ 2 | ~~Lancer patchs Sanity (parodontie + global-nap) + build + commit/push~~ | **FAIT (14 juin 2026)** |
 | ✅ 3 | ~~Finir refonte spoke **gingivite** + faire **déchaussement**~~ | **FAIT (14 juin)** — voix « je », auto-diagnostic, FAQ spécialiste E-E-A-T, titles raccourcis, patchs Sanity appliqués (gingivite rev `xsSQgeoVafjQU53fmvYI2S`, déchaussement rev `xsSQgeoVafjQU53fmvYIDO`), schéma déployé. PR séparée. |
 | ✅ 4 | ~~**Webhook Sanity → Vercel Deploy Hook**~~ | **DÉJÀ EN PLACE depuis le 26 avril** (vérifié 14 juin) |
-| 🟠 5 | Harmoniser voix « je » sur **accueil** + **about** (parodontie ✅) | contenu |
+| ✅ 5 | ~~Harmoniser voix « je » sur **accueil** + **about**~~ | **FAIT (14 juin)** — /a-propos l'était déjà ; accueil : FAQ/Contact/Services/Hero/QuickLinks/Testimonials passés en « je » (JSX = indexé) + doc Sanity `accueil` patché (rev `2wkVDfxQDLSQPJv8P9cTwU`, anti split-brain). Bio praticienne/philosophie déjà en « je ». |
 | 🟡 6 | Étendre le **pattern loader** aux singletons restants | code |
 | ⚪ 7 | P4 page « explorée non indexée » · P7 confirmer 308 non-www→www | divers |
 
