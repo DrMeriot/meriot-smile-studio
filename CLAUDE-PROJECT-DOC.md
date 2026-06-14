@@ -1,7 +1,7 @@
 # CLAUDE-PROJECT-DOC — Meriot Smile Studio
 
 > Document de référence pour toute session Claude Code sur ce projet.
-> Dernière mise à jour : 2026-06-03 (session SEO conversion-first : P2/P3, voix « je » /parodontie, NAP — section 12 quinquies).
+> Dernière mise à jour : 2026-06-14 (session finalisation conversion-first : P2/P3, NAP, refonte spokes gingivite+déchaussement, voix « je » partout, webhook confirmé — section 12 sexies).
 
 ---
 
@@ -659,6 +659,43 @@ commencée par une session antérieure, **incomplète**) :
 | ✅ 5 | ~~Harmoniser voix « je » sur **accueil** + **about**~~ | **FAIT (14 juin)** — /a-propos l'était déjà ; accueil : FAQ/Contact/Services/Hero/QuickLinks/Testimonials passés en « je » (JSX = indexé) + doc Sanity `accueil` patché (rev `2wkVDfxQDLSQPJv8P9cTwU`, anti split-brain). Bio praticienne/philosophie déjà en « je ». |
 | 🟡 6 | Étendre le **pattern loader** aux singletons restants | code |
 | ⚪ 7 | P4 page « explorée non indexée » · P7 confirmer 308 non-www→www | divers |
+
+---
+
+## 12 sexies. ✅ Session 14 juin 2026 — exécution du reliquat conversion-first (P2/P3, NAP, spokes, voix « je »)
+
+> Session de finalisation : tout le plan « conversion-first / local » réalisable sans
+> Dr Meriot a été exécuté, vérifié en prod et mergé. 3 PR livrées + 1 PR docs.
+
+### Livré (mergé sur `main`, déployé et vérifié en prod)
+- **PR #6** (`aad9f0c`) — lot **P2/P3/voix-je-parodontie/NAP** : 301 `/parodontie/temoignages`
+  → `/parodontie` (308 confirmé prod), title+meta `/a-propos` (50 car.), voix « je » JSX
+  /parodontie, normalisation NAP. Patchs Sanity parodontie + global étaient des **no-ops**
+  (contenu déjà appliqué les 3-4 juin ; revs `OSMPQ20…` / `gk7s2Qw…`).
+- **PR #7** (`bbadb37`) — refonte **spokes gingivite + déchaussement** (conversion-first/local) :
+  bloc auto-diagnostic (champs `diagnostic*` déployés), voix « je », FAQ spécialiste E-E-A-T,
+  coût parodontal honnête, titles 76→62 / 64 car., maillage hub. Patchs Sanity golden :
+  gingivite rev `xsSQgeoVafjQU53fmvYI2S`, déchaussement rev `xsSQgeoVafjQU53fmvYIDO`.
+- **PR #8** (`f2cea6a`) — voix « je » **accueil** : composants FAQ/Contact/Services/Hero/
+  QuickLinks/Testimonials (JSX = indexé) + doc Sanity `accueil` patché anti split-brain
+  (rev `2wkVDfxQDLSQPJv8P9cTwU`). `/a-propos` était déjà en « je ».
+
+### Découvertes / corrections de doc
+- **Webhook Sanity → Vercel : déjà en place depuis le 26 avril** (la doc le listait à tort comme
+  à faire). Hook « Vercel rebuild », triggers create/update/delete, `includeDrafts:false`,
+  POST deploy hook `prj_5SyJ3JDctJNDgXCnknPKhyaFJGhV/qRHbpwFUkP`, livraisons 201. Rien à brancher.
+- Gestion des hooks via l'API Sanity = token **admin** requis (le token Editor `.env.local` → 401) ;
+  la session CLI `sanity` connectée (compte DrMeriot) a les droits. Token CLI : `sanity debug --secrets`.
+- Voix « je » : **TERMINÉE** sur tout le parcours (hub + 3 spokes + about + accueil).
+
+### 🎯 Next steps restants (priorité conversion-first / local)
+| Prio | Action | Nature |
+|---|---|---|
+| 🔴 1 | **GBP** : récupérer la fiche (23 Bd de la Fédération) + lancer la **collecte d'avis** | hors-code (Dr Meriot) — **plus gros levier non activé** |
+| 🟡 2 | Étendre le **pattern loader** (« Sanity golden ») aux singletons restants (accueil, services, tarifs, about, contact, implantologie, mentions, confidentialité) | code |
+| ⚪ 3 | P4 : identifier + étoffer la page « explorée, non indexée » (GSC) | contenu |
+| ⚪ 4 | P7 : confirmer le 308 non-www → www (Vercel Domains) | hygiène |
+| ⚪ 5 | Mesure conversions (clics Doctolib/tel) si le trafic grossit — Vercel Pro / Plausible / GA4+bannière | analytics |
 
 ---
 
