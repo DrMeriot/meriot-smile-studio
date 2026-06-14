@@ -16,11 +16,25 @@ import MedicalSchema from "@/components/MedicalSchema";
 
 const defaultFAQs = [
   { question: "La gingivite est-elle grave ?", answer: "La gingivite est une inflammation réversible des gencives. Sans traitement, elle peut évoluer en parodontite, une maladie plus grave qui entraîne la perte de l'os de soutien des dents. C'est pourquoi il est important de la traiter dès les premiers signes." },
-  { question: "Comment soigner une gingivite à Marseille ?", answer: "Le traitement commence par un détartrage professionnel au cabinet, suivi de conseils d'hygiène personnalisés. Le Dr Meriot réalise un bilan complet de vos gencives et adapte le traitement à votre situation. Prenez rendez-vous pour un diagnostic." },
+  { question: "Comment soigner une gingivite à Marseille ?", answer: "Le traitement commence par un détartrage professionnel au cabinet, suivi de conseils d'hygiène personnalisés. Je réalise un bilan complet de vos gencives et j'adapte le traitement à votre situation. Fidèle à la dentisterie à minima, je privilégie le geste le plus doux. Prenez rendez-vous pour un diagnostic." },
   { question: "Combien de temps dure le traitement d'une gingivite ?", answer: "Avec un traitement adapté et une bonne hygiène bucco-dentaire, la gingivite peut guérir en 2 à 3 semaines. Un suivi régulier est recommandé pour prévenir les récidives." },
   { question: "Quels sont les premiers signes de la gingivite ?", answer: "Les premiers signes sont des gencives qui saignent au brossage, des gencives rouges ou gonflées, et parfois une mauvaise haleine. Si vous observez ces symptômes, consultez rapidement." },
   { question: "La gingivite peut-elle revenir après traitement ?", answer: "Oui, sans une hygiène bucco-dentaire rigoureuse et des visites régulières chez le dentiste, la gingivite peut récidiver. Un suivi parodontal tous les 3 à 6 mois est recommandé." },
+  { question: "Quel spécialiste consulter pour une gingivite à Marseille ?", answer: "Un parodontologue, chirurgien-dentiste spécialisé dans les maladies des gencives. Diplômée de la Faculté d'odontologie de Marseille et formée en parodontologie (IFPIO Marseille, Académie de paro d'Aix-en-Provence), je prends en charge la gingivite à mon cabinet de Marseille 4e. Vous pouvez me consulter directement, sans ordonnance." },
 ];
+
+const defaultDiagnostic = {
+  titre: "Vos gencives sont enflammées : faut-il consulter ?",
+  intro: "Une gencive légèrement irritée après un brossage appuyé peut rentrer dans l'ordre en quelques jours. Mais si l'inflammation persiste ou s'accompagne d'autres signes, c'est souvent une gingivite — qui se soigne d'autant plus simplement qu'on la prend tôt. Quelques signes qui méritent l'avis d'un parodontologue :",
+  signes: [
+    "Gencives rouges ou gonflées depuis plus de 2 semaines",
+    "Saignements au brossage ou au fil dentaire",
+    "Mauvaise haleine persistante",
+    "Gencives sensibles ou douloureuses au toucher",
+    "Gencives qui commencent à se rétracter",
+  ],
+  conclusion: "Bonne nouvelle : prise tôt, la gingivite est totalement réversible — un détartrage et de bons gestes d'hygiène suffisent le plus souvent. Fidèle à ma philosophie de dentisterie à minima, je vous accompagne à votre rythme pour préserver vos tissus naturels, sans sur-traitement.",
+};
 
 const defaultCauses = [
   { title: "Plaque dentaire", desc: "L'accumulation de bactéries sur les dents et le long de la gencive est la cause principale de la gingivite." },
@@ -57,6 +71,10 @@ const GingiviteMarseille = () => {
   const faqs = page?.faqList ?? defaultFAQs;
   const causes = page?.causesList ?? defaultCauses;
   const symptomes = page?.symptomesList ?? defaultSymptomes;
+  const diagTitre = page?.diagnosticTitre ?? defaultDiagnostic.titre;
+  const diagIntro = page?.diagnosticIntro ?? defaultDiagnostic.intro;
+  const diagSignes = page?.diagnosticSignes ?? defaultDiagnostic.signes;
+  const diagConclusion = page?.diagnosticConclusion ?? defaultDiagnostic.conclusion;
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -100,8 +118,36 @@ const GingiviteMarseille = () => {
                     {page?.heroTitle ?? "Traitement de la gingivite à Marseille"}
                   </h1>
                   <p className="text-xl text-muted-foreground leading-relaxed">
-                    {page?.heroSubtitle ?? "Vos gencives saignent, sont rouges ou gonflées ? La gingivite est une inflammation fréquente et réversible. Au cabinet du Dr Meriot, nous diagnostiquons et traitons la gingivite pour préserver la santé de vos gencives."}
+                    {page?.heroSubtitle ?? "Vos gencives saignent, sont rouges ou gonflées ? La gingivite est une inflammation fréquente et réversible quand on agit tôt. Spécialiste en parodontie à Marseille, je diagnostique la cause et, fidèle à la dentisterie à minima, je privilégie les soins les plus doux pour préserver vos gencives et vos dents."}
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Auto-diagnostic — faut-il consulter ? */}
+            <section className="py-16 bg-accent/5" aria-labelledby="diagnostic-title">
+              <div className="container mx-auto px-4 max-w-3xl">
+                <div className="bg-card rounded-2xl p-8 shadow-soft border border-accent/20">
+                  <h2 id="diagnostic-title" className="text-2xl md:text-3xl font-bold mb-4 flex items-start gap-3">
+                    <AlertCircle className="h-7 w-7 text-accent flex-shrink-0 mt-1" />
+                    <span>{diagTitre}</span>
+                  </h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">{diagIntro}</p>
+                  <ul className="space-y-3 mb-6">
+                    {diagSignes.map((s: string, i: number) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="text-accent mt-1 flex-shrink-0">•</span>
+                        <span className="text-muted-foreground">{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">{diagConclusion}</p>
+                  <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">
+                      <Calendar className="h-5 w-5" />
+                      Prendre rendez-vous
+                    </Button>
+                  </a>
                 </div>
               </div>
             </section>
@@ -172,7 +218,7 @@ const GingiviteMarseille = () => {
                 </h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    {page?.traitementTexte ?? "Le traitement de la gingivite repose sur un détartrage professionnel complet réalisé au cabinet, associé à des conseils d'hygiène bucco-dentaire personnalisés. Le Dr Meriot évalue l'état de vos gencives et adapte le plan de soin à votre situation. Dans la plupart des cas, une seule séance de détartrage et l'adoption d'une bonne routine de brossage suffisent à retrouver des gencives saines en quelques semaines. Un suivi régulier est recommandé pour prévenir toute récidive."}
+                    {page?.traitementTexte ?? "Le traitement de la gingivite repose sur un détartrage professionnel complet réalisé au cabinet, associé à des conseils d'hygiène bucco-dentaire personnalisés. J'évalue l'état de vos gencives et j'adapte le plan de soin à votre situation. Dans la plupart des cas, une seule séance de détartrage et l'adoption d'une bonne routine de brossage suffisent à retrouver des gencives saines en quelques semaines. Fidèle à la dentisterie à minima, je privilégie toujours le geste le moins invasif, et un suivi régulier prévient les récidives."}
                   </p>
                 </div>
               </div>
@@ -216,14 +262,18 @@ const GingiviteMarseille = () => {
             <section className="py-12">
               <div className="container mx-auto px-4 max-w-4xl">
                 <h2 className="text-2xl font-bold mb-6 text-center">En savoir plus</h2>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid md:grid-cols-3 gap-6">
                   <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
-                    <h3 className="font-semibold text-lg mb-2">Parodontie</h3>
-                    <p className="text-muted-foreground text-sm">Découvrez notre expertise en parodontie : diagnostic, traitements et suivi.</p>
+                    <h3 className="font-semibold text-lg mb-2">Parodontologue à Marseille</h3>
+                    <p className="text-muted-foreground text-sm">Mon expertise des maladies des gencives : diagnostic, traitement et suivi.</p>
                   </Link>
                   <Link to="/gencives-qui-saignent" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
                     <h3 className="font-semibold text-lg mb-2">Gencives qui saignent</h3>
                     <p className="text-muted-foreground text-sm">Que faire quand vos gencives saignent ? Causes, solutions et quand consulter.</p>
+                  </Link>
+                  <Link to="/dechaussement-dentaire-marseille" className="bg-card rounded-xl p-6 shadow-soft hover:shadow-md transition-shadow">
+                    <h3 className="font-semibold text-lg mb-2">Déchaussement dentaire</h3>
+                    <p className="text-muted-foreground text-sm">Dents qui se déchaussent : causes, traitement et prévention à Marseille.</p>
                   </Link>
                 </div>
               </div>
