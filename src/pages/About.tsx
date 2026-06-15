@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Link } from "react-router-dom";
 import { GraduationCap, Award, BookOpen, Globe, Heart, Users, Shield } from "lucide-react";
 import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
 import SEOHead from "@/components/SEOHead";
@@ -79,6 +80,13 @@ const About = () => {
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed">
                     {page?.heroDescription ?? "Mon approche repose sur l'écoute, la douceur et le respect du rythme de chaque patient."}
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed mt-4">
+                    En tant que{" "}
+                    <Link to="/parodontie" className="text-primary font-semibold hover:underline">
+                      parodontologue à Marseille
+                    </Link>
+                    , je traite les maladies des gencives — gingivite, parodontite et déchaussement dentaire.
                   </p>
                 </div>
                 <div className="relative">

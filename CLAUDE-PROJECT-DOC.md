@@ -1,7 +1,7 @@
 # CLAUDE-PROJECT-DOC — Meriot Smile Studio
 
 > Document de référence pour toute session Claude Code sur ce projet.
-> Dernière mise à jour : 2026-06-14 (session finalisation conversion-first : P2/P3, NAP, refonte spokes gingivite+déchaussement, voix « je » partout, webhook confirmé — section 12 sexies).
+> Dernière mise à jour : 2026-06-15 (audit 360° + hygiène code + cas fréquents + maillage/netlinking — section 12 septies ; 3 PR ouvertes #10/#11/#12, email validation Dr Meriot, `NETLINKING-KIT.md`).
 
 ---
 
@@ -696,6 +696,67 @@ commencée par une session antérieure, **incomplète**) :
 | ⚪ 3 | P4 : identifier + étoffer la page « explorée, non indexée » (GSC) | contenu |
 | ⚪ 4 | P7 : confirmer le 308 non-www → www (Vercel Domains) | hygiène |
 | ⚪ 5 | Mesure conversions (clics Doctolib/tel) si le trafic grossit — Vercel Pro / Plausible / GA4+bannière | analytics |
+
+---
+
+## 12 septies. 🔬 Session 15 juin 2026 — audit 360° + hygiène code + cas fréquents + maillage/netlinking
+
+> Audit 360° multi-agents (read-only, phase 1) puis exécution. **3 PR ouvertes** (non mergées),
+> 1 email de validation médicale préparé pour Dr Meriot, 1 kit netlinking.
+
+### 🔎 Audit 360° (diagnostic, read-only)
+8 dimensions (SEO local/technique/AEO, contenu/YMYL, perf/a11y, code/sécu, CRO) + concurrence live,
+chaque finding critique/high **vérifié de façon adversariale**. Conclusions clés :
+- Site **techniquement sain** (~7,5/10) : meta/Hn/canonical/sitemap OK, 0 lien 404, NAP cohérente.
+- **Le frein n°1 est HORS code** : GBP + **avis Google** quasi inexistants (~quelques avis vs 30-142
+  chez les concurrents paro). Aucun clic non-marque sur 634 imp / 3 mois.
+- **Garde-fou** : `/gencives-qui-saignent` (250 imp, pos 49) **n'est PAS un manque de contenu** (toutes
+  les sous-intentions sont couvertes) → ne pas réécrire ; le frein est l'autorité + la cannibalisation.
+- Concurrents nommés : Mattout/GEPI (E-E-A-T fort), Dr Audrey Moreau/endo-paro.fr (rival direct, cert
+  TLS cassé), Margossian (4,8★ 60+ avis), Tourrolier (généralistes, pages template), CIPE (~59 avis),
+  Tholozan (occupe l'angle « douceur »).
+
+### ✅ PR #10 — `chore/code-hygiene` (code only, effet immédiat au merge)
+Dead code `landing_page` (CSR-only, 0 doc, jamais SSG) supprimé ; `npm audit fix` (14→2 vulns,
+critique react-router-dom corrigée ; reste = esbuild/vite **dev-only**) ; lint 22 erreurs → 0 ;
+meta geo alignée sur le schéma (43.3047/5.3964) ; champ `logo` (→ /logo.png **404**) retiré du schéma ;
+faux badge « 5/5 étoiles » (Hero) → « DU de Parodontologie » (YMYL/Ordre) ; a11y (bouton menu) ;
+classe morte `font-playfair` ; `.gitignore .env*.local` + `.env.local.example` token non-VITE.
+⚠️ Schéma Studio `landing_page` **laissé en place** (référencé `sanity.config.ts:84` → retrait =
+`sanity deploy`, hors scope no-deploy).
+
+### ✅ PR #11 — `feat/seo-cas-frequents` (contenu, **mise en ligne GATED**)
+Intentions « cas fréquents » à forte conversion, en **parité filet JSX + script patch Sanity** :
+- `/gencives` : grossesse enrichie (crochet honnête « examen prénatal 100 % dès le 4e mois ») + FAQ fumeur.
+- `/dechaussement` : cause hormonale (ménopause) + 4 FAQ (dent qui bouge, repousse post-surfaçage, fumeur, ménopause) + FAQ post-orthodontie.
+- `/parodontie` : FAQ diabète + sync de la FAQ « facteurs de risque » (était dans le filet, absente du
+  doc Sanity = non indexée) + **FAQ coût reformulée** (honnêteté remboursement, correctif YMYL).
+- ⚠️ **Pages loader-câblées** → le contenu n'arrive en PROD qu'après `node scripts/patch-gencives.mjs`,
+  `patch-dechaussement.mjs`, `patch-parodontie.mjs` (rebuild via webhook). **À lancer après validation
+  de Dr Meriot** (email préparé).
+
+### ✅ PR #12 — `feat/seo-maillage-citations` (maillage + kit + doc)
+- **Cannibalisation `/a-propos` vs `/parodontie`** (audit : `/a-propos` pos 7,9 vole « parodontologue
+  marseille » à `/parodontie` pos 16) → ancres internes **exact-match « Parodontologue à Marseille »**
+  ajoutées depuis `/a-propos`, le Footer (sitewide) et QuickLinks (accueil). Les 3 spokes l'utilisaient déjà.
+- **`NETLINKING-KIT.md`** (racine) : NAP normalisé, checklist GBP, citations Tier 1-2, partenaires locaux
+  Tier 3 (gynéco→grossesse, diabéto→diabète, tabaco→fumeur, ortho→post-ortho) + modèle de message, règles
+  Ordre/white-hat.
+
+### 📧 Validation médicale (Dr Meriot)
+Email préparé (relecture/validation) couvrant les 10 blocs de contenu (PR #10 badge + PR #11). Points à
+confirmer par elle : intitulé exact du **diplôme**, **examen prénatal 100 %**, formulation **tabac/greffe**,
+reformulation **coût paro**, mention **diabète/médecin**. **Mise en ligne du contenu = après son retour.**
+
+### 🎯 Next steps
+| Prio | Action | Nature |
+|---|---|---|
+| 🔴 1 | **GBP + avis** (cf. `NETLINKING-KIT.md`) — toujours le plus gros levier | hors-code (Dr Meriot/Guillaume) |
+| 🔴 2 | **Valider le contenu avec Dr Meriot** puis lancer les 3 patchs Sanity + merger #11 | contenu |
+| 🟠 3 | Merger #10 (hygiène) et #12 (maillage) | code |
+| 🟡 4 | Perf images (~3 Mo de PNG sur l'accueil → webp + dimensions) — non fait | code |
+| 🟡 5 | Contraste WCAG AA (palette « douce » sous 4.5:1) — **à valider visuellement** avant de toucher | a11y/design |
+| ⚪ 6 | En-têtes de sécurité (`vercel.json`), schéma `LocalBusiness` multi-pages, page « non indexée » | divers |
 
 ---
 
