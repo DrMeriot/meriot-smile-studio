@@ -705,6 +705,9 @@ commencée par une session antérieure, **incomplète**) :
 > 1 email de validation médicale préparé pour Dr Meriot, 1 kit netlinking.
 
 ### 🔎 Audit 360° (diagnostic, read-only)
+**📄 Rapport complet durable : `AUDIT-360-2026-06.md`** (racine) — 55 findings calibrés par dimension
+(A→L), statut (✅ fait / ⏸️ gated / ⏳ à faire / 🔵 hors-code / ⏭️ écarté), tableau intent→page, matrice
+concurrentielle + plan de dépassement, **backlog priorisé**. C'est la référence pour reprendre les chantiers.
 8 dimensions (SEO local/technique/AEO, contenu/YMYL, perf/a11y, code/sécu, CRO) + concurrence live,
 chaque finding critique/high **vérifié de façon adversariale**. Conclusions clés :
 - Site **techniquement sain** (~7,5/10) : meta/Hn/canonical/sitemap OK, 0 lien 404, NAP cohérente.
