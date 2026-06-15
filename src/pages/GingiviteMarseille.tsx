@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { PortableText } from "@portabletext/react";
-import { useGlobalSettings, useSanityPage, useLandingPage } from "@/hooks/useSanityContent";
+import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
 import { useSeedSanity } from "@/hooks/useSeedSanity";
-import { portableTextComponents } from "@/lib/portableTextComponents";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -65,7 +63,6 @@ const GingiviteMarseille = () => {
 
   const { data: global } = useGlobalSettings();
   const { data: page } = useSanityPage("gingivite_marseille");
-  const { data: landing } = useLandingPage<{ body?: unknown[] }>("gingivite-marseille");
 
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const faqs = page?.faqList ?? defaultFAQs;
@@ -166,15 +163,6 @@ const GingiviteMarseille = () => {
                 </p>
               </div>
             </section>
-
-            {/* PortableText body (optionnel, depuis Sanity landing_page) */}
-            {Array.isArray(landing?.body) && landing!.body!.length > 0 && (
-              <section className="py-12">
-                <div className="container mx-auto px-4 max-w-4xl prose prose-lg">
-                  <PortableText value={landing!.body as never} components={portableTextComponents} />
-                </div>
-              </section>
-            )}
 
             {/* Causes */}
             <section className="py-20 bg-muted/30" aria-labelledby="causes-title">

@@ -25,7 +25,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2">
-            <h3 className="text-lg font-playfair font-semibold mb-4">{nom}</h3>
+            <h3 className="text-lg font-semibold mb-4">{nom}</h3>
             <p className="text-dental-soft-blue text-sm mb-4">
               Chirurgien-dentiste spécialisée en parodontie et implantologie
             </p>
@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-playfair font-semibold mb-4">Parodontie</h3>
+            <h3 className="text-lg font-semibold mb-4">Parodontie</h3>
             <ul className="space-y-2 text-sm">
               {[
                 { to: "/parodontie", label: "Soins des gencives" },
@@ -69,7 +69,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-playfair font-semibold mb-4 flex items-center">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
               <Clock className="w-4 h-4 mr-2" />
               Horaires
             </h3>
@@ -86,7 +86,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-playfair font-semibold mb-4">Cabinet</h3>
+            <h3 className="text-lg font-semibold mb-4">Cabinet</h3>
             <ul className="space-y-2 text-sm">
               {[
                 { to: "/implantologie", label: "Implantologie" },

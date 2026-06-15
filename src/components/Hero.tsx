@@ -89,7 +89,7 @@ const Hero = () => {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
-            {["Métro Chartreux (M1)", "⭐⭐⭐⭐⭐ 5/5 étoiles", "🇫🇷 🇬🇧 🇪🇸 Trilingue"].map((f, i) => (
+            {["Métro Chartreux (M1)", "DU de Parodontologie", "🇫🇷 🇬🇧 🇪🇸 Trilingue"].map((f, i) => (
               <div key={i} className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
                 <span>{f}</span>
