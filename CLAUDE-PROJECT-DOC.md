@@ -744,9 +744,11 @@ Intentions « cas fréquents » à forte conversion, en **parité filet JSX + sc
   Ordre/white-hat.
 
 ### 📧 Validation médicale (Dr Meriot)
-Email préparé (relecture/validation) couvrant les 10 blocs de contenu (PR #10 badge + PR #11). Points à
-confirmer par elle : intitulé exact du **diplôme**, **examen prénatal 100 %**, formulation **tabac/greffe**,
-reformulation **coût paro**, mention **diabète/médecin**. **Mise en ligne du contenu = après son retour.**
+Email prêt à envoyer : **`EMAIL-VALIDATION-DR-MERIOT.md`** (racine) — intro « pourquoi » + 10 blocs de
+contenu (PR #10 badge + PR #11). Points à confirmer par elle : intitulé exact du **diplôme**, **examen
+prénatal 100 %**, formulation **tabac/greffe**, reformulation **coût paro**, mention **diabète/médecin**.
+**Mise en ligne du contenu = après son retour** ; toute correction se répercute dans le script de patch
+Sanity **ET** le filet JSX (parité).
 
 ### 🎯 Next steps
 | Prio | Action | Nature |
