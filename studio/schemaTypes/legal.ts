@@ -10,6 +10,7 @@ export default defineType({
     defineField({ name: 'diplomesList', title: 'Diplômes', type: 'array', of: [{ type: 'string' }] }),
     defineField({ name: 'conditionsTexte', title: 'Conditions générales', type: 'text', rows: 6 }),
     defineField({ name: 'hebergeur', title: 'Hébergeur', type: 'string' }),
+    defineField({ name: 'body', title: 'Contenu (texte riche)', type: 'array', of: [{ type: 'block' }] }),
     defineField({ name: 'seoTitle', title: 'SEO - Title', type: 'string' }),
     defineField({ name: 'seoDescription', title: 'SEO - Description', type: 'text', rows: 2 }),
   ],

@@ -18,6 +18,17 @@ export default defineType({
         { name: 'desc', title: 'Description', type: 'text', rows: 2 },
       ], preview: { select: { title: 'title' } } }]
     }),
+    defineField({ name: 'approcheTitre', title: 'Approche - Titre', type: 'string' }),
+    defineField({ name: 'approcheTexte', title: 'Approche - Texte (simple)', type: 'text', rows: 8 }),
+    defineField({ name: 'approcheBody', title: 'Approche - Contenu (texte riche)', type: 'array', of: [{ type: 'block' }] }),
+    defineField({ name: 'zonesTitre', title: 'Zone d\'intervention - Titre', type: 'string' }),
+    defineField({
+      name: 'zonesList', title: 'Zone d\'intervention - Cartes', type: 'array',
+      of: [{ type: 'object', fields: [
+        { name: 'titre', title: 'Titre', type: 'string' },
+        { name: 'description', title: 'Description', type: 'text', rows: 3 },
+      ], preview: { select: { title: 'titre' } } }]
+    }),
     defineField({ name: 'maladiesTitre', title: 'Maladies - Titre', type: 'string' }),
     defineField({ name: 'maladiesIntro', title: 'Maladies - Intro', type: 'text', rows: 3 }),
     defineField({ name: 'gingiviteTitre', title: 'Gingivite - Titre', type: 'string' }),

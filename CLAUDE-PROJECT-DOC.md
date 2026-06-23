@@ -790,3 +790,71 @@ images Sanity.
   installé sous Windows — non bloquant pour la prod.)
 - **Déploiement prod = push sur `main`** (Vercel rebuild auto). Rappel : un push sur
   une branche feature ne déclenche qu'un déploiement *preview*, pas la production.
+
+### Session 23 juin 2026 (soir) — Refonte « À propos », SEO en prod, workflow déploiement, audit contenu éditable
+
+Grosse session. Récap de tout ce qui a été fait + état d'avancement + prochaines étapes.
+
+#### 1. Refonte de la page « À propos » (`/a-propos`) — LIVRÉ
+Nouvelle structure (haut → bas) : **Équipe** → **Dr Stéphanie Meriot** → Pourquoi me
+faire confiance → Philosophie + citation → **Dr Patrick Mateo** (2e praticien) →
+**Claire (assistante)**.
+- `studio/schemaTypes/about.ts` — champs ajoutés : `equipePhoto`, `equipeDescription`,
+  `meriotPhoto`, `mateoNom`, `mateoPhoto`, `mateoDescription`, `claireNom`,
+  `clairePhoto`, `claireDescription`.
+- `src/pages/About.tsx` réécrit avec ces sections. Pattern : photos via `urlFor()` +
+  **fallback asset** ; textes via `?? défaut`.
+- Photos optimisées dans `src/assets/` : `equipe.jpg`, `a-propos.jpg`, `patrick.jpg`,
+  `claire.jpg` (sources HD dans `/Photos`).
+- Studio redéployé (`npx sanity deploy`) → les nouveaux champs sont visibles sur
+  meriot-dentiste.sanity.studio. **Textes à remplir par le client** (vides = défauts
+  neutres affichés). Rappel : photos = fallback code, champ Studio vide = normal.
+
+#### 2. SEO rapatrié sur `main` — LIVRÉ
+Du travail SEO était resté bloqué sur la branche `feat/seo-maillage-citations`, jamais
+passé en prod. Rapatrié chirurgicalement sur `main` (sans conflit) :
+- `vercel.json` : 4 redirections **301** + **en-têtes de sécurité** (HSTS,
+  X-Content-Type-Options, X-Frame-Options, Referrer-Policy).
+- `Footer.tsx` + `QuickLinks.tsx` : ancre exact-match « Parodontologue à Marseille » → `/parodontie`.
+- `About.tsx` : lien de maillage réinjecté dans la nouvelle page.
+- ⚠️ **Reste à faire** : les docs SEO `AUDIT-360-2026-06.md`, `NETLINKING-KIT.md`,
+  `EMAIL-VALIDATION-DR-MERIOT.md` n'ont PAS pu être rapatriés (échec d'écriture OneDrive,
+  fichiers fantômes) — à refaire (non bloquant, ce sont des notes).
+
+#### 3. Workflow de déploiement consolidé — LIVRÉ
+Cause des bugs à répétition : branches divergentes (`main` vs `feat/seo-maillage-citations`).
+**Décision : tout se passe sur `main`.**
+- **`deploy.bat`** = SEUL script de déploiement (checkout main → add -A → commit → push origin main → Vercel).
+- **`deploy-studio.bat`** = `npx sanity deploy` (publie les nouveaux champs de schéma dans le Studio en ligne — à lancer après toute modif de schéma).
+- Anciens scripts à supprimer : `deploy-photos.bat`, `deploy-to-prod.bat`, `deploy-apropos.bat`, `pousser-main.bat`, `restaurer-photos.bat`.
+- ⚠️ **Contrainte d'env** : OneDrive verrouille `.git` (corruption d'index récurrente) et
+  provoque des races d'écriture sur certains fichiers/dossiers (ex. `Photos/`). Toujours
+  écrire via script + **vérifier** que le contenu a bien persisté (re-grep), réessayer sinon.
+
+#### 4. Audit « contenu hardcodé non éditable » — FAIT, implémentation EN ATTENTE
+Audit complet de 100% des pages/composants. La majorité des pages spécialités sont déjà
+bien câblées (le « défaut » dans le code n'est qu'un fallback). Vrais trous identifiés
+(contenu sans aucun champ Sanity).
+- **Périmètre validé avec le client** : « contenu réel » (on laisse les micro-labels de
+  design : badges, accroches, 404). **Pages légales = un seul champ texte riche (Portable Text)** par page.
+- **Plan en 4 lots** (à implémenter) :
+  - **Lot 1 — Accueil** : `components/Services.tsx` (5 cartes, 100% statique, à câbler à `accueil`),
+    points forts praticien (`defaultHighlights` → champ `praticienHighlights`),
+    `QuickLinks.tsx` (cartes spécialités/focus + champs cassés `quicklinksLabel`/`quicklinksTitle` à créer).
+    Note : `components/About.tsx` = **code mort** (non importé), à ignorer.
+  - **Lot 2 — Contact** (`components/Contact.tsx`) : `accueil.zones` (~60 villes), `global.horaires`,
+    `global.maps_url`/`maps_embed_url`, liste accès (métro/bus/parking), titres/intro. Champs lus mais
+    absents des schémas aujourd'hui.
+  - **Lot 3 — Pages légales** : champ `body` Portable Text sur `confidentialite.ts` et `legal.ts`,
+    rendu via `@portabletext/react` + `src/lib/portableTextComponents.tsx` (déjà existant), fallback = JSX actuel.
+  - **Lot 4 — Blog / Tarifs / Parodontie** : nouveau singleton `blog_page` (titre/CTA index + bio auteur/CTA
+    article — plumbing : config + structure + index + query + hook) ; labels Tarifs ; **Parodontie** section
+    « Mon approche » + « zone d'intervention » (texte riche, contient du gras → Portable Text).
+- **Principe d'implémentation (zéro casse)** : chaque texte codé en dur devient
+  `page?.champ ?? texte_actuel`. Le site reste identique tant que le Studio n'est pas rempli.
+
+#### ▶️ Prochaines étapes (reprise demain)
+1. Implémenter les Lots 1 → 4 ci-dessus (commencer par Lot 1).
+2. `npx tsc --noEmit -p tsconfig.app.json` pour valider (ignorer le bruit pré-existant TS1127/TS17008/TS1005 lié aux emojis/encodage ; le build réel = Vite, pas tsc).
+3. Déployer : **`deploy.bat`** (site) + **`deploy-studio.bat`** (nouveaux champs dans le Studio).
+4. Optionnel : rapatrier les 3 docs SEO restées sur la branche feature ; supprimer les anciens scripts .bat.

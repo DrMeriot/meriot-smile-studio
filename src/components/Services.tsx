@@ -7,6 +7,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import paroLogo from "@/assets/paro-logo.png";
 import implantoLogo from "@/assets/implanto-logo.png";
+import { useSanityPage } from "@/hooks/useSanityContent";
 
 type ServiceItem = {
   icon?: React.ComponentType<{ className?: string }>;
@@ -74,6 +75,22 @@ const services: ServiceItem[] = [
 ];
 
 const Services = () => {
+  const { data: accueil } = useSanityPage("accueil");
+
+  const heading = accueil?.servicesTitre ?? "Des soins adaptés à vos besoins";
+  const intro = accueil?.servicesIntro ?? "Du simple détartrage à la pose d'implants, je vous accompagne avec expertise et bienveillance dans tous vos soins dentaires.";
+
+  // Cartes services : fallback sur le tableau hardcodé (avec icônes/couleurs par index).
+  const cmsServices = accueil?.servicesList as Array<{ titre?: string; description?: string; lien?: string }> | undefined;
+  const items: ServiceItem[] = (cmsServices && cmsServices.length > 0)
+    ? cmsServices.map((s, i) => ({
+        ...services[i % services.length],
+        title: s.titre ?? services[i % services.length].title,
+        description: s.description ?? services[i % services.length].description,
+        href: s.lien ?? services[i % services.length].href,
+      }))
+    : services;
+
   return (
     <section className="py-20" id="services">
       <div className="container mx-auto px-4">
@@ -83,17 +100,16 @@ const Services = () => {
             Mes prestations
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Des soins adaptés à vos besoins
+            {heading}
           </h2>
           <p className="text-lg text-muted-foreground">
-            Du simple détartrage à la pose d'implants, je vous accompagne avec
-            expertise et bienveillance dans tous vos soins dentaires.
+            {intro}
           </p>
         </div>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {services.map((service, index) => {
+        {items.map((service, index) => {
             const Icon = service.icon;
             return (
               <Card

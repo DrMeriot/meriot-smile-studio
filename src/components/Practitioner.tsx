@@ -22,6 +22,9 @@ const Practitioner = () => {
   const parcours = accueil?.praticienParcours ?? "Ma thèse sur la dentisterie à minima reflète ma philosophie : préserver au maximum vos tissus naturels tout en vous offrant des soins de qualité. Chaque traitement est personnalisé et expliqué avec clarté.";
   const citation = accueil?.praticienCitation ?? "Je prends le temps d'expliquer chaque étape de vos soins, pour que vous vous sentiez en confiance et acteur de votre santé bucco-dentaire.";
 
+  // Points forts (4 cartes) — accepte les deux formes (CMS: titre/description ; defaut: title/desc)
+  const highlights = accueil?.praticienHighlights ?? defaultHighlights;
+
   return (
     <section className="pt-6 pb-20 bg-muted/30 relative overflow-hidden" id="a-propos">
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -57,16 +60,18 @@ const Practitioner = () => {
               </p>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                {defaultHighlights.map((h, i) => {
-                  const Icon = h.icon;
+                {highlights.map((h: { title?: string; titre?: string; desc?: string; description?: string }, i: number) => {
+                  const Icon = defaultHighlights[i]?.icon ?? defaultHighlights[0].icon;
+                  const color = defaultHighlights[i]?.color ?? defaultHighlights[0].color;
+                  const iconColor = defaultHighlights[i]?.iconColor ?? defaultHighlights[0].iconColor;
                   return (
                     <div key={i} className="flex items-start gap-3">
-                      <div className={`p-2 ${h.color} rounded-lg`}>
-                        <Icon className={`h-5 w-5 ${h.iconColor}`} />
+                      <div className={`p-2 ${color} rounded-lg`}>
+                        <Icon className={`h-5 w-5 ${iconColor}`} />
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-1">{h.title}</h4>
-                        <p className="text-sm text-muted-foreground">{h.desc}</p>
+                        <h4 className="font-semibold mb-1">{h.titre ?? h.title}</h4>
+                        <p className="text-sm text-muted-foreground">{h.description ?? h.desc}</p>
                       </div>
                     </div>
                   );

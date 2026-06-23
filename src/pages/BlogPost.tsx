@@ -9,7 +9,7 @@ import RelatedParodontieLinks from "@/components/RelatedParodontieLinks";
 import { Calendar, Tag, ArrowLeft } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import { portableTextComponents } from "@/lib/portableTextComponents";
-import { useGlobalSettings, useBlogPost } from "@/hooks/useSanityContent";
+import { useGlobalSettings, useBlogPost, useSanityPage } from "@/hooks/useSanityContent";
 
 // ---------------------------------------------------------------------------
 // FAQ extraction from PortableText body.
@@ -110,6 +110,7 @@ export const extractFAQFromPortableText = (
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: global } = useGlobalSettings();
+  const { data: blogPage } = useSanityPage("blog_page");
 
   // SSG: the route loader (src/App.tsx) prefetches the article from Sanity at
   // build time. We seed it into React Query BEFORE useBlogPost runs so that
@@ -130,6 +131,10 @@ const BlogPost = () => {
   const tel = global?.phone ?? "09 83 43 96 21";
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
   const doctolibUrl = global?.doctolib ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+
+  const auteurBio = blogPage?.auteurBio ?? "est chirurgien-dentiste spécialisée en parodontologie et implantologie à Marseille 4ème.";
+  const articleCtaTitre = blogPage?.articleCtaTitre ?? "Besoin d'un Rendez-vous ?";
+  const articleCtaTexte = blogPage?.articleCtaTexte ?? "Prenez rendez-vous pour un bilan personnalisé";
 
   // Sanity post. Schema fields are flat:
   //   body / publishedAt / seoTitle / seoDescription / mainImage.
@@ -306,7 +311,7 @@ const BlogPost = () => {
               <div className="bg-muted/50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-foreground mb-3">À propos de l'auteur</h3>
                 <p className="text-muted-foreground mb-4">
-                  <strong className="text-foreground">Dr Stéphanie Meriot</strong> est chirurgien-dentiste spécialisée en parodontologie et implantologie à Marseille 4ème.
+                  <strong className="text-foreground">Dr Stéphanie Meriot</strong> {auteurBio}
                 </p>
                 <Link to="/a-propos" className="inline-flex items-center text-primary font-medium hover:underline">
                   En savoir plus sur le Dr Meriot <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -315,8 +320,8 @@ const BlogPost = () => {
             </footer>
 
             <section className="mt-12 bg-primary/5 rounded-2xl p-8 text-center animate-fade-in" style={{ animationDelay: '300ms' }}>
-              <h2 className="text-2xl font-bold text-foreground mb-4">Besoin d'un Rendez-vous ?</h2>
-              <p className="text-muted-foreground mb-6">Prenez rendez-vous pour un bilan personnalisé</p>
+              <h2 className="text-2xl font-bold text-foreground mb-4">{articleCtaTitre}</h2>
+              <p className="text-muted-foreground mb-6">{articleCtaTexte}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href={doctolibUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors">Prendre RDV en Ligne</a>
                 <a href={telHref} className="inline-flex items-center justify-center px-8 py-3 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-colors">Appeler le {tel}</a>

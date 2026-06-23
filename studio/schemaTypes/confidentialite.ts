@@ -7,6 +7,7 @@ export default defineType({
   fields: [
     defineField({ name: 'titre', title: 'Titre de la page', type: 'string' }),
     defineField({ name: 'introTexte', title: 'Texte d\'introduction', type: 'text', rows: 5 }),
+    defineField({ name: 'body', title: 'Contenu (texte riche)', type: 'array', of: [{ type: 'block' }] }),
     defineField({ name: 'seoTitle', title: 'SEO - Title', type: 'string' }),
     defineField({ name: 'seoDescription', title: 'SEO - Description', type: 'text', rows: 2 }),
   ],

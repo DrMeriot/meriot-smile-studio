@@ -8,14 +8,26 @@ const defaultSpecialties = [
   { title: "Implantologie", description: "Remplacement durable de vos dents manquantes", href: "/implantologie" },
 ];
 
+const defaultFocus = [
+  { to: "/gingivite-marseille", title: "Gingivite", desc: "Gencives rouges, gonflées, qui saignent" },
+  { to: "/dechaussement-dentaire-marseille", title: "Déchaussement", desc: "Racines exposées, mobilité dentaire" },
+  { to: "/gencives-qui-saignent", title: "Gencives qui saignent", desc: "Saignements au brossage : agir tôt" },
+];
+
 const QuickLinks = () => {
   const { data: accueil } = useSanityPage("accueil");
   // Spécialités mises en avant : Parodontie + Implantologie uniquement.
   // On ignore volontairement accueil?.specialites pour éviter qu'une entrée CMS
   // résiduelle (ex: "Esthétique dentaire") ne réapparaisse sur l'accueil.
-  const items = defaultSpecialties;
+  const cmsSpecs = accueil?.quicklinksSpecialites as Array<{ titre?: string; description?: string; lien?: string }> | undefined;
+  const items: Array<{ title?: string; titre?: string; description?: string; href?: string; lien?: string }> =
+    (cmsSpecs && cmsSpecs.length > 0) ? cmsSpecs : defaultSpecialties;
   const label = accueil?.quicklinksLabel ?? "✨ Découvrez mes spécialités";
   const titre = accueil?.quicklinksTitle ?? "Accès direct à mes expertises";
+
+  const cmsFocus = accueil?.quicklinksFocus as Array<{ titre?: string; description?: string; lien?: string }> | undefined;
+  const focus: Array<{ to?: string; lien?: string; title?: string; titre?: string; desc?: string; description?: string }> =
+    (cmsFocus && cmsFocus.length > 0) ? cmsFocus : defaultFocus;
 
   return (
     <section className="py-16 bg-gradient-to-b from-background to-muted/30 -mt-12">
@@ -30,10 +42,10 @@ const QuickLinks = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {items.map((specialty: { title?: string; titre?: string; description?: string; href?: string }, index: number) => (
+          {items.map((specialty: { title?: string; titre?: string; description?: string; href?: string; lien?: string }, index: number) => (
             <Link
               key={index}
-              to={specialty.href ?? "/services"}
+              to={specialty.lien ?? specialty.href ?? "/services"}
               className="group block transform transition-all duration-300 hover:scale-105"
             >
               <div
@@ -70,22 +82,18 @@ const QuickLinks = () => {
             <div className="h-px bg-border w-32"></div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {[
-              { to: "/gingivite-marseille", title: "Gingivite", desc: "Gencives rouges, gonflées, qui saignent" },
-              { to: "/dechaussement-dentaire-marseille", title: "Déchaussement", desc: "Racines exposées, mobilité dentaire" },
-              { to: "/gencives-qui-saignent", title: "Gencives qui saignent", desc: "Saignements au brossage : agir tôt" },
-            ].map((sub) => (
+            {focus.map((sub: { to?: string; lien?: string; title?: string; titre?: string; desc?: string; description?: string }, i: number) => (
               <Link
-                key={sub.to}
-                to={sub.to}
+                key={sub.to ?? sub.lien ?? i}
+                to={sub.lien ?? sub.to ?? "/parodontie"}
                 className="group bg-card rounded-2xl p-5 border border-border hover:border-primary/50 hover:shadow-medium transition-all"
               >
                 <div className="flex items-center justify-between gap-2">
                   <div>
                     <h4 className="font-semibold text-base mb-1 group-hover:text-primary transition-colors">
-                      {sub.title}
+                      {sub.titre ?? sub.title}
                     </h4>
-                    <p className="text-xs text-muted-foreground leading-snug">{sub.desc}</p>
+                    <p className="text-xs text-muted-foreground leading-snug">{sub.description ?? sub.desc}</p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
                 </div>

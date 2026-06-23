@@ -12,6 +12,7 @@ import gingivite_marseille from './gingivite_marseille'
 import dechaussement_dentaire from './dechaussement_dentaire'
 import gencives_qui_saignent from './gencives_qui_saignent'
 import blog_post from './blog_post'
+import blog_page from './blog_page'
 import landing_page from './landing_page'
 
 export const schemaTypes = [
@@ -29,5 +30,6 @@ export const schemaTypes = [
   legal,
   confidentialite,
   blog_post,
+  blog_page,
   landing_page,
 ]

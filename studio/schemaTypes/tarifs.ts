@@ -10,6 +10,8 @@ export default defineType({
     defineField({ name: 'secteurTitre', title: 'Secteur - Titre', type: 'string' }),
     defineField({ name: 'secteurItems', title: 'Secteur - Items', type: 'array', of: [{ type: 'string' }] }),
     defineField({ name: 'tarifsTitre', title: 'Tarifs - Titre section', type: 'string' }),
+    defineField({ name: 'soinsCourantsLabel', title: 'Tarifs - Label Soins courants', type: 'string' }),
+    defineField({ name: 'soinsSpecialisesLabel', title: 'Tarifs - Label Soins spécialisés', type: 'string' }),
     defineField({ name: 'consultation', title: 'Tarif - Consultation', type: 'string' }),
     defineField({ name: 'implant', title: 'Tarif - Implant', type: 'string' }),
     defineField({ name: 'blanchiment', title: 'Tarif - Blanchiment', type: 'string' }),

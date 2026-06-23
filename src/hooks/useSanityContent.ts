@@ -11,6 +11,7 @@ import {
   servicesPageQuery,
   legalQuery,
   blogPostsQuery,
+  blogPageQuery,
   blogPostBySlugQuery,
   landingPageBySlugQuery,
   contactQuery,
@@ -92,6 +93,7 @@ const queryMap: Record<string, string> = {
   gingivite_marseille: gingiviteMarseilleQuery,
   dechaussement_dentaire: dechaussementDentaireQuery,
   gencives_qui_saignent: gencivesQuiSaignentQuery,
+  blog_page: blogPageQuery,
 };
 
 export function useGlobalSettings<T = SanityData>() {

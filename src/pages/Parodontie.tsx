@@ -14,6 +14,8 @@ import FAQSchema from "@/components/FAQSchema";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema";
 import MedicalSchema from "@/components/MedicalSchema";
 import HowToSchema from "@/components/HowToSchema";
+import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "@/lib/portableTextComponents";
 
 const defaultFAQs = [
   { question: "Qu'est-ce que la parodontie ?", answer: "La parodontie est la spécialité dentaire qui traite les maladies des gencives et des tissus de soutien des dents (os alvéolaire, ligament parodontal). Elle prend en charge la gingivite, la parodontite et le déchaussement dentaire." },
@@ -80,6 +82,9 @@ const Parodontie = () => {
   const gingiviteItems = page?.gingiviteItems ?? defaultGingiviteItems;
   const parodontiteItems = page?.parodontiteItems ?? defaultParodontiteItems;
   const traitements = page?.traitementsList ?? defaultTraitements;
+  const approcheTitre = page?.approcheTitre ?? "Mon approche : un parodontologue de confiance à Marseille";
+  const zonesTitre = page?.zonesTitre ?? "Ma zone d'intervention en parodontie";
+  const cmsZones = page?.zonesList as Array<{ titre?: string; description?: string }> | undefined;
   const seoTitle = page?.seoTitle ?? "Parodontie Marseille — Spécialiste des gencives | Dr Meriot";
   const seoDesc = page?.seoDescription ?? `Dr Meriot, chirurgien-dentiste spécialiste des gencives à Marseille 4ème. Traitement gingivite, parodontite, déchaussement, greffe gingivale. PACA. ☎ ${tel}`;
 
@@ -163,9 +168,17 @@ const Parodontie = () => {
           <section className="py-20 bg-muted/30" aria-labelledby="approche-title">
             <div className="container mx-auto px-4 max-w-4xl">
               <h2 id="approche-title" className="text-3xl md:text-4xl font-bold mb-8 text-center">
-                Mon approche : un parodontologue de confiance à Marseille
+                {approcheTitre}
               </h2>
               <div className="prose prose-lg max-w-none">
+                {Array.isArray(page?.approcheBody) && page.approcheBody.length > 0 ? (
+                  <PortableText value={page.approcheBody} components={portableTextComponents} />
+                ) : page?.approcheTexte ? (
+                  (page.approcheTexte as string).split(/\n\n+/).map((para: string, i: number) => (
+                    <p key={i} className="text-muted-foreground leading-relaxed mb-6 whitespace-pre-line">{para}</p>
+                  ))
+                ) : (
+                  <>
                 <p className="text-muted-foreground leading-relaxed mb-6">
                   J'ai fait de la santé des gencives l'un des piliers de mon exercice. Diplômée de la Faculté
                   d'Odontologie de Marseille et formée à l'<strong>Académie de Parodontologie d'Aix-en-Provence</strong>
@@ -184,6 +197,8 @@ const Parodontie = () => {
                   Le cabinet est <strong>conventionné Secteur 1</strong>, accepte la Carte Vitale et le tiers payant.
                   Vous pouvez me consulter directement, sans courrier ni ordonnance.
                 </p>
+                  </>
+                )}
               </div>
             </div>
           </section>
@@ -192,13 +207,23 @@ const Parodontie = () => {
           <section className="py-16" aria-labelledby="zone-title">
             <div className="container mx-auto px-4 max-w-5xl">
               <h2 id="zone-title" className="text-3xl md:text-4xl font-bold mb-6 text-center">
-                Ma zone d'intervention en parodontie
+                {zonesTitre}
               </h2>
               <p className="text-lg text-muted-foreground text-center max-w-3xl mx-auto mb-10">
                 Mon cabinet est situé au <strong>23 Boulevard de la Fédération, Marseille 4ème</strong>, à proximité
                 immédiate du métro Chartreux (M1). J'accueille régulièrement des patients adressés ou venus de
                 toute la métropole et de la région PACA pour des soins parodontaux.
               </p>
+              {cmsZones && cmsZones.length > 0 ? (
+                <div className="grid md:grid-cols-3 gap-6">
+                  {cmsZones.map((z: { titre?: string; description?: string }, i: number) => (
+                    <div key={i} className="bg-card rounded-2xl p-6 shadow-soft border border-border/50">
+                      <h3 className="font-semibold text-lg mb-3 text-primary">{z.titre}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">{z.description}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-card rounded-2xl p-6 shadow-soft border border-border/50">
                   <h3 className="font-semibold text-lg mb-3 text-primary">Marseille intra-muros</h3>
@@ -223,6 +248,7 @@ const Parodontie = () => {
                   </p>
                 </div>
               </div>
+              )}
             </div>
           </section>
           <section className="py-20 bg-muted/30" aria-labelledby="symptomes-title">
@@ -394,19 +420,4 @@ const Parodontie = () => {
                 {page?.ctaTexte ?? "N'attendez pas que les symptômes s'aggravent. Plus le diagnostic est précoce, plus le traitement est simple et efficace."}
               </p>
               <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">
-                  <Calendar className="h-5 w-5" />
-                  Prendre rendez-vous
-                </Button>
-              </a>
-            </div>
-          </section>
-          </article>
-        </main>
-        <Footer />
-      </div>
-    </>
-  );
-};
-
-export default Parodontie;
+                <Button size="lg" className="gap-2 bg-primary ho

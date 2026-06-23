@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
+import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "@/lib/portableTextComponents";
 
 const Confidentialite = () => {
   const { data: global } = useGlobalSettings();
@@ -12,6 +14,7 @@ const Confidentialite = () => {
   const adresse = global?.adresse ?? "23 Boulevard de la Fédération, 13004 Marseille";
   const seoTitle = page?.seoTitle ?? "Politique de Confidentialité RGPD | Dr Stéphanie Meriot Marseille";
   const seoDesc = page?.seoDescription ?? "Politique de confidentialité et protection des données personnelles (RGPD) du cabinet dentaire Dr Stéphanie Meriot à Marseille 4ème.";
+  const hasBody = Array.isArray(page?.body) && page.body.length > 0;
 
   return (
     <>
@@ -29,6 +32,10 @@ const Confidentialite = () => {
             </h1>
 
             <div className="prose prose-lg max-w-none space-y-8">
+              {hasBody ? (
+                <PortableText value={page.body} components={portableTextComponents} />
+              ) : (
+              <>
               <p className="text-muted-foreground">
                 {page?.introTexte ?? `Le ${nom} accorde une grande importance à la protection de vos données personnelles. Cette politique vous informe sur la collecte, l'utilisation et la protection de vos données conformément au Règlement Général sur la Protection des Données (RGPD).`}
               </p>
@@ -221,6 +228,8 @@ const Confidentialite = () => {
               <p className="text-sm text-muted-foreground mt-8">
                 Dernière mise à jour : {new Date().toLocaleDateString("fr-FR")}
               </p>
+              </>
+              )}
             </div>
           </div>
         </main>

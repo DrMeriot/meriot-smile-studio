@@ -27,6 +27,8 @@ const Tarifs = () => {
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
   const consultation = page?.consultation ?? "23€";
   const implant = page?.implant ?? "950€";
+  const soinsCourantsLabel = page?.soinsCourantsLabel ?? "Soins courants";
+  const soinsSpecialisesLabel = page?.soinsSpecialisesLabel ?? "Soins spécialisés";
   
   const secteurItems = page?.secteurItems ?? defaultSecteurItems;
   const remboursements = page?.remboursementsList ?? defaultRemboursements;
@@ -86,7 +88,7 @@ const Tarifs = () => {
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.tarifsTitre ?? "Tarifs indicatifs"}</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <Card className="shadow-soft">
-                  <CardHeader className="pb-4"><CardTitle className="flex items-center gap-2"><CreditCard className="h-5 w-5 text-primary" />Soins courants</CardTitle></CardHeader>
+                  <CardHeader className="pb-4"><CardTitle className="flex items-center gap-2"><CreditCard className="h-5 w-5 text-primary" />{soinsCourantsLabel}</CardTitle></CardHeader>
                   <CardContent>
                     <div className="bg-muted/50 rounded-xl p-4">
                       <div className="flex justify-between items-center">
@@ -97,7 +99,7 @@ const Tarifs = () => {
                   </CardContent>
                 </Card>
                 <Card className="shadow-soft">
-                  <CardHeader className="pb-4"><CardTitle className="flex items-center gap-2"><Heart className="h-5 w-5 text-accent" />Soins spécialisés</CardTitle></CardHeader>
+                  <CardHeader className="pb-4"><CardTitle className="flex items-center gap-2"><Heart className="h-5 w-5 text-accent" />{soinsSpecialisesLabel}</CardTitle></CardHeader>
                   <CardContent className="space-y-4">
                     <div className="border-b border-border pb-4">
                       <h4 className="font-semibold text-accent mb-1">Parodontie</h4>

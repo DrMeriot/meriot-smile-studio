@@ -4,7 +4,12 @@ import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import SEOHead from "@/components/SEOHead";
 import { Calendar, Tag } from "lucide-react";
-import { useGlobalSettings, useBlogPosts } from "@/hooks/useSanityContent";
+import { useGlobalSettings, useBlogPosts, useSanityPage } from "@/hooks/useSanityContent";
+
+const defaultSpecialites = [
+  { titre: "Parodontie", description: "Traitement des gencives par le Dr Meriot.", lien: "/parodontie" },
+  { titre: "Implantologie", description: "Pose d'implants dentaires durables.", lien: "/implantologie" },
+];
 
 const Blog = () => {
   // Sanity blog posts. Fields are flat: publishedAt, mainImage{asset,alt}.
@@ -29,10 +34,18 @@ const Blog = () => {
 
   const { data: global } = useGlobalSettings();
   const { data: sanityPosts } = useBlogPosts<SanityPost>();
+  const { data: blogPage } = useSanityPage("blog_page");
 
   const tel = global?.phone ?? "09 83 43 96 21";
   const telHref = `tel:${tel.replace(/\s/g, "")}`;
   const doctolibUrl = global?.doctolib ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
+
+  const heroTitre = blogPage?.heroTitre ?? "Blog & Conseils Dentaires";
+  const heroSubtitle = blogPage?.heroSubtitle ?? "Découvrez nos articles sur la parodontie, l'implantologie et la santé bucco-dentaire.";
+  const ctaTitre = blogPage?.ctaTitre ?? "Une Question sur Votre Santé Dentaire ?";
+  const ctaTexte = blogPage?.ctaTexte ?? "Le Dr Stéphanie Meriot est à votre écoute.";
+  const cmsSpecs = blogPage?.specialitesList as Array<{ titre?: string; description?: string; lien?: string }> | undefined;
+  const specialites = (cmsSpecs && cmsSpecs.length > 0) ? cmsSpecs : defaultSpecialites;
 
   const posts: CardPost[] = (sanityPosts ?? []).map((p) => ({
     slug: typeof p.slug === "string" ? p.slug : p.slug?.current,
@@ -58,9 +71,9 @@ const Blog = () => {
 
         <main className="container mx-auto px-4 py-16 mt-20">
           <section className="text-center mb-16 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Blog & Conseils Dentaires</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{heroTitre}</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Découvrez nos articles sur la parodontie, l'implantologie et la santé bucco-dentaire.
+              {heroSubtitle}
             </p>
           </section>
 
@@ -107,14 +120,18 @@ const Blog = () => {
           <section className="mb-16">
             <h2 className="text-2xl font-bold text-foreground mb-6">Nos spécialités</h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <Link to="/parodontie" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border"><h3 className="font-semibold text-lg mb-2 text-primary">Parodontie</h3><p className="text-muted-foreground text-sm">Traitement des gencives par le Dr Meriot.</p></Link>
-              <Link to="/implantologie" className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border"><h3 className="font-semibold text-lg mb-2 text-primary">Implantologie</h3><p className="text-muted-foreground text-sm">Pose d'implants dentaires durables.</p></Link>
+              {specialites.map((s: { titre?: string; title?: string; description?: string; lien?: string; href?: string }, i: number) => (
+                <Link key={i} to={s.lien ?? s.href ?? "/services"} className="bg-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border">
+                  <h3 className="font-semibold text-lg mb-2 text-primary">{s.titre ?? s.title}</h3>
+                  <p className="text-muted-foreground text-sm">{s.description}</p>
+                </Link>
+              ))}
             </div>
           </section>
 
           <section className="bg-primary/5 rounded-2xl p-8 md:p-12 text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Une Question sur Votre Santé Dentaire ?</h2>
-            <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">Le Dr Stéphanie Meriot est à votre écoute.</p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{ctaTitre}</h2>
+            <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">{ctaTexte}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href={doctolibUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors">Prendre RDV en Ligne</a>
               <a href={telHref} className="inline-flex items-center justify-center px-8 py-3 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-secondary/90 transition-colors">Appeler le {tel}</a>

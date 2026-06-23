@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
+import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "@/lib/portableTextComponents";
 
 const defaultDiplomes = [
   "Docteur en chirurgie dentaire - Faculté d'odontologie de Marseille",
@@ -22,6 +24,7 @@ const MentionsLegales = () => {
   const hebergeur = page?.hebergeur ?? "Lovable.dev";
   const seoTitle = page?.seoTitle ?? `Mentions Légales | Cabinet Dentaire ${nom} Marseille`;
   const seoDesc = page?.seoDescription ?? `Mentions légales du cabinet dentaire ${nom}. RPPS, Ordre des Chirurgiens-Dentistes, secteur 1 conventionné, Marseille 4ème.`;
+  const hasBody = Array.isArray(page?.body) && page.body.length > 0;
 
   return (
     <>
@@ -37,6 +40,10 @@ const MentionsLegales = () => {
             <h1 className="text-4xl font-bold mb-8">{page?.titre ?? "Mentions légales"}</h1>
 
             <div className="prose prose-lg max-w-none space-y-8">
+              {hasBody ? (
+                <PortableText value={page.body} components={portableTextComponents} />
+              ) : (
+              <>
               <section>
                 <h2 className="text-2xl font-semibold mb-4">Éditeur du site</h2>
                 <p>
@@ -93,6 +100,8 @@ const MentionsLegales = () => {
                 <h2 className="text-2xl font-semibold mb-4">Données personnelles</h2>
                 <p>Consultez notre <a href="/confidentialite" className="text-primary hover:underline">Politique de confidentialité</a>.</p>
               </section>
+              </>
+              )}
             </div>
           </div>
         </main>

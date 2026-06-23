@@ -18,6 +18,7 @@ const singletonTypes = new Set([
   'contact',
   'legal',
   'confidentialite',
+  'blog_page',
 ])
 
 // Helper: singleton list item pointing to one specific document
@@ -71,6 +72,7 @@ export default defineConfig({
             singleton(S, 'contact', 'Contact'),
             singleton(S, 'legal', 'Mentions legales'),
             singleton(S, 'confidentialite', 'Confidentialite'),
+            singleton(S, 'blog_page', 'Page Blog', 'blog_page'),
 
             S.divider(),
 

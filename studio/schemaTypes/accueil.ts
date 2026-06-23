@@ -67,5 +67,101 @@ export default defineType({
         ],
       }],
     }),
+
+    // Praticienne — Points forts (4 cartes)
+    defineField({
+      name: 'praticienHighlights',
+      title: 'Praticienne — Points forts (4 cartes)',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'titre', title: 'Titre', type: 'string' }),
+          defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
+        ],
+        preview: { select: { title: 'titre' } },
+      }],
+    }),
+
+    // Services (section accueil)
+    defineField({ name: 'servicesTitre', title: 'Services — Titre', type: 'string' }),
+    defineField({ name: 'servicesIntro', title: 'Services — Intro', type: 'text', rows: 3 }),
+    defineField({
+      name: 'servicesList',
+      title: 'Services — Cartes',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'titre', title: 'Titre', type: 'string' }),
+          defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+          defineField({ name: 'lien', title: 'Lien (URL interne)', type: 'string' }),
+        ],
+        preview: { select: { title: 'titre' } },
+      }],
+    }),
+
+    // QuickLinks (accès direct aux expertises)
+    defineField({ name: 'quicklinksLabel', title: 'QuickLinks — Label (eyebrow)', type: 'string' }),
+    defineField({ name: 'quicklinksTitle', title: 'QuickLinks — Titre', type: 'string' }),
+    defineField({
+      name: 'quicklinksSpecialites',
+      title: 'QuickLinks — Spécialités (2 cartes)',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'titre', title: 'Titre', type: 'string' }),
+          defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
+          defineField({ name: 'lien', title: 'Lien (URL interne)', type: 'string' }),
+        ],
+        preview: { select: { title: 'titre' } },
+      }],
+    }),
+    defineField({
+      name: 'quicklinksFocus',
+      title: 'QuickLinks — Focus (3 sous-cartes)',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'titre', title: 'Titre', type: 'string' }),
+          defineField({ name: 'description', title: 'Description', type: 'text', rows: 2 }),
+          defineField({ name: 'lien', title: 'Lien (URL interne)', type: 'string' }),
+        ],
+        preview: { select: { title: 'titre' } },
+      }],
+    }),
+
+    // Contact (section accueil)
+    defineField({ name: 'contactTitre', title: 'Contact — Titre', type: 'string' }),
+    defineField({ name: 'contactIntro', title: 'Contact — Intro', type: 'text', rows: 3 }),
+    defineField({
+      name: 'zones',
+      title: 'Contact — Zones d\'intervention',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'region', title: 'Région / Secteur', type: 'string' }),
+          defineField({ name: 'villes', title: 'Villes (une par ligne)', type: 'text', rows: 4 }),
+        ],
+        preview: { select: { title: 'region' } },
+      }],
+    }),
+    defineField({
+      name: 'accesList',
+      title: 'Contact — Accès (liste)',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'item', title: 'Item', type: 'string' }),
+        ],
+        preview: { select: { title: 'item' } },
+      }],
+    }),
+    defineField({ name: 'zonesTitre', title: 'Contact — Zones : Titre', type: 'string' }),
+    defineField({ name: 'zonesTexte', title: 'Contact — Zones : Texte', type: 'text', rows: 3 }),
   ],
 })

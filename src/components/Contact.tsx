@@ -23,6 +23,13 @@ const defaultHoraires = [
   { jour: "Sam-Dim", val: "Fermé" },
 ];
 
+const defaultAcces = [
+  "Métro : Chartreux (ligne M1)",
+  "Bus : Saint Just Ivaldi (42T)",
+  "Parking public à proximité",
+  "Entrée accessible PMR",
+];
+
 const Contact = () => {
   const { data: global } = useGlobalSettings();
   const { data: accueil } = useSanityPage("accueil");
@@ -34,6 +41,11 @@ const Contact = () => {
   const mapsEmbed = global?.maps_embed_url ?? "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2903.8!2d5.3947!3d43.3117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9c0c2e5f5f5f5%3A0x5f5f5f5f5f5f5f5f!2s23%20Boulevard%20de%20la%20F%C3%A9d%C3%A9ration%2C%2013004%20Marseille!5e0!3m2!1sfr!2sfr!4v1234567890";
   const doctolibUrl = global?.doctolib ?? global?.doctolib_url ?? "https://www.doctolib.fr/dentiste/marseille/stephanie-meriot";
 
+  const contactTitre = accueil?.contactTitre ?? "Prenez rendez-vous facilement";
+  const contactIntro = accueil?.contactIntro ?? "Situé à Marseille 4ème, près du métro Chartreux, mon cabinet est facilement accessible.";
+  const zonesTitre = accueil?.zonesTitre ?? "Zone d'intervention";
+  const zonesTexte = accueil?.zonesTexte ?? "J'accueille des patients de Marseille et de toute la région, dans un rayon de 50 km.";
+
   const horaires = global?.horaires
     ? global.horaires.map((h: { jour: string; heures?: string; ferme?: boolean; heures_debut?: string; heures_fin?: string }) => ({
         jour: h.jour,
@@ -41,17 +53,32 @@ const Contact = () => {
       }))
     : defaultHoraires;
 
-  // Flat field from Sanity
-  const zones = accueil?.zones ?? defaultZones;
+  // Accès : CMS accesList ({item}) sinon défaut.
+  const cmsAcces = accueil?.accesList as Array<{ item?: string }> | undefined;
+  const acces: string[] = (cmsAcces && cmsAcces.length > 0)
+    ? cmsAcces.map((a) => a.item ?? "").filter(Boolean)
+    : defaultAcces;
+
+  // Zones : CMS ({region, villes:text multi-lignes}) sinon défaut ({secteur, villes:string[]}).
+  type ZoneCard = { secteur: string; villes: string[] };
+  const cmsZones = accueil?.zones as Array<{ region?: string; secteur?: string; villes?: string | string[] }> | undefined;
+  const zones: ZoneCard[] = (cmsZones && cmsZones.length > 0)
+    ? cmsZones.map((z) => ({
+        secteur: z.region ?? z.secteur ?? "",
+        villes: Array.isArray(z.villes)
+          ? z.villes
+          : (z.villes ?? "").split(/\r?\n/).map((v) => v.trim()).filter(Boolean),
+      }))
+    : defaultZones;
 
   return (
     <section className="py-20 bg-muted/30" id="contact">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <span className="text-primary font-medium text-sm uppercase tracking-wide">Me contacter</span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">Prenez rendez-vous facilement</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6">{contactTitre}</h2>
           <p className="text-lg text-muted-foreground">
-            Situé à Marseille 4ème, près du métro Chartreux, mon cabinet est facilement accessible.
+            {contactIntro}
           </p>
         </div>
 
@@ -119,10 +146,9 @@ const Contact = () => {
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg mb-2">Accès</h3>
                     <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li className="flex items-center gap-2"><span className="w-2 h-2 bg-primary rounded-full"></span>Métro : Chartreux (ligne M1)</li>
-                      <li className="flex items-center gap-2"><span className="w-2 h-2 bg-accent rounded-full"></span>Bus : Saint Just Ivaldi (42T)</li>
-                      <li className="flex items-center gap-2"><span className="w-2 h-2 bg-accent rounded-full"></span>Parking public à proximité</li>
-                      <li className="flex items-center gap-2"><span className="w-2 h-2 bg-primary rounded-full"></span>Entrée accessible PMR</li>
+                      {acces.map((item: string, i: number) => (
+                        <li key={i} className="flex items-center gap-2"><span className={`w-2 h-2 ${i % 2 === 0 ? "bg-primary" : "bg-accent"} rounded-full`}></span>{item}</li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -142,9 +168,9 @@ const Contact = () => {
 
         <div className="mt-16 max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h3 className="text-2xl md:text-3xl font-bold mb-4">Zone d'intervention</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">{zonesTitre}</h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              J'accueille des patients de Marseille et de toute la région, dans un rayon de 50 km.
+              {zonesTexte}
             </p>
           </div>
 

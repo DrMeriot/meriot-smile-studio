@@ -30,6 +30,8 @@ export const gingiviteMarseilleQuery = `*[_type == "gingivite_marseille"][0]`;
 export const dechaussementDentaireQuery = `*[_type == "dechaussement_dentaire"][0]`;
 export const gencivesQuiSaignentQuery = `*[_type == "gencives_qui_saignent"][0]`;
 
+export const blogPageQuery = `*[_type == "blog_page"][0]`;
+
 // Blog
 // NOTE: aligned with the real Sanity `blog_post` schema:
 //  - body (PortableText array) — NOT `content`
