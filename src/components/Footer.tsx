@@ -54,7 +54,7 @@ const Footer = () => {
             <h3 className="text-lg font-playfair font-semibold mb-4">Parodontie</h3>
             <ul className="space-y-2 text-sm">
               {[
-                { to: "/parodontie", label: "Soins des gencives" },
+                { to: "/parodontie", label: "Parodontologue à Marseille" },
                 { to: "/gingivite-marseille", label: "Gingivite Marseille" },
                 { to: "/dechaussement-dentaire-marseille", label: "Déchaussement dentaire" },
                 { to: "/gencives-qui-saignent", label: "Gencives qui saignent" },

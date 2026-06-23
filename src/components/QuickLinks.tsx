@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { useSanityPage } from "@/hooks/useSanityContent";
 
 const defaultSpecialties = [
-  { title: "Parodontie", description: "Soins des gencives et des tissus de soutien des dents", href: "/parodontie" },
+  { title: "Parodontie", description: "Parodontologue à Marseille : soins des gencives et des tissus de soutien des dents", href: "/parodontie" },
   { title: "Implantologie", description: "Remplacement durable de vos dents manquantes", href: "/implantologie" },
 ];
 
