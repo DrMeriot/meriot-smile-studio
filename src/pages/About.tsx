@@ -1,10 +1,14 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { GraduationCap, Award, BookOpen, Globe, Heart, Users, Shield } from "lucide-react";
-import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
+import equipeImg from "@/assets/equipe.jpg";
+import aProposImg from "@/assets/a-propos.jpg";
+import patrickImg from "@/assets/patrick.jpg";
+import claireImg from "@/assets/claire.jpg";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
+import { urlFor } from "@/lib/sanityImage";
 
 const defaultFormations = [
   { title: "Diplôme de chirurgien-dentiste", desc: "Faculté d'odontologie de Marseille" },
@@ -50,7 +54,20 @@ const About = () => {
   const { data: page } = useSanityPage("about");
 
   const nom = global?.nom_praticien ?? "Dr Stéphanie Meriot";
-  const photoSrc = page?.photo || drMeriotPhoto;
+
+  // Photos : éditables via le Studio (urlFor), sinon image du dossier Photos en secours
+  const equipePhoto = page?.equipePhoto ? urlFor(page.equipePhoto).width(1600).url() : equipeImg;
+  const meriotPhoto = page?.meriotPhoto ? urlFor(page.meriotPhoto).width(1100).url() : aProposImg;
+  const mateoPhoto = page?.mateoPhoto ? urlFor(page.mateoPhoto).width(1100).url() : patrickImg;
+  const clairePhoto = page?.clairePhoto ? urlFor(page.clairePhoto).width(1100).url() : claireImg;
+
+  // Textes éditables (valeurs par défaut remplaçables depuis le Studio)
+  const equipeDescription = page?.equipeDescription ?? "Le cabinet réunit deux chirurgiens-dentistes et une équipe attentive, au service de votre santé bucco-dentaire à Marseille 4ème, dans une approche douce, à l'écoute et conservatrice.";
+  const mateoNom = page?.mateoNom ?? "Dr Patrick Mateo";
+  const mateoDescription = page?.mateoDescription ?? "Chirurgien-dentiste au sein du cabinet, le Dr Patrick Mateo met son expertise et son écoute au service de chaque patient.";
+  const claireNom = page?.claireNom ?? "Claire";
+  const claireDescription = page?.claireDescription ?? "Claire accueille et accompagne les patients tout au long de leur parcours de soins, avec attention et bienveillance.";
+
   const formations = page?.formationsList ?? defaultFormations;
   const confiance = page?.confianceList ?? defaultConfiance;
   const philosophie = page?.philosophieList ?? defaultPhilosophie;
@@ -63,33 +80,51 @@ const About = () => {
         title={seoTitle}
         description={seoDesc}
         canonical="/a-propos"
-        keywords="Dr Stéphanie Meriot, dentiste marseille 4, parodontiste marseille, implantologue marseille, IFPIO"
+        keywords="Dr Stéphanie Meriot, Dr Patrick Mateo, dentiste marseille 4, parodontiste marseille, implantologue marseille, IFPIO, équipe cabinet dentaire"
       />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
         <main className="pt-20">
-          <section className="py-20 bg-gradient-soft">
+          {/* ===== Section Équipe ===== */}
+          <section id="equipe" className="py-20 bg-gradient-soft">
+            <div className="container mx-auto px-4 max-w-6xl">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-10 text-center">Notre équipe</h2>
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="relative">
+                  <img src={equipePhoto} alt="L'équipe du cabinet dentaire du Dr Stéphanie Meriot à Marseille 4ème" className="rounded-2xl shadow-medium w-full" />
+                  <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-primary/10 rounded-full -z-10 blur-2xl"></div>
+                </div>
+                <div>
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{equipeDescription}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ===== Section Dr Stéphanie Meriot ===== */}
+          <section id="dr-meriot" className="py-20">
             <div className="container mx-auto px-4">
               <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
                 <div>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">{nom}</h1>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-primary mb-3">Votre praticienne</p>
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">{nom}</h2>
                   <p className="text-xl text-muted-foreground leading-relaxed mb-6">
                     {page?.heroSubtitle ?? "Chirurgien-dentiste à Marseille 4ème, spécialisée en parodontie et implantologie."}
                   </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">
                     {page?.heroDescription ?? "Mon approche repose sur l'écoute, la douceur et le respect du rythme de chaque patient."}
                   </p>
                 </div>
                 <div className="relative">
-                  <img src={photoSrc} alt={`${nom} - Dentiste spécialisée parodontie implantologie Marseille`} className="rounded-2xl shadow-medium w-full" />
+                  <img src={meriotPhoto} alt={`${nom} - Dentiste spécialisée parodontie implantologie Marseille`} className="rounded-2xl shadow-medium w-full" />
                   <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-primary/10 rounded-full -z-10 blur-2xl"></div>
                 </div>
               </div>
             </div>
           </section>
 
-          <section className="py-20">
+          <section className="py-20 bg-muted/20">
             <div className="container mx-auto px-4 max-w-5xl">
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.formationsTitre ?? "Parcours et formations"}</h2>
               <div className="space-y-8">
@@ -107,7 +142,7 @@ const About = () => {
             </div>
           </section>
 
-          <section className="py-20 bg-muted/20">
+          <section className="py-20">
             <div className="container mx-auto px-4 max-w-4xl">
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.confianceTitre ?? "Pourquoi me faire confiance ?"}</h2>
               <div className="grid md:grid-cols-2 gap-6">
@@ -146,6 +181,40 @@ const About = () => {
                 </p>
                 <p className="font-semibold text-primary">— {nom}</p>
               </blockquote>
+            </div>
+          </section>
+
+          {/* ===== Section Dr Patrick Mateo ===== */}
+          <section id="dr-mateo" className="py-20">
+            <div className="container mx-auto px-4">
+              <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                <div className="relative order-1">
+                  <img src={mateoPhoto} alt={`${mateoNom} - Chirurgien-dentiste au cabinet à Marseille 4ème`} className="rounded-2xl shadow-medium w-full" />
+                  <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-accent/10 rounded-full -z-10 blur-2xl"></div>
+                </div>
+                <div className="order-2">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-primary mb-3">Deuxième praticien</p>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">{mateoNom}</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{mateoDescription}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ===== Section Claire (assistante) ===== */}
+          <section id="claire" className="py-20 bg-muted/20">
+            <div className="container mx-auto px-4">
+              <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                <div className="order-2 lg:order-1">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-primary mb-3">Assistante dentaire</p>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">{claireNom}</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed whitespace-pre-line">{claireDescription}</p>
+                </div>
+                <div className="relative order-1 lg:order-2">
+                  <img src={clairePhoto} alt={`${claireNom} - Assistante dentaire au cabinet à Marseille 4ème`} className="rounded-2xl shadow-medium w-full" />
+                  <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-primary/10 rounded-full -z-10 blur-2xl"></div>
+                </div>
+              </div>
             </div>
           </section>
         </main>

@@ -766,3 +766,27 @@ le passage à Sanity comme source unique de contenu. ~5 700 lignes retirées,
 - **`package.json`** : 40 dépendances retirées (tiptap, supabase, react-hook-form, zod,
   react-markdown, recharts, embla, vaul, cmdk, next-themes, date-fns, react-helmet-async, etc.)
 - Vérifs : build SSG 21 pages OK, `tsc --noEmit` exit 0, 46/46 tests OK, lint 0 erreur sur fichiers touchés
+
+### Session photos accueil (23 juin 2026)
+
+Remplacement des deux photos de la page d'accueil et correction du rendu des
+images Sanity.
+
+- **Nouvelles photos** : `src/assets/hero-meriot.jpg` (fond du Hero) et
+  `src/assets/praticienne-meriot.jpg` (section « Votre praticienne »). Sources
+  originales haute résolution conservées dans `/Photos`. Versions web optimisées :
+  1400 px / 138 Ko et 1100 px / 92 Ko (les sources faisaient 3072×4080, jusqu'à 3,3 Mo).
+- **Bug corrigé** — `Hero.tsx` et `Practitioner.tsx` passaient l'objet image Sanity
+  brut à `<img src>` (jamais converti en URL via `urlFor`) → toute photo uploadée
+  dans le Studio ne s'affichait pas. Désormais :
+  `urlFor(accueil.heroImage).width(1400).url()` et
+  `urlFor(accueil.praticienPhoto).width(1100).url()`, avec les nouveaux assets en
+  fallback. Conséquence : les champs `heroImage` / `praticienPhoto` du singleton
+  `accueil` sont enfin pilotables **no-code depuis le Studio**.
+- L'ancien fallback `src/assets/dr-meriot-photo.png` n'est plus référencé par ces
+  deux composants.
+- Vérif : `tsc --noEmit` 0 erreur sur les fichiers touchés. (`npm run build` non
+  testable dans l'env sandbox : binaire natif `rollup` absent car `node_modules`
+  installé sous Windows — non bloquant pour la prod.)
+- **Déploiement prod = push sur `main`** (Vercel rebuild auto). Rappel : un push sur
+  une branche feature ne déclenche qu'un déploiement *preview*, pas la production.
