@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, Phone, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
+import heroMeriot from "@/assets/hero-meriot.jpg";
 import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
+import { urlFor } from "@/lib/sanityImage";
 
 const Hero = () => {
   const { data: global } = useGlobalSettings();
@@ -15,7 +16,7 @@ const Hero = () => {
 
   const titre = accueil?.heroTitle ?? "Votre sourire entre de bonnes mains";
   const sousTitre = accueil?.heroSubtitle ?? "Dr Stéphanie Meriot — Chirurgien-dentiste, spécialiste des gencives à Marseille 4ème. Traitement de la gingivite, parodontite, déchaussement et pose d'implants.";
-  const heroPhoto = accueil?.heroImage ? accueil.heroImage : drMeriotPhoto;
+  const heroPhoto = accueil?.heroImage ? urlFor(accueil.heroImage).width(1400).url() : heroMeriot;
   const ctaTexte = accueil?.heroCtaText ?? "Prendre rendez-vous";
   const ctaUrl = accueil?.heroCtaUrl ?? doctolibUrl;
 

@@ -738,13 +738,20 @@ Intentions « cas fréquents » à forte conversion, en **parité filet JSX + sc
   `patch-dechaussement.mjs`, `patch-parodontie.mjs` (rebuild via webhook). **À lancer après validation
   de Dr Meriot** (email préparé).
 
-### ✅ PR #12 — `feat/seo-maillage-citations` (maillage + kit + doc)
+### ✅ PR #12 — `feat/seo-maillage-citations` (maillage + dédup + sécurité + kit + docs)
 - **Cannibalisation `/a-propos` vs `/parodontie`** (audit : `/a-propos` pos 7,9 vole « parodontologue
   marseille » à `/parodontie` pos 16) → ancres internes **exact-match « Parodontologue à Marseille »**
   ajoutées depuis `/a-propos`, le Footer (sitewide) et QuickLinks (accueil). Les 3 spokes l'utilisaient déjà.
+- **301 dédup blog gencives [F6]** : `vercel.json` redirige `/blog/gencives-qui-saignent-quand-consulter`
+  → `/gencives-qui-saignent` (consolide le signal sur le spoke ; article ~0 imp). ⚠️ à finir : **dépublier
+  l'article dans Sanity** (sinon HTML orphelin + entrée sitemap restants).
+- **En-têtes de sécurité [F10]** : 4 en-têtes sûrs dans `vercel.json` (HSTS, X-Content-Type-Options nosniff,
+  X-Frame-Options SAMEORIGIN, Referrer-Policy). ⏳ **CSP laissée à part** (à tester : fonts Google, Doctolib,
+  CDN Sanity, iframe Maps `/contact`, Vercel insights).
 - **`NETLINKING-KIT.md`** (racine) : NAP normalisé, checklist GBP, citations Tier 1-2, partenaires locaux
   Tier 3 (gynéco→grossesse, diabéto→diabète, tabaco→fumeur, ortho→post-ortho) + modèle de message, règles
   Ordre/white-hat.
+- **`AUDIT-360-2026-06.md`** (racine) : rapport d'audit complet + backlog priorisé (référence des chantiers).
 
 ### 📧 Validation médicale (Dr Meriot)
 Email prêt à envoyer : **`EMAIL-VALIDATION-DR-MERIOT.md`** (racine) — intro « pourquoi » + 10 blocs de
@@ -759,9 +766,13 @@ Sanity **ET** le filet JSX (parité).
 | 🔴 1 | **GBP + avis** (cf. `NETLINKING-KIT.md`) — toujours le plus gros levier | hors-code (Dr Meriot/Guillaume) |
 | 🔴 2 | **Valider le contenu avec Dr Meriot** puis lancer les 3 patchs Sanity + merger #11 | contenu |
 | 🟠 3 | Merger #10 (hygiène) et #12 (maillage) | code |
-| 🟡 4 | Perf images (~3 Mo de PNG sur l'accueil → webp + dimensions) — non fait | code |
-| 🟡 5 | Contraste WCAG AA (palette « douce » sous 4.5:1) — **à valider visuellement** avant de toucher | a11y/design |
-| ⚪ 6 | En-têtes de sécurité (`vercel.json`), schéma `LocalBusiness` multi-pages, page « non indexée » | divers |
+| 🟠 3b | Étoffer `/a-propos` (prose « je ») → lève « exploré non indexé » [F3] ; voix « je » services/contact/tarifs [F13] ; CTA hero + click-to-call mobile [F14, F15] | code/contenu |
+| 🟡 4 | Perf images (~3 Mo de PNG sur l'accueil → webp + dimensions) [F5, F17] — non fait | code |
+| 🟡 5 | Contraste WCAG AA (palette « douce » sous 4.5:1) — **à valider visuellement** avant de toucher [F16] | a11y/design |
+| ⚪ 6 | CSP (à tester en preview) [F10] ; schéma `LocalBusiness` multi-pages [F9] ; `sameAs`/`site_url` www/email (Sanity) [F19/F22/F26] ; page « non indexée » [F3] | divers |
+| ⚪ 7 | Dépublier dans Sanity l'article blog redirigé `gencives-qui-saignent-quand-consulter` [F6 cleanup] | Studio |
+
+> 📄 **Backlog complet et priorisé : `AUDIT-360-2026-06.md`** (statut de chaque finding A→L).
 
 ---
 

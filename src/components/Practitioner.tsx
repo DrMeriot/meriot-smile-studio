@@ -1,8 +1,9 @@
 import { Award, Globe, Heart, GraduationCap } from "lucide-react";
-import drMeriotPhoto from "@/assets/dr-meriot-photo.png";
+import praticienneMeriot from "@/assets/praticienne-meriot.jpg";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useSanityPage } from "@/hooks/useSanityContent";
+import { urlFor } from "@/lib/sanityImage";
 
 const defaultHighlights = [
   { icon: GraduationCap, title: "Formations spécialisées", desc: "IFPIO Marseille, Académie de paro Aix-en-Provence", color: "bg-primary/10", iconColor: "text-primary" },
@@ -15,7 +16,7 @@ const Practitioner = () => {
   const { data: accueil } = useSanityPage("accueil");
 
   // Flat fields from Sanity
-  const photoSrc = accueil?.praticienPhoto || drMeriotPhoto;
+  const photoSrc = accueil?.praticienPhoto ? urlFor(accueil.praticienPhoto).width(1100).url() : praticienneMeriot;
   const nom = accueil?.praticienNom ?? "Dr Stéphanie Meriot";
   const description = accueil?.praticienDescription ?? "Diplômée de la Faculté d'odontologie de Marseille, je suis chirurgien-dentiste spécialisée en parodontie et implantologie. Mon approche repose sur l'écoute, la douceur et le respect du rythme de chaque patient.";
   const parcours = accueil?.praticienParcours ?? "Ma thèse sur la dentisterie à minima reflète ma philosophie : préserver au maximum vos tissus naturels tout en vous offrant des soins de qualité. Chaque traitement est personnalisé et expliqué avec clarté.";
