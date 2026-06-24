@@ -831,7 +831,7 @@ Cause des bugs à répétition : branches divergentes (`main` vs `feat/seo-maill
   provoque des races d'écriture sur certains fichiers/dossiers (ex. `Photos/`). Toujours
   écrire via script + **vérifier** que le contenu a bien persisté (re-grep), réessayer sinon.
 
-#### 4. Audit « contenu hardcodé non éditable » — FAIT, implémentation EN ATTENTE
+#### 4. Audit « contenu hardcodé non éditable » — FAIT — implémentation LIVRÉE le 24/06 (voir « Session 24 juin 2026 » en fin de doc)
 Audit complet de 100% des pages/composants. La majorité des pages spécialités sont déjà
 bien câblées (le « défaut » dans le code n'est qu'un fallback). Vrais trous identifiés
 (contenu sans aucun champ Sanity).
@@ -858,3 +858,33 @@ bien câblées (le « défaut » dans le code n'est qu'un fallback). Vrais trous
 2. `npx tsc --noEmit -p tsconfig.app.json` pour valider (ignorer le bruit pré-existant TS1127/TS17008/TS1005 lié aux emojis/encodage ; le build réel = Vite, pas tsc).
 3. Déployer : **`deploy.bat`** (site) + **`deploy-studio.bat`** (nouveaux champs dans le Studio).
 4. Optionnel : rapatrier les 3 docs SEO restées sur la branche feature ; supprimer les anciens scripts .bat.
+
+### Session 24 juin 2026 — Vérification chantier « contenu éditable » : les 4 lots étaient déjà LIVRÉS
+
+Reprise du chantier « rendre éditable le contenu codé en dur ». **Constat : le plan en 4 lots
+décrit dans la session du 23 juin (soir) avait en réalité déjà été entièrement implémenté et
+committé** dans `01b7c8c` (« Mise a jour du site »), en toute fin de cette session — seule la doc
+n'avait pas été mise à jour (elle indiquait encore « EN ATTENTE »). Aucun code nouveau à écrire.
+
+État vérifié, lot par lot (composants câblés `page?.champ ?? défaut` + champs schéma présents) :
+- **Lot 1 — Accueil** : `Services.tsx`, `Practitioner.tsx`, `QuickLinks.tsx`. Champs `accueil` :
+  `servicesTitre/Intro/List`, `praticienHighlights`, `quicklinksLabel/Title/Specialites/Focus`.
+- **Lot 2 — Contact** : `Contact.tsx`. Champs `accueil` (`contactTitre/Intro`, `zones`, `accesList`,
+  `zonesTitre/Texte`) et `global` (`phone`, `adresse`, `horaires`, `maps_url`, `maps_embed_url`, `doctolib`).
+- **Lot 3 — Légales** : `confidentialite.ts` + `legal.ts` ont le champ `body` (Portable Text) ;
+  `Confidentialite.tsx` / `MentionsLegales.tsx` rendent via `@portabletext/react` avec fallback JSX (`hasBody`).
+- **Lot 4 — Blog/Tarifs/Parodontie** : singleton `blog_page` enregistré (index + queryMap) et câblé
+  (`Blog.tsx`, `BlogPost.tsx`) ; labels `tarifs` ; `parodontie.approcheTitre/approcheBody/zonesTitre/zonesList`.
+
+Validations réalisées :
+- `npx sanity deploy` relancé → « Deployed 1/1 schemas » : tous les champs sont éditables sur meriot-dentiste.sanity.studio.
+- `git` : local `main` == `origin/main` == `01b7c8c` → code en production.
+- `tsc` : zéro erreur réelle (seul subsiste le bruit d'encodage connu dans `Parodontie.tsx` : TS17014/TS1002, sans impact sur le build Vite).
+- **Contrôle visuel prod (zéro casse confirmé)** : `/` (Services, Practitioner, QuickLinks, Contact),
+  `/contact`, `/confidentialite`, `/blog`, `/tarifs`, `/parodontie` — toutes rendent le contenu actuel
+  via les défauts (Studio non encore rempli).
+
+**Reste à faire (côté client)** : Stéphanie remplit / publie les champs dans le Studio (À propos, Accueil…),
+puis relancer `deploy.bat` au besoin. Champ Studio vide = défaut neutre affiché (normal).
+
+Reliquat inchangé depuis le 23 juin : rapatrier les 3 docs SEO restées sur la branche feature ; supprimer les anciens scripts .bat.
