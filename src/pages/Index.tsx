@@ -12,13 +12,15 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
 import LocalBusinessSchema from "@/components/LocalBusinessSchema";
+import { useSanityPage } from "@/hooks/useSanityContent";
 
 const Index = () => {
+  const { data: accueil } = useSanityPage("accueil");
   return (
     <>
       <SEOHead
-        title="Dr Meriot — Spécialiste des gencives à Marseille | Parodontie"
-        description="Dr Stéphanie Meriot, chirurgien-dentiste spécialiste des gencives à Marseille 4ème. Traitement gingivite, parodontite, déchaussement, implants. Conventionnée Secteur 1. Prise de RDV en ligne."
+        title={accueil?.seoTitle ?? "Dr Meriot — Spécialiste des gencives à Marseille | Parodontie"}
+        description={accueil?.seoDescription ?? "Dr Stéphanie Meriot, chirurgien-dentiste spécialiste des gencives à Marseille 4ème. Traitement gingivite, parodontite, déchaussement, implants. Conventionnée Secteur 1. Prise de RDV en ligne."}
         canonical="/"
         ogTitle="Dr Stéphanie Meriot | Spécialiste des gencives — Marseille"
         ogDescription="Chirurgien-dentiste spécialiste des gencives à Marseille 4ème : parodontie, traitement de la parodontite et implantologie. Cabinet conventionné Secteur 1."

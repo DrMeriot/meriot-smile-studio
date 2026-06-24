@@ -26,6 +26,10 @@ export default defineType({
     defineField({ name: 'auteurBio', title: 'Article — Bio auteur', type: 'text', rows: 3 }),
     defineField({ name: 'articleCtaTitre', title: 'Article — CTA Titre', type: 'string' }),
     defineField({ name: 'articleCtaTexte', title: 'Article — CTA Texte', type: 'text', rows: 2 }),
+
+    // SEO (référencement Google de la page Blog)
+    defineField({ name: 'seoTitle', title: 'SEO — Titre (Google)', type: 'string' }),
+    defineField({ name: 'seoDescription', title: 'SEO — Description (Google)', type: 'text', rows: 2 }),
   ],
   preview: { prepare: () => ({ title: '📰 Page Blog' }) }
 })

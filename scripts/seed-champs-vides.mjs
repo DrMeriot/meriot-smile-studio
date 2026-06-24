@@ -161,6 +161,9 @@ const DEFAULTS = {
       { item: 'Parking public à proximité' },
       { item: 'Entrée accessible PMR' },
     ]),
+    // SEO (page d'accueil)
+    seoTitle: 'Dr Meriot — Spécialiste des gencives à Marseille | Parodontie',
+    seoDescription: 'Dr Stéphanie Meriot, chirurgien-dentiste spécialiste des gencives à Marseille 4ème. Traitement gingivite, parodontite, déchaussement, implants. Conventionnée Secteur 1. Prise de RDV en ligne.',
   },
 
   parodontie: {
@@ -231,6 +234,48 @@ const DEFAULTS = {
       { titre: 'Parodontie', description: 'Traitement des gencives par le Dr Meriot.', lien: '/parodontie' },
       { titre: 'Implantologie', description: "Pose d'implants dentaires durables.", lien: '/implantologie' },
     ]),
+    // SEO (page Blog)
+    seoTitle: 'Blog Dentaire | Conseils Parodontie & Implantologie - Dr Meriot Marseille',
+    seoDescription: "Articles et conseils d'experts sur la parodontie, l'implantologie et les soins dentaires par le Dr Stéphanie Meriot.",
+  },
+
+  services_page: {
+    servicesList: keyed([
+      { title: 'Soins dentaires généraux', description: 'Prendre soin de votre santé bucco-dentaire au quotidien avec des soins adaptés à vos besoins.', details: keyed([
+        { subtitle: 'Consultations et examens', text: 'Bilan complet de votre santé bucco-dentaire, dépistage précoce des caries et maladies des gencives.' },
+        { subtitle: 'Détartrage', text: 'Nettoyage professionnel pour éliminer la plaque et le tartre.' },
+        { subtitle: 'Soins des caries', text: 'Traitement des caries avec des matériaux esthétiques et biocompatibles.' },
+        { subtitle: 'Dévitalisation (endodontie)', text: 'Traitement des infections de la pulpe dentaire.' },
+      ]) },
+      { title: 'Parodontie - Spécialité', featured: true, description: "Spécialité dédiée à la santé de vos gencives. Formation à l'IFPIO Marseille et l'Académie de paro d'Aix-en-Provence.", details: keyed([
+        { subtitle: 'Diagnostic parodontal', text: 'Bilan complet : mesure des poches parodontales, évaluation de la perte osseuse.' },
+        { subtitle: 'Traitement non-chirurgical', text: 'Détartrage et surfaçage radiculaire.' },
+        { subtitle: 'Chirurgie parodontale', text: 'Réduction des poches, régénération tissulaire guidée.' },
+        { subtitle: 'Greffe gingivale', text: 'Reconstruction des gencives rétractées.' },
+        { subtitle: 'Maintenance parodontale', text: 'Suivi régulier personnalisé.' },
+      ]) },
+      { title: 'Implantologie - Spécialité', featured: true, description: 'Solution moderne et durable pour remplacer vos dents manquantes. Formation IFPIO Marseille.', details: keyed([
+        { subtitle: 'Consultation implantaire', text: 'Examen clinique, scanner 3D, plan de traitement personnalisé.' },
+        { subtitle: "Pose d'implants", text: "Insertion chirurgicale d'implants en titane sous anesthésie locale." },
+        { subtitle: 'Régénération osseuse', text: 'Greffe osseuse si nécessaire.' },
+        { subtitle: 'Restauration prothétique', text: 'Couronne, bridge ou prothèse sur implants.' },
+        { subtitle: 'Suivi post-opératoire', text: 'Contrôles réguliers pour garantir la réussite.' },
+      ]) },
+      { title: 'Prévention et hygiène', description: "La prévention est la clé d'une bonne santé bucco-dentaire.", details: keyed([
+        { subtitle: 'Conseils personnalisés', text: 'Techniques de brossage adaptées.' },
+        { subtitle: "Éducation à l'hygiène", text: 'Importance du brossage et du détartrage régulier.' },
+        { subtitle: 'Suivi régulier', text: 'Contrôles périodiques pour détection précoce.' },
+      ]) },
+      { title: 'Dentisterie conservatrice', description: 'Préserver au maximum vos tissus naturels. Au cœur de ma thèse universitaire.', details: keyed([
+        { subtitle: 'Dentisterie à minima', text: "Techniques modernes pour préserver l'émail et la dentine." },
+        { subtitle: 'Diagnostic précoce', text: 'Détection des caries au stade débutant.' },
+        { subtitle: 'Matériaux biocompatibles', text: 'Composites esthétiques et résistants, sans mercure.' },
+      ]) },
+    ]),
+  },
+
+  global: {
+    maps_embed_url: 'https://www.google.com/maps?q=23+Boulevard+de+la+F%C3%A9d%C3%A9ration,+13004+Marseille&output=embed',
   },
 
   legal: {
@@ -342,6 +387,8 @@ const FIXED_ID = {
   blog_page: 'blog_page',
   legal: 'legal',
   confidentialite: 'confidentialite',
+  services_page: 'services_page',
+  global: 'global',
 }
 
 // ─── Seeding ────────────────────────────────────────────────────────────────────

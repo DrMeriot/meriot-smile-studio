@@ -60,8 +60,8 @@ const Blog = () => {
   return (
     <>
       <SEOHead
-        title="Blog Dentaire | Conseils Parodontie & Implantologie - Dr Meriot Marseille"
-        description="Articles et conseils d'experts sur la parodontie, l'implantologie et les soins dentaires par le Dr Stéphanie Meriot."
+        title={blogPage?.seoTitle ?? "Blog Dentaire | Conseils Parodontie & Implantologie - Dr Meriot Marseille"}
+        description={blogPage?.seoDescription ?? "Articles et conseils d'experts sur la parodontie, l'implantologie et les soins dentaires par le Dr Stéphanie Meriot."}
         canonical="/blog"
         keywords="blog dentaire, conseils parodontie, implants dentaires, santé bucco-dentaire, marseille"
       />

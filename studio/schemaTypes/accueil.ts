@@ -163,5 +163,9 @@ export default defineType({
     }),
     defineField({ name: 'zonesTitre', title: 'Contact — Zones : Titre', type: 'string' }),
     defineField({ name: 'zonesTexte', title: 'Contact — Zones : Texte', type: 'text', rows: 3 }),
+
+    // SEO (référencement Google de la page d'accueil)
+    defineField({ name: 'seoTitle', title: 'SEO — Titre (Google)', type: 'string' }),
+    defineField({ name: 'seoDescription', title: 'SEO — Description (Google)', type: 'text', rows: 2 }),
   ],
 })
