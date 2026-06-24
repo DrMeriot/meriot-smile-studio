@@ -420,4 +420,19 @@ const Parodontie = () => {
                 {page?.ctaTexte ?? "N'attendez pas que les symptômes s'aggravent. Plus le diagnostic est précoce, plus le traitement est simple et efficace."}
               </p>
               <a href={doctolibUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="gap-2 bg-primary ho
+                <Button size="lg" className="gap-2 bg-primary hover:bg-primary-hover">
+                  <Calendar className="h-5 w-5" />
+                  Prendre rendez-vous
+                </Button>
+              </a>
+            </div>
+          </section>
+          </article>
+        </main>
+        <Footer />
+      </div>
+    </>
+  );
+};
+
+export default Parodontie;
