@@ -855,7 +855,7 @@ bien câblées (le « défaut » dans le code n'est qu'un fallback). Vrais trous
 
 #### ▶️ Prochaines étapes (reprise demain)
 1. Implémenter les Lots 1 → 4 ci-dessus (commencer par Lot 1).
-2. `npx tsc --noEmit -p tsconfig.app.json` pour valider (ignorer le bruit pré-existant TS1127/TS17008/TS1005 lié aux emojis/encodage ; le build réel = Vite, pas tsc).
+2. `npx tsc --noEmit -p tsconfig.app.json` pour valider — doit afficher **0 erreur**. ⚠️ NOTE CORRIGÉE le 24/06 : NE PAS « ignorer » les erreurs TS1002/TS1005/TS17008/TS17014/TS1127 — ce n'est PAS du bruit d'encodage mais le signe d'un fichier corrompu/tronqué qui CASSE le build Vercel (voir « Session 24 juin (suite) »).
 3. Déployer : **`deploy.bat`** (site) + **`deploy-studio.bat`** (nouveaux champs dans le Studio).
 4. Optionnel : rapatrier les 3 docs SEO restées sur la branche feature ; supprimer les anciens scripts .bat.
 
@@ -879,7 +879,7 @@ n'avait pas été mise à jour (elle indiquait encore « EN ATTENTE »). Aucun c
 Validations réalisées :
 - `npx sanity deploy` relancé → « Deployed 1/1 schemas » : tous les champs sont éditables sur meriot-dentiste.sanity.studio.
 - `git` : local `main` == `origin/main` == `01b7c8c` → code en production.
-- `tsc` : zéro erreur réelle (seul subsiste le bruit d'encodage connu dans `Parodontie.tsx` : TS17014/TS1002, sans impact sur le build Vite).
+- `tsc` : 0 erreur. ⚠️ CORRECTION (24 juin suite) : les erreurs TS17014/TS1002 de `Parodontie.tsx` n'étaient PAS du bruit — le fichier était tronqué et cassait le build Vercel. Réparé ; tsc doit désormais toujours être à 0.
 - **Contrôle visuel prod (zéro casse confirmé)** : `/` (Services, Practitioner, QuickLinks, Contact),
   `/contact`, `/confidentialite`, `/blog`, `/tarifs`, `/parodontie` — toutes rendent le contenu actuel
   via les défauts (Studio non encore rempli).
@@ -888,3 +888,41 @@ Validations réalisées :
 puis relancer `deploy.bat` au besoin. Champ Studio vide = défaut neutre affiché (normal).
 
 Reliquat inchangé depuis le 23 juin : rapatrier les 3 docs SEO restées sur la branche feature ; supprimer les anciens scripts .bat.
+
+### Session 24 juin 2026 (suite) — Remplissage du contenu Sanity + ⚠️ build Vercel cassé (corrigé)
+
+Deux choses dans cette session.
+
+**1. Remplissage des champs Sanity restés vides.** Les champs créés au chantier « rendre éditable »
+existaient mais étaient VIDES dans Sanity (le site affichait le contenu via les fallbacks `?? défaut`).
+Créé `scripts/seed-champs-vides.mjs` (+ `remplir-textes.bat` pour lancer en double-clic) : il remplit
+UNIQUEMENT les champs vides avec le texte d'origine, sans jamais écraser ce qui est déjà saisi. Écrit
+sur les documents publiés. 27 champs remplis : accueil (services, points forts, quicklinks, contact/zones),
+parodontie (approche en Portable Text + zones), tarifs (libellés), `blog_page` (créé), et `legal` +
+`confidentialite` en Portable Text. Hébergeur des mentions légales corrigé : Lovable.dev → Vercel Inc.
+
+**2. ⚠️⚠️ CAUSE RACINE d'un bug majeur : les builds Vercel échouaient en silence depuis le 23 juin.**
+`src/pages/Parodontie.tsx` était **tronqué** (coupé à la ligne 423, en plein attribut `className`, chaîne
+non terminée) — corruption introduite par une race d'écriture OneDrive lors du commit `01b7c8c`.
+Conséquence : `vite-react-ssg build` plantait → **7 déploiements de production Vercel en « Error »**
+d'affilée → Vercel gardait en ligne la dernière version saine (`e108246`). Le site semblait « ne pas se
+mettre à jour » alors que `git push` réussissait. Réparé : fin du fichier reconstruite depuis `e108246`
+(en gardant le câblage Sanity), `tsc` repassé **100% clean**, build `461999f` **« Ready »**, contenu en ligne.
+
+#### 🛑 RÈGLES anti-récidive (CORRIGENT des notes erronées plus haut dans ce doc)
+- **NE PLUS JAMAIS « ignorer » les erreurs `tsc`** TS1002 / TS1005 / TS17008 / TS17014 / TS1127. Les notes
+  précédentes les qualifiant de « bruit d'encodage/emoji sans impact sur le build Vite » étaient **FAUSSES** :
+  c'était un fichier réellement tronqué qui cassait le build. Une « unterminated string literal » ou une
+  cascade « JSX element has no corresponding closing tag » = **vraie corruption à réparer**.
+  Règle simple : avant tout déploiement, `npx tsc --noEmit -p tsconfig.app.json` doit afficher **0 erreur**.
+- **Après CHAQUE `deploy.bat`, vérifier le statut du build sur Vercel** : vercel.com → projet
+  `meriot-smile-studio` → Deployments (branche `main`). Il doit passer **« Ready »**. Si **« Error »**,
+  le site reste figé sur l'ancienne version même si le push a réussi → ouvrir le « Build Log » et corriger.
+- **Piège qui masque le problème** : le contenu Sanity est lu côté client → il s'affiche même quand le
+  build est cassé. Un build cassé peut donc passer inaperçu longtemps ; seules les modifs de **code**
+  (composants) révèlent qu'aucun nouveau build ne sort.
+- **OneDrive tronque les fichiers** lors d'écritures via éditeur. Toujours écrire via script et re-vérifier
+  (nombre de lignes + dernière ligne attendue) que le fichier n'a pas été coupé.
+
+Nouveaux fichiers utilitaires : `remplir-textes.bat` (seed du contenu vide), `debloquer-git.bat`
+(supprime `.git\index.lock` quand OneDrive bloque `deploy.bat`).
