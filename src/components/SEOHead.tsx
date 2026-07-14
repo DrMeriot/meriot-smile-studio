@@ -76,8 +76,8 @@ const SEOHead = ({
       <meta name="language" content="fr" />
       <meta name="geo.region" content="FR-13" />
       <meta name="geo.placename" content="Marseille" />
-      <meta name="geo.position" content="43.3117;5.3947" />
-      <meta name="ICBM" content="43.3117, 5.3947" />
+      <meta name="geo.position" content="43.3047;5.3964" />
+      <meta name="ICBM" content="43.3047, 5.3964" />
       <meta name="revisit-after" content="7 days" />
       <meta name="author" content="Dr Stéphanie Meriot" />
       

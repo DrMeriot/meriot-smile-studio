@@ -13,7 +13,6 @@ import {
   blogPostsQuery,
   blogPageQuery,
   blogPostBySlugQuery,
-  landingPageBySlugQuery,
   contactQuery,
   confidentialiteQuery,
   gingiviteMarseilleQuery,
@@ -117,10 +116,4 @@ export function useBlogPosts<T = SanityData>() {
 
 export function useBlogPost<T = SanityData>(slug: string) {
   return useSanityQuery<T>(`blogPost-${slug}`, blogPostBySlugQuery, { slug }, { alwaysFresh: true });
-}
-
-// Generic Sanity landing page fetched by slug. Returns `null` when no
-// matching document exists, allowing callers to fall back to hardcoded JSX.
-export function useLandingPage<T = SanityData>(slug: string) {
-  return useSanityQuery<T>(`landingPage-${slug}`, landingPageBySlugQuery, { slug });
 }

@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+# .env est commité (IDs Sanity publics uniquement) ; les secrets vivent dans .env*.local
+.env*.local
 
 # Editor directories and files
 .vscode/*

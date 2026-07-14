@@ -27,7 +27,6 @@ const LocalBusinessSchema = () => {
     "telephone": tel.startsWith("+") ? tel : `+33${tel.replace(/\s/g, "").replace(/^0/, "")}`,
     "email": email,
     "image": `${siteUrl}/og-image.jpg`,
-    "logo": `${siteUrl}/logo.png`,
     "priceRange": "€€",
     "currenciesAccepted": "EUR",
     "paymentAccepted": "Cash, Credit Card, Check, Carte Vitale, Tiers payant",

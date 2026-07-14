@@ -112,6 +112,7 @@ function ssrGlobalsPlugin(): Plugin {
         // Polyfill before any module code runs
         if (typeof globalThis.localStorage === 'undefined') {
           const storage: Record<string, string> = {};
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any -- polyfill: minimal localStorage assigned to globalThis during SSR
           (globalThis as any).localStorage = {
             getItem: (key: string) => storage[key] ?? null,
             setItem: (key: string, value: string) => { storage[key] = value; },
