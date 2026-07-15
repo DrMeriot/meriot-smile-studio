@@ -8,7 +8,7 @@ REM ==================================================================
 cd /d "%~dp0"
 
 echo.
-echo === 1/3 - Verification de la branche (doit etre main) ===
+echo === 1/4 - Verification de la branche (doit etre main) ===
 git checkout main
 if errorlevel 1 (
   echo [ERREUR] Impossible de passer sur main : il y a peut-etre des
@@ -18,13 +18,28 @@ if errorlevel 1 (
 )
 
 echo.
-echo === 2/3 - Sauvegarde des modifications ===
+echo === 2/4 - Controle TypeScript (anti-fichier-tronque) ===
+REM Garde-fou : OneDrive peut tronquer un fichier en silence. Si c'est le cas,
+REM tsc echoue ICI et on N'ENVOIE RIEN en prod (evite les builds Vercel "Error"
+REM qui passaient inapercus). Doit afficher 0 erreur pour continuer.
+call npx tsc --noEmit -p tsconfig.app.json
+if errorlevel 1 (
+  echo.
+  echo [STOP] Erreur TypeScript detectee : un fichier est probablement tronque
+  echo ou casse. RIEN n'a ete envoye en production. Corrige (ou previens Claude)
+  echo puis relance ce script.
+  pause
+  exit /b 1
+)
+
+echo.
+echo === 3/4 - Sauvegarde des modifications ===
 git add -A
-git commit -m "Mise a jour du site"
+git commit -m "Mise a jour du site (%date% %time%)"
 REM (s'il n'y a rien a sauvegarder, on continue quand meme vers le push)
 
 echo.
-echo === 3/3 - Envoi en production (declenche Vercel) ===
+echo === 4/4 - Envoi en production (declenche Vercel) ===
 git push origin main
 if errorlevel 1 (
   echo [ERREUR] Le push a echoue (connexion / identifiants GitHub).

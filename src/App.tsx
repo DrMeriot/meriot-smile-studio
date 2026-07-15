@@ -142,6 +142,7 @@ export const routes: RouteRecord[] = [
           return { doc: doc ?? null };
         },
       },
+      { path: '404', element: <NotFound /> },
       { path: 'mentions-legales', element: <MentionsLegales /> },
       { path: 'confidentialite', element: <Confidentialite /> },
       { path: '*', element: <NotFound /> },

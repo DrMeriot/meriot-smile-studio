@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard SEO — Dr Meriot</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#1c2430; --muted:#6b7685;
+    --line:#e7eaee; --accent:#2f6fed; --rose:#e07b91; --good:#1f9d6b; --warn:#e08a2f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 60px}
+  header h1{font-size:22px;margin:0 0 4px}
+  header p{margin:0;color:var(--muted);font-size:14px}
+  .grid{display:grid;gap:16px}
+  .kpis{grid-template-columns:repeat(4,1fr);margin:22px 0}
+  @media(max-width:680px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .kpi .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .kpi .value{font-size:30px;font-weight:700;margin-top:6px}
+  .kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
+  h2{font-size:15px;margin:26px 0 12px;letter-spacing:.01em}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.03em}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600}
+  .p-good{background:#e6f6ee;color:var(--good)}
+  .p-warn{background:#fdf0e0;color:var(--warn)}
+  .p-bad{background:#fbe7ea;color:#c0394e}
+  .two{grid-template-columns:1fr 1fr}
+  @media(max-width:820px){.two{grid-template-columns:1fr}}
+  .note{font-size:12px;color:var(--muted);margin-top:8px}
+  .tag{font-size:11px;color:var(--muted)}
+  .callout{background:#fff;border:1px solid var(--line);border-left:3px solid var(--rose);border-radius:10px;padding:14px 16px;font-size:13px}
+  .refresh{font-size:12px;color:var(--muted);background:#eef1f6;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px}
+  code{background:#eef1f6;padding:1px 5px;border-radius:5px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Dashboard SEO — Dr Stéphanie Meriot</h1>
+    <p>Google Search Console · <strong>2 → 30 juin 2026</strong> (28 j) · objectif : patients parodontie / implantologie à Marseille</p>
+  </header>
+
+  <div class="grid kpis">
+    <div class="card kpi"><div class="label">Clics</div><div class="value">11</div><div class="sub">100 % requêtes de marque</div></div>
+    <div class="card kpi"><div class="label">Impressions</div><div class="value">300</div><div class="sub">la demande est là</div></div>
+    <div class="card kpi"><div class="label">CTR moyen</div><div class="value">3,7 %</div><div class="sub">sous le seuil du clic</div></div>
+    <div class="card kpi"><div class="label">Position moy.</div><div class="value">19</div><div class="sub">↗ 25 → 10 sur le mois</div></div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Tendance quotidienne — la courbe monte</h2>
+    <canvas id="trend" height="110"></canvas>
+    <p class="note">Position moyenne (ligne) en nette amélioration : ~25 début juin → 10,3 le 28/06. Sur un site jeune, positions et impressions bougent <em>avant</em> les clics.</p>
+  </div>
+
+  <div class="grid two">
+    <div class="card">
+      <h2 style="margin-top:0">⭐ Mots-clés « à portée » (position 11-20)</h2>
+      <p class="tag">Le meilleur retour sur effort : un cran et ils basculent en zone de clics.</p>
+      <table>
+        <thead><tr><th>Requête</th><th class="num">Impr.</th><th class="num">Pos.</th></tr></thead>
+        <tbody id="striking"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2 style="margin-top:0">Pages — performance</h2>
+      <table>
+        <thead><tr><th>Page</th><th class="num">Clics</th><th class="num">Impr.</th><th class="num">Pos.</th></tr></thead>
+        <tbody id="pages"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Cluster « gencives qui saignent » — gros gisement, classé page 4-5</h2>
+  <div class="callout">
+    <strong>~100 impressions, 0 clic, position moyenne ~50.</strong> La demande existe (« saignement des gencives » = 31 impressions à elle seule) mais la page <code>/gencives-qui-saignent</code> manque d'autorité pour percer. Priorité : title/H1 sur la requête exacte, contenu étoffé, maillage fort vers <code>/parodontie</code> + CTA RDV.
+  </div>
+  <div class="card" style="margin-top:12px">
+    <table>
+      <thead><tr><th>Requête</th><th class="num">Impr.</th><th class="num">Position</th></tr></thead>
+      <tbody id="gencives"></tbody>
+    </table>
+  </div>
+
+  <h2>Top requêtes (toutes)</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Requête</th><th class="num">Clics</th><th class="num">Impr.</th><th class="num">CTR</th><th class="num">Pos.</th></tr></thead>
+      <tbody id="queries"></tbody>
+    </table>
+  </div>
+
+  <div class="refresh">
+    🔄 <strong>Rafraîchir ce tableau</strong> : dans Claude Desktop, demande « <em>mets à jour mon dashboard GSC avec les 28 derniers jours</em> ». Le rapport mensuel automatique te l'enverra aussi chaque 1er du mois.
+  </div>
+</div>
+
+<script>
+const daily = [
+  ["02/06",0,13,15.8],["03/06",1,13,28.6],["04/06",0,8,17.2],["05/06",0,10,17.6],
+  ["06/06",0,13,27.1],["07/06",0,20,24.8],["08/06",0,11,14.8],["09/06",0,13,17.0],
+  ["10/06",0,8,45.5],["11/06",0,17,34.4],["12/06",0,10,24.0],["13/06",2,18,18.4],
+  ["14/06",0,5,32.6],["15/06",0,7,27.0],["16/06",1,12,6.3],["17/06",0,3,13.0],
+  ["18/06",0,8,8.6],["19/06",0,1,12.0],["20/06",0,8,15.6],["21/06",0,0,null],
+  ["22/06",0,11,18.5],["23/06",2,13,11.5],["24/06",2,16,7.9],["25/06",0,14,13.9],
+  ["26/06",0,5,18.6],["27/06",0,19,19.3],["28/06",3,24,10.3]
+];
+const striking = [
+  ["spécialiste des gencives",2,10.0],["parodontologue marseille",1,13.0],
+  ["specialiste gencive",1,13.0],["parodontologue",7,14.4],
+  ["dent qui saigne toute seule",2,16.0]
+];
+const pages = [
+  ["/ (accueil)",7,121,5.1],["/dechaussement-dentaire-marseille",2,25,11.1],
+  ["/a-propos",1,62,9.3],["/parodontie",1,47,13.1],["/parodontie/temoignages",1,6,14.0],
+  ["/tarifs",0,9,6.3],["/gencives-qui-saignent",0,98,39.1],["/gingivite-marseille",0,14,16.2],
+  ["/implantologie",0,13,10.5],["/services",0,12,6.5]
+];
+const gencives = [
+  ["saignement des gencives",31,31.9],["gencives qui saignent",7,85.0],
+  ["gencive qui saigne",5,58.4],["pourquoi mes gencives saignent",4,69.5],
+  ["gencives saignantes",3,49.3],["saignement gencive(s)",6,82.7],
+  ["dent qui saigne",1,92.0],["dents qui saignent",1,27.0]
+];
+const queries = [
+  ["stephanie meriot",1,5,"20,0 %",3.0],["dr meriot",0,4,"0 %",4.0],
+  ["dr-meriot-chirurgien-dentiste.fr",0,22,"0 %",21.8],["parodontologue",0,7,"0 %",14.4],
+  ["gencives qui saignent",0,7,"0 %",85.0],["gencive qui saigne",0,5,"0 %",58.4],
+  ["saignement des gencives",0,31,"0 %",31.9],["parodontologue marseille",0,1,"0 %",13.0],
+  ["gingivite",0,1,"0 %",2.0],["dentiste chartreux",0,1,"0 %",2.0]
+];
+
+function posPill(p){
+  if(p===null) return '—';
+  let c = p<=10?'p-good':(p<=20?'p-warn':'p-bad');
+  return '<span class="pill '+c+'">'+p.toFixed(1)+'</span>';
+}
+function fill(id, rows, render){document.getElementById(id).innerHTML = rows.map(render).join('');}
+
+fill('striking', striking, r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${posPill(r[2])}</td></tr>`);
+fill('pages', pages, r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num">${posPill(r[3])}</td></tr>`);
+fill('gencives', gencives, r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${posPill(r[2])}</td></tr>`);
+fill('queries', queries, r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num">${r[2]}</td><td class="num">${r[3]}</td><td class="num">${posPill(r[4])}</td></tr>`);
+
+new Chart(document.getElementById('trend'),{
+  data:{
+    labels: daily.map(d=>d[0]),
+    datasets:[
+      {type:'bar',label:'Impressions',data:daily.map(d=>d[2]),backgroundColor:'#cdd9f5',yAxisID:'y',order:3},
+      {type:'bar',label:'Clics',data:daily.map(d=>d[1]),backgroundColor:'#2f6fed',yAxisID:'y',order:2},
+      {type:'line',label:'Position moy. (inversée)',data:daily.map(d=>d[3]),borderColor:'#e07b91',backgroundColor:'#e07b91',yAxisID:'y1',tension:.3,spanGaps:true,order:1,pointRadius:2}
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{labels:{boxWidth:12,font:{size:11}}}},
+    scales:{
+      y:{beginAtZero:true,title:{display:true,text:'Clics / Impressions',font:{size:10}}},
+      y1:{position:'right',reverse:true,title:{display:true,text:'Position (1 = top)',font:{size:10}},grid:{drawOnChartArea:false},suggestedMin:0,suggestedMax:50}
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -926,3 +926,37 @@ mettre à jour » alors que `git push` réussissait. Réparé : fin du fichier r
 
 Nouveaux fichiers utilitaires : `remplir-textes.bat` (seed du contenu vide), `debloquer-git.bat`
 (supprime `.git\index.lock` quand OneDrive bloque `deploy.bat`).
+
+### Session 24 juin 2026 (fin) — Lot SEO/Services/404 + double-audit éditabilité
+
+**Double-vérif demandée : « 100% du contenu éditable ET rempli dans Sanity ? » → NON (et c'est en partie voulu).**
+Audit code (sous-agent) + interrogation directe de la base. Conclusions :
+- Le site repose sur un pattern de **fallback** (`sanity?.champ ?? "défaut codé"`) : « éditable » ≠ « rempli ».
+- Restent **non éditables** (aucun champ Sanity) : glossaire parodontie (21 termes), cartes « En savoir plus »
+  (parodontie/gingivite/déchaussement/gencives), `keywords` SEO de toutes les pages, page 404, quelques
+  micro-textes (badge hero, tagline footer, sous-titres). + un grand ensemble de **micro-labels** laissés
+  en dur volontairement (boutons, nav, badges).
+- Étaient **éditables mais vides** (montraient le défaut) : `services_page.servicesList`, `global.maps_embed_url`,
+  sections Mateo/Claire de `about` (à remplir par la cliente).
+
+**Lot « priorité haute » livré (recommandé contre le 100% littéral = sur-ingénierie) :**
+- SEO **Accueil** + **Blog** : champs `seoTitle`/`seoDescription` ajoutés (`accueil.ts`, `blog_page.ts`),
+  câblés (`Index.tsx`, `Blog.tsx`), seedés. Vérifié en ligne (titre Google lu depuis Sanity).
+- **`services_page.servicesList`** seedé (5 services détaillés) → /services éditable et vérifié.
+- **`global.maps_embed_url`** seedé (vraie carte Google de l'adresse, format `?q=...&output=embed`).
+- **Page 404** réécrite en français (`NotFound.tsx`).
+- Script `scripts/seed-champs-vides.mjs` étendu (services_page, global, SEO accueil/blog) — relançable.
+- `tsc` final = **0 erreur**. Build Vercel `7e57ea4` **Ready**.
+
+**⚠️ Restes ouverts (non traités, décision cliente) :**
+- **404 routage** : le texte FR est en place mais Vercel sert sa propre page « 404: NOT_FOUND » (anglais) pour
+  les URL inexistantes — il manque un fallback SPA (`vercel.json` rewrite vers `/index.html`) OU une vraie
+  `404.html` générée par vite-react-ssg. La correction texte est donc « masquée » tant que ce n'est pas fait.
+- **« ⭐⭐⭐⭐⭐ 5/5 étoiles »** en dur dans le hero accueil : affirmation à justifier (vrais avis) ou à retirer.
+- Typo repérée dans `services_page.heroSubtitle` (« adaptés à a vos besoins ») — éditable dans le Studio.
+- about : Mateo/Claire à remplir par la cliente.
+
+**⚠️⚠️ Rappel environnement (récidive ce jour) :** une rafale d'éditions via l'outil éditeur a **tronqué 6
+fichiers d'un coup** (OneDrive). Reconstruits depuis git (`git show HEAD:…`) + ré-application des modifs via
+script, copie avec boucle de vérification (nb lignes + dernière ligne), puis `tsc`. **Règle : pour toute
+série d'éditions, écrire via script vers /tmp, valider, copier avec vérification, et finir par `tsc` = 0.**

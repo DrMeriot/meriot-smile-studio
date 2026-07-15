@@ -23,4 +23,13 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
+  {
+    // Test files parse arbitrary JSON-LD / DOM payloads, where `any` is the
+    // pragmatic and correct choice. Build/tooling configs also legitimately
+    // use loosely-typed globals. Relax the rule there only.
+    files: ["src/test/**/*.{ts,tsx}", "**/*.config.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 );

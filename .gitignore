@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+*.err
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -29,3 +30,7 @@ GSC CSV/
 dr-meriot-chirurgien-dentiste.fr-*.zip
 *-Performance-on-Search-*.zip
 *-Coverage-*.zip
+
+# Secrets / cles de service (ne jamais committer)
+mcp-gsc-*.json
+.env

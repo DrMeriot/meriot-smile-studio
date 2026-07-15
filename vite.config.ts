@@ -36,7 +36,7 @@ async function fetchBlogSlugs(): Promise<Array<{ slug: string; date?: string }>>
   const projectId = process.env.VITE_SANITY_PROJECT_ID || "6a2np8jy";
   const dataset = process.env.VITE_SANITY_DATASET || "production";
   const query = encodeURIComponent(
-    `*[_type == "blog_post" && defined(slug.current)]{ "slug": slug.current, date }`
+    `*[_type == "blog_post" && defined(slug.current)]{ "slug": slug.current, "date": publishedAt }`
   );
   const url = `https://${projectId}.api.sanity.io/v2024-01-01/data/query/${dataset}?query=${query}`;
   try {

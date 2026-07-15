@@ -8,6 +8,7 @@ import patrickImg from "@/assets/patrick.jpg";
 import claireImg from "@/assets/claire.jpg";
 import SEOHead from "@/components/SEOHead";
 import FloatingCTA from "@/components/FloatingCTA";
+import LocalBusinessSchema from "@/components/LocalBusinessSchema";
 import { useGlobalSettings, useSanityPage } from "@/hooks/useSanityContent";
 import { urlFor } from "@/lib/sanityImage";
 
@@ -33,6 +34,20 @@ const defaultPhilosophie = [
   { title: "Explications claires", desc: "Je vous explique chaque étape avec des mots simples." },
   { title: "Dentisterie conservatrice", desc: "Je privilégie les techniques préservant vos tissus naturels." },
 ];
+
+const DEFAULT_PRESENTATION = `Je suis le Dr Stéphanie Meriot, chirurgien-dentiste installée à Marseille 4ème, à quelques pas du métro Chartreux. Au fil des années, j'ai choisi de consacrer l'essentiel de ma pratique à deux domaines complémentaires : la parodontie — le soin des gencives et de l'os qui soutiennent vos dents — et l'implantologie, pour remplacer durablement les dents manquantes. Si vous cherchez un parodontologue à Marseille parce que vos gencives saignent, se rétractent ou que vos dents commencent à bouger, mon rôle est de poser un diagnostic clair et de vous accompagner vers une solution adaptée.
+
+Mon parcours s'est construit autour de cette spécialité. Après mon diplôme de chirurgien-dentiste à la Faculté d'Odontologie de Marseille, je me suis formée à la parodontologie et à l'implantologie à l'IFPIO (Institut de Formation en Parodontologie et Implantologie Orale) de Marseille, puis à l'Académie de Parodontologie d'Aix-en-Provence. Ma thèse de doctorat portait sur la « dentisterie à minima », une approche qui privilégie la préservation des tissus naturels. J'ai également exercé en France, à Marseille et à Paris, ainsi qu'en Suisse, à Genève, et je reçois mes patients en français, en anglais et en espagnol.
+
+En tant que spécialiste des gencives, je prends en charge l'ensemble des maladies parodontales. La gingivite, cette inflammation qui fait saigner les gencives au brossage, est réversible lorsqu'elle est traitée à temps. Laissée sans soin, elle peut évoluer en parodontite, une infection plus profonde qui atteint l'os et provoque le déchaussement dentaire — les dents semblent « s'allonger », puis se mettent à bouger. Ce sont des signes qu'il vaut mieux ne pas négliger : plus la prise en charge est précoce, plus il est simple de stabiliser la situation et de conserver vos dents.
+
+Comment savoir s'il faut consulter un parodontologue ? Quelques signaux doivent alerter : des gencives qui saignent régulièrement, rouges ou gonflées, une mauvaise haleine persistante, une sensation de dents qui se déchaussent ou qui deviennent mobiles, ou encore des espaces qui apparaissent entre les dents. Si vous reconnaissez l'un de ces signes, un bilan permet de faire le point sans attendre que la situation s'aggrave.
+
+Chaque traitement commence par un bilan parodontal complet : examen clinique, sondage des gencives, évaluation de la mobilité des dents et radiographies. Selon votre situation, je peux réaliser un détartrage et un surfaçage radiculaire pour assainir les racines, une greffe gingivale pour recouvrir une racine exposée par la récession gingivale, ou une régénération osseuse pour reconstituer l'os perdu. Un suivi régulier — la maintenance parodontale — permet ensuite de prévenir les récidives. Lorsqu'une dent ne peut être conservée, l'implant dentaire offre une solution fixe et durable, que je planifie toujours en tenant compte de la santé de vos gencives.
+
+Ce qui me tient à cœur, c'est une dentisterie humaine et sans précipitation. Je prends le temps d'expliquer chaque étape avec des mots simples, de répondre à vos questions et de respecter votre rythme. Beaucoup de patients arrivent au cabinet inquiets, parfois après des années à repousser une consultation : mon objectif est qu'ils repartent informés, rassurés et acteurs de leur soin.
+
+Le cabinet est conventionné Secteur 1 et accepte la Carte Vitale ainsi que le tiers payant. J'accueille des patients de Marseille et de toute la région PACA — d'Aix-en-Provence à Aubagne, de La Ciotat à La Bouilladisse. Pour un premier rendez-vous ou un second avis sur un problème de gencives, vous pouvez réserver en ligne via Doctolib ou contacter directement le cabinet.`;
 
 const formationIcons = [GraduationCap, Award, Award, Award, BookOpen, Globe];
 const formationColors = [
@@ -83,6 +98,7 @@ const About = () => {
         canonical="/a-propos"
         keywords="Dr Stéphanie Meriot, Dr Patrick Mateo, dentiste marseille 4, parodontiste marseille, implantologue marseille, IFPIO, équipe cabinet dentaire"
       />
+      <LocalBusinessSchema />
       <FloatingCTA />
       <div className="min-h-screen">
         <Header />
@@ -132,7 +148,19 @@ const About = () => {
             </div>
           </section>
 
-          <section className="py-20 bg-muted/20">
+          {/* ===== Présentation rédigée (E-E-A-T, fixe le thin content + champ sémantique paro/Marseille) ===== */}
+          <section id="presentation" className="py-20 bg-muted/20" aria-labelledby="presentation-title">
+            <div className="container mx-auto px-4 max-w-3xl">
+              <h2 id="presentation-title" className="text-3xl md:text-4xl font-bold mb-8 text-center">{page?.presentationTitre ?? "Mon approche, en quelques mots"}</h2>
+              <div className="prose prose-lg max-w-none text-lg text-muted-foreground leading-relaxed space-y-5">
+                {(page?.presentationProse ?? DEFAULT_PRESENTATION).split("\n\n").map((para: string, i: number) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="py-20">
             <div className="container mx-auto px-4 max-w-5xl">
               <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">{page?.formationsTitre ?? "Parcours et formations"}</h2>
               <div className="space-y-8">

@@ -24,6 +24,17 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="absolute inset-0 -z-20 bg-gradient-to-br from-background via-background to-primary/5"></div>
 
+      {/* Image de fond - mobile & tablette (< lg) */}
+      <div className="absolute inset-0 -z-10 lg:hidden overflow-hidden">
+        <img
+          src={heroPhoto}
+          alt="Dr Stéphanie Meriot - Chirurgien-dentiste Marseille 4ème - Parodontie Implantologie"
+          className="w-full h-full object-cover object-[center_20%]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background/90"></div>
+      </div>
+
+      {/* Image latérale - desktop (>= lg) */}
       <div className="absolute inset-y-0 right-0 w-1/2 -z-10 hidden lg:block overflow-hidden">
         <img
           src={heroPhoto}
@@ -90,7 +101,7 @@ const Hero = () => {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
-            {["Métro Chartreux (M1)", "⭐⭐⭐⭐⭐ 5/5 étoiles", "🇫🇷 🇬🇧 🇪🇸 Trilingue"].map((f, i) => (
+            {["Métro Chartreux (M1)", "Nouveaux patients bienvenus", "🇫🇷 🇬🇧 🇪🇸 Trilingue"].map((f, i) => (
               <div key={i} className="flex items-center gap-2 text-sm">
                 <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0" />
                 <span>{f}</span>
