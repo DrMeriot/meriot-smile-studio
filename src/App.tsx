@@ -22,6 +22,8 @@ import { track } from '@vercel/analytics';
 import { sanityClient, getSanityStaticPaths } from '@/lib/sanity';
 import {
   blogPostBySlugQuery,
+  blogPostsQuery,
+  REDIRECTED_BLOG_SLUGS,
   parodontieQuery,
   globalQuery,
   gencivesQuiSaignentQuery,
@@ -100,7 +102,17 @@ export const routes: RouteRecord[] = [
         },
       },
       { path: 'implantologie', element: <Implantologie /> },
-      { path: 'blog', element: <Blog /> },
+      {
+        path: 'blog',
+        element: <Blog />,
+        // SSG: prefetch the post list at build time so /blog's static HTML
+        // contains the article cards and links (otherwise Google sees an empty
+        // hub and never discovers the articles). Seeded in Blog.tsx.
+        loader: async () => {
+          const posts = await sanityClient.fetch(blogPostsQuery);
+          return { posts: posts ?? null };
+        },
+      },
       {
         path: 'blog/:slug',
         element: <BlogPost />,
@@ -115,8 +127,10 @@ export const routes: RouteRecord[] = [
         },
         // Enumerate dynamic slugs to pre-render. vite-react-ssg uses this to
         // know which /blog/:slug paths to generate static HTML for.
-        getStaticPaths: () =>
-          getSanityStaticPaths('blog_post', (slug) => `blog/${slug}`),
+        getStaticPaths: async () =>
+          (await getSanityStaticPaths('blog_post', (slug) => `blog/${slug}`)).filter(
+            (p) => !REDIRECTED_BLOG_SLUGS.some((s) => p === `blog/${s}`),
+          ),
       },
       {
         path: 'gingivite-marseille',

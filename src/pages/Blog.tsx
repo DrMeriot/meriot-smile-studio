@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { sanityImg } from "@/lib/sanityImage";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -32,6 +34,17 @@ const Blog = () => {
     imageAlt?: string;
   };
 
+  // SSG: seed the build-time post list (route loader in App.tsx) under the
+  // same key as useBlogPosts so the static HTML contains the cards.
+  const loaderData = useLoaderData() as { posts?: unknown } | undefined;
+  const queryClient = useQueryClient();
+  if (loaderData?.posts) {
+    const key = ["sanity", "blogPosts", undefined];
+    if (queryClient.getQueryData(key) === undefined) {
+      queryClient.setQueryData(key, loaderData.posts);
+    }
+  }
+
   const { data: global } = useGlobalSettings();
   const { data: sanityPosts } = useBlogPosts<SanityPost>();
   const { data: blogPage } = useSanityPage("blog_page");
@@ -53,7 +66,7 @@ const Blog = () => {
     excerpt: p.excerpt,
     category: p.category,
     date: p.publishedAt,
-    imageUrl: p.mainImage?.asset?.url,
+    imageUrl: sanityImg(p.mainImage?.asset?.url, { w: 800 }),
     imageAlt: p.mainImage?.alt ?? p.title,
   }));
 

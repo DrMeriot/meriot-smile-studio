@@ -9,6 +9,7 @@ import RelatedParodontieLinks from "@/components/RelatedParodontieLinks";
 import { Calendar, Tag, ArrowLeft } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import { portableTextComponents } from "@/lib/portableTextComponents";
+import { sanityImg } from "@/lib/sanityImage";
 import { useGlobalSettings, useBlogPost, useSanityPage } from "@/hooks/useSanityContent";
 
 // ---------------------------------------------------------------------------
@@ -182,7 +183,9 @@ const BlogPost = () => {
 
   const seoTitle = post.seoTitle ?? `${post.title} | Dr Stéphanie Meriot`;
   const seoDescription = post.seoDescription ?? post.excerpt;
-  const mainImageUrl = post.mainImage?.asset?.url;
+  const rawImageUrl = post.mainImage?.asset?.url;
+  const mainImageUrl = sanityImg(rawImageUrl, { w: 1200 });
+  const shareImageUrl = sanityImg(rawImageUrl, { w: 1200, fm: "jpg" });
   const mainImageAlt = post.mainImage?.alt ?? post.title;
 
   // Sanity articles render via PortableText (`body` array).
@@ -199,7 +202,7 @@ const BlogPost = () => {
         "@type": "Article",
         headline: post.title,
         description: post.excerpt,
-        ...(mainImageUrl ? { image: mainImageUrl } : {}),
+        ...(shareImageUrl ? { image: shareImageUrl } : {}),
         ...(hasValidDate
           ? {
               datePublished: parsedDate!.toISOString(),
@@ -244,6 +247,10 @@ const BlogPost = () => {
         keywords={post.keywords}
         ogTitle={post.title}
         ogDescription={post.excerpt}
+        ogType="article"
+        ogImage={shareImageUrl}
+        articlePublishedTime={hasValidDate ? parsedDate!.toISOString() : undefined}
+        articleAuthor="Dr Stéphanie Meriot"
       />
       {(articleSchema || faqSchema) && (
         <Head>

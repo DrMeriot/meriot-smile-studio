@@ -38,7 +38,12 @@ export const blogPageQuery = `*[_type == "blog_page"][0]`;
 //  - publishedAt (datetime ISO) — NOT `date`
 //  - seoTitle / seoDescription (flat strings) — NOT a `seo` sub-object
 //  - mainImage (Sanity image with asset + alt)
-export const blogPostsQuery = `*[_type == "blog_post" && defined(slug.current)] | order(publishedAt desc) {
+// Blog posts whose URL now 301-redirects elsewhere (see vercel.json). Kept out
+// of the blog list, SSG paths and sitemap so Google never sees a redirecting URL.
+export const REDIRECTED_BLOG_SLUGS = ["gencives-qui-saignent-quand-consulter"];
+const notRedirected = `!(slug.current in [${REDIRECTED_BLOG_SLUGS.map((s) => `"${s}"`).join(",")}])`;
+
+export const blogPostsQuery = `*[_type == "blog_post" && defined(slug.current) && ${notRedirected}] | order(publishedAt desc) {
   _id,
   title,
   "slug": slug.current,
