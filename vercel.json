@@ -5,7 +5,9 @@
     { "source": "/esthetique", "destination": "/services", "permanent": true },
     { "source": "/acces-cabinet", "destination": "/contact", "permanent": true },
     { "source": "/parodontie/temoignages", "destination": "/parodontie", "permanent": true },
-    { "source": "/blog/gencives-qui-saignent-quand-consulter", "destination": "/gencives-qui-saignent", "permanent": true }
+    { "source": "/blog/gencives-qui-saignent-quand-consulter", "destination": "/gencives-qui-saignent", "permanent": true },
+    { "source": "/blog/gingivite-vs-parodontite", "destination": "/gingivite-marseille", "permanent": true },
+    { "source": "/blog/implants-idees-recues", "destination": "/implantologie", "permanent": true }
   ],
   "headers": [
     {

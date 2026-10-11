@@ -40,8 +40,13 @@ export const blogPageQuery = `*[_type == "blog_page"][0]`;
 //  - mainImage (Sanity image with asset + alt)
 // Blog posts whose URL now 301-redirects elsewhere (see vercel.json). Kept out
 // of the blog list, SSG paths and sitemap so Google never sees a redirecting URL.
-export const REDIRECTED_BLOG_SLUGS = ["gencives-qui-saignent-quand-consulter"];
-const notRedirected = `!(slug.current in [${REDIRECTED_BLOG_SLUGS.map((s) => `"${s}"`).join(",")}])`;
+export const REDIRECTED_BLOG_SLUGS = [
+  "gencives-qui-saignent-quand-consulter", // fusionné dans /gencives-qui-saignent
+  "gingivite-vs-parodontite", // coquille vide (pas de body) → /gingivite-marseille
+  "implants-idees-recues", // coquille vide (pas de body) → /implantologie
+];
+// Also require a non-empty body: an article without content is a Soft 404 for Google.
+const notRedirected = `!(slug.current in [${REDIRECTED_BLOG_SLUGS.map((s) => `"${s}"`).join(",")}]) && count(body) > 0`;
 
 export const blogPostsQuery = `*[_type == "blog_post" && defined(slug.current) && ${notRedirected}] | order(publishedAt desc) {
   _id,
