@@ -21,6 +21,11 @@ const defaultFAQs = [
   { question: "Combien coûte le traitement du déchaussement dentaire ?", answer: "Le coût dépend de la sévérité du déchaussement et du traitement nécessaire. Une partie des soins parodontaux n'est pas prise en charge par l'Assurance Maladie : je vous remets toujours un devis détaillé et transparent après le bilan, avant tout traitement." },
   { question: "Peut-on prévenir le déchaussement dentaire ?", answer: "Oui, une hygiène bucco-dentaire rigoureuse, l'arrêt du tabac et des visites régulières chez le dentiste permettent de prévenir le déchaussement. Un détartrage professionnel régulier élimine le tartre que le brossage ne peut pas atteindre." },
   { question: "Le déchaussement dentaire fait-il mal ?", answer: "Le déchaussement est souvent indolore dans les premiers stades, ce qui le rend sournois. La sensibilité au froid et au chaud apparaît quand les racines sont exposées. Une douleur peut survenir en cas d'infection ou d'abcès parodontal." },
+  { question: "Une dent qui bouge, est-ce un déchaussement ?", answer: "Chez l'adulte, une dent qui bouge est rarement anodine : c'est souvent le signe que l'os qui la soutient a été détruit par une parodontite. Il ne faut pas attendre — plus on consulte tôt, plus il existe de solutions douces pour stabiliser la dent et éviter de la perdre. Je réalise un bilan parodontal pour évaluer précisément la mobilité." },
+  { question: "La gencive repousse-t-elle après un surfaçage ou une greffe ?", answer: "Une gencive rétractée ne repousse pas spontanément. En revanche, après un surfaçage, l'inflammation régresse et la gencive se raffermit. Quand la racine est très exposée, une greffe gingivale permet de la recouvrir. Après le bilan, je vous explique ce qui est réaliste et utile dans votre situation." },
+  { question: "Je fume : puis-je faire soigner mon déchaussement ?", answer: "Oui, et c'est important : le tabac multiplie par 3 à 6 le risque de déchaussement sévère. Le traitement de base (surfaçage, hygiène) reste possible, mais les greffes de gencive cicatrisent mal chez le fumeur et sont déconseillées tant que le tabac n'est pas réduit. Réduire ou arrêter, même progressivement, améliore nettement le pronostic. Je vous accompagne sans jugement, à votre rythme." },
+  { question: "La ménopause peut-elle aggraver le déchaussement ?", answer: "Oui. La baisse hormonale de la ménopause fragilise les gencives et peut accélérer la récession et la perte osseuse. Un suivi parodontal régulier permet de surveiller et de protéger vos gencives pendant cette période — n'hésitez pas à consulter dès les premiers signes." },
+  { question: "Mon traitement orthodontique a-t-il pu déchausser mes dents ?", answer: "Un traitement orthodontique peut parfois s'accompagner d'une récession des gencives, surtout si le parodonte était déjà fragile au départ — ce n'est pas systématique. Un bilan parodontal avant ou pendant l'orthodontie permet de prévenir ce risque et de surveiller vos gencives. Si des racines se découvrent après un appareil, n'attendez pas pour consulter." },
 ];
 
 const defaultDiagnostic = {
@@ -43,6 +48,7 @@ const defaultCauses = [
   { title: "Bruxisme", desc: "Le grincement ou le serrement des dents exerce des forces excessives qui peuvent fragiliser le parodonte." },
   { title: "Génétique", desc: "Certaines personnes ont une prédisposition génétique à la perte d'attache parodontale." },
   { title: "Malocclusion", desc: "Un alignement anormal des dents peut créer des zones de surcharge favorisant le déchaussement." },
+  { title: "Variations hormonales", desc: "Les bouleversements hormonaux — ménopause, mais aussi grossesse — fragilisent les gencives et peuvent favoriser leur rétraction." },
 ];
 
 const defaultSymptomes = [
